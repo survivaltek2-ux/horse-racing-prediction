@@ -1,0 +1,76 @@
+[
+  {
+    "id": 1,
+    "name": "Sample Stakes Race 1",
+    "date": "2025-09-16",
+    "location": "Sample Track 1",
+    "distance": "1200m",
+    "track_condition": "Good",
+    "race_type": null,
+    "purse": 50000.0,
+    "horse_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "results": {},
+    "status": "upcoming"
+  },
+  {
+    "id": 2,
+    "name": "Sample Stakes Race 2",
+    "date": "2025-09-17",
+    "location": "Sample Track 2",
+    "distance": "1400m",
+    "track_condition": "Good",
+    "race_type": null,
+    "purse": 60000.0,
+    "horse_ids": [],
+    "results": {},
+    "status": "upcoming"
+  },
+  {
+    "id": 3,
+    "name": "Sample Stakes Race 3",
+    "date": "2025-09-18",
+    "location": "Sample Track 3",
+    "distance": "1600m",
+    "track_condition": "Good",
+    "race_type": null,
+    "purse": 70000.0,
+    "horse_ids": [],
+    "results": {},
+    "status": "upcoming"
+  },
+  {
+    "id": 4,
+    "name": "Sample Stakes Race 4",
+    "date": "2025-09-20",
+    "location": "Sample Track 4",
+    "distance": "1800m",
+    "track_condition": "Good",
+    "race_type": null,
+    "purse": 80000.0,
+    "horse_ids": [],
+    "results": {},
+    "status": "upcoming"
+  },
+  {
+    "id": 5,
+    "name": "Sample Stakes Race 5",
+    "date": "2025-09-21",
+    "location": "Sample Track 5",
+    "distance": "2000m",
+    "track_condition": "Good",
+    "race_type": null,
+    "purse": 90000.0,
+    "horse_ids": [],
+    "results": {},
+    "status": "upcoming"
+  }
+]

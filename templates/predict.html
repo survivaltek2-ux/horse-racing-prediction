@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block title %}Make Prediction - {{ race.name }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>
+        <i class="fas fa-crystal-ball me-2"></i>
+        Make Prediction
+    </h1>
+    <a href="{{ url_for('race_details', race_id=race.id) }}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-1"></i>
+        Back to Race
+    </a>
+</div>
+
+<!-- Race Summary -->
+<div class="card mb-4">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0">
+            <i class="fas fa-flag-checkered me-2"></i>
+            {{ race.name }} - {{ race.date }}
+        </h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <strong>Location:</strong> {{ race.location or 'TBD' }}
+            </div>
+            <div class="col-md-3">
+                <strong>Distance:</strong> {{ race.distance or 'TBD' }}
+            </div>
+            <div class="col-md-3">
+                <strong>Track:</strong> {{ race.track_condition or 'Good' }}
+            </div>
+            <div class="col-md-3">
+                <strong>Horses:</strong> {{ race.horses|length }}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if race.horses %}
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Prediction Form -->
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-cogs me-2"></i>
+                    Prediction Settings
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-4">
+                        {{ form.algorithm.label(class="form-label") }}
+                        {{ form.algorithm(class="form-select") }}
+                        {% if form.algorithm.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.algorithm.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">
+                            Choose the prediction algorithm to use for this race.
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label">Prediction Factors</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="factor_form" checked>
+                                    <label class="form-check-label" for="factor_form">
+                                        Recent Form
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="factor_jockey" checked>
+                                    <label class="form-check-label" for="factor_jockey">
+                                        Jockey Performance
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="factor_trainer" checked>
+                                    <label class="form-check-label" for="factor_trainer">
+                                        Trainer Record
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="factor_track" checked>
+                                    <label class="form-check-label" for="factor_track">
+                                        Track Condition
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="factor_distance" checked>
+                                    <label class="form-check-label" for="factor_distance">
+                                        Distance Preference
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="factor_weight" checked>
+                                    <label class="form-check-label" for="factor_weight">
+                                        Weight Carried
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary btn-lg") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <!-- Horses in Race -->
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-horse me-2"></i>
+                    Horses in Race ({{ race.horses|length }})
+                </h5>
+            </div>
+            <div class="card-body">
+                {% for horse in race.horses %}
+                <div class="d-flex align-items-center mb-3 p-2 border rounded">
+                    <div class="me-3">
+                        <i class="fas fa-horse-head text-horse-brown fs-4"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-1">{{ horse.name }}</h6>
+                        <small class="text-muted">
+                            {{ horse.age }} years • {{ horse.jockey or 'TBD' }}
+                        </small>
+                        {% if horse.get_recent_performance() %}
+                        <div class="mt-1">
+                            {% set recent = horse.get_recent_performance() %}
+                            {% for pos in recent %}
+                            <span class="badge bg-{{ 'success' if pos == 1 else 'warning' if pos <= 3 else 'secondary' }} me-1">
+                                {{ pos }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Algorithm Info -->
+        <div class="card mt-3">
+            <div class="card-header bg-warning text-dark">
+                <h6 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Algorithm Information
+                </h6>
+            </div>
+            <div class="card-body">
+                <div id="algorithm-info">
+                    <p><strong>Heuristic Algorithm:</strong></p>
+                    <ul class="small">
+                        <li>Analyzes recent race performance</li>
+                        <li>Considers jockey and trainer statistics</li>
+                        <li>Factors in track conditions</li>
+                        <li>Evaluates distance preferences</li>
+                        <li>Provides probability-based predictions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="alert alert-warning">
+    <h5><i class="fas fa-exclamation-triangle me-2"></i>No Horses Registered</h5>
+    <p class="mb-3">This race doesn't have any horses registered yet. You need to add horses before making predictions.</p>
+    <a href="{{ url_for('add_horse') }}" class="btn btn-warning">
+        <i class="fas fa-plus me-1"></i>
+        Add Horses
+    </a>
+</div>
+{% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const algorithmSelect = document.getElementById('algorithm');
+    const algorithmInfo = document.getElementById('algorithm-info');
+    
+    function updateAlgorithmInfo() {
+        const selected = algorithmSelect.value;
+        let info = '';
+        
+        switch(selected) {
+            case 'heuristic':
+                info = `
+                    <p><strong>Heuristic Algorithm:</strong></p>
+                    <ul class="small">
+                        <li>Analyzes recent race performance</li>
+                        <li>Considers jockey and trainer statistics</li>
+                        <li>Factors in track conditions</li>
+                        <li>Evaluates distance preferences</li>
+                        <li>Provides probability-based predictions</li>
+                    </ul>
+                `;
+                break;
+            case 'machine_learning':
+                info = `
+                    <p><strong>Machine Learning Algorithm:</strong></p>
+                    <ul class="small">
+                        <li>Uses historical data patterns</li>
+                        <li>Advanced statistical modeling</li>
+                        <li>Continuous learning from results</li>
+                        <li>Higher accuracy with more data</li>
+                        <li>Complex feature analysis</li>
+                    </ul>
+                `;
+                break;
+            case 'statistical':
+                info = `
+                    <p><strong>Statistical Algorithm:</strong></p>
+                    <ul class="small">
+                        <li>Pure statistical analysis</li>
+                        <li>Probability calculations</li>
+                        <li>Historical performance metrics</li>
+                        <li>Mathematical modeling</li>
+                        <li>Objective data-driven approach</li>
+                    </ul>
+                `;
+                break;
+        }
+        
+        algorithmInfo.innerHTML = info;
+    }
+    
+    algorithmSelect.addEventListener('change', updateAlgorithmInfo);
+});
+</script>
+{% endblock %}

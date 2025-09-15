@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}{{ race.name }} - Race Details{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>
+        <i class="fas fa-trophy me-2"></i>
+        {{ race.name }}
+    </h1>
+    <div>
+        <a href="{{ url_for('races') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-1"></i>
+            Back to Races
+        </a>
+        {% if race.status == 'upcoming' and horses|length > 0 %}
+        <a href="{{ url_for('predict', race_id=race.id) }}" class="btn btn-success">
+            <i class="fas fa-magic me-1"></i>
+            Generate Prediction
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Race Information -->
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Race Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <strong>Date & Time:</strong><br>
+                        <span class="text-muted">{{ race.date }}</span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Location:</strong><br>
+                        <span class="text-muted">{{ race.location or 'TBD' }}</span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Distance:</strong><br>
+                        <span class="text-muted">{{ race.distance or 'TBD' }}</span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Track Condition:</strong><br>
+                        <span class="badge bg-info">{{ race.track_condition or 'Good' }}</span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Race Type:</strong><br>
+                        <span class="text-muted">{{ race.race_type or 'Standard' }}</span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Total Purse:</strong><br>
+                        <span class="text-success h5">${{ "{:,.2f}".format(race.purse) if race.purse else '0.00' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-pie me-2"></i>
+                    Race Status
+                </h5>
+            </div>
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <span class="badge bg-{{ 'success' if race.status == 'upcoming' else 'warning' if race.status == 'in_progress' else 'secondary' }} fs-6 p-3">
+                        {{ race.status.title() }}
+                    </span>
+                </div>
+                <div class="mb-2">
+                    <strong>Horses Entered:</strong>
+                    <span class="badge bg-primary">{{ horses|length }}</span>
+                </div>
+                {% if race.results %}
+                <div class="mb-2">
+                    <strong>Results Available:</strong>
+                    <span class="badge bg-success">Yes</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Horses in Race -->
+<div class="card">
+    <div class="card-header bg-warning text-dark">
+        <h5 class="mb-0">
+            <i class="fas fa-horse me-2"></i>
+            Horses in Race ({{ horses|length }})
+        </h5>
+    </div>
+    <div class="card-body">
+        {% if horses %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Horse Name</th>
+                        <th>Age</th>
+                        <th>Jockey</th>
+                        <th>Trainer</th>
+                        <th>Win Rate</th>
+                        <th>Recent Form</th>
+                        <th>Earnings</th>
+                        {% if race.results %}
+                        <th>Position</th>
+                        <th>Time</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for horse in horses %}
+                    <tr>
+                        <td>
+                            <strong>{{ horse.name }}</strong>
+                            {% if horse.breed %}
+                            <br><small class="text-muted">{{ horse.breed }}</small>
+                            {% endif %}
+                        </td>
+                        <td>{{ horse.age }} years</td>
+                        <td>{{ horse.jockey or 'TBD' }}</td>
+                        <td>{{ horse.trainer or 'TBD' }}</td>
+                        <td>
+                            <span class="badge bg-{{ 'success' if horse.win_rate > 0.3 else 'warning' if horse.win_rate > 0.1 else 'secondary' }}">
+                                {{ "{:.1%}".format(horse.win_rate) }}
+                            </span>
+                        </td>
+                        <td>
+                            {% set recent_form = horse.get_form(3) %}
+                            {% if recent_form %}
+                                {% for result in recent_form %}
+                                    <span class="badge bg-{{ 'success' if result.position == 1 else 'warning' if result.position <= 3 else 'secondary' }} me-1">
+                                        {{ result.position }}
+                                    </span>
+                                {% endfor %}
+                            {% else %}
+                                <span class="text-muted">No data</span>
+                            {% endif %}
+                        </td>
+                        <td>${{ "{:,.0f}".format(horse.earnings) if horse.earnings else '0' }}</td>
+                        {% if race.results and race.results.get(horse.id|string) %}
+                        {% set result = race.results[horse.id|string] %}
+                        <td>
+                            <span class="badge bg-{{ 'warning' if result.position == 1 else 'info' if result.position <= 3 else 'secondary' }} fs-6">
+                                {{ result.position }}
+                            </span>
+                        </td>
+                        <td>{{ result.time }}</td>
+                        {% elif race.results %}
+                        <td colspan="2" class="text-muted">No result</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-4">
+            <i class="fas fa-horse fa-3x text-muted mb-3"></i>
+            <h5 class="text-muted">No Horses Entered</h5>
+            <p class="text-muted">This race doesn't have any horses entered yet.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Race Results (if completed) -->
+{% if race.status == 'completed' and race.results %}
+<div class="card mt-4">
+    <div class="card-header bg-success text-white">
+        <h5 class="mb-0">
+            <i class="fas fa-trophy me-2"></i>
+            Race Results
+        </h5>
+    </div>
+    <div class="card-body">
+        {% set winner = race.get_winner() %}
+        {% if winner %}
+        <div class="alert alert-success text-center mb-4">
+            <h4 class="mb-0">
+                <i class="fas fa-crown me-2"></i>
+                Winner: {{ winner.name }}
+            </h4>
+        </div>
+        {% endif %}
+        
+        <!-- Results would be displayed here -->
+        <div class="row">
+            {% for horse_id, result in race.results.items() %}
+            {% set horse = horses|selectattr('id', 'equalto', horse_id|int)|first %}
+            {% if horse %}
+            <div class="col-md-4 mb-3">
+                <div class="card {{ 'border-warning' if result.position == 1 else 'border-info' if result.position <= 3 else '' }}">
+                    <div class="card-body text-center">
+                        <h5>{{ horse.name }}</h5>
+                        <h3 class="text-{{ 'warning' if result.position == 1 else 'info' if result.position <= 3 else 'muted' }}">
+                            {{ result.position }}{{ 'st' if result.position == 1 else 'nd' if result.position == 2 else 'rd' if result.position == 3 else 'th' }}
+                        </h3>
+                        <p class="mb-1">Time: {{ result.time }}</p>
+                        <p class="mb-0">Earnings: ${{ "{:,.2f}".format(result.earnings) }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Horse{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>
+        <i class="fas fa-plus-circle me-2"></i>
+        Add New Horse
+    </h1>
+    <a href="{{ url_for('races') }}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-1"></i>
+        Back to Races
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-horse me-2"></i>
+                    Horse Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form.name.label(class="form-label") }}
+                            {{ form.name(class="form-control") }}
+                            {% if form.name.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.name.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.age.label(class="form-label") }}
+                            {{ form.age(class="form-control") }}
+                            {% if form.age.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.age.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form.breed.label(class="form-label") }}
+                            {{ form.breed(class="form-control") }}
+                            {% if form.breed.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.breed.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.color.label(class="form-label") }}
+                            {{ form.color(class="form-control") }}
+                            {% if form.color.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.color.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form.jockey.label(class="form-label") }}
+                            {{ form.jockey(class="form-control") }}
+                            {% if form.jockey.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.jockey.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.trainer.label(class="form-label") }}
+                            {{ form.trainer(class="form-control") }}
+                            {% if form.trainer.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.trainer.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form.owner.label(class="form-label") }}
+                            {{ form.owner(class="form-control") }}
+                            {% if form.owner.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.owner.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.weight.label(class="form-label") }}
+                            {{ form.weight(class="form-control") }}
+                            {% if form.weight.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.weight.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('races') }}" class="btn btn-outline-secondary me-md-2">
+                            <i class="fas fa-times me-1"></i>
+                            Cancel
+                        </a>
+                        {{ form.submit(class="btn btn-success") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="alert alert-success mt-4">
+            <h6><i class="fas fa-horse-head me-1"></i> Horse Registration Tips:</h6>
+            <ul class="mb-0">
+                <li>Ensure the horse name is unique and correctly spelled</li>
+                <li>Age should be accurate as of the race date</li>
+                <li>Breed information helps with performance analysis</li>
+                <li>Jockey and trainer details are crucial for predictions</li>
+                <li>Weight affects performance and should be current</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Horse Race Prediction App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <!-- Hero Section -->
+        <div class="jumbotron bg-gradient text-white rounded p-5 mb-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="container-fluid py-5">
+                <h1 class="display-4 fw-bold">
+                    <i class="fas fa-horse-head me-3"></i>
+                    Horse Race Predictor
+                </h1>
+                <p class="lead">Advanced AI-powered predictions for horse racing enthusiasts</p>
+                <hr class="my-4">
+                <p>Get accurate predictions, analyze horse performance, and track your betting success with our intelligent prediction system.</p>
+                <a class="btn btn-light btn-lg" href="{{ url_for('races') }}" role="button">
+                    <i class="fas fa-flag-checkered me-2"></i>
+                    View Upcoming Races
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Quick Stats -->
+    <div class="col-md-3 mb-4">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="fas fa-trophy fa-3x text-warning mb-3"></i>
+                <h5 class="card-title">Predictions Made</h5>
+                <h2 class="text-primary">{{ stats.total_predictions if stats else 0 }}</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="fas fa-bullseye fa-3x text-success mb-3"></i>
+                <h5 class="card-title">Accuracy Rate</h5>
+                <h2 class="text-success">{{ stats.accuracy if stats else 0 }}%</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="fas fa-horse fa-3x text-info mb-3"></i>
+                <h5 class="card-title">Win Predictions</h5>
+                <h2 class="text-info">{{ stats.win_predictions if stats else 0 }}</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="fas fa-chart-line fa-3x text-danger mb-3"></i>
+                <h5 class="card-title">Avg. Accuracy</h5>
+                <h2 class="text-danger">{{ stats.avg_accuracy if stats else 0 }}%</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Features -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-brain me-2"></i>
+                    AI-Powered Predictions
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Our advanced algorithm analyzes multiple factors including:</p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success me-2"></i>Horse performance history</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Jockey and trainer statistics</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Track conditions and weather</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Recent form and consistency</li>
+                </ul>
+                <a href="{{ url_for('races') }}" class="btn btn-primary">
+                    <i class="fas fa-arrow-right me-1"></i>
+                    Start Predicting
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Performance Tracking
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Track and analyze your prediction performance:</p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success me-2"></i>Detailed accuracy metrics</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Historical prediction data</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Win/Place/Show statistics</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Performance trends</li>
+                </ul>
+                <a href="{{ url_for('statistics') }}" class="btn btn-success">
+                    <i class="fas fa-chart-line me-1"></i>
+                    View Statistics
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-bolt me-2"></i>
+                    Quick Actions
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-3 mb-3">
+                        <a href="{{ url_for('add_race') }}" class="btn btn-outline-primary btn-lg w-100">
+                            <i class="fas fa-plus-circle fa-2x d-block mb-2"></i>
+                            Add New Race
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{{ url_for('add_horse') }}" class="btn btn-outline-success btn-lg w-100">
+                            <i class="fas fa-horse fa-2x d-block mb-2"></i>
+                            Add New Horse
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{{ url_for('prediction_history') }}" class="btn btn-outline-warning btn-lg w-100">
+                            <i class="fas fa-history fa-2x d-block mb-2"></i>
+                            View History
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{{ url_for('races') }}" class="btn btn-outline-danger btn-lg w-100">
+                            <i class="fas fa-flag-checkered fa-2x d-block mb-2"></i>
+                            Upcoming Races
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

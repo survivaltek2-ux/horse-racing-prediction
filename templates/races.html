@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Upcoming Races - Horse Race Prediction App{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>
+        <i class="fas fa-flag-checkered me-2"></i>
+        Upcoming Races
+    </h1>
+    <a href="{{ url_for('add_race') }}" class="btn btn-primary">
+        <i class="fas fa-plus me-1"></i>
+        Add New Race
+    </a>
+</div>
+
+{% if races %}
+    <div class="row">
+        {% for race in races %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-trophy me-2"></i>
+                        {{ race.name }}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <small class="text-muted">
+                            <i class="fas fa-calendar me-1"></i>
+                            {{ race.date }}
+                        </small>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <strong>Location:</strong><br>
+                            <span class="text-muted">{{ race.location or 'TBD' }}</span>
+                        </div>
+                        <div class="col-6">
+                            <strong>Distance:</strong><br>
+                            <span class="text-muted">{{ race.distance or 'TBD' }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <strong>Track:</strong><br>
+                            <span class="text-muted">{{ race.track_condition or 'Good' }}</span>
+                        </div>
+                        <div class="col-6">
+                            <strong>Purse:</strong><br>
+                            <span class="text-success">${{ "{:,.2f}".format(race.purse) if race.purse else '0.00' }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <strong>Horses Entered:</strong>
+                        <span class="badge bg-info">{{ race.horse_ids|length }}</span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <span class="badge bg-{{ 'success' if race.status == 'upcoming' else 'warning' }}">
+                            {{ race.status.title() }}
+                        </span>
+                    </div>
+                </div>
+                <div class="card-footer bg-light">
+                    <div class="btn-group w-100" role="group">
+                        <a href="{{ url_for('race_details', race_id=race.id) }}" class="btn btn-outline-primary">
+                            <i class="fas fa-eye me-1"></i>
+                            Details
+                        </a>
+                        {% if race.status == 'upcoming' and race.horse_ids|length > 0 %}
+                        <a href="{{ url_for('predict', race_id=race.id) }}" class="btn btn-success">
+                            <i class="fas fa-magic me-1"></i>
+                            Predict
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="text-center py-5">
+        <div class="mb-4">
+            <i class="fas fa-calendar-times fa-5x text-muted"></i>
+        </div>
+        <h3 class="text-muted">No Upcoming Races</h3>
+        <p class="text-muted mb-4">There are currently no races scheduled. Add a new race to get started!</p>
+        <a href="{{ url_for('add_race') }}" class="btn btn-primary btn-lg">
+            <i class="fas fa-plus me-2"></i>
+            Add Your First Race
+        </a>
+    </div>
+{% endif %}
+
+<!-- Filter and Search Section -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h5 class="mb-0">
+            <i class="fas fa-filter me-2"></i>
+            Filter Races
+        </h5>
+    </div>
+    <div class="card-body">
+        <form method="GET" class="row g-3">
+            <div class="col-md-4">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" name="location" placeholder="Enter location">
+            </div>
+            <div class="col-md-4">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date" name="date">
+            </div>
+            <div class="col-md-4">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" id="status" name="status">
+                    <option value="">All Statuses</option>
+                    <option value="upcoming">Upcoming</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search me-1"></i>
+                    Filter
+                </button>
+                <a href="{{ url_for('races') }}" class="btn btn-outline-secondary ms-2">
+                    <i class="fas fa-times me-1"></i>
+                    Clear
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics & Analytics{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>
+        <i class="fas fa-chart-bar me-2"></i>
+        Statistics & Analytics
+    </h1>
+    <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+        <i class="fas fa-home me-1"></i>
+        Back to Dashboard
+    </a>
+</div>
+
+<!-- Overview Statistics -->
+<div class="row mb-4">
+    <div class="col-md-2">
+        <div class="card text-center gradient-primary text-white">
+            <div class="card-body">
+                <i class="fas fa-flag-checkered fs-2 mb-2"></i>
+                <h3>{{ race_stats.total_races }}</h3>
+                <p class="mb-0">Total Races</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-center gradient-success text-white">
+            <div class="card-body">
+                <i class="fas fa-check-circle fs-2 mb-2"></i>
+                <h3>{{ race_stats.completed_races }}</h3>
+                <p class="mb-0">Completed</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-center gradient-info text-white">
+            <div class="card-body">
+                <i class="fas fa-clock fs-2 mb-2"></i>
+                <h3>{{ race_stats.upcoming_races }}</h3>
+                <p class="mb-0">Upcoming</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-center gradient-warning text-white">
+            <div class="card-body">
+                <i class="fas fa-horse fs-2 mb-2"></i>
+                <h3>{{ race_stats.total_horses }}</h3>
+                <p class="mb-0">Total Horses</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-center bg-secondary text-white">
+            <div class="card-body">
+                <i class="fas fa-crystal-ball fs-2 mb-2"></i>
+                <h3>{{ race_stats.total_predictions }}</h3>
+                <p class="mb-0">Predictions</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-center bg-dark text-white">
+            <div class="card-body">
+                <i class="fas fa-percentage fs-2 mb-2"></i>
+                {% if stats.overall_accuracy %}
+                    <h3>{{ "{:.1%}".format(stats.overall_accuracy) }}</h3>
+                {% else %}
+                    <h3>N/A</h3>
+                {% endif %}
+                <p class="mb-0">Accuracy</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Prediction Performance -->
+<div class="row mb-4">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-trophy me-2"></i>
+                    Prediction Performance
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if stats.algorithm_performance %}
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Algorithm</th>
+                                <th>Predictions</th>
+                                <th>Accuracy</th>
+                                <th>Win Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for algo, perf in stats.algorithm_performance.items() %}
+                            <tr>
+                                <td><span class="badge bg-info">{{ algo.title() }}</span></td>
+                                <td>{{ perf.total_predictions }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="progress me-2" style="width: 60px; height: 8px;">
+                                            <div class="progress-bar bg-success" role="progressbar" 
+                                                 style="width: {{ perf.accuracy * 100 }}%"></div>
+                                        </div>
+                                        <span class="badge bg-success">{{ "{:.1%}".format(perf.accuracy) }}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-{{ 'success' if perf.win_rate >= 0.3 else 'warning' if perf.win_rate >= 0.1 else 'danger' }}">
+                                        {{ "{:.1%}".format(perf.win_rate) }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-3">
+                    <i class="fas fa-chart-line text-muted fs-1"></i>
+                    <p class="text-muted mt-2">No performance data available yet.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-star me-2"></i>
+                    Top Performers
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if stats.top_horses %}
+                <h6 class="text-muted">Best Horses</h6>
+                <div class="mb-3">
+                    {% for horse in stats.top_horses[:5] %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                            <strong>{{ horse.name }}</strong>
+                            <small class="text-muted d-block">{{ horse.jockey or 'Unknown Jockey' }}</small>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-success">{{ horse.win_rate }}% wins</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                {% if stats.top_jockeys %}
+                <h6 class="text-muted">Best Jockeys</h6>
+                <div>
+                    {% for jockey in stats.top_jockeys[:5] %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                            <strong>{{ jockey.name }}</strong>
+                            <small class="text-muted d-block">{{ jockey.races }} races</small>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-warning">{{ jockey.win_rate }}% wins</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                {% if not stats.top_horses and not stats.top_jockeys %}
+                <div class="text-center py-3">
+                    <i class="fas fa-medal text-muted fs-1"></i>
+                    <p class="text-muted mt-2">No performance data available yet.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="card">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0">
+            <i class="fas fa-clock me-2"></i>
+            Recent Activity
+        </h5>
+    </div>
+    <div class="card-body">
+        {% if stats.recent_predictions %}
+        <div class="table-responsive">
+            <table class="table table-sm table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Race</th>
+                        <th>Algorithm</th>
+                        <th>Top Pick</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prediction in stats.recent_predictions[:10] %}
+                    <tr>
+                        <td><small>{{ prediction.date }}</small></td>
+                        <td>{{ prediction.race.name }}</td>
+                        <td><span class="badge bg-secondary">{{ prediction.algorithm.title() }}</span></td>
+                        <td>
+                            {% set top_pick = prediction.get_top_pick() %}
+                            {% if top_pick %}
+                                {{ top_pick.horse.name }}
+                            {% else %}
+                                <span class="text-muted">N/A</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if prediction.accuracy is not none %}
+                                <span class="badge bg-{{ 'success' if prediction.accuracy >= 0.5 else 'danger' }}">
+                                    {{ "{:.1%}".format(prediction.accuracy) }}
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary">Pending</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-3">
+            <i class="fas fa-history text-muted fs-1"></i>
+            <p class="text-muted mt-2">No recent activity to display.</p>
+            <a href="{{ url_for('races') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-1"></i>
+                Make a Prediction
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Performance Tips -->
+<div class="alert alert-info mt-4">
+    <h6><i class="fas fa-lightbulb me-1"></i> Performance Tips:</h6>
+    <ul class="mb-0">
+        <li>Higher accuracy rates indicate better prediction algorithms</li>
+        <li>Win rates show how often top picks actually win races</li>
+        <li>Track different algorithms to find the most effective one</li>
+        <li>More data leads to better predictions over time</li>
+        <li>Consider track conditions and horse form for better results</li>
+    </ul>
+</div>
+{% endblock %}

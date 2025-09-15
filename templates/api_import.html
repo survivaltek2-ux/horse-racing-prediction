@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+
+{% block title %}API Import - Horse Racing Prediction{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3 mb-0">API Import</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li class="breadcrumb-item active">API Import</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Provider Selection -->
+    <div class="row mb-4">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-cloud-download-alt me-2"></i>
+                        Import Race Data from API
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form id="apiImportForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="provider" class="form-label">API Provider</label>
+                                <select class="form-select" id="provider" name="provider" required>
+                                    {% for provider_id, provider_info in providers.items() %}
+                                    <option value="{{ provider_id }}" 
+                                            {% if not provider_info.configured %}disabled{% endif %}>
+                                        {{ provider_info.name }}
+                                        {% if not provider_info.configured %} (Not Configured){% endif %}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                <div class="form-text">Select the API provider to fetch race data from</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="days_ahead" class="form-label">Days Ahead</label>
+                                <input type="number" class="form-control" id="days_ahead" name="days_ahead" 
+                                       value="7" min="1" max="30" required>
+                                <div class="form-text">Number of days to look ahead for races</div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="update_existing" name="update_existing">
+                                    <label class="form-check-label" for="update_existing">
+                                        Update existing races
+                                    </label>
+                                    <div class="form-text">Check this to update races that already exist in the database</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-outline-primary" id="fetchRacesBtn">
+                                <i class="fas fa-search me-2"></i>Preview Races
+                            </button>
+                            <button type="button" class="btn btn-primary" id="importRacesBtn">
+                                <i class="fas fa-download me-2"></i>Import Races
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" id="testConnectionBtn">
+                                <i class="fas fa-plug me-2"></i>Test Connection
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- API Provider Info -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Provider Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="providerInfo">
+                        <p class="text-muted">Select a provider to see details</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card" id="resultsCard" style="display: none;">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-list me-2"></i>
+                        <span id="resultsTitle">Results</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="resultsContent">
+                        <!-- Results will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
+         style="background: rgba(0,0,0,0.5); z-index: 9999; display: none !important;">
+        <div class="text-center text-white">
+            <div class="spinner-border mb-3" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div>Processing API request...</div>
+        </div>
+    </div>
+</div>
+
+<script type="application/json" id="providers-data">{{ providers | tojson }}</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const providers = JSON.parse(document.getElementById('providers-data').textContent);
+    const providerSelect = document.getElementById('provider');
+    const providerInfo = document.getElementById('providerInfo');
+    const fetchBtn = document.getElementById('fetchRacesBtn');
+    const importBtn = document.getElementById('importRacesBtn');
+    const testBtn = document.getElementById('testConnectionBtn');
+    const resultsCard = document.getElementById('resultsCard');
+    const resultsTitle = document.getElementById('resultsTitle');
+    const resultsContent = document.getElementById('resultsContent');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+
+    // Update provider info when selection changes
+    providerSelect.addEventListener('change', function() {
+        const selectedProvider = providers[this.value];
+        if (selectedProvider) {
+            providerInfo.innerHTML = `
+                <h6>${selectedProvider.name}</h6>
+                <p class="small text-muted">${selectedProvider.description}</p>
+                <div class="mb-2">
+                    <strong>Status:</strong> 
+                    <span class="badge ${selectedProvider.configured ? 'bg-success' : 'bg-warning'}">
+                        ${selectedProvider.configured ? 'Configured' : 'Not Configured'}
+                    </span>
+                </div>
+                <div class="mb-2">
+                    <strong>Features:</strong> ${selectedProvider.features.join(', ')}
+                </div>
+                ${selectedProvider.rate_limit ? `<div class="small text-muted">Rate limit: ${selectedProvider.rate_limit} requests</div>` : ''}
+            `;
+        }
+    });
+
+    // Trigger initial provider info update
+    if (providerSelect.value) {
+        providerSelect.dispatchEvent(new Event('change'));
+    }
+
+    // Test connection
+    testBtn.addEventListener('click', function() {
+        const provider = providerSelect.value;
+        if (!provider) return;
+
+        showLoading();
+        fetch(`/api/test_connection/${provider}`)
+            .then(response => response.json())
+            .then(data => {
+                hideLoading();
+                if (data.success) {
+                    showAlert('success', `✓ ${data.message}. Found ${data.races_found} races.`);
+                } else {
+                    showAlert('danger', `✗ Connection failed: ${data.error}`);
+                }
+            })
+            .catch(error => {
+                hideLoading();
+                showAlert('danger', `✗ Connection error: ${error.message}`);
+            });
+    });
+
+    // Fetch races preview
+    fetchBtn.addEventListener('click', function() {
+        const formData = new FormData(document.getElementById('apiImportForm'));
+        
+        showLoading();
+        fetch('/api/fetch_races', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            hideLoading();
+            if (data.success) {
+                displayRacePreview(data.races);
+                resultsTitle.textContent = `Race Preview (${data.count} races found)`;
+                resultsCard.style.display = 'block';
+            } else {
+                showAlert('danger', `Error fetching races: ${data.error}`);
+            }
+        })
+        .catch(error => {
+            hideLoading();
+            showAlert('danger', `Fetch error: ${error.message}`);
+        });
+    });
+
+    // Import races
+    importBtn.addEventListener('click', function() {
+        if (!confirm('Are you sure you want to import these races into the database?')) {
+            return;
+        }
+
+        const formData = new FormData(document.getElementById('apiImportForm'));
+        
+        showLoading();
+        fetch('/api/import_races', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            hideLoading();
+            if (data.success) {
+                displayImportResults(data.stats);
+                resultsTitle.textContent = 'Import Results';
+                resultsCard.style.display = 'block';
+                showAlert('success', 'Import completed successfully!');
+            } else {
+                showAlert('danger', `Import error: ${data.error}`);
+            }
+        })
+        .catch(error => {
+            hideLoading();
+            showAlert('danger', `Import error: ${error.message}`);
+        });
+    });
+
+    function displayRacePreview(races) {
+        if (races.length === 0) {
+            resultsContent.innerHTML = '<p class="text-muted">No races found for the selected criteria.</p>';
+            return;
+        }
+
+        let html = '<div class="table-responsive"><table class="table table-striped">';
+        html += '<thead><tr><th>Name</th><th>Date</th><th>Location</th><th>Distance</th><th>Horses</th><th>Purse</th></tr></thead><tbody>';
+        
+        races.forEach(race => {
+            html += `<tr>
+                <td>${race.name}</td>
+                <td>${race.date}</td>
+                <td>${race.location}</td>
+                <td>${race.distance}</td>
+                <td>${race.horses_count}</td>
+                <td>$${race.purse.toLocaleString()}</td>
+            </tr>`;
+        });
+        
+        html += '</tbody></table></div>';
+        resultsContent.innerHTML = html;
+    }
+
+    function displayImportResults(stats) {
+        let html = '<div class="row">';
+        
+        const statItems = [
+            { label: 'Total Fetched', value: stats.total_fetched, color: 'primary' },
+            { label: 'Imported', value: stats.imported, color: 'success' },
+            { label: 'Updated', value: stats.updated, color: 'info' },
+            { label: 'Skipped', value: stats.skipped, color: 'secondary' },
+            { label: 'Errors', value: stats.errors, color: 'danger' }
+        ];
+        
+        statItems.forEach(item => {
+            html += `<div class="col-md-2 col-sm-4 col-6 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title text-${item.color}">${item.value}</h5>
+                        <p class="card-text small">${item.label}</p>
+                    </div>
+                </div>
+            </div>`;
+        });
+        
+        html += '</div>';
+        resultsContent.innerHTML = html;
+    }
+
+    function showLoading() {
+        loadingOverlay.style.display = 'flex';
+    }
+
+    function hideLoading() {
+        loadingOverlay.style.display = 'none';
+    }
+
+    function showAlert(type, message) {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+        alertDiv.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        const container = document.querySelector('.container-fluid');
+        container.insertBefore(alertDiv, container.firstChild);
+        
+        // Auto-dismiss after 5 seconds
+        setTimeout(() => {
+            if (alertDiv.parentNode) {
+                alertDiv.remove();
+            }
+        }, 5000);
+    }
+});
+</script>
+{% endblock %}
