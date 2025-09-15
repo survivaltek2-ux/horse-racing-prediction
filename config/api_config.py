@@ -51,6 +51,19 @@ class APIConfig:
             'api_key_required': True,
             'rate_limit': 1000,  # requests per month
             'features': ['races', 'horses', 'results', 'statistics']
+        },
+        'theracingapi': {
+            'name': 'The Racing API',
+            'description': 'Comprehensive UK, Ireland & USA horse racing data',
+            'base_url': 'https://api.theracingapi.com/v1',
+            'api_key_required': False,
+            'auth_type': 'basic',  # HTTP Basic Authentication
+            'username_required': True,
+            'password_required': True,
+            'rate_limit': 10000,  # requests per month (varies by plan)
+            'features': ['races', 'horses', 'results', 'odds', 'form', 'statistics'],
+            'regions': ['GB', 'IE', 'US'],
+            'data_points': ['racecards', 'results', 'form', 'odds', 'commentary']
         }
     }
     
@@ -101,6 +114,12 @@ class APIConfig:
         if provider_config.get('api_key_required'):
             return bool(provider_config.get('api_key'))
         
+        # Check if HTTP Basic Auth is required and available
+        if provider_config.get('auth_type') == 'basic':
+            username = os.getenv(f"{provider_name.upper()}_USERNAME")
+            password = os.getenv(f"{provider_name.upper()}_PASSWORD")
+            return bool(username and password)
+        
         return True
 
 # Environment variable examples for .env file
@@ -117,6 +136,8 @@ API_DEFAULT_DAYS=7
 SAMPLE_API_KEY=your_sample_api_key_here
 ODDS_API_API_KEY=your_odds_api_key_here
 RAPID_API_API_KEY=your_rapidapi_key_here
+THERACINGAPI_USERNAME=your_theracingapi_username_here
+THERACINGAPI_PASSWORD=your_theracingapi_password_here
 
 # Provider Selection
 DEFAULT_API_PROVIDER=mock

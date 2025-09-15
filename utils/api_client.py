@@ -56,6 +56,126 @@ class HorseRacingAPIClient:
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         })
+
+class TheRacingAPI(HorseRacingAPIClient):
+    """
+    Implementation for TheRacingAPI service
+    Provides real horse racing data from TheRacingAPI.com
+    """
+    
+    def __init__(self, username: str = None, password: str = None):
+        super().__init__()
+        self.username = username or os.getenv('THERACINGAPI_USERNAME', '')
+        self.password = password or os.getenv('THERACINGAPI_PASSWORD', '')
+        self.base_url = 'https://api.theracingapi.com/v1'
+        
+        # Set up HTTP Basic Authentication
+        if self.username and self.password:
+            from requests.auth import HTTPBasicAuth
+            self.session.auth = HTTPBasicAuth(self.username, self.password)
+    
+    def get_upcoming_races(self, days_ahead: int = 7) -> List[RaceData]:
+        """Fetch upcoming races from TheRacingAPI"""
+        end_date = datetime.now() + timedelta(days=days_ahead)
+        
+        params = {
+            'date_from': datetime.now().strftime('%Y-%m-%d'),
+            'date_to': end_date.strftime('%Y-%m-%d')
+        }
+        
+        url = f"{self.base_url}/meetings"
+        data = self._make_request(url, params=params)
+        
+        if not data:
+            return []
+        
+        races = []
+        for meeting in data.get('meetings', []):
+            for race_info in meeting.get('races', []):
+                try:
+                    race = self._parse_theracing_race_data(race_info, meeting)
+                    races.append(race)
+                except Exception as e:
+                    logger.error(f"Error parsing TheRacingAPI race data: {e}")
+                    continue
+        
+        return races
+    
+    def get_race_details(self, race_id: str) -> Optional[RaceData]:
+        """Fetch detailed information for a specific race from TheRacingAPI"""
+        url = f"{self.base_url}/races/{race_id}"
+        data = self._make_request(url)
+        
+        if not data:
+            return None
+        
+        try:
+            return self._parse_theracing_race_data(data.get('race', {}), data.get('meeting', {}))
+        except Exception as e:
+            logger.error(f"Error parsing TheRacingAPI race details: {e}")
+            return None
+    
+    def get_race_horses(self, race_id: str) -> List[HorseData]:
+        """Fetch horses participating in a specific race from TheRacingAPI"""
+        url = f"{self.base_url}/races/{race_id}/runners"
+        data = self._make_request(url)
+        
+        if not data:
+            return []
+        
+        horses = []
+        for runner_info in data.get('runners', []):
+            try:
+                horse = self._parse_theracing_horse_data(runner_info)
+                horses.append(horse)
+            except Exception as e:
+                logger.error(f"Error parsing TheRacingAPI horse data: {e}")
+                continue
+        
+        return horses
+    
+    def _parse_theracing_race_data(self, race_info: Dict, meeting_info: Dict) -> RaceData:
+        """Parse race data from TheRacingAPI response"""
+        race_time = race_info.get('start_time', '')
+        meeting_date = meeting_info.get('date', '')
+        
+        # Combine date and time
+        if meeting_date and race_time:
+            datetime_str = f"{meeting_date} {race_time}"
+            race_datetime = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
+        else:
+            race_datetime = datetime.now()
+        
+        return RaceData(
+            race_id=str(race_info.get('id', '')),
+            name=race_info.get('name', 'Unknown Race'),
+            date=race_datetime,
+            location=meeting_info.get('name', 'Unknown Track'),
+            distance=f"{race_info.get('distance', 0)}m",
+            track_condition=race_info.get('going', 'Good'),
+            purse=float(race_info.get('prize', 0)),
+            horses=[],
+            status=race_info.get('status', 'upcoming')
+        )
+    
+    def _parse_theracing_horse_data(self, runner_info: Dict) -> HorseData:
+        """Parse horse data from TheRacingAPI response"""
+        horse_info = runner_info.get('horse', {})
+        jockey_info = runner_info.get('jockey', {})
+        trainer_info = runner_info.get('trainer', {})
+        
+        return HorseData(
+            horse_id=str(horse_info.get('id', '')),
+            name=horse_info.get('name', 'Unknown Horse'),
+            age=int(horse_info.get('age', 0)),
+            breed=horse_info.get('breed', 'Unknown'),
+            color=horse_info.get('colour', 'Unknown'),
+            jockey=jockey_info.get('name', 'Unknown'),
+            trainer=trainer_info.get('name', 'Unknown'),
+            owner=horse_info.get('owner', 'Unknown'),
+            weight=float(runner_info.get('weight', 0)),
+            odds=float(runner_info.get('odds', {}).get('decimal')) if runner_info.get('odds', {}).get('decimal') else None
+        )
         
     def _load_config(self) -> Dict[str, Any]:
         """Load API configuration from environment or config file"""
@@ -101,7 +221,14 @@ class SampleRacingAPI(HorseRacingAPIClient):
     """
     
     def __init__(self, api_key: str = None):
-        super().__init__()
+        # Initialize with sample config instead of calling super().__init__()
+        self.config = {
+            'base_urls': {'sample': 'https://api.sample-racing.com'},
+            'api_keys': {'sample': 'sample_key'},
+            'rate_limits': {'sample': 60},
+            'timeout': 30
+        }
+        self.session = requests.Session()
         self.api_key = api_key or self.config['api_keys']['sample']
         self.base_url = self.config['base_urls']['sample']
         
@@ -199,12 +326,18 @@ class SampleRacingAPI(HorseRacingAPIClient):
 
 class MockRacingAPI(HorseRacingAPIClient):
     """
-    Mock API for testing and demonstration
+    Mock API for testing purposes
     Generates sample race data
     """
     
     def __init__(self):
-        super().__init__()
+        # Initialize with mock config instead of calling super().__init__()
+        self.config = {
+            'base_urls': {'mock': 'http://localhost:mock'},
+            'api_keys': {'mock': 'mock_key'},
+            'rate_limits': {'mock': 60},
+            'timeout': 30
+        }
         self.base_url = self.config['base_urls']['mock']
     
     def get_upcoming_races(self, days_ahead: int = 7) -> List[RaceData]:
@@ -297,6 +430,8 @@ class APIManager:
     def __init__(self):
         self.providers = {
             'mock': MockRacingAPI(),
+            'sample': SampleRacingAPI(),
+            'theracingapi': TheRacingAPI()
             # Add more providers as needed
             # 'sample': SampleRacingAPI(api_key='your_key_here')
         }

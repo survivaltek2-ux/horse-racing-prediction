@@ -86,7 +86,11 @@ APP/
 2. Edit the `.env` file with your API credentials:
    ```
    # API Configuration
-   DEFAULT_PROVIDER=mock
+   DEFAULT_PROVIDER=theracingapi
+   
+   # TheRacingAPI (Recommended) - Uses HTTP Basic Auth
+   THERACINGAPI_USERNAME=your_theracingapi_username_here
+   THERACINGAPI_PASSWORD=your_theracingapi_password_here
    
    # Sample API
    SAMPLE_API_KEY=your_api_key_here
@@ -96,6 +100,23 @@ APP/
    ODDS_API_KEY=your_odds_api_key
    ODDS_API_URL=https://api.the-odds-api.com
    ```
+
+### TheRacingAPI Integration
+
+This system now includes full integration with **TheRacingAPI** <mcreference link="https://www.theracingapi.com/" index="2">2</mcreference>, providing comprehensive horse racing data:
+
+- **Coverage**: UK, Ireland, and USA racing data <mcreference link="https://rapidapi.com/theracingapi/api/the-racing-api1" index="4">4</mcreference>
+- **Data Points**: Over 450,000 horse racing results and racecards <mcreference link="https://rapidapi.com/theracingapi/api/the-racing-api1" index="4">4</mcreference>
+- **Features**: Racecards, results, form data, odds, and commentary
+- **Real-time**: Live race updates and betting odds
+
+To get started with TheRacingAPI:
+1. Visit [TheRacingAPI.com](https://www.theracingapi.com/#subscribe) to subscribe
+2. Get your username and password from your account dashboard
+3. Add them to your `.env` file as:
+   - `THERACINGAPI_USERNAME=your_username_here`
+   - `THERACINGAPI_PASSWORD=your_password_here`
+4. Set `DEFAULT_PROVIDER=theracingapi` in your configuration
 
 ### Data Storage
 The application uses JSON files for data persistence:
