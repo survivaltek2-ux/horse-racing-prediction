@@ -1,8 +1,7 @@
 import json
 import os
 from datetime import datetime
-from models.race import Race
-from models.horse import Horse
+from models.firebase_models import Race, Horse
 
 class Prediction:
     """Class representing a race prediction with probabilities for each horse"""
@@ -92,7 +91,7 @@ class Prediction:
     
     def get_race(self):
         """Get the race this prediction is for"""
-        return Race.get_race_by_id(self.race_id)
+        return Race.get_by_id(self.race_id)
     
     def get_top_picks(self, limit=3):
         """Get the top picks (horses with highest win probability)"""

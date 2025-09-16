@@ -16,9 +16,7 @@ except ImportError:
     XGBOOST_AVAILABLE = False
     print("XGBoost not available. Using RandomForest as primary model.")
 
-from models.horse import Horse
-from models.race import Race
-from models.prediction import Prediction
+from models.firebase_models import Horse, Race, Prediction
 from utils.data_processor import DataProcessor
 
 class Predictor:
@@ -549,7 +547,7 @@ class Predictor:
     
     def get_performance_stats(self):
         """Get performance statistics for the predictor"""
-        predictions = Prediction.get_all_predictions()
+        predictions = Prediction.get_all()
         
         if not predictions:
             return {
@@ -737,7 +735,7 @@ class Predictor:
         """Prepare training data from historical races"""
         try:
             # Get all completed races with results
-            races = Race.get_all_races()
+            races = Race.get_all()
             training_data = []
             
             for race in races:

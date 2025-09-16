@@ -132,16 +132,15 @@
                         <td>{{ horse.jockey or 'TBD' }}</td>
                         <td>{{ horse.trainer or 'TBD' }}</td>
                         <td>
-                            <span class="badge bg-{{ 'success' if horse.win_rate > 0.3 else 'warning' if horse.win_rate > 0.1 else 'secondary' }}">
-                                {{ "{:.1%}".format(horse.win_rate) }}
+                            <span class="badge bg-{{ 'success' if horse.win_percentage > 30 else 'warning' if horse.win_percentage > 10 else 'secondary' }}">
+                                {{ "{:.1f}%".format(horse.win_percentage) }}
                             </span>
                         </td>
                         <td>
-                            {% set recent_form = horse.get_form(3) %}
-                            {% if recent_form %}
-                                {% for result in recent_form %}
-                                    <span class="badge bg-{{ 'success' if result.position == 1 else 'warning' if result.position <= 3 else 'secondary' }} me-1">
-                                        {{ result.position }}
+                            {% if horse.form %}
+                                {% for char in horse.form[:3] %}
+                                    <span class="badge bg-{{ 'success' if char == '1' else 'warning' if char in '23' else 'secondary' }} me-1">
+                                        {{ char }}
                                     </span>
                                 {% endfor %}
                             {% else %}

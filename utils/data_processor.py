@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
-from models.horse import Horse
-from models.race import Race
+from models.firebase_models import Horse, Race
 
 class DataProcessor:
     """Utility class for processing horse racing data for prediction"""

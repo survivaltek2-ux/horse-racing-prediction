@@ -77,9 +77,20 @@ def index():
 
 @app.route('/races')
 def races():
-    """Display list of upcoming races"""
-    race_list = Race.get_upcoming()
-    return render_template('races.html', races=race_list)
+    """Display list of races"""
+    try:
+        # First try to get upcoming races
+        race_list = Race.get_upcoming()
+        
+        # If no upcoming races, get all races
+        if not race_list:
+            race_list = Race.get_all()
+        
+        return render_template('races.html', races=race_list)
+    except Exception as e:
+        print(f"Error getting races: {e}")
+        flash('Error loading races. Please try again.', 'error')
+        return render_template('races.html', races=[])
 
 @app.route('/race/<race_id>')
 def race_details(race_id):
@@ -93,11 +104,11 @@ def race_details(race_id):
     horses = Horse.get_all()  # In a real implementation, you'd filter by race
     return render_template('race_details.html', race=race, horses=horses)
 
-@app.route('/predict/<int:race_id>', methods=['GET', 'POST'])
+@app.route('/predict/<race_id>', methods=['GET', 'POST'])
 @login_required
 def predict(race_id):
     """Generate and display predictions for a race"""
-    race = Race.get_race_by_id(race_id)
+    race = Race.get_by_id(race_id)
     form = PredictionForm()
     
     if form.validate_on_submit():
@@ -120,15 +131,29 @@ def add_race():
         race_data = {
             'name': form.name.data,
             'date': form.date.data.isoformat(),
-            'location': form.location.data,
-            'distance': form.distance.data,
+            'time': form.time.data if hasattr(form, 'time') and form.time.data else "",
+            'track': form.location.data,
+            'distance': float(form.distance.data),
             'track_condition': form.track_condition.data,
-            'purse': form.purse.data,
-            'description': form.description.data
+            'prize_money': float(form.purse.data) if form.purse.data else 0.0,
+            'surface': getattr(form, 'surface', {}).data if hasattr(form, 'surface') else "",
+            'race_class': getattr(form, 'race_class', {}).data if hasattr(form, 'race_class') else "",
+            'weather': getattr(form, 'weather', {}).data if hasattr(form, 'weather') else "",
+            'horses': [],
+            'results': {},
+            'created_at': datetime.now().isoformat(),
+            'updated_at': datetime.now().isoformat()
         }
-        race = Race.create_race(race_data)
-        flash('Race created successfully!', 'success')
-        return redirect(url_for('races'))
+        
+        # Create and save the race
+        race = Race(race_data)
+        race_id = race.save()
+        
+        if race_id:
+            flash('Race created successfully!', 'success')
+            return redirect(url_for('races'))
+        else:
+            flash('Error creating race. Please try again.', 'error')
     
     return render_template('add_race.html', form=form)
 
@@ -160,7 +185,7 @@ def add_horse():
 @login_required
 def prediction_history():
     """Display prediction history"""
-    predictions = Prediction.get_all_predictions()
+    predictions = Prediction.get_all()
     return render_template('history.html', predictions=predictions)
 
 @app.route('/stats')
@@ -168,11 +193,11 @@ def statistics():
     """Display application statistics"""
     stats = predictor.get_performance_stats()
     race_stats = {
-        'total_races': len(Race.get_all_races()),
-        'completed_races': len([r for r in Race.get_all_races() if r.status == 'completed']),
-        'upcoming_races': len(Race.get_upcoming_races()),
-        'total_horses': len(Horse.get_all_horses()),
-        'total_predictions': len(Prediction.get_all_predictions())
+        'total_races': len(Race.get_all()),
+        'completed_races': len([r for r in Race.get_all() if r.status == 'completed']),
+        'upcoming_races': len(Race.get_upcoming()),
+        'total_horses': len(Horse.get_all()),
+        'total_predictions': len(Prediction.get_all())
     }
     return render_template('stats.html', stats=stats, race_stats=race_stats)
 
@@ -508,9 +533,9 @@ def admin_dashboard():
         'total_users': len(users),
         'active_users': len([u for u in users if u.is_active]),
         'admin_users': len([u for u in users if u.role == 'admin']),
-        'total_races': len(Race.get_all_races()),
-        'total_horses': len(Horse.get_all_horses()),
-        'total_predictions': len(Prediction.get_all_predictions())
+        'total_races': len(Race.get_all()),
+        'total_horses': len(Horse.get_all()),
+        'total_predictions': len(Prediction.get_all())
     }
     
     return render_template('admin/dashboard.html', stats=stats, users=users[:10])

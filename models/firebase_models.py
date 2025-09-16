@@ -182,6 +182,7 @@ class Race(FirebaseModel):
         self.prize_money = 0.0
         self.weather = ""
         self.track_condition = ""
+        self.status = "upcoming"  # upcoming, running, completed, cancelled
         self.horses = []  # List of horse IDs
         self.results = {}  # Race results
         self.created_at = None

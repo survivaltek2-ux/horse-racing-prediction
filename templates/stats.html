@@ -113,8 +113,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="badge bg-{{ 'success' if perf.win_rate >= 0.3 else 'warning' if perf.win_rate >= 0.1 else 'danger' }}">
-                                        {{ "{:.1%}".format(perf.win_rate) }}
+                                    <span class="badge bg-{{ 'success' if (perf.win_rate|default(0)) >= 0.3 else 'warning' if (perf.win_rate|default(0)) >= 0.1 else 'danger' }}">
+                                        {{ "{:.1%}".format(perf.win_rate|default(0)) }}
                                     </span>
                                 </td>
                             </tr>
@@ -151,7 +151,7 @@
                             <small class="text-muted d-block">{{ horse.jockey or 'Unknown Jockey' }}</small>
                         </div>
                         <div class="text-end">
-                            <span class="badge bg-success">{{ horse.win_rate }}% wins</span>
+                            <span class="badge bg-success">{{ horse.win_percentage|round(1) }}% wins</span>
                         </div>
                     </div>
                     {% endfor %}
@@ -168,7 +168,7 @@
                             <small class="text-muted d-block">{{ jockey.races }} races</small>
                         </div>
                         <div class="text-end">
-                            <span class="badge bg-warning">{{ jockey.win_rate }}% wins</span>
+                            <span class="badge bg-warning">{{ jockey.win_rate|default(0)|round(1) }}% wins</span>
                         </div>
                     </div>
                     {% endfor %}

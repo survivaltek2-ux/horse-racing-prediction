@@ -97,7 +97,7 @@ class APIService:
         """
         try:
             # Check if race already exists
-            existing_races = Race.get_all_races()
+            existing_races = Race.get_all()
             existing_race = None
             
             for race in existing_races:
@@ -231,7 +231,7 @@ class APIService:
             for race_data in races_data:
                 try:
                     # Check if race exists
-                    existing_races = Race.get_all_races()
+                    existing_races = Race.get_all()
                     existing = None
                     
                     for race in existing_races:
@@ -288,7 +288,7 @@ class APIService:
         """
         try:
             # Get local race
-            all_races = Race.get_all_races()
+            all_races = Race.get_all()
             race = None
             for r in all_races:
                 if r.id == race_id:
@@ -321,7 +321,7 @@ class APIService:
             from datetime import datetime, timedelta
             end_date = datetime.now() + timedelta(days=7)
             
-            all_races = Race.get_all_races()
+            all_races = Race.get_all()
             upcoming_races = []
             
             for race in all_races:
