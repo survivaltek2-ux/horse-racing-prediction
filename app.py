@@ -1,19 +1,50 @@
 import os
-# Enable TensorFlow CPU optimizations (AVX2, AVX512F, etc.)
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress TensorFlow warnings
+import warnings
+
+# Suppress TensorFlow CPU optimization warnings
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress all TensorFlow logs except errors
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '1'  # Enable oneDNN optimizations
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'  # Suppress OpenMP warnings
+
+# Suppress specific warnings
+warnings.filterwarnings('ignore', category=FutureWarning)
+warnings.filterwarnings('ignore', category=UserWarning)
 
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_cors import CORS
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import Bcrypt
-import pandas as pd
-import numpy as np
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.preprocessing import StandardScaler
-from models.sqlalchemy_models import Prediction, User, APICredentials
+
+# Try to import data science libraries
+try:
+    import pandas as pd
+    PANDAS_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: pandas not available: {e}")
+    PANDAS_AVAILABLE = False
+    pd = None
+
+try:
+    import numpy as np
+    NUMPY_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: numpy not available: {e}")
+    NUMPY_AVAILABLE = False
+    np = None
+
+try:
+    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.preprocessing import StandardScaler
+    SKLEARN_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: scikit-learn not available: {e}")
+    SKLEARN_AVAILABLE = False
+    RandomForestRegressor = None
+    StandardScaler = None
+from models.sqlalchemy_models import User, APICredentials
 from models.race import Race
 from models.horse import Horse
+from models.prediction import Prediction
 from utils.data_processor import DataProcessor
 from utils.predictor import Predictor
 from forms import RaceForm, HorseForm, PredictionForm, RaceResultForm, AddHorseToRaceForm, LoginForm, RegisterForm, UserManagementForm, ChangePasswordForm, APICredentialsForm, APICredentialsTestForm
@@ -76,14 +107,14 @@ with app.app_context():
 def index():
     """Render the home page"""
     # Get some basic statistics for the dashboard
-    total_races = len(Race.get_all())
-    total_horses = len(Horse.get_all())
-    total_predictions = len(Prediction.get_all())
-    upcoming_races = len(Race.get_upcoming())
+    total_races = len(Race.get_all_races())
+    total_horses = len(Horse.get_all_horses())
+    total_predictions = len(Prediction.get_all_predictions())
+    upcoming_races = len(Race.get_upcoming_races())
     
     # Calculate additional stats for the dashboard
-    predictions = Prediction.get_all()
-    win_predictions = len([p for p in predictions if p.predicted_position == 1]) if predictions else 0
+    predictions = Prediction.get_all_predictions()
+    win_predictions = len(predictions) if predictions else 0  # Simplified calculation
     
     # Calculate accuracy (placeholder calculation - you may want to implement proper accuracy calculation)
     accuracy = 75 if total_predictions > 0 else 0  # Placeholder value
@@ -590,21 +621,21 @@ def edit_race(race_id):
 @app.route('/history')
 @login_required
 def prediction_history():
-    """Display prediction history"""
-    predictions = Prediction.get_all()
+    """Show prediction history"""
+    predictions = Prediction.get_all_predictions()
     return render_template('history.html', predictions=predictions)
 
 @app.route('/stats')
 def statistics():
     """Display application statistics"""
     stats = predictor.get_performance_stats()
-    all_races = Race.get_all()
+    all_races = Race.get_all_races()
     race_stats = {
         'total_races': len(all_races),
         'completed_races': len([r for r in all_races if hasattr(r, 'status') and r.status == 'completed']),
-        'upcoming_races': len(Race.get_upcoming()),
-        'total_horses': len(Horse.get_all()),
-        'total_predictions': len(Prediction.get_all())
+        'upcoming_races': len(Race.get_upcoming_races()),
+        'total_horses': len(Horse.get_all_horses()),
+        'total_predictions': len(Prediction.get_all_predictions())
     }
     return render_template('stats.html', stats=stats, race_stats=race_stats)
 
@@ -940,9 +971,9 @@ def admin_dashboard():
         'total_users': len(users),
         'active_users': len([u for u in users if u.is_active]),
         'admin_users': len([u for u in users if u.is_admin]),
-        'total_races': len(Race.get_all()),
-        'total_horses': len(Horse.get_all()),
-        'total_predictions': len(Prediction.get_all())
+        'total_races': len(Race.get_all_races()),
+        'total_horses': len(Horse.get_all_horses()),
+        'total_predictions': len(Prediction.get_all_predictions())
     }
     
     return render_template('admin/dashboard.html', stats=stats, users=users[:10])

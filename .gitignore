@@ -169,3 +169,34 @@ data/api_credentials.json
 # Log files that might contain sensitive information
 logs/
 *.log
+
+# Machine Learning Models and Training Data
+models/*.joblib
+models/*.pkl
+data/*.npy
+data/training_*.json
+data/processed_dataset.csv
+data/scaler.pkl
+data/label_encoders.pkl
+data/feature_names.pkl
+
+# Large data files
+data/horses_enhanced.json
+data/races_enhanced.json
+
+# Backup files
+data/*.backup*
+data/hrp_database.db.backup*
+
+# Cookies and session files
+cookies.txt
+cookies_new.txt
+
+# Test and verification files
+test_*.py
+verify_*.py
+
+# Temporary and cache files
+*.tmp
+*.cache
+.cache/

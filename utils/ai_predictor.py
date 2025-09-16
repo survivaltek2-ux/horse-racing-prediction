@@ -12,9 +12,10 @@ try:
     from tensorflow import keras
     from tensorflow.keras import layers, models, optimizers
     TENSORFLOW_AVAILABLE = True
-except ImportError:
+except (ImportError, SystemError) as e:
     TENSORFLOW_AVAILABLE = False
-    print("TensorFlow not available. Install with: pip install tensorflow")
+    print(f"TensorFlow not available: {str(e)}")
+    print("Install with: pip install tensorflow")
 
 try:
     import torch

@@ -410,5 +410,14 @@
     "algorithm": "ml_ai_ensemble",
     "accuracy": null,
     "actual_results": null
+  },
+  {
+    "id": 16,
+    "race_id": null,
+    "date": "2025-09-16",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
   }
 ]

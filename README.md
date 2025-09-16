@@ -1,41 +1,94 @@
-# Horse Racing Prediction System
+# 🏇 Horse Racing Prediction App
 
-A comprehensive web application for predicting horse racing outcomes using machine learning algorithms and external API integration.
+A comprehensive machine learning-powered horse racing prediction system with both web application and static HTML interfaces.
 
-## 🏇 Features
+## 🌟 Features
 
-### Core Functionality
-- **Race Management**: Add, view, and manage horse races
-- **Horse Database**: Comprehensive horse profiles with performance history
-- **Prediction Engine**: ML-powered race outcome predictions
-- **Statistics Dashboard**: Performance analytics and insights
-- **Prediction History**: Track and analyze past predictions
+### 🤖 Machine Learning Predictions
+- **Multiple ML Models**: Random Forest, Gradient Boosting, Logistic Regression, SVM, Neural Networks, and Extra Trees
+- **Advanced Feature Engineering**: Horse performance metrics, jockey/trainer analysis, track conditions
+- **Probability Calibration**: Accurate win/place probability predictions
+- **Model Performance**: Best model achieves 68.3% AUC for win predictions
 
-### API Integration
-- **External Data Import**: Fetch race data from multiple API providers
-- **Real-time Updates**: Sync odds and race information
-- **Provider Management**: Support for multiple racing data sources
-- **Mock Testing**: Built-in testing capabilities
+### 📊 Comprehensive Analytics
+- **Horse Performance Tracking**: Win rates, earnings, recent form analysis
+- **Race Analysis**: Track conditions, distance preferences, historical performance
+- **Statistical Insights**: Feature importance analysis and prediction confidence scores
+- **Training Data Generation**: Synthetic data generation for model training
 
-### Web Interface
-- **Responsive Design**: Modern, mobile-friendly interface
-- **Interactive Forms**: Easy data entry and management
-- **Real-time Feedback**: Live updates and notifications
-- **Navigation**: Intuitive menu system
+### 🎯 Prediction Capabilities
+- **Win Predictions**: Probability of horse winning the race
+- **Place Predictions**: Probability of horse finishing in top 3
+- **Position Forecasting**: Expected finishing position
+- **Confidence Scoring**: Model certainty indicators
 
-## 🚀 Getting Started
+### 🖥️ User Interfaces
+- **Flask Web Application**: Full-featured web interface with user authentication
+- **Static HTML Version**: GitHub Pages compatible interface
+- **Admin Dashboard**: User management and system administration
+- **API Integration**: External data source connectivity
 
-### Prerequisites
-- Python 3.7+
-- Flask
-- Required Python packages (see requirements.txt)
+## 🚀 Live Demo
 
-### Installation
+**GitHub Pages Demo**: [https://yourusername.github.io/HorseRacingPrediction](https://yourusername.github.io/HorseRacingPrediction)
+
+## 🛠️ Technology Stack
+
+### Backend
+- **Python 3.8+**
+- **Flask** - Web framework
+- **SQLAlchemy** - Database ORM
+- **Firebase** - Cloud database and authentication
+
+### Machine Learning
+- **scikit-learn** - ML algorithms and preprocessing
+- **NumPy & Pandas** - Data manipulation
+- **Joblib** - Model serialization
+
+### Frontend
+- **Bootstrap 5** - Responsive UI framework
+- **JavaScript** - Interactive functionality
+- **Chart.js** - Data visualization
+- **Font Awesome** - Icons
+
+### Deployment
+- **GitHub Pages** - Static site hosting
+- **Heroku/Railway** - Web app deployment options
+
+## 📁 Project Structure
+
+```
+HorseRacingPrediction/
+├── app.py                          # Main Flask application
+├── models/                         # Trained ML models
+│   ├── enhanced_*.joblib          # Optimized models with hyperparameter tuning
+│   ├── feature_importances.pkl   # Feature importance analysis
+│   └── model_performance.pkl     # Performance metrics
+├── data/                          # Training and sample data
+│   ├── horses.json               # Horse database
+│   ├── races.json                # Race database
+│   └── training_*.json           # Generated training data
+├── static-html/                   # GitHub Pages deployment
+│   ├── index.html                # Main landing page
+│   ├── css/style.css             # Custom styling
+│   ├── js/app.js                 # Frontend logic
+│   └── data/                     # Sample data for demo
+├── templates/                     # Flask templates
+├── utils/                         # Utility modules
+│   ├── ai_predictor.py           # ML prediction engine
+│   ├── data_processor.py         # Data preprocessing
+│   └── predictor.py              # Legacy prediction logic
+└── scripts/                       # Deployment and utility scripts
+```
+
+## 🔧 Installation & Setup
+
+### Local Development
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/horse-racing-prediction.git
-   cd horse-racing-prediction
+   git clone https://github.com/yourusername/HorseRacingPrediction.git
+   cd HorseRacingPrediction
    ```
 
 2. **Install dependencies**
@@ -43,196 +96,126 @@ A comprehensive web application for predicting horse racing outcomes using machi
    pip install -r requirements.txt
    ```
 
-3. **Run the application**
+3. **Set up environment variables**
    ```bash
-   python3 app.py
+   cp .env.example .env
+   # Edit .env with your configuration
    ```
 
-4. **Access the application**
-   Open your browser and navigate to `http://127.0.0.1:5000`
-
-## 📁 Project Structure
-
-```
-APP/
-├── app.py                 # Main Flask application
-├── requirements.txt       # Python dependencies
-├── config/
-│   └── api_config.py     # API configuration management
-├── models/
-│   ├── horse.py          # Horse data model
-│   ├── race.py           # Race data model
-│   └── prediction.py     # Prediction data model
-├── services/
-│   └── api_service.py    # API integration service
-├── utils/
-│   ├── api_client.py     # API client utilities
-│   ├── data_processor.py # Data processing utilities
-│   └── predictor.py      # ML prediction engine
-├── templates/            # HTML templates
-├── static/              # CSS, JS, and images
-└── data/               # JSON data storage
-```
-
-## 🔧 Configuration
-
-### API Setup
-1. Copy the environment template:
-   ```python
-   from config.api_config import create_env_template
-   create_env_template()
+4. **Generate training data**
+   ```bash
+   python generate_training_data.py
+   python data_preprocessing.py
    ```
 
-2. Edit the `.env` file with your API credentials:
-   ```
-   # API Configuration
-   DEFAULT_PROVIDER=theracingapi
-   
-   # TheRacingAPI (Recommended) - Uses HTTP Basic Auth
-   THERACINGAPI_USERNAME=your_theracingapi_username_here
-   THERACINGAPI_PASSWORD=your_theracingapi_password_here
-   
-   # Sample API
-   SAMPLE_API_KEY=your_api_key_here
-   SAMPLE_API_URL=https://api.example.com
-   
-   # The Odds API
-   ODDS_API_KEY=your_odds_api_key
-   ODDS_API_URL=https://api.the-odds-api.com
+5. **Train ML models**
+   ```bash
+   python enhanced_training_script.py
    ```
 
-### TheRacingAPI Integration
+6. **Run the application**
+   ```bash
+   python app.py
+   ```
 
-This system now includes full integration with **TheRacingAPI** <mcreference link="https://www.theracingapi.com/" index="2">2</mcreference>, providing comprehensive horse racing data:
+### GitHub Pages Deployment
 
-- **Coverage**: UK, Ireland, and USA racing data <mcreference link="https://rapidapi.com/theracingapi/api/the-racing-api1" index="4">4</mcreference>
-- **Data Points**: Over 450,000 horse racing results and racecards <mcreference link="https://rapidapi.com/theracingapi/api/the-racing-api1" index="4">4</mcreference>
-- **Features**: Racecards, results, form data, odds, and commentary
-- **Real-time**: Live race updates and betting odds
+The static HTML version is automatically deployed to GitHub Pages from the `static-html` directory.
 
-To get started with TheRacingAPI:
-1. Visit [TheRacingAPI.com](https://www.theracingapi.com/#subscribe) to subscribe
-2. Get your username and password from your account dashboard
-3. Add them to your `.env` file as:
-   - `THERACINGAPI_USERNAME=your_username_here`
-   - `THERACINGAPI_PASSWORD=your_password_here`
-4. Set `DEFAULT_PROVIDER=theracingapi` in your configuration
+1. **Enable GitHub Pages** in repository settings
+2. **Set source** to `/ (root)` or `static-html` folder
+3. **Access your site** at `https://yourusername.github.io/HorseRacingPrediction`
 
-### Data Storage
-The application uses JSON files for data persistence:
-- `data/races.json` - Race information
-- `data/horses.json` - Horse profiles and statistics
+## 🤖 Machine Learning Pipeline
 
-## 🎯 Usage
-
-### Adding Races
-1. Navigate to "Add Race" in the menu
-2. Fill in race details (name, date, location, etc.)
-3. Add participating horses
-4. Save the race
-
-### Making Predictions
-1. Go to "Predict" page
-2. Select a race from the dropdown
-3. Click "Predict" to get ML-powered predictions
-4. View confidence scores and recommended bets
-
-### API Integration
-1. Navigate to "Import from API"
-2. Select an API provider
-3. Test the connection
-4. Fetch and import race data
-5. Review imported races and horses
-
-### Viewing Statistics
-- Access comprehensive analytics via the "Statistics" menu
-- View win rates, performance trends, and prediction accuracy
-- Analyze horse and jockey performance
-
-## 🤖 Machine Learning
-
-The prediction engine uses various algorithms to analyze:
-- Horse performance history
-- Jockey statistics
-- Track conditions
-- Recent form
-- Head-to-head comparisons
-
-## 🔌 API Providers
-
-### Supported Providers
-- **Mock API**: For testing and development
-- **Sample API**: Example external provider
-- **The Odds API**: Real-time odds and race data
-- **RapidAPI**: Various racing data sources
-
-### Adding New Providers
-1. Extend the `BaseAPIClient` class in `utils/api_client.py`
-2. Add provider configuration in `config/api_config.py`
-3. Update the API service to handle the new provider
-
-## 🧪 Testing
-
-### Mock API Testing
-The application includes a built-in mock API for testing:
-```python
-# Test API connection
-from services.api_service import APIService
-api_service = APIService()
-result = api_service.test_connection('mock')
-```
-
-### Running Tests
+### 1. Data Generation
 ```bash
-# Add your test commands here
-python -m pytest tests/
+python generate_training_data.py  # Creates synthetic training data
 ```
 
-## 📊 Data Models
+### 2. Data Preprocessing
+```bash
+python data_preprocessing.py       # Feature engineering and data preparation
+```
 
-### Race Model
-- Race details (name, date, location)
-- Participating horses
-- Race conditions and track info
-- Results and payouts
+### 3. Model Training
+```bash
+python enhanced_training_script.py # Trains multiple models with hyperparameter tuning
+```
 
-### Horse Model
-- Basic information (name, age, breed)
-- Performance statistics
-- Racing history
-- Trainer and jockey information
+### 4. Model Evaluation
+```bash
+python view_training_results.py    # View comprehensive results
+```
 
-### Prediction Model
-- Prediction results and confidence
-- Historical accuracy tracking
-- Model performance metrics
+## 📊 Model Performance
+
+| Model | Win Prediction AUC | Place Prediction AUC | Accuracy |
+|-------|-------------------|---------------------|----------|
+| **Logistic Regression** | **0.683** | **0.519** | **92.9%** |
+| Gradient Boosting | 0.578 | 0.479 | 92.9% |
+| SVM | 0.525 | 0.479 | 92.9% |
+| Random Forest | 0.520 | 0.483 | 92.9% |
+| Extra Trees | 0.397 | 0.492 | 92.9% |
+| Neural Network | 0.387 | 0.424 | 92.9% |
+
+### Key Features (by importance)
+1. **Horse Earnings** (15.5%)
+2. **Horse Win Rate** (10.7%)
+3. **Days Since Last Race** (9.4%)
+4. **Recent Average Earnings** (7.3%)
+5. **Horse Place Rate** (5.9%)
+
+## 🔮 Making Predictions
+
+### Web Interface
+1. Navigate to the prediction page
+2. Select horses and race conditions
+3. View probability predictions and confidence scores
+
+### API Usage
+```python
+from utils.ai_predictor import AIPredictor
+
+predictor = AIPredictor()
+prediction = predictor.predict_race_outcome(race_data, horses_data)
+print(f"Win probabilities: {prediction['win_probabilities']}")
+```
+
+## 🛡️ Security Features
+
+- **Firebase Authentication** - Secure user management
+- **Environment Variables** - Sensitive data protection
+- **Input Validation** - SQL injection prevention
+- **CSRF Protection** - Cross-site request forgery protection
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. **Fork the repository**
+2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Commit your changes** (`git commit -m 'Add amazing feature'`)
+4. **Push to the branch** (`git push origin feature/amazing-feature`)
+5. **Open a Pull Request**
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- Flask framework for the web application
-- Machine learning libraries for prediction algorithms
-- External API providers for race data
-- Open source community for various utilities
+- **scikit-learn** community for excellent ML tools
+- **Bootstrap** team for responsive UI components
+- **Flask** developers for the lightweight web framework
+- **Horse racing data providers** for inspiration
 
 ## 📞 Support
 
-For support and questions:
-- Create an issue on GitHub
-- Check the documentation
-- Review the code comments for implementation details
+- **Issues**: [GitHub Issues](https://github.com/yourusername/HorseRacingPrediction/issues)
+- **Documentation**: [Wiki](https://github.com/yourusername/HorseRacingPrediction/wiki)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/HorseRacingPrediction/discussions)
 
 ---
 
-**Note**: This application is for educational and entertainment purposes. Please gamble responsibly and be aware of local laws regarding betting and gambling.
+**⭐ Star this repository if you find it helpful!**
+
+Built with ❤️ for horse racing enthusiasts and data science practitioners.
