@@ -200,6 +200,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const algorithmSelect = document.getElementById('algorithm');
     const algorithmInfo = document.getElementById('algorithm-info');
     
+    // Check if elements exist before adding event listeners
+    if (!algorithmSelect || !algorithmInfo) {
+        console.warn('Algorithm select or info elements not found on this page');
+        return;
+    }
+    
     function updateAlgorithmInfo() {
         const selected = algorithmSelect.value;
         let info = '';

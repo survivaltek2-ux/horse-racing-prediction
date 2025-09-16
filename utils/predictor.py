@@ -267,7 +267,7 @@ class Predictor:
         
         return sum(confidence_factors) / len(confidence_factors)
     
-    def _prepare_enhanced_race_data(self, race_data, race):
+    def _prepare_ml_features(self, race_data, race):
         """Prepare race data with enhanced features for ML prediction"""
         enhanced_data = race_data.copy()
         

@@ -109,6 +109,10 @@ def race_details(race_id):
 def predict(race_id):
     """Generate and display predictions for a race"""
     race = Race.get_by_id(race_id)
+    if not race:
+        flash('Race not found.', 'error')
+        return redirect(url_for('races'))
+    
     form = PredictionForm()
     
     if form.validate_on_submit():
@@ -175,8 +179,12 @@ def add_horse():
             'owner': form.owner.data,
             'weight': form.weight.data
         }
-        horse = Horse.create_horse(horse_data)
-        flash('Horse added successfully!', 'success')
+        horse = Horse(horse_data)
+        horse_id = horse.save()
+        if horse_id:
+            flash('Horse added successfully!', 'success')
+        else:
+            flash('Error adding horse. Please try again.', 'error')
         return redirect(url_for('races'))
     
     return render_template('add_horse.html', form=form)

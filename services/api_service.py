@@ -192,9 +192,10 @@ class APIService:
                         'weight': horse_info.get('weight', 0),
                         'odds': horse_info.get('odds')
                     }
-                    horse = Horse.create_horse(horse_data)
-                    if horse:
-                        horse_ids.append(horse.id)
+                    horse = Horse(horse_data)
+                    horse_id = horse.save()
+                    if horse_id:
+                        horse_ids.append(horse_id)
                 
             except Exception as e:
                 logger.error(f"Error importing horse {horse_info.get('name', 'Unknown')}: {e}")

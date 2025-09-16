@@ -241,13 +241,13 @@
     </script>
     
     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script>
         // Fallback for Chart.js if CDN fails
         if (typeof Chart === 'undefined') {
             console.warn('Chart.js failed to load from CDN, loading fallback...');
             var script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js';
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js';
             document.head.appendChild(script);
         }
     </script>

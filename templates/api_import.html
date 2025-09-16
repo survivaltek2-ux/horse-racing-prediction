@@ -132,7 +132,13 @@
 <script type="application/json" id="providers-data">{{ providers | tojson }}</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const providers = JSON.parse(document.getElementById('providers-data').textContent);
+    const providersDataElement = document.getElementById('providers-data');
+    if (!providersDataElement) {
+        console.warn('Providers data element not found on this page');
+        return;
+    }
+    
+    const providers = JSON.parse(providersDataElement.textContent);
     const providerSelect = document.getElementById('provider');
     const providerInfo = document.getElementById('providerInfo');
     const fetchBtn = document.getElementById('fetchRacesBtn');
@@ -142,6 +148,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultsTitle = document.getElementById('resultsTitle');
     const resultsContent = document.getElementById('resultsContent');
     const loadingOverlay = document.getElementById('loadingOverlay');
+    
+    // Check if required elements exist
+    if (!providerSelect || !providerInfo) {
+        console.warn('Required API import elements not found on this page');
+        return;
+    }
 
     // Update provider info when selection changes
     providerSelect.addEventListener('change', function() {
@@ -170,7 +182,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Test connection
-    testBtn.addEventListener('click', function() {
+    if (testBtn) {
+        testBtn.addEventListener('click', function() {
         const provider = providerSelect.value;
         if (!provider) return;
 
@@ -189,10 +202,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 hideLoading();
                 showAlert('danger', `✗ Connection error: ${error.message}`);
             });
-    });
+        });
+    }
 
     // Fetch races preview
-    fetchBtn.addEventListener('click', function() {
+    if (fetchBtn) {
+        fetchBtn.addEventListener('click', function() {
         const formData = new FormData(document.getElementById('apiImportForm'));
         
         showLoading();
@@ -215,10 +230,12 @@ document.addEventListener('DOMContentLoaded', function() {
             hideLoading();
             showAlert('danger', `Fetch error: ${error.message}`);
         });
-    });
+        });
+    }
 
     // Import races
-    importBtn.addEventListener('click', function() {
+    if (importBtn) {
+        importBtn.addEventListener('click', function() {
         if (!confirm('Are you sure you want to import these races into the database?')) {
             return;
         }
@@ -246,7 +263,8 @@ document.addEventListener('DOMContentLoaded', function() {
             hideLoading();
             showAlert('danger', `Import error: ${error.message}`);
         });
-    });
+        });
+    }
 
     function displayRacePreview(races) {
         if (races.length === 0) {

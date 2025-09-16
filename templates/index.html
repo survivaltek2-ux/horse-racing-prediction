@@ -232,7 +232,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Performance Chart
-    const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+    const performanceCanvas = document.getElementById('performanceChart');
+    if (!performanceCanvas) {
+        console.warn('Performance chart canvas not found on this page');
+        return;
+    }
+    const performanceCtx = performanceCanvas.getContext('2d');
     const performanceChart = new Chart(performanceCtx, {
         type: 'line',
         data: {
@@ -275,7 +280,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Prediction Types Chart
-    const typesCtx = document.getElementById('predictionTypesChart').getContext('2d');
+    const typesCanvas = document.getElementById('predictionTypesChart');
+    if (!typesCanvas) {
+        console.warn('Prediction types chart canvas not found on this page');
+        return;
+    }
+    const typesCtx = typesCanvas.getContext('2d');
     const typesChart = new Chart(typesCtx, {
         type: 'doughnut',
         data: {
