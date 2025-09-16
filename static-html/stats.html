@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics - Horse Race Prediction App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-horse-head me-2"></i>
+                Horse Race Predictor
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="races.html">
+                            <i class="fas fa-flag-checkered me-1"></i>Races
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="history.html">
+                            <i class="fas fa-history me-1"></i>History
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="stats.html">
+                            <i class="fas fa-chart-bar me-1"></i>Statistics
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-plus me-1"></i>Add
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="add_race.html">
+                                <i class="fas fa-flag-checkered me-1"></i>Add Race
+                            </a></li>
+                            <li><a class="dropdown-item" href="add_horse.html">
+                                <i class="fas fa-horse me-1"></i>Add Horse
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="api_import.html">
+                            <i class="fas fa-download me-1"></i>API Import
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Overview Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-flag-checkered fa-2x text-primary mb-2"></i>
+                        <h4 class="card-title" id="totalRacesCount">0</h4>
+                        <p class="card-text">Total Races</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-horse fa-2x text-success mb-2"></i>
+                        <h4 class="card-title" id="totalHorsesCount">0</h4>
+                        <p class="card-text">Total Horses</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-trophy fa-2x text-warning mb-2"></i>
+                        <h4 class="card-title" id="predictionAccuracy">0%</h4>
+                        <p class="card-text">Prediction Accuracy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-dollar-sign fa-2x text-info mb-2"></i>
+                        <h4 class="card-title" id="totalPrizeMoney">$0</h4>
+                        <p class="card-text">Total Prize Money</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row 1 -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-line me-2"></i>Prediction Accuracy Over Time</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="accuracyChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-pie me-2"></i>Race Status Distribution</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="statusChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row 2 -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-bar me-2"></i>Races by Track</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="trackChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-area me-2"></i>Monthly Race Activity</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="monthlyChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Tables -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-star me-2"></i>Top Performing Horses</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Horse</th>
+                                        <th>Wins</th>
+                                        <th>Starts</th>
+                                        <th>Win %</th>
+                                        <th>Prize Money</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="topHorsesTable">
+                                    <!-- Top horses will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-map-marker-alt me-2"></i>Track Performance</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Track</th>
+                                        <th>Races</th>
+                                        <th>Predictions</th>
+                                        <th>Accuracy</th>
+                                        <th>Avg Prize</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="trackPerformanceTable">
+                                    <!-- Track performance will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-clock me-2"></i>Recent Activity</h5>
+            </div>
+            <div class="card-body">
+                <div id="recentActivity">
+                    <!-- Recent activity will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/data-manager.js"></script>
+    <script>
+        let charts = {};
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStatistics();
+        });
+
+        function loadStatistics() {
+            updateOverviewCards();
+            createCharts();
+            loadPerformanceTables();
+            loadRecentActivity();
+        }
+
+        function updateOverviewCards() {
+            const races = DataManager.getRaces();
+            const horses = DataManager.getHorses();
+            const stats = DataManager.getStats();
+
+            document.getElementById('totalRacesCount').textContent = races.length;
+            document.getElementById('totalHorsesCount').textContent = horses.length;
+            document.getElementById('predictionAccuracy').textContent = stats.predictionAccuracy.toFixed(1) + '%';
+            document.getElementById('totalPrizeMoney').textContent = '$' + formatCurrency(stats.totalPrizeMoney);
+        }
+
+        function createCharts() {
+            createAccuracyChart();
+            createStatusChart();
+            createTrackChart();
+            createMonthlyChart();
+        }
+
+        function createAccuracyChart() {
+            const ctx = document.getElementById('accuracyChart').getContext('2d');
+            const races = DataManager.getRaces();
+            
+            // Group races by month and calculate accuracy
+            const monthlyData = {};
+            races.forEach(race => {
+                if (race.results && race.predictions) {
+                    const month = new Date(race.date).toISOString().substring(0, 7);
+                    if (!monthlyData[month]) {
+                        monthlyData[month] = { total: 0, correct: 0 };
+                    }
+                    monthlyData[month].total++;
+                    if (race.predictions[0]?.horse === race.results.winner) {
+                        monthlyData[month].correct++;
+                    }
+                }
+            });
+
+            const labels = Object.keys(monthlyData).sort();
+            const data = labels.map(month => {
+                const monthData = monthlyData[month];
+                return monthData.total > 0 ? (monthData.correct / monthData.total * 100) : 0;
+            });
+
+            charts.accuracy = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels.map(label => new Date(label + '-01').toLocaleDateString('en-US', { month: 'short', year: 'numeric' })),
+                    datasets: [{
+                        label: 'Prediction Accuracy (%)',
+                        data: data,
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createStatusChart() {
+            const ctx = document.getElementById('statusChart').getContext('2d');
+            const races = DataManager.getRaces();
+            const now = new Date();
+            
+            let completed = 0, upcoming = 0, cancelled = 0;
+            
+            races.forEach(race => {
+                const raceDate = new Date(race.date);
+                if (race.status === 'cancelled') {
+                    cancelled++;
+                } else if (raceDate < now && race.results) {
+                    completed++;
+                } else {
+                    upcoming++;
+                }
+            });
+
+            charts.status = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Completed', 'Upcoming', 'Cancelled'],
+                    datasets: [{
+                        data: [completed, upcoming, cancelled],
+                        backgroundColor: [
+                            'rgba(40, 167, 69, 0.8)',
+                            'rgba(255, 193, 7, 0.8)',
+                            'rgba(220, 53, 69, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(40, 167, 69, 1)',
+                            'rgba(255, 193, 7, 1)',
+                            'rgba(220, 53, 69, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function createTrackChart() {
+            const ctx = document.getElementById('trackChart').getContext('2d');
+            const races = DataManager.getRaces();
+            
+            const trackCounts = {};
+            races.forEach(race => {
+                trackCounts[race.track] = (trackCounts[race.track] || 0) + 1;
+            });
+
+            const sortedTracks = Object.entries(trackCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10); // Top 10 tracks
+
+            charts.track = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sortedTracks.map(([track]) => track),
+                    datasets: [{
+                        label: 'Number of Races',
+                        data: sortedTracks.map(([, count]) => count),
+                        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createMonthlyChart() {
+            const ctx = document.getElementById('monthlyChart').getContext('2d');
+            const races = DataManager.getRaces();
+            
+            const monthlyRaces = {};
+            races.forEach(race => {
+                const month = new Date(race.date).toISOString().substring(0, 7);
+                monthlyRaces[month] = (monthlyRaces[month] || 0) + 1;
+            });
+
+            const labels = Object.keys(monthlyRaces).sort();
+            const data = labels.map(month => monthlyRaces[month]);
+
+            charts.monthly = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels.map(label => new Date(label + '-01').toLocaleDateString('en-US', { month: 'short', year: 'numeric' })),
+                    datasets: [{
+                        label: 'Races per Month',
+                        data: data,
+                        borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        tension: 0.1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function loadPerformanceTables() {
+            loadTopHorses();
+            loadTrackPerformance();
+        }
+
+        function loadTopHorses() {
+            const horses = DataManager.getHorses();
+            const topHorses = horses
+                .filter(horse => horse.stats.starts > 0)
+                .sort((a, b) => {
+                    const aWinRate = a.stats.wins / a.stats.starts;
+                    const bWinRate = b.stats.wins / b.stats.starts;
+                    if (aWinRate !== bWinRate) return bWinRate - aWinRate;
+                    return b.stats.wins - a.stats.wins;
+                })
+                .slice(0, 10);
+
+            const tbody = document.getElementById('topHorsesTable');
+            
+            if (topHorses.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No horse data available</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = topHorses.map(horse => {
+                const winPercentage = horse.stats.starts > 0 ? 
+                    ((horse.stats.wins / horse.stats.starts) * 100).toFixed(1) : '0.0';
+                
+                return `
+                    <tr>
+                        <td>${horse.name}</td>
+                        <td>${horse.stats.wins}</td>
+                        <td>${horse.stats.starts}</td>
+                        <td>${winPercentage}%</td>
+                        <td>$${formatCurrency(horse.stats.prizeMoney)}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function loadTrackPerformance() {
+            const races = DataManager.getRaces();
+            const trackStats = {};
+
+            races.forEach(race => {
+                if (!trackStats[race.track]) {
+                    trackStats[race.track] = {
+                        races: 0,
+                        predictions: 0,
+                        correct: 0,
+                        totalPrize: 0
+                    };
+                }
+                
+                const stats = trackStats[race.track];
+                stats.races++;
+                stats.totalPrize += race.prizeMoney || 0;
+                
+                if (race.predictions && race.predictions.length > 0) {
+                    stats.predictions++;
+                    if (race.results && race.predictions[0].horse === race.results.winner) {
+                        stats.correct++;
+                    }
+                }
+            });
+
+            const sortedTracks = Object.entries(trackStats)
+                .sort((a, b) => b[1].races - a[1].races)
+                .slice(0, 10);
+
+            const tbody = document.getElementById('trackPerformanceTable');
+            
+            if (sortedTracks.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No track data available</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = sortedTracks.map(([track, stats]) => {
+                const accuracy = stats.predictions > 0 ? 
+                    ((stats.correct / stats.predictions) * 100).toFixed(1) : '0.0';
+                const avgPrize = stats.races > 0 ? 
+                    (stats.totalPrize / stats.races) : 0;
+                
+                return `
+                    <tr>
+                        <td>${track}</td>
+                        <td>${stats.races}</td>
+                        <td>${stats.predictions}</td>
+                        <td>${accuracy}%</td>
+                        <td>$${formatCurrency(avgPrize)}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function loadRecentActivity() {
+            const races = DataManager.getRaces();
+            const horses = DataManager.getHorses();
+            
+            // Combine and sort recent activities
+            const activities = [];
+            
+            races.slice(-5).forEach(race => {
+                activities.push({
+                    type: 'race',
+                    date: race.createdAt || race.date,
+                    description: `Race "${race.name}" added at ${race.track}`,
+                    icon: 'fas fa-flag-checkered',
+                    color: 'primary'
+                });
+            });
+            
+            horses.slice(-5).forEach(horse => {
+                activities.push({
+                    type: 'horse',
+                    date: horse.createdAt || new Date().toISOString(),
+                    description: `Horse "${horse.name}" added to database`,
+                    icon: 'fas fa-horse',
+                    color: 'success'
+                });
+            });
+
+            activities.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            const container = document.getElementById('recentActivity');
+            
+            if (activities.length === 0) {
+                container.innerHTML = '<p class="text-muted">No recent activity</p>';
+                return;
+            }
+
+            container.innerHTML = activities.slice(0, 10).map(activity => `
+                <div class="d-flex align-items-center mb-3">
+                    <div class="flex-shrink-0">
+                        <i class="${activity.icon} text-${activity.color} fa-lg"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <div class="fw-bold">${activity.description}</div>
+                        <small class="text-muted">${formatDate(activity.date)}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Utility function to format currency
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        // Utility function to format date
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Race History - Horse Race Prediction App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-horse-head me-2"></i>
+                Horse Race Predictor
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="races.html">
+                            <i class="fas fa-flag-checkered me-1"></i>Races
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="history.html">
+                            <i class="fas fa-history me-1"></i>History
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="stats.html">
+                            <i class="fas fa-chart-bar me-1"></i>Statistics
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-plus me-1"></i>Add
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="add_race.html">
+                                <i class="fas fa-flag-checkered me-1"></i>Add Race
+                            </a></li>
+                            <li><a class="dropdown-item" href="add_horse.html">
+                                <i class="fas fa-horse me-1"></i>Add Horse
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="api_import.html">
+                            <i class="fas fa-download me-1"></i>API Import
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Filters -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5><i class="fas fa-filter me-2"></i>Filter History</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="dateFromFilter" class="form-label">From Date</label>
+                            <input type="date" class="form-control" id="dateFromFilter">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="dateToFilter" class="form-label">To Date</label>
+                            <input type="date" class="form-control" id="dateToFilter">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="trackFilter" class="form-label">Track</label>
+                            <select class="form-select" id="trackFilter">
+                                <option value="">All Tracks</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="statusFilter" class="form-label">Status</label>
+                            <select class="form-select" id="statusFilter">
+                                <option value="">All Races</option>
+                                <option value="completed">Completed</option>
+                                <option value="upcoming">Upcoming</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-primary" onclick="applyFilters()">
+                        <i class="fas fa-search me-1"></i>Apply Filters
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="clearFilters()">
+                        <i class="fas fa-times me-1"></i>Clear
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Stats -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary" id="totalRaces">0</h5>
+                        <p class="card-text">Total Races</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title text-success" id="completedRaces">0</h5>
+                        <p class="card-text">Completed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title text-warning" id="upcomingRaces">0</h5>
+                        <p class="card-text">Upcoming</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title text-info" id="predictionAccuracy">0%</h5>
+                        <p class="card-text">Prediction Accuracy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Race History -->
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-history me-2"></i>Race History</h5>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="changeView('list')" id="listViewBtn">
+                        <i class="fas fa-list"></i> List
+                    </button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="changeView('cards')" id="cardsViewBtn">
+                        <i class="fas fa-th"></i> Cards
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Loading indicator -->
+                <div id="loadingIndicator" class="text-center" style="display: none;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading race history...</p>
+                </div>
+
+                <!-- List View -->
+                <div id="listView">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Race</th>
+                                    <th>Track</th>
+                                    <th>Distance</th>
+                                    <th>Horses</th>
+                                    <th>Status</th>
+                                    <th>Winner</th>
+                                    <th>Prediction</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="raceHistoryTable">
+                                <!-- Race history will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Cards View -->
+                <div id="cardsView" style="display: none;">
+                    <div class="row" id="raceHistoryCards">
+                        <!-- Race cards will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Empty state -->
+                <div id="emptyState" style="display: none;">
+                    <div class="text-center py-5">
+                        <i class="fas fa-history fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No race history found</h5>
+                        <p class="text-muted">Add some races to see them in your history.</p>
+                        <a href="add_race.html" class="btn btn-primary">
+                            <i class="fas fa-plus me-1"></i>Add First Race
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Race history pagination" class="mt-4">
+            <ul class="pagination justify-content-center" id="pagination">
+                <!-- Pagination will be generated here -->
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Race Details Modal -->
+    <div class="modal fade" id="raceDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRaceTitle">Race Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalRaceContent">
+                    <!-- Race details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/data-manager.js"></script>
+    <script>
+        let currentView = 'list';
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        let filteredRaces = [];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePage();
+        });
+
+        function initializePage() {
+            setDefaultDates();
+            loadTrackOptions();
+            loadRaceHistory();
+            updateSummaryStats();
+        }
+
+        function setDefaultDates() {
+            const today = new Date();
+            const thirtyDaysAgo = new Date(today);
+            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+            document.getElementById('dateFromFilter').value = thirtyDaysAgo.toISOString().split('T')[0];
+            document.getElementById('dateToFilter').value = today.toISOString().split('T')[0];
+        }
+
+        function loadTrackOptions() {
+            const races = DataManager.getRaces();
+            const tracks = [...new Set(races.map(race => race.track))].sort();
+            
+            const trackFilter = document.getElementById('trackFilter');
+            trackFilter.innerHTML = '<option value="">All Tracks</option>';
+            
+            tracks.forEach(track => {
+                const option = document.createElement('option');
+                option.value = track;
+                option.textContent = track;
+                trackFilter.appendChild(option);
+            });
+        }
+
+        function loadRaceHistory() {
+            showLoading(true);
+            
+            setTimeout(() => {
+                const races = DataManager.getRaces();
+                filteredRaces = applyCurrentFilters(races);
+                
+                updateSummaryStats();
+                displayRaces();
+                setupPagination();
+                
+                showLoading(false);
+            }, 500);
+        }
+
+        function applyCurrentFilters(races) {
+            const dateFrom = document.getElementById('dateFromFilter').value;
+            const dateTo = document.getElementById('dateToFilter').value;
+            const track = document.getElementById('trackFilter').value;
+            const status = document.getElementById('statusFilter').value;
+
+            return races.filter(race => {
+                const raceDate = new Date(race.date);
+                const fromDate = dateFrom ? new Date(dateFrom) : null;
+                const toDate = dateTo ? new Date(dateTo) : null;
+
+                // Date filter
+                if (fromDate && raceDate < fromDate) return false;
+                if (toDate && raceDate > toDate) return false;
+
+                // Track filter
+                if (track && race.track !== track) return false;
+
+                // Status filter
+                if (status) {
+                    const now = new Date();
+                    const isCompleted = raceDate < now && race.results;
+                    const isUpcoming = raceDate >= now;
+                    
+                    if (status === 'completed' && !isCompleted) return false;
+                    if (status === 'upcoming' && !isUpcoming) return false;
+                    if (status === 'cancelled' && race.status !== 'cancelled') return false;
+                }
+
+                return true;
+            }).sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+
+        function displayRaces() {
+            if (filteredRaces.length === 0) {
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('listView').style.display = 'none';
+                document.getElementById('cardsView').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('emptyState').style.display = 'none';
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageRaces = filteredRaces.slice(startIndex, endIndex);
+
+            if (currentView === 'list') {
+                displayListView(pageRaces);
+            } else {
+                displayCardsView(pageRaces);
+            }
+        }
+
+        function displayListView(races) {
+            document.getElementById('listView').style.display = 'block';
+            document.getElementById('cardsView').style.display = 'none';
+            
+            const tbody = document.getElementById('raceHistoryTable');
+            
+            tbody.innerHTML = races.map(race => {
+                const status = getRaceStatus(race);
+                const winner = race.results ? race.results.winner : '-';
+                const prediction = race.predictions ? race.predictions[0]?.horse : '-';
+                const predictionCorrect = race.results && race.predictions && 
+                    race.predictions[0]?.horse === race.results.winner;
+
+                return `
+                    <tr>
+                        <td>${formatDate(race.date)}</td>
+                        <td>
+                            <strong>${race.name}</strong>
+                            <br>
+                            <small class="text-muted">Race ${race.raceNumber || 'N/A'}</small>
+                        </td>
+                        <td>${race.track}</td>
+                        <td>${race.distance}m</td>
+                        <td>
+                            <span class="badge bg-secondary">${race.horses ? race.horses.length : 0}</span>
+                        </td>
+                        <td>
+                            <span class="badge bg-${getStatusColor(status)}">${status}</span>
+                        </td>
+                        <td>${winner}</td>
+                        <td>
+                            ${prediction}
+                            ${predictionCorrect ? '<i class="fas fa-check text-success ms-1"></i>' : ''}
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" onclick="showRaceDetails('${race.id}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function displayCardsView(races) {
+            document.getElementById('listView').style.display = 'none';
+            document.getElementById('cardsView').style.display = 'block';
+            
+            const container = document.getElementById('raceHistoryCards');
+            
+            container.innerHTML = races.map(race => {
+                const status = getRaceStatus(race);
+                const winner = race.results ? race.results.winner : null;
+                const prediction = race.predictions ? race.predictions[0] : null;
+
+                return `
+                    <div class="col-md-6 col-lg-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0">${race.name}</h6>
+                                <span class="badge bg-${getStatusColor(status)}">${status}</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <i class="fas fa-map-marker-alt me-1"></i>${race.track}<br>
+                                    <i class="fas fa-calendar me-1"></i>${formatDate(race.date)}<br>
+                                    <i class="fas fa-ruler me-1"></i>${race.distance}m<br>
+                                    <i class="fas fa-horse me-1"></i>${race.horses ? race.horses.length : 0} horses
+                                </p>
+                                ${winner ? `
+                                    <div class="alert alert-success py-2">
+                                        <strong>Winner:</strong> ${winner}
+                                    </div>
+                                ` : ''}
+                                ${prediction ? `
+                                    <div class="alert alert-info py-2">
+                                        <strong>Prediction:</strong> ${prediction.horse}
+                                        ${winner === prediction.horse ? '<i class="fas fa-check text-success ms-1"></i>' : ''}
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-sm btn-outline-primary w-100" onclick="showRaceDetails('${race.id}')">
+                                    <i class="fas fa-eye me-1"></i>View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getRaceStatus(race) {
+            const now = new Date();
+            const raceDate = new Date(race.date);
+            
+            if (race.status === 'cancelled') return 'Cancelled';
+            if (raceDate < now && race.results) return 'Completed';
+            if (raceDate >= now) return 'Upcoming';
+            return 'Pending Results';
+        }
+
+        function getStatusColor(status) {
+            switch (status.toLowerCase()) {
+                case 'completed': return 'success';
+                case 'upcoming': return 'warning';
+                case 'cancelled': return 'danger';
+                default: return 'secondary';
+            }
+        }
+
+        function updateSummaryStats() {
+            const allRaces = DataManager.getRaces();
+            const now = new Date();
+            
+            const completed = allRaces.filter(race => 
+                new Date(race.date) < now && race.results
+            );
+            const upcoming = allRaces.filter(race => 
+                new Date(race.date) >= now
+            );
+            
+            // Calculate prediction accuracy
+            const racesWithPredictions = completed.filter(race => 
+                race.predictions && race.predictions.length > 0
+            );
+            const correctPredictions = racesWithPredictions.filter(race => 
+                race.predictions[0].horse === race.results.winner
+            );
+            const accuracy = racesWithPredictions.length > 0 ? 
+                (correctPredictions.length / racesWithPredictions.length * 100).toFixed(1) : 0;
+
+            document.getElementById('totalRaces').textContent = filteredRaces.length;
+            document.getElementById('completedRaces').textContent = 
+                filteredRaces.filter(race => getRaceStatus(race) === 'Completed').length;
+            document.getElementById('upcomingRaces').textContent = 
+                filteredRaces.filter(race => getRaceStatus(race) === 'Upcoming').length;
+            document.getElementById('predictionAccuracy').textContent = accuracy + '%';
+        }
+
+        function setupPagination() {
+            const totalPages = Math.ceil(filteredRaces.length / itemsPerPage);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let paginationHtml = '';
+            
+            // Previous button
+            paginationHtml += `
+                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>
+                </li>
+            `;
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    paginationHtml += `
+                        <li class="page-item ${i === currentPage ? 'active' : ''}">
+                            <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+                        </li>
+                    `;
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    paginationHtml += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                }
+            }
+            
+            // Next button
+            paginationHtml += `
+                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>
+                </li>
+            `;
+            
+            pagination.innerHTML = paginationHtml;
+        }
+
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredRaces.length / itemsPerPage);
+            if (page < 1 || page > totalPages) return;
+            
+            currentPage = page;
+            displayRaces();
+            setupPagination();
+        }
+
+        function changeView(view) {
+            currentView = view;
+            
+            document.getElementById('listViewBtn').classList.toggle('active', view === 'list');
+            document.getElementById('cardsViewBtn').classList.toggle('active', view === 'cards');
+            
+            displayRaces();
+        }
+
+        function applyFilters() {
+            currentPage = 1;
+            loadRaceHistory();
+        }
+
+        function clearFilters() {
+            document.getElementById('dateFromFilter').value = '';
+            document.getElementById('dateToFilter').value = '';
+            document.getElementById('trackFilter').value = '';
+            document.getElementById('statusFilter').value = '';
+            
+            setDefaultDates();
+            applyFilters();
+        }
+
+        function showRaceDetails(raceId) {
+            const race = DataManager.getRaceById(raceId);
+            if (!race) return;
+
+            document.getElementById('modalRaceTitle').textContent = race.name;
+            
+            const modalContent = document.getElementById('modalRaceContent');
+            modalContent.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Race Information</h6>
+                        <p><strong>Track:</strong> ${race.track}</p>
+                        <p><strong>Date:</strong> ${formatDate(race.date)}</p>
+                        <p><strong>Distance:</strong> ${race.distance}m</p>
+                        <p><strong>Prize Money:</strong> $${formatCurrency(race.prizeMoney || 0)}</p>
+                        <p><strong>Status:</strong> <span class="badge bg-${getStatusColor(getRaceStatus(race))}">${getRaceStatus(race)}</span></p>
+                    </div>
+                    <div class="col-md-6">
+                        ${race.results ? `
+                            <h6>Results</h6>
+                            <p><strong>Winner:</strong> ${race.results.winner}</p>
+                            <p><strong>Time:</strong> ${race.results.time || 'N/A'}</p>
+                        ` : '<h6>No results available</h6>'}
+                        
+                        ${race.predictions && race.predictions.length > 0 ? `
+                            <h6>Predictions</h6>
+                            ${race.predictions.map((pred, index) => `
+                                <p><strong>${index + 1}.</strong> ${pred.horse} (${(pred.confidence * 100).toFixed(1)}%)</p>
+                            `).join('')}
+                        ` : ''}
+                    </div>
+                </div>
+                
+                ${race.horses && race.horses.length > 0 ? `
+                    <hr>
+                    <h6>Participating Horses</h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Horse</th>
+                                    <th>Jockey</th>
+                                    <th>Weight</th>
+                                    <th>Odds</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${race.horses.map(horse => `
+                                    <tr>
+                                        <td>${horse.name}</td>
+                                        <td>${horse.jockey || 'N/A'}</td>
+                                        <td>${horse.weight || 'N/A'}kg</td>
+                                        <td>${horse.odds || 'N/A'}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                ` : ''}
+            `;
+
+            new bootstrap.Modal(document.getElementById('raceDetailsModal')).show();
+        }
+
+        function showLoading(show) {
+            document.getElementById('loadingIndicator').style.display = show ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

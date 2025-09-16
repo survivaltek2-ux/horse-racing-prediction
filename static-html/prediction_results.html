@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results - Horse Race Prediction App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-horse-head me-2"></i>
+                Horse Racing Prediction
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="races.html">
+                            <i class="fas fa-flag-checkered me-1"></i>Races
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="history.html">
+                            <i class="fas fa-history me-1"></i>History
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="stats.html">
+                            <i class="fas fa-chart-bar me-1"></i>Statistics
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <!-- Header -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2><i class="fas fa-chart-line me-2 text-primary"></i>Prediction Results</h2>
+                        <p class="text-muted mb-0">AI-generated predictions for the selected race</p>
+                    </div>
+                    <div>
+                        <a href="races.html" class="btn btn-outline-primary">
+                            <i class="fas fa-arrow-left me-1"></i>Back to Races
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Race Information Card -->
+                <div class="card mb-4" id="raceInfoCard">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Race Information</h5>
+                    </div>
+                    <div class="card-body" id="raceInfo">
+                        <!-- Race details will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Prediction Results -->
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-trophy me-2"></i>Top Predictions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="predictionResults">
+                            <!-- Prediction results will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prediction Analysis -->
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-analytics me-2"></i>Analysis Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6><i class="fas fa-brain me-2"></i>Algorithm Used</h6>
+                                <p class="text-muted">Statistical Analysis with Machine Learning</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6><i class="fas fa-clock me-2"></i>Generated At</h6>
+                                <p class="text-muted" id="predictionTime">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h6><i class="fas fa-list me-2"></i>Factors Considered</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success me-2"></i>Horse odds and betting patterns</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Jockey weight and experience</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Historical performance data</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Track conditions and distance</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h6>What would you like to do next?</h6>
+                        <div class="btn-group mt-3" role="group">
+                            <a href="races.html" class="btn btn-primary">
+                                <i class="fas fa-flag-checkered me-1"></i>View More Races
+                            </a>
+                            <a href="history.html" class="btn btn-outline-secondary">
+                                <i class="fas fa-history me-1"></i>View History
+                            </a>
+                            <a href="stats.html" class="btn btn-outline-info">
+                                <i class="fas fa-chart-bar me-1"></i>View Statistics
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data-manager.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get race ID from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const raceId = urlParams.get('id');
+
+            if (!raceId) {
+                showError('No race ID provided');
+                return;
+            }
+
+            // Load race and prediction data
+            loadPredictionResults(raceId);
+        });
+
+        function loadPredictionResults(raceId) {
+            try {
+                // Get race data
+                const race = DataManager.getRaceById(raceId);
+                if (!race) {
+                    showError('Race not found');
+                    return;
+                }
+
+                // Display race information
+                displayRaceInfo(race);
+
+                // Display predictions
+                if (race.predictions && race.predictions.length > 0) {
+                    displayPredictions(race.predictions);
+                    document.getElementById('predictionTime').textContent = 
+                        race.predictedAt ? new Date(race.predictedAt).toLocaleString() : 'Just now';
+                } else {
+                    showError('No predictions found for this race');
+                }
+
+            } catch (error) {
+                console.error('Error loading prediction results:', error);
+                showError('Failed to load prediction results');
+            }
+        }
+
+        function displayRaceInfo(race) {
+            const raceInfoHtml = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="text-primary">${race.name}</h5>
+                        <p class="mb-1"><i class="fas fa-map-marker-alt me-2"></i><strong>Track:</strong> ${race.track}</p>
+                        <p class="mb-1"><i class="fas fa-calendar me-2"></i><strong>Date:</strong> ${formatDate(race.date)}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-1"><i class="fas fa-road me-2"></i><strong>Distance:</strong> ${race.distance}m</p>
+                        <p class="mb-1"><i class="fas fa-horse me-2"></i><strong>Horses:</strong> ${race.horses ? race.horses.length : 0}</p>
+                        <p class="mb-1"><i class="fas fa-dollar-sign me-2"></i><strong>Prize:</strong> $${race.prizeMoney ? race.prizeMoney.toLocaleString() : 'N/A'}</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('raceInfo').innerHTML = raceInfoHtml;
+        }
+
+        function displayPredictions(predictions) {
+            const predictionHtml = predictions.map((prediction, index) => {
+                const position = index + 1;
+                const confidence = (prediction.confidence * 100).toFixed(1);
+                const badgeClass = index === 0 ? 'bg-warning' : index === 1 ? 'bg-secondary' : 'bg-success';
+                const iconClass = index === 0 ? 'fa-trophy' : index === 1 ? 'fa-medal' : 'fa-award';
+
+                return `
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-1 text-center">
+                                    <span class="badge ${badgeClass} fs-6">
+                                        <i class="fas ${iconClass} me-1"></i>${position}
+                                    </span>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="mb-1">${prediction.horse}</h5>
+                                    <small class="text-muted">
+                                        ${prediction.factors ? `Odds: ${prediction.factors.odds || 'N/A'} | Weight: ${prediction.factors.weight || 'N/A'}` : ''}
+                                    </small>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="progress" style="height: 25px;">
+                                        <div class="progress-bar ${index === 0 ? 'bg-warning' : index === 1 ? 'bg-secondary' : 'bg-success'}" 
+                                             role="progressbar" 
+                                             style="width: ${confidence}%"
+                                             aria-valuenow="${confidence}" 
+                                             aria-valuemin="0" 
+                                             aria-valuemax="100">
+                                            ${confidence}%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-end">
+                                    <span class="badge bg-primary fs-6">${confidence}% confidence</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('predictionResults').innerHTML = predictionHtml;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        function showError(message) {
+            document.getElementById('raceInfo').innerHTML = `
+                <div class="alert alert-danger" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>${message}
+                </div>
+            `;
+            document.getElementById('predictionResults').innerHTML = `
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>Unable to display prediction results.
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

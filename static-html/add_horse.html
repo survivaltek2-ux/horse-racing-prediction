@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Horse - Horse Race Prediction App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-horse-head me-2"></i>
+                Horse Race Predictor
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="races.html">
+                            <i class="fas fa-flag-checkered me-1"></i>Races
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="history.html">
+                            <i class="fas fa-history me-1"></i>History
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="stats.html">
+                            <i class="fas fa-chart-bar me-1"></i>Statistics
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-plus me-1"></i>Add
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="add_race.html">
+                                <i class="fas fa-flag-checkered me-1"></i>Add Race
+                            </a></li>
+                            <li><a class="dropdown-item active" href="add_horse.html">
+                                <i class="fas fa-horse me-1"></i>Add Horse
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="api_import.html">
+                            <i class="fas fa-download me-1"></i>API Import
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-horse me-2"></i>Add New Horse</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="addHorseForm">
+                            <!-- Basic Information -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="horseName" class="form-label">Horse Name *</label>
+                                        <input type="text" class="form-control" id="horseName" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a horse name.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="horseAge" class="form-label">Age *</label>
+                                        <input type="number" class="form-control" id="horseAge" min="2" max="15" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid age (2-15 years).
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="horseGender" class="form-label">Gender *</label>
+                                        <select class="form-select" id="horseGender" required>
+                                            <option value="">Select gender...</option>
+                                            <option value="Colt">Colt</option>
+                                            <option value="Filly">Filly</option>
+                                            <option value="Gelding">Gelding</option>
+                                            <option value="Mare">Mare</option>
+                                            <option value="Stallion">Stallion</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select a gender.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="horseWeight" class="form-label">Weight (kg)</label>
+                                        <input type="number" class="form-control" id="horseWeight" min="300" max="700" step="0.1">
+                                        <div class="form-text">Optional - typical range 400-600kg</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Breeding Information -->
+                            <h6 class="mt-4 mb-3">Breeding Information</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="horseSire" class="form-label">Sire (Father)</label>
+                                        <input type="text" class="form-control" id="horseSire">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="horseDam" class="form-label">Dam (Mother)</label>
+                                        <input type="text" class="form-control" id="horseDam">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="horseBreed" class="form-label">Breed</label>
+                                        <select class="form-select" id="horseBreed">
+                                            <option value="">Select breed...</option>
+                                            <option value="Thoroughbred">Thoroughbred</option>
+                                            <option value="Arabian">Arabian</option>
+                                            <option value="Quarter Horse">Quarter Horse</option>
+                                            <option value="Standardbred">Standardbred</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="horseColor" class="form-label">Color</label>
+                                        <select class="form-select" id="horseColor">
+                                            <option value="">Select color...</option>
+                                            <option value="Bay">Bay</option>
+                                            <option value="Chestnut">Chestnut</option>
+                                            <option value="Brown">Brown</option>
+                                            <option value="Black">Black</option>
+                                            <option value="Gray">Gray</option>
+                                            <option value="Roan">Roan</option>
+                                            <option value="Palomino">Palomino</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Connections -->
+                            <h6 class="mt-4 mb-3">Connections</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="horseOwner" class="form-label">Owner</label>
+                                        <input type="text" class="form-control" id="horseOwner">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="horseTrainer" class="form-label">Trainer</label>
+                                        <input type="text" class="form-control" id="horseTrainer">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Performance Statistics -->
+                            <h6 class="mt-4 mb-3">Performance Statistics</h6>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="horseStarts" class="form-label">Career Starts</label>
+                                        <input type="number" class="form-control" id="horseStarts" min="0" value="0">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="horseWins" class="form-label">Wins</label>
+                                        <input type="number" class="form-control" id="horseWins" min="0" value="0">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="horsePlaces" class="form-label">Places (2nd)</label>
+                                        <input type="number" class="form-control" id="horsePlaces" min="0" value="0">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="horseShows" class="form-label">Shows (3rd)</label>
+                                        <input type="number" class="form-control" id="horseShows" min="0" value="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="horsePrizeMoney" class="form-label">Total Prize Money ($)</label>
+                                        <input type="number" class="form-control" id="horsePrizeMoney" min="0" step="0.01" value="0">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="horseRating" class="form-label">Current Rating</label>
+                                        <input type="number" class="form-control" id="horseRating" min="0" max="150" step="0.1">
+                                        <div class="form-text">Official handicap rating (if available)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Notes -->
+                            <div class="mb-3">
+                                <label for="horseNotes" class="form-label">Additional Notes</label>
+                                <textarea class="form-control" id="horseNotes" rows="3" placeholder="Any additional information about the horse..."></textarea>
+                            </div>
+
+                            <!-- Form Actions -->
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="button" class="btn btn-secondary me-md-2" onclick="resetForm()">
+                                    <i class="fas fa-undo me-1"></i>Reset
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-1"></i>Add Horse
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Existing Horses -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h6><i class="fas fa-list me-2"></i>Recent Horses</h6>
+                    </div>
+                    <div class="card-body">
+                        <div id="recentHorses">
+                            <!-- Recent horses will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/data-manager.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setupFormValidation();
+            loadRecentHorses();
+            setupFormDependencies();
+        });
+
+        function setupFormValidation() {
+            const form = document.getElementById('addHorseForm');
+            
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (form.checkValidity()) {
+                    submitHorse();
+                } else {
+                    form.classList.add('was-validated');
+                }
+            });
+        }
+
+        function setupFormDependencies() {
+            // Update win percentage when stats change
+            const statsFields = ['horseStarts', 'horseWins', 'horsePlaces', 'horseShows'];
+            statsFields.forEach(fieldId => {
+                document.getElementById(fieldId).addEventListener('input', validateStats);
+            });
+        }
+
+        function validateStats() {
+            const starts = parseInt(document.getElementById('horseStarts').value) || 0;
+            const wins = parseInt(document.getElementById('horseWins').value) || 0;
+            const places = parseInt(document.getElementById('horsePlaces').value) || 0;
+            const shows = parseInt(document.getElementById('horseShows').value) || 0;
+
+            // Validate that wins + places + shows <= starts
+            const total = wins + places + shows;
+            if (total > starts && starts > 0) {
+                showAlert('warning', 'Total wins, places, and shows cannot exceed career starts.');
+                
+                // Reset to valid values
+                if (wins > starts) document.getElementById('horseWins').value = Math.min(wins, starts);
+                if (places > starts - wins) document.getElementById('horsePlaces').value = Math.max(0, starts - wins);
+                if (shows > starts - wins - places) document.getElementById('horseShows').value = Math.max(0, starts - wins - places);
+            }
+        }
+
+        function submitHorse() {
+            const horseData = {
+                id: Date.now().toString(),
+                name: document.getElementById('horseName').value.trim(),
+                age: parseInt(document.getElementById('horseAge').value),
+                gender: document.getElementById('horseGender').value,
+                weight: parseFloat(document.getElementById('horseWeight').value) || null,
+                sire: document.getElementById('horseSire').value.trim() || null,
+                dam: document.getElementById('horseDam').value.trim() || null,
+                breed: document.getElementById('horseBreed').value || null,
+                color: document.getElementById('horseColor').value || null,
+                owner: document.getElementById('horseOwner').value.trim() || null,
+                trainer: document.getElementById('horseTrainer').value.trim() || null,
+                stats: {
+                    starts: parseInt(document.getElementById('horseStarts').value) || 0,
+                    wins: parseInt(document.getElementById('horseWins').value) || 0,
+                    places: parseInt(document.getElementById('horsePlaces').value) || 0,
+                    shows: parseInt(document.getElementById('horseShows').value) || 0,
+                    prizeMoney: parseFloat(document.getElementById('horsePrizeMoney').value) || 0,
+                    rating: parseFloat(document.getElementById('horseRating').value) || null
+                },
+                notes: document.getElementById('horseNotes').value.trim() || null,
+                createdAt: new Date().toISOString()
+            };
+
+            try {
+                const success = DataManager.addHorse(horseData);
+                
+                if (success) {
+                    showAlert('success', `Horse "${horseData.name}" has been added successfully!`);
+                    resetForm();
+                    loadRecentHorses();
+                } else {
+                    showAlert('danger', 'Failed to add horse. Please try again.');
+                }
+            } catch (error) {
+                showAlert('danger', 'Error adding horse: ' + error.message);
+            }
+        }
+
+        function resetForm() {
+            const form = document.getElementById('addHorseForm');
+            form.reset();
+            form.classList.remove('was-validated');
+        }
+
+        function loadRecentHorses() {
+            const horses = DataManager.getHorses();
+            const recentHorses = horses.slice(-5).reverse(); // Get last 5 horses
+            
+            const container = document.getElementById('recentHorses');
+            
+            if (recentHorses.length === 0) {
+                container.innerHTML = '<p class="text-muted">No horses added yet.</p>';
+                return;
+            }
+
+            const horsesHtml = recentHorses.map(horse => {
+                const winPercentage = horse.stats.starts > 0 ? 
+                    ((horse.stats.wins / horse.stats.starts) * 100).toFixed(1) : '0.0';
+                
+                return `
+                    <div class="card mb-2">
+                        <div class="card-body py-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>${horse.name}</strong>
+                                    <small class="text-muted ms-2">
+                                        ${horse.age}yo ${horse.gender}
+                                        ${horse.trainer ? ` | Trainer: ${horse.trainer}` : ''}
+                                    </small>
+                                </div>
+                                <div class="text-end">
+                                    <small class="text-muted">
+                                        ${horse.stats.starts} starts, ${horse.stats.wins} wins (${winPercentage}%)
+                                    </small>
+                                    <br>
+                                    <small class="text-muted">
+                                        Prize Money: $${formatCurrency(horse.stats.prizeMoney)}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = horsesHtml;
+        }
+
+        function showAlert(type, message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            const form = document.getElementById('addHorseForm');
+            form.parentNode.insertBefore(alertDiv, form);
+            
+            // Auto-dismiss after 5 seconds
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
