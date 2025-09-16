@@ -1,0 +1,370 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Race - {{ race.name }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>
+        <i class="fas fa-edit me-2"></i>
+        Edit Race: {{ race.name }}
+    </h1>
+    <a href="{{ url_for('races') }}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-1"></i>
+        Back to Races
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <div class="card">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    <i class="fas fa-flag-checkered me-2"></i>
+                    Update Enhanced Race Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <!-- Basic Race Information Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Basic Race Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.name.label(class="form-label") }}
+                                    {{ form.name(class="form-control") }}
+                                    {% if form.name.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.name.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.date.label(class="form-label") }}
+                                    {{ form.date(class="form-control") }}
+                                    {% if form.date.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.date.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.location.label(class="form-label") }}
+                                    {{ form.location(class="form-control") }}
+                                    {% if form.location.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.location.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.distance.label(class="form-label") }}
+                                    {{ form.distance(class="form-control") }}
+                                    {% if form.distance.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.distance.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.purse.label(class="form-label") }}
+                                    {{ form.purse(class="form-control") }}
+                                    {% if form.purse.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.purse.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.track_condition.label(class="form-label") }}
+                                    {{ form.track_condition(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.description.label(class="form-label") }}
+                                {{ form.description(class="form-control", rows="3") }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weather Conditions Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0"><i class="fas fa-cloud-sun me-2"></i>Weather Conditions</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    {{ form.temperature.label(class="form-label") }}
+                                    {{ form.temperature(class="form-control") }}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.humidity.label(class="form-label") }}
+                                    {{ form.humidity(class="form-control") }}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.wind_speed.label(class="form-label") }}
+                                    {{ form.wind_speed(class="form-control") }}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.wind_direction.label(class="form-label") }}
+                                    {{ form.wind_direction(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.weather_description.label(class="form-label") }}
+                                    {{ form.weather_description(class="form-control") }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.visibility.label(class="form-label") }}
+                                    {{ form.visibility(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Track Conditions Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h6 class="mb-0"><i class="fas fa-road me-2"></i>Track Conditions</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.surface_type.label(class="form-label") }}
+                                    {{ form.surface_type(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.rail_position.label(class="form-label") }}
+                                    {{ form.rail_position(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.track_bias.label(class="form-label") }}
+                                    {{ form.track_bias(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.track_maintenance.label(class="form-label") }}
+                                {{ form.track_maintenance(class="form-control") }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Field Analysis Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0"><i class="fas fa-users me-2"></i>Field Analysis</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.field_size.label(class="form-label") }}
+                                    {{ form.field_size(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.field_quality.label(class="form-label") }}
+                                    {{ form.field_quality(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.pace_scenario.label(class="form-label") }}
+                                    {{ form.pace_scenario(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.competitive_balance.label(class="form-label") }}
+                                    {{ form.competitive_balance(class="form-control") }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.speed_figures_range.label(class="form-label") }}
+                                    {{ form.speed_figures_range(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Betting Information Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-warning text-dark">
+                            <h6 class="mb-0"><i class="fas fa-dollar-sign me-2"></i>Betting Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.total_pool.label(class="form-label") }}
+                                    {{ form.total_pool(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.win_pool.label(class="form-label") }}
+                                    {{ form.win_pool(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.exacta_pool.label(class="form-label") }}
+                                    {{ form.exacta_pool(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.trifecta_pool.label(class="form-label") }}
+                                    {{ form.trifecta_pool(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.superfecta_pool.label(class="form-label") }}
+                                    {{ form.superfecta_pool(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.morning_line_favorite.label(class="form-label") }}
+                                    {{ form.morning_line_favorite(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Race Conditions Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            <h6 class="mb-0"><i class="fas fa-gavel me-2"></i>Race Conditions</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.age_restrictions.label(class="form-label") }}
+                                    {{ form.age_restrictions(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.sex_restrictions.label(class="form-label") }}
+                                    {{ form.sex_restrictions(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.weight_conditions.label(class="form-label") }}
+                                    {{ form.weight_conditions(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.claiming_price.label(class="form-label") }}
+                                    {{ form.claiming_price(class="form-control") }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.race_grade.label(class="form-label") }}
+                                    {{ form.race_grade(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Historical Data Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-dark text-white">
+                            <h6 class="mb-0"><i class="fas fa-history me-2"></i>Historical Data</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.track_record.label(class="form-label") }}
+                                    {{ form.track_record(class="form-control") }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.average_winning_time.label(class="form-label") }}
+                                    {{ form.average_winning_time(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.course_record_holder.label(class="form-label") }}
+                                    {{ form.course_record_holder(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.similar_race_results.label(class="form-label") }}
+                                    {{ form.similar_race_results(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.trainer_jockey_stats.label(class="form-label") }}
+                                    {{ form.trainer_jockey_stats(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Media Coverage Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-light text-dark">
+                            <h6 class="mb-0"><i class="fas fa-tv me-2"></i>Media Coverage</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.tv_coverage.label(class="form-label") }}
+                                    {{ form.tv_coverage(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.streaming_available.label(class="form-label") }}
+                                    {{ form.streaming_available(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.featured_race.label(class="form-label") }}
+                                    {{ form.featured_race(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('races') }}" class="btn btn-secondary me-md-2">
+                            <i class="fas fa-times me-1"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save me-1"></i>Update Race
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Enhancement Tips</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Weather & Track</h6>
+                        <ul class="small">
+                            <li>Weather conditions significantly impact race outcomes</li>
+                            <li>Track bias can favor certain running styles</li>
+                            <li>Surface type affects horse performance preferences</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Field Analysis</h6>
+                        <ul class="small">
+                            <li>Field size affects pace and strategy</li>
+                            <li>Competitive balance indicates race difficulty</li>
+                            <li>Speed figure ranges help assess field quality</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

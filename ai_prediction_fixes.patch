@@ -1,0 +1,6 @@
+diff --git a/static-html b/static-html
+--- a/static-html
++++ b/static-html
+@@ -1 +1 @@
+-Subproject commit 079018db5910808f5f110c4aa732c44dc955b3d3
++Subproject commit 079018db5910808f5f110c4aa732c44dc955b3d3-dirty

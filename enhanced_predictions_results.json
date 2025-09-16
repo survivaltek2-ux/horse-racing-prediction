@@ -1,0 +1,4183 @@
+[
+  {
+    "race_id": 1,
+    "race_name": "Sample Stakes Race 1",
+    "race_date": "2025-09-16",
+    "predictions": [
+      {
+        "horse_id": 1,
+        "horse_name": "Thunder Bolt",
+        "total_score": 0.744,
+        "win_probability": 0.744,
+        "detailed_scores": {
+          "recent_form": 0.785,
+          "speed_figures": 0.876,
+          "class_rating": 0.924,
+          "pedigree_rating": 0.966,
+          "physical_fitness": 0.484,
+          "training_form": 0.795,
+          "track_suitability": 0.769,
+          "pace_scenario": 0.57,
+          "betting_confidence": 0.039
+        },
+        "confidence": "High",
+        "normalized_probability": 0.129
+      },
+      {
+        "horse_id": 6,
+        "horse_name": "Golden Arrow",
+        "total_score": 0.742,
+        "win_probability": 0.742,
+        "detailed_scores": {
+          "recent_form": 0.694,
+          "speed_figures": 0.689,
+          "class_rating": 0.962,
+          "pedigree_rating": 0.971,
+          "physical_fitness": 0.885,
+          "training_form": 0.84,
+          "track_suitability": 0.724,
+          "pace_scenario": 0.6,
+          "betting_confidence": 0.098
+        },
+        "confidence": "High",
+        "normalized_probability": 0.129
+      },
+      {
+        "horse_id": 3,
+        "horse_name": "Storm Chaser",
+        "total_score": 0.732,
+        "win_probability": 0.732,
+        "detailed_scores": {
+          "recent_form": 0.57,
+          "speed_figures": 0.764,
+          "class_rating": 0.785,
+          "pedigree_rating": 0.937,
+          "physical_fitness": 0.763,
+          "training_form": 0.803,
+          "track_suitability": 0.802,
+          "pace_scenario": 0.85,
+          "betting_confidence": 0.058
+        },
+        "confidence": "High",
+        "normalized_probability": 0.127
+      },
+      {
+        "horse_id": 4,
+        "horse_name": "Wind Runner",
+        "total_score": 0.729,
+        "win_probability": 0.729,
+        "detailed_scores": {
+          "recent_form": 0.78,
+          "speed_figures": 0.742,
+          "class_rating": 0.737,
+          "pedigree_rating": 1.004,
+          "physical_fitness": 0.58,
+          "training_form": 0.794,
+          "track_suitability": 0.757,
+          "pace_scenario": 0.81,
+          "betting_confidence": 0.027
+        },
+        "confidence": "High",
+        "normalized_probability": 0.126
+      },
+      {
+        "horse_id": 7,
+        "horse_name": "Silver Bullet",
+        "total_score": 0.728,
+        "win_probability": 0.728,
+        "detailed_scores": {
+          "recent_form": 0.826,
+          "speed_figures": 0.716,
+          "class_rating": 0.591,
+          "pedigree_rating": 0.904,
+          "physical_fitness": 0.536,
+          "training_form": 0.893,
+          "track_suitability": 0.847,
+          "pace_scenario": 0.85,
+          "betting_confidence": 0.118
+        },
+        "confidence": "High",
+        "normalized_probability": 0.126
+      },
+      {
+        "horse_id": 2,
+        "horse_name": "Lightning Strike",
+        "total_score": 0.716,
+        "win_probability": 0.716,
+        "detailed_scores": {
+          "recent_form": 0.733,
+          "speed_figures": 0.738,
+          "class_rating": 0.857,
+          "pedigree_rating": 0.894,
+          "physical_fitness": 0.491,
+          "training_form": 0.86,
+          "track_suitability": 0.862,
+          "pace_scenario": 0.54,
+          "betting_confidence": 0.172
+        },
+        "confidence": "High",
+        "normalized_probability": 0.124
+      },
+      {
+        "horse_id": 5,
+        "horse_name": "Fire Spirit",
+        "total_score": 0.714,
+        "win_probability": 0.714,
+        "detailed_scores": {
+          "recent_form": 0.58,
+          "speed_figures": 0.587,
+          "class_rating": 0.657,
+          "pedigree_rating": 0.952,
+          "physical_fitness": 0.844,
+          "training_form": 0.871,
+          "track_suitability": 0.799,
+          "pace_scenario": 1.0,
+          "betting_confidence": 0.104
+        },
+        "confidence": "High",
+        "normalized_probability": 0.124
+      },
+      {
+        "horse_id": 8,
+        "horse_name": "Midnight Express",
+        "total_score": 0.669,
+        "win_probability": 0.669,
+        "detailed_scores": {
+          "recent_form": 0.495,
+          "speed_figures": 0.783,
+          "class_rating": 0.643,
+          "pedigree_rating": 0.858,
+          "physical_fitness": 0.661,
+          "training_form": 0.845,
+          "track_suitability": 0.796,
+          "pace_scenario": 0.54,
+          "betting_confidence": 0.176
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.116
+      }
+    ],
+    "race_analysis": {
+      "field_size": 8,
+      "field_quality": "Weak",
+      "pace_scenario": "Fast",
+      "weather": "Heavy Rain",
+      "track_condition": "Soft"
+    }
+  },
+  {
+    "race_id": 2,
+    "race_name": "Sample Stakes Race 2",
+    "race_date": "2025-09-17",
+    "predictions": [
+      {
+        "horse_id": 79,
+        "horse_name": "Royal Mind",
+        "total_score": 0.768,
+        "win_probability": 0.768,
+        "detailed_scores": {
+          "recent_form": 0.943,
+          "speed_figures": 0.572,
+          "class_rating": 0.848,
+          "pedigree_rating": 0.982,
+          "physical_fitness": 0.759,
+          "training_form": 0.812,
+          "track_suitability": 0.907,
+          "pace_scenario": 0.81,
+          "betting_confidence": 0.027
+        },
+        "confidence": "High",
+        "normalized_probability": 0.089
+      },
+      {
+        "horse_id": 18,
+        "horse_name": "Noble Song",
+        "total_score": 0.764,
+        "win_probability": 0.764,
+        "detailed_scores": {
+          "recent_form": 0.676,
+          "speed_figures": 0.71,
+          "class_rating": 0.806,
+          "pedigree_rating": 1.024,
+          "physical_fitness": 0.808,
+          "training_form": 0.811,
+          "track_suitability": 0.907,
+          "pace_scenario": 0.855,
+          "betting_confidence": 0.048
+        },
+        "confidence": "High",
+        "normalized_probability": 0.088
+      },
+      {
+        "horse_id": 94,
+        "horse_name": "Light Boy",
+        "total_score": 0.747,
+        "win_probability": 0.747,
+        "detailed_scores": {
+          "recent_form": 0.601,
+          "speed_figures": 0.798,
+          "class_rating": 0.733,
+          "pedigree_rating": 0.807,
+          "physical_fitness": 0.731,
+          "training_form": 0.916,
+          "track_suitability": 0.865,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.079
+        },
+        "confidence": "High",
+        "normalized_probability": 0.086
+      },
+      {
+        "horse_id": 185,
+        "horse_name": "Magic",
+        "total_score": 0.744,
+        "win_probability": 0.744,
+        "detailed_scores": {
+          "recent_form": 0.668,
+          "speed_figures": 0.695,
+          "class_rating": 0.737,
+          "pedigree_rating": 0.878,
+          "physical_fitness": 0.894,
+          "training_form": 0.763,
+          "track_suitability": 0.874,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.017
+        },
+        "confidence": "High",
+        "normalized_probability": 0.086
+      },
+      {
+        "horse_id": 109,
+        "horse_name": "Rhythm",
+        "total_score": 0.741,
+        "win_probability": 0.741,
+        "detailed_scores": {
+          "recent_form": 0.829,
+          "speed_figures": 0.789,
+          "class_rating": 0.44,
+          "pedigree_rating": 0.94,
+          "physical_fitness": 0.601,
+          "training_form": 0.886,
+          "track_suitability": 0.901,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.038
+        },
+        "confidence": "High",
+        "normalized_probability": 0.086
+      },
+      {
+        "horse_id": 83,
+        "horse_name": "Dream",
+        "total_score": 0.735,
+        "win_probability": 0.735,
+        "detailed_scores": {
+          "recent_form": 0.712,
+          "speed_figures": 0.62,
+          "class_rating": 0.669,
+          "pedigree_rating": 1.021,
+          "physical_fitness": 0.759,
+          "training_form": 0.892,
+          "track_suitability": 0.856,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.044
+        },
+        "confidence": "High",
+        "normalized_probability": 0.085
+      },
+      {
+        "horse_id": 41,
+        "horse_name": "Valley Fire",
+        "total_score": 0.734,
+        "win_probability": 0.734,
+        "detailed_scores": {
+          "recent_form": 0.82,
+          "speed_figures": 0.788,
+          "class_rating": 0.593,
+          "pedigree_rating": 1.036,
+          "physical_fitness": 0.495,
+          "training_form": 0.851,
+          "track_suitability": 0.85,
+          "pace_scenario": 0.765,
+          "betting_confidence": 0.072
+        },
+        "confidence": "High",
+        "normalized_probability": 0.085
+      },
+      {
+        "horse_id": 163,
+        "horse_name": "River",
+        "total_score": 0.73,
+        "win_probability": 0.73,
+        "detailed_scores": {
+          "recent_form": 0.414,
+          "speed_figures": 0.863,
+          "class_rating": 0.823,
+          "pedigree_rating": 0.966,
+          "physical_fitness": 0.585,
+          "training_form": 0.881,
+          "track_suitability": 0.877,
+          "pace_scenario": 0.81,
+          "betting_confidence": 0.079
+        },
+        "confidence": "High",
+        "normalized_probability": 0.085
+      },
+      {
+        "horse_id": 188,
+        "horse_name": "Flying Boy",
+        "total_score": 0.705,
+        "win_probability": 0.705,
+        "detailed_scores": {
+          "recent_form": 0.564,
+          "speed_figures": 0.83,
+          "class_rating": 0.594,
+          "pedigree_rating": 1.119,
+          "physical_fitness": 0.572,
+          "training_form": 0.813,
+          "track_suitability": 0.895,
+          "pace_scenario": 0.6,
+          "betting_confidence": 0.079
+        },
+        "confidence": "High",
+        "normalized_probability": 0.082
+      },
+      {
+        "horse_id": 64,
+        "horse_name": "Bold Wind",
+        "total_score": 0.676,
+        "win_probability": 0.676,
+        "detailed_scores": {
+          "recent_form": 0.155,
+          "speed_figures": 0.775,
+          "class_rating": 0.693,
+          "pedigree_rating": 1.065,
+          "physical_fitness": 0.628,
+          "training_form": 0.816,
+          "track_suitability": 0.88,
+          "pace_scenario": 0.95,
+          "betting_confidence": 0.009
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.078
+      },
+      {
+        "horse_id": 8,
+        "horse_name": "Midnight Express",
+        "total_score": 0.675,
+        "win_probability": 0.675,
+        "detailed_scores": {
+          "recent_form": 0.495,
+          "speed_figures": 0.783,
+          "class_rating": 0.714,
+          "pedigree_rating": 0.858,
+          "physical_fitness": 0.661,
+          "training_form": 0.845,
+          "track_suitability": 0.841,
+          "pace_scenario": 0.54,
+          "betting_confidence": 0.028
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.078
+      },
+      {
+        "horse_id": 92,
+        "horse_name": "Midnight King",
+        "total_score": 0.62,
+        "win_probability": 0.62,
+        "detailed_scores": {
+          "recent_form": 0.462,
+          "speed_figures": 0.62,
+          "class_rating": 0.433,
+          "pedigree_rating": 0.883,
+          "physical_fitness": 0.715,
+          "training_form": 0.884,
+          "track_suitability": 0.847,
+          "pace_scenario": 0.6,
+          "betting_confidence": 0.01
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.072
+      }
+    ],
+    "race_analysis": {
+      "field_size": 12,
+      "field_quality": "Average",
+      "pace_scenario": "Fast",
+      "weather": "Light Rain",
+      "track_condition": "Fast"
+    }
+  },
+  {
+    "race_id": 3,
+    "race_name": "Sample Stakes Race 3",
+    "race_date": "2025-09-18",
+    "predictions": [
+      {
+        "horse_id": 67,
+        "horse_name": "Champion Spirit",
+        "total_score": 0.77,
+        "win_probability": 0.77,
+        "detailed_scores": {
+          "recent_form": 1.013,
+          "speed_figures": 0.728,
+          "class_rating": 0.48,
+          "pedigree_rating": 0.901,
+          "physical_fitness": 0.72,
+          "training_form": 0.9,
+          "track_suitability": 0.859,
+          "pace_scenario": 0.95,
+          "betting_confidence": 0.007
+        },
+        "confidence": "High",
+        "normalized_probability": 0.069
+      },
+      {
+        "horse_id": 27,
+        "horse_name": "Lightning Fortune",
+        "total_score": 0.764,
+        "win_probability": 0.764,
+        "detailed_scores": {
+          "recent_form": 1.032,
+          "speed_figures": 0.729,
+          "class_rating": 0.667,
+          "pedigree_rating": 1.056,
+          "physical_fitness": 0.57,
+          "training_form": 0.917,
+          "track_suitability": 0.763,
+          "pace_scenario": 0.76,
+          "betting_confidence": 0.019
+        },
+        "confidence": "High",
+        "normalized_probability": 0.069
+      },
+      {
+        "horse_id": 29,
+        "horse_name": "Star",
+        "total_score": 0.744,
+        "win_probability": 0.744,
+        "detailed_scores": {
+          "recent_form": 0.723,
+          "speed_figures": 0.761,
+          "class_rating": 0.667,
+          "pedigree_rating": 0.946,
+          "physical_fitness": 0.514,
+          "training_form": 0.834,
+          "track_suitability": 0.817,
+          "pace_scenario": 1.08,
+          "betting_confidence": 0.076
+        },
+        "confidence": "High",
+        "normalized_probability": 0.067
+      },
+      {
+        "horse_id": 41,
+        "horse_name": "Valley Fire",
+        "total_score": 0.738,
+        "win_probability": 0.738,
+        "detailed_scores": {
+          "recent_form": 0.82,
+          "speed_figures": 0.788,
+          "class_rating": 0.509,
+          "pedigree_rating": 1.036,
+          "physical_fitness": 0.495,
+          "training_form": 0.851,
+          "track_suitability": 0.91,
+          "pace_scenario": 0.85,
+          "betting_confidence": 0.036
+        },
+        "confidence": "High",
+        "normalized_probability": 0.067
+      },
+      {
+        "horse_id": 104,
+        "horse_name": "Glory",
+        "total_score": 0.734,
+        "win_probability": 0.734,
+        "detailed_scores": {
+          "recent_form": 0.747,
+          "speed_figures": 0.783,
+          "class_rating": 0.4,
+          "pedigree_rating": 0.947,
+          "physical_fitness": 0.659,
+          "training_form": 0.939,
+          "track_suitability": 0.892,
+          "pace_scenario": 0.918,
+          "betting_confidence": 0.037
+        },
+        "confidence": "High",
+        "normalized_probability": 0.066
+      },
+      {
+        "horse_id": 124,
+        "horse_name": "Sunset Harmony",
+        "total_score": 0.733,
+        "win_probability": 0.733,
+        "detailed_scores": {
+          "recent_form": 0.762,
+          "speed_figures": 0.605,
+          "class_rating": 0.785,
+          "pedigree_rating": 0.945,
+          "physical_fitness": 0.67,
+          "training_form": 0.78,
+          "track_suitability": 0.865,
+          "pace_scenario": 0.918,
+          "betting_confidence": 0.059
+        },
+        "confidence": "High",
+        "normalized_probability": 0.066
+      },
+      {
+        "horse_id": 159,
+        "horse_name": "Royal Spirit",
+        "total_score": 0.718,
+        "win_probability": 0.718,
+        "detailed_scores": {
+          "recent_form": 0.565,
+          "speed_figures": 0.741,
+          "class_rating": 0.564,
+          "pedigree_rating": 1.025,
+          "physical_fitness": 0.676,
+          "training_form": 0.895,
+          "track_suitability": 0.844,
+          "pace_scenario": 0.918,
+          "betting_confidence": 0.054
+        },
+        "confidence": "High",
+        "normalized_probability": 0.065
+      },
+      {
+        "horse_id": 153,
+        "horse_name": "Angel Sun",
+        "total_score": 0.688,
+        "win_probability": 0.688,
+        "detailed_scores": {
+          "recent_form": 0.734,
+          "speed_figures": 0.716,
+          "class_rating": 0.507,
+          "pedigree_rating": 1.082,
+          "physical_fitness": 0.79,
+          "training_form": 0.783,
+          "track_suitability": 0.778,
+          "pace_scenario": 0.51,
+          "betting_confidence": 0.034
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.062
+      },
+      {
+        "horse_id": 199,
+        "horse_name": "Diamond Moon",
+        "total_score": 0.684,
+        "win_probability": 0.684,
+        "detailed_scores": {
+          "recent_form": 0.806,
+          "speed_figures": 0.671,
+          "class_rating": 0.457,
+          "pedigree_rating": 1.1,
+          "physical_fitness": 0.509,
+          "training_form": 0.917,
+          "track_suitability": 0.766,
+          "pace_scenario": 0.68,
+          "betting_confidence": 0.044
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.062
+      },
+      {
+        "horse_id": 52,
+        "horse_name": "Crystal Strike",
+        "total_score": 0.682,
+        "win_probability": 0.682,
+        "detailed_scores": {
+          "recent_form": 0.624,
+          "speed_figures": 0.662,
+          "class_rating": 0.417,
+          "pedigree_rating": 1.0,
+          "physical_fitness": 0.589,
+          "training_form": 0.898,
+          "track_suitability": 0.76,
+          "pace_scenario": 1.026,
+          "betting_confidence": 0.022
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.062
+      },
+      {
+        "horse_id": 102,
+        "horse_name": "Sunset Bolt",
+        "total_score": 0.673,
+        "win_probability": 0.673,
+        "detailed_scores": {
+          "recent_form": 0.541,
+          "speed_figures": 0.883,
+          "class_rating": 0.491,
+          "pedigree_rating": 0.979,
+          "physical_fitness": 0.509,
+          "training_form": 0.828,
+          "track_suitability": 0.769,
+          "pace_scenario": 0.68,
+          "betting_confidence": 0.005
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.061
+      },
+      {
+        "horse_id": 148,
+        "horse_name": "Mountain Rhythm",
+        "total_score": 0.663,
+        "win_probability": 0.663,
+        "detailed_scores": {
+          "recent_form": 0.384,
+          "speed_figures": 0.753,
+          "class_rating": 0.56,
+          "pedigree_rating": 1.087,
+          "physical_fitness": 0.664,
+          "training_form": 0.884,
+          "track_suitability": 0.766,
+          "pace_scenario": 0.68,
+          "betting_confidence": 0.076
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.06
+      },
+      {
+        "horse_id": 99,
+        "horse_name": "Queen Adventure",
+        "total_score": 0.644,
+        "win_probability": 0.644,
+        "detailed_scores": {
+          "recent_form": 0.376,
+          "speed_figures": 0.666,
+          "class_rating": 0.724,
+          "pedigree_rating": 0.934,
+          "physical_fitness": 0.766,
+          "training_form": 0.845,
+          "track_suitability": 0.781,
+          "pace_scenario": 0.54,
+          "betting_confidence": 0.017
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.058
+      },
+      {
+        "horse_id": 64,
+        "horse_name": "Bold Wind",
+        "total_score": 0.63,
+        "win_probability": 0.63,
+        "detailed_scores": {
+          "recent_form": 0.155,
+          "speed_figures": 0.775,
+          "class_rating": 0.594,
+          "pedigree_rating": 1.065,
+          "physical_fitness": 0.628,
+          "training_form": 0.816,
+          "track_suitability": 0.736,
+          "pace_scenario": 0.76,
+          "betting_confidence": 0.069
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.057
+      },
+      {
+        "horse_id": 24,
+        "horse_name": "Victory Throne",
+        "total_score": 0.611,
+        "win_probability": 0.611,
+        "detailed_scores": {
+          "recent_form": 0.447,
+          "speed_figures": 0.656,
+          "class_rating": 0.46,
+          "pedigree_rating": 0.851,
+          "physical_fitness": 0.81,
+          "training_form": 0.798,
+          "track_suitability": 0.769,
+          "pace_scenario": 0.51,
+          "betting_confidence": 0.025
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.055
+      },
+      {
+        "horse_id": 144,
+        "horse_name": "Beat",
+        "total_score": 0.609,
+        "win_probability": 0.609,
+        "detailed_scores": {
+          "recent_form": 0.216,
+          "speed_figures": 0.652,
+          "class_rating": 0.653,
+          "pedigree_rating": 0.845,
+          "physical_fitness": 0.868,
+          "training_form": 0.8,
+          "track_suitability": 0.79,
+          "pace_scenario": 0.51,
+          "betting_confidence": 0.066
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.055
+      }
+    ],
+    "race_analysis": {
+      "field_size": 16,
+      "field_quality": "Strong",
+      "pace_scenario": "Moderate",
+      "weather": "Overcast",
+      "track_condition": "Yielding"
+    }
+  },
+  {
+    "race_id": 4,
+    "race_name": "Sample Stakes Race 4",
+    "race_date": "2025-09-20",
+    "predictions": [
+      {
+        "horse_id": 89,
+        "horse_name": "Victory Spirit",
+        "total_score": 0.77,
+        "win_probability": 0.77,
+        "detailed_scores": {
+          "recent_form": 0.958,
+          "speed_figures": 0.735,
+          "class_rating": 0.806,
+          "pedigree_rating": 0.852,
+          "physical_fitness": 0.595,
+          "training_form": 0.823,
+          "track_suitability": 0.793,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.071
+        },
+        "confidence": "High",
+        "normalized_probability": 0.077
+      },
+      {
+        "horse_id": 72,
+        "horse_name": "Crimson Hope",
+        "total_score": 0.756,
+        "win_probability": 0.756,
+        "detailed_scores": {
+          "recent_form": 0.817,
+          "speed_figures": 0.705,
+          "class_rating": 0.716,
+          "pedigree_rating": 1.124,
+          "physical_fitness": 0.576,
+          "training_form": 0.777,
+          "track_suitability": 0.868,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.055
+        },
+        "confidence": "High",
+        "normalized_probability": 0.076
+      },
+      {
+        "horse_id": 77,
+        "horse_name": "Brave Beauty",
+        "total_score": 0.741,
+        "win_probability": 0.741,
+        "detailed_scores": {
+          "recent_form": 0.534,
+          "speed_figures": 0.759,
+          "class_rating": 0.814,
+          "pedigree_rating": 0.986,
+          "physical_fitness": 0.586,
+          "training_form": 0.903,
+          "track_suitability": 0.817,
+          "pace_scenario": 1.02,
+          "betting_confidence": 0.031
+        },
+        "confidence": "High",
+        "normalized_probability": 0.074
+      },
+      {
+        "horse_id": 13,
+        "horse_name": "Valley Hope",
+        "total_score": 0.739,
+        "win_probability": 0.739,
+        "detailed_scores": {
+          "recent_form": 0.943,
+          "speed_figures": 0.635,
+          "class_rating": 0.6,
+          "pedigree_rating": 0.774,
+          "physical_fitness": 0.53,
+          "training_form": 0.885,
+          "track_suitability": 0.787,
+          "pace_scenario": 1.14,
+          "betting_confidence": 0.092
+        },
+        "confidence": "High",
+        "normalized_probability": 0.074
+      },
+      {
+        "horse_id": 97,
+        "horse_name": "Golden Grace",
+        "total_score": 0.735,
+        "win_probability": 0.735,
+        "detailed_scores": {
+          "recent_form": 0.789,
+          "speed_figures": 0.665,
+          "class_rating": 0.693,
+          "pedigree_rating": 1.055,
+          "physical_fitness": 0.709,
+          "training_form": 0.838,
+          "track_suitability": 0.838,
+          "pace_scenario": 0.76,
+          "betting_confidence": 0.04
+        },
+        "confidence": "High",
+        "normalized_probability": 0.074
+      },
+      {
+        "horse_id": 197,
+        "horse_name": "Destiny Boy",
+        "total_score": 0.725,
+        "win_probability": 0.725,
+        "detailed_scores": {
+          "recent_form": 0.691,
+          "speed_figures": 0.622,
+          "class_rating": 0.806,
+          "pedigree_rating": 0.962,
+          "physical_fitness": 0.623,
+          "training_form": 0.921,
+          "track_suitability": 0.793,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.036
+        },
+        "confidence": "High",
+        "normalized_probability": 0.073
+      },
+      {
+        "horse_id": 18,
+        "horse_name": "Noble Song",
+        "total_score": 0.719,
+        "win_probability": 0.719,
+        "detailed_scores": {
+          "recent_form": 0.676,
+          "speed_figures": 0.71,
+          "class_rating": 0.716,
+          "pedigree_rating": 1.024,
+          "physical_fitness": 0.808,
+          "training_form": 0.811,
+          "track_suitability": 0.832,
+          "pace_scenario": 0.57,
+          "betting_confidence": 0.104
+        },
+        "confidence": "High",
+        "normalized_probability": 0.072
+      },
+      {
+        "horse_id": 184,
+        "horse_name": "Legend",
+        "total_score": 0.714,
+        "win_probability": 0.714,
+        "detailed_scores": {
+          "recent_form": 0.924,
+          "speed_figures": 0.773,
+          "class_rating": 0.411,
+          "pedigree_rating": 0.928,
+          "physical_fitness": 0.709,
+          "training_form": 0.83,
+          "track_suitability": 0.865,
+          "pace_scenario": 0.51,
+          "betting_confidence": 0.098
+        },
+        "confidence": "High",
+        "normalized_probability": 0.071
+      },
+      {
+        "horse_id": 68,
+        "horse_name": "Storm Boy",
+        "total_score": 0.712,
+        "win_probability": 0.712,
+        "detailed_scores": {
+          "recent_form": 0.75,
+          "speed_figures": 0.615,
+          "class_rating": 0.716,
+          "pedigree_rating": 0.961,
+          "physical_fitness": 0.699,
+          "training_form": 0.847,
+          "track_suitability": 0.796,
+          "pace_scenario": 0.8,
+          "betting_confidence": 0.008
+        },
+        "confidence": "High",
+        "normalized_probability": 0.071
+      },
+      {
+        "horse_id": 159,
+        "horse_name": "Royal Spirit",
+        "total_score": 0.707,
+        "win_probability": 0.707,
+        "detailed_scores": {
+          "recent_form": 0.565,
+          "speed_figures": 0.741,
+          "class_rating": 0.634,
+          "pedigree_rating": 1.025,
+          "physical_fitness": 0.676,
+          "training_form": 0.895,
+          "track_suitability": 0.826,
+          "pace_scenario": 0.765,
+          "betting_confidence": 0.009
+        },
+        "confidence": "High",
+        "normalized_probability": 0.071
+      },
+      {
+        "horse_id": 156,
+        "horse_name": "Prince's",
+        "total_score": 0.702,
+        "win_probability": 0.702,
+        "detailed_scores": {
+          "recent_form": 0.401,
+          "speed_figures": 0.731,
+          "class_rating": 0.51,
+          "pedigree_rating": 1.011,
+          "physical_fitness": 0.548,
+          "training_form": 0.88,
+          "track_suitability": 0.877,
+          "pace_scenario": 1.2,
+          "betting_confidence": 0.052
+        },
+        "confidence": "High",
+        "normalized_probability": 0.07
+      },
+      {
+        "horse_id": 160,
+        "horse_name": "Mountain King",
+        "total_score": 0.684,
+        "win_probability": 0.684,
+        "detailed_scores": {
+          "recent_form": 0.417,
+          "speed_figures": 0.717,
+          "class_rating": 0.814,
+          "pedigree_rating": 0.937,
+          "physical_fitness": 0.63,
+          "training_form": 0.84,
+          "track_suitability": 0.802,
+          "pace_scenario": 0.76,
+          "betting_confidence": 0.055
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.068
+      },
+      {
+        "horse_id": 91,
+        "horse_name": "Diamond's",
+        "total_score": 0.65,
+        "win_probability": 0.65,
+        "detailed_scores": {
+          "recent_form": 0.437,
+          "speed_figures": 0.709,
+          "class_rating": 0.62,
+          "pedigree_rating": 0.907,
+          "physical_fitness": 0.711,
+          "training_form": 0.768,
+          "track_suitability": 0.853,
+          "pace_scenario": 0.57,
+          "betting_confidence": 0.086
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.065
+      },
+      {
+        "horse_id": 74,
+        "horse_name": "Noble Dancer",
+        "total_score": 0.644,
+        "win_probability": 0.644,
+        "detailed_scores": {
+          "recent_form": 0.464,
+          "speed_figures": 0.808,
+          "class_rating": 0.566,
+          "pedigree_rating": 0.797,
+          "physical_fitness": 0.663,
+          "training_form": 0.806,
+          "track_suitability": 0.811,
+          "pace_scenario": 0.51,
+          "betting_confidence": 0.042
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.064
+      }
+    ],
+    "race_analysis": {
+      "field_size": 14,
+      "field_quality": "Elite",
+      "pace_scenario": "Moderate",
+      "weather": "Partly Cloudy",
+      "track_condition": "Firm"
+    }
+  },
+  {
+    "race_id": 5,
+    "race_name": "Sample Stakes Race 5",
+    "race_date": "2025-09-21",
+    "predictions": [
+      {
+        "horse_id": 179,
+        "horse_name": "Fire Song",
+        "total_score": 0.814,
+        "win_probability": 0.814,
+        "detailed_scores": {
+          "recent_form": 0.665,
+          "speed_figures": 0.901,
+          "class_rating": 0.579,
+          "pedigree_rating": 1.101,
+          "physical_fitness": 0.791,
+          "training_form": 0.941,
+          "track_suitability": 0.85,
+          "pace_scenario": 1.2,
+          "betting_confidence": 0.009
+        },
+        "confidence": "High",
+        "normalized_probability": 0.114
+      },
+      {
+        "horse_id": 188,
+        "horse_name": "Flying Boy",
+        "total_score": 0.759,
+        "win_probability": 0.759,
+        "detailed_scores": {
+          "recent_form": 0.564,
+          "speed_figures": 0.83,
+          "class_rating": 0.594,
+          "pedigree_rating": 1.119,
+          "physical_fitness": 0.572,
+          "training_form": 0.813,
+          "track_suitability": 0.85,
+          "pace_scenario": 1.2,
+          "betting_confidence": 0.065
+        },
+        "confidence": "High",
+        "normalized_probability": 0.106
+      },
+      {
+        "horse_id": 97,
+        "horse_name": "Golden Grace",
+        "total_score": 0.729,
+        "win_probability": 0.729,
+        "detailed_scores": {
+          "recent_form": 0.789,
+          "speed_figures": 0.665,
+          "class_rating": 0.792,
+          "pedigree_rating": 1.055,
+          "physical_fitness": 0.709,
+          "training_form": 0.838,
+          "track_suitability": 0.85,
+          "pace_scenario": 0.57,
+          "betting_confidence": 0.014
+        },
+        "confidence": "High",
+        "normalized_probability": 0.102
+      },
+      {
+        "horse_id": 163,
+        "horse_name": "River",
+        "total_score": 0.722,
+        "win_probability": 0.722,
+        "detailed_scores": {
+          "recent_form": 0.414,
+          "speed_figures": 0.863,
+          "class_rating": 0.823,
+          "pedigree_rating": 0.966,
+          "physical_fitness": 0.585,
+          "training_form": 0.881,
+          "track_suitability": 0.88,
+          "pace_scenario": 0.72,
+          "betting_confidence": 0.102
+        },
+        "confidence": "High",
+        "normalized_probability": 0.101
+      },
+      {
+        "horse_id": 132,
+        "horse_name": "Flying Rush",
+        "total_score": 0.713,
+        "win_probability": 0.713,
+        "detailed_scores": {
+          "recent_form": 0.993,
+          "speed_figures": 0.639,
+          "class_rating": 0.711,
+          "pedigree_rating": 1.001,
+          "physical_fitness": 0.5,
+          "training_form": 0.72,
+          "track_suitability": 0.85,
+          "pace_scenario": 0.6,
+          "betting_confidence": 0.034
+        },
+        "confidence": "High",
+        "normalized_probability": 0.1
+      },
+      {
+        "horse_id": 42,
+        "horse_name": "Dream",
+        "total_score": 0.702,
+        "win_probability": 0.702,
+        "detailed_scores": {
+          "recent_form": 0.639,
+          "speed_figures": 0.666,
+          "class_rating": 0.806,
+          "pedigree_rating": 1.083,
+          "physical_fitness": 0.475,
+          "training_form": 0.86,
+          "track_suitability": 0.85,
+          "pace_scenario": 0.68,
+          "betting_confidence": 0.062
+        },
+        "confidence": "High",
+        "normalized_probability": 0.098
+      },
+      {
+        "horse_id": 103,
+        "horse_name": "Angel",
+        "total_score": 0.696,
+        "win_probability": 0.696,
+        "detailed_scores": {
+          "recent_form": 0.813,
+          "speed_figures": 0.754,
+          "class_rating": 0.549,
+          "pedigree_rating": 0.858,
+          "physical_fitness": 0.809,
+          "training_form": 0.862,
+          "track_suitability": 0.85,
+          "pace_scenario": 0.36,
+          "betting_confidence": 0.013
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.097
+      },
+      {
+        "horse_id": 160,
+        "horse_name": "Mountain King",
+        "total_score": 0.683,
+        "win_probability": 0.683,
+        "detailed_scores": {
+          "recent_form": 0.417,
+          "speed_figures": 0.717,
+          "class_rating": 0.905,
+          "pedigree_rating": 0.937,
+          "physical_fitness": 0.63,
+          "training_form": 0.84,
+          "track_suitability": 0.85,
+          "pace_scenario": 0.57,
+          "betting_confidence": 0.09
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.096
+      },
+      {
+        "horse_id": 53,
+        "horse_name": "Magic Blaze",
+        "total_score": 0.668,
+        "win_probability": 0.668,
+        "detailed_scores": {
+          "recent_form": 0.456,
+          "speed_figures": 0.758,
+          "class_rating": 0.724,
+          "pedigree_rating": 1.19,
+          "physical_fitness": 0.497,
+          "training_form": 0.84,
+          "track_suitability": 0.88,
+          "pace_scenario": 0.4,
+          "betting_confidence": 0.073
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.094
+      },
+      {
+        "horse_id": 15,
+        "horse_name": "Speed",
+        "total_score": 0.657,
+        "win_probability": 0.657,
+        "detailed_scores": {
+          "recent_form": 0.582,
+          "speed_figures": 0.579,
+          "class_rating": 0.84,
+          "pedigree_rating": 0.928,
+          "physical_fitness": 0.677,
+          "training_form": 0.82,
+          "track_suitability": 0.85,
+          "pace_scenario": 0.38,
+          "betting_confidence": 0.108
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.092
+      }
+    ],
+    "race_analysis": {
+      "field_size": 10,
+      "field_quality": "Weak",
+      "pace_scenario": "Slow",
+      "weather": "Overcast",
+      "track_condition": "Firm"
+    }
+  },
+  {
+    "race_id": 6,
+    "race_name": "Sprint Championship",
+    "race_date": "2025-09-17",
+    "predictions": [
+      {
+        "horse_id": 157,
+        "horse_name": "Angel Song",
+        "total_score": 0.83,
+        "win_probability": 0.83,
+        "detailed_scores": {
+          "recent_form": 0.95,
+          "speed_figures": 0.811,
+          "class_rating": 0.785,
+          "pedigree_rating": 0.837,
+          "physical_fitness": 0.576,
+          "training_form": 0.966,
+          "track_suitability": 0.881,
+          "pace_scenario": 1.2,
+          "betting_confidence": 0.063
+        },
+        "confidence": "High",
+        "normalized_probability": 0.076
+      },
+      {
+        "horse_id": 70,
+        "horse_name": "Prince Will",
+        "total_score": 0.787,
+        "win_probability": 0.787,
+        "detailed_scores": {
+          "recent_form": 0.816,
+          "speed_figures": 0.776,
+          "class_rating": 0.607,
+          "pedigree_rating": 1.005,
+          "physical_fitness": 0.778,
+          "training_form": 0.871,
+          "track_suitability": 0.882,
+          "pace_scenario": 1.02,
+          "betting_confidence": 0.012
+        },
+        "confidence": "High",
+        "normalized_probability": 0.072
+      },
+      {
+        "horse_id": 25,
+        "horse_name": "Sapphire Pulse",
+        "total_score": 0.783,
+        "win_probability": 0.783,
+        "detailed_scores": {
+          "recent_form": 1.02,
+          "speed_figures": 0.739,
+          "class_rating": 0.591,
+          "pedigree_rating": 0.92,
+          "physical_fitness": 0.616,
+          "training_form": 0.851,
+          "track_suitability": 0.865,
+          "pace_scenario": 1.02,
+          "betting_confidence": 0.044
+        },
+        "confidence": "High",
+        "normalized_probability": 0.072
+      },
+      {
+        "horse_id": 58,
+        "horse_name": "Midnight Tale",
+        "total_score": 0.762,
+        "win_probability": 0.762,
+        "detailed_scores": {
+          "recent_form": 0.717,
+          "speed_figures": 0.743,
+          "class_rating": 0.617,
+          "pedigree_rating": 0.857,
+          "physical_fitness": 0.785,
+          "training_form": 0.82,
+          "track_suitability": 0.822,
+          "pace_scenario": 1.2,
+          "betting_confidence": 0.012
+        },
+        "confidence": "High",
+        "normalized_probability": 0.07
+      },
+      {
+        "horse_id": 7,
+        "horse_name": "Silver Bullet",
+        "total_score": 0.758,
+        "win_probability": 0.758,
+        "detailed_scores": {
+          "recent_form": 0.826,
+          "speed_figures": 0.716,
+          "class_rating": 0.657,
+          "pedigree_rating": 0.904,
+          "physical_fitness": 0.536,
+          "training_form": 0.893,
+          "track_suitability": 0.92,
+          "pace_scenario": 1.02,
+          "betting_confidence": 0.046
+        },
+        "confidence": "High",
+        "normalized_probability": 0.069
+      },
+      {
+        "horse_id": 195,
+        "horse_name": "Storm Hope",
+        "total_score": 0.747,
+        "win_probability": 0.747,
+        "detailed_scores": {
+          "recent_form": 0.833,
+          "speed_figures": 0.779,
+          "class_rating": 0.643,
+          "pedigree_rating": 0.794,
+          "physical_fitness": 0.663,
+          "training_form": 0.846,
+          "track_suitability": 0.836,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.028
+        },
+        "confidence": "High",
+        "normalized_probability": 0.068
+      },
+      {
+        "horse_id": 165,
+        "horse_name": "River Dancer",
+        "total_score": 0.742,
+        "win_probability": 0.742,
+        "detailed_scores": {
+          "recent_form": 0.814,
+          "speed_figures": 0.693,
+          "class_rating": 0.663,
+          "pedigree_rating": 0.857,
+          "physical_fitness": 0.769,
+          "training_form": 0.777,
+          "track_suitability": 0.836,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.081
+        },
+        "confidence": "High",
+        "normalized_probability": 0.068
+      },
+      {
+        "horse_id": 3,
+        "horse_name": "Storm Chaser",
+        "total_score": 0.738,
+        "win_probability": 0.738,
+        "detailed_scores": {
+          "recent_form": 0.57,
+          "speed_figures": 0.764,
+          "class_rating": 0.687,
+          "pedigree_rating": 0.937,
+          "physical_fitness": 0.763,
+          "training_form": 0.803,
+          "track_suitability": 0.819,
+          "pace_scenario": 1.02,
+          "betting_confidence": 0.029
+        },
+        "confidence": "High",
+        "normalized_probability": 0.067
+      },
+      {
+        "horse_id": 198,
+        "horse_name": "Mountain",
+        "total_score": 0.729,
+        "win_probability": 0.729,
+        "detailed_scores": {
+          "recent_form": 0.632,
+          "speed_figures": 0.648,
+          "class_rating": 0.72,
+          "pedigree_rating": 1.005,
+          "physical_fitness": 0.874,
+          "training_form": 0.816,
+          "track_suitability": 0.836,
+          "pace_scenario": 0.81,
+          "betting_confidence": 0.069
+        },
+        "confidence": "High",
+        "normalized_probability": 0.067
+      },
+      {
+        "horse_id": 15,
+        "horse_name": "Speed",
+        "total_score": 0.702,
+        "win_probability": 0.702,
+        "detailed_scores": {
+          "recent_form": 0.582,
+          "speed_figures": 0.579,
+          "class_rating": 0.84,
+          "pedigree_rating": 0.928,
+          "physical_fitness": 0.677,
+          "training_form": 0.82,
+          "track_suitability": 0.835,
+          "pace_scenario": 0.855,
+          "betting_confidence": 0.091
+        },
+        "confidence": "High",
+        "normalized_probability": 0.064
+      },
+      {
+        "horse_id": 173,
+        "horse_name": "Light",
+        "total_score": 0.701,
+        "win_probability": 0.701,
+        "detailed_scores": {
+          "recent_form": 0.334,
+          "speed_figures": 0.648,
+          "class_rating": 0.924,
+          "pedigree_rating": 0.913,
+          "physical_fitness": 0.797,
+          "training_form": 0.909,
+          "track_suitability": 0.749,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.104
+        },
+        "confidence": "High",
+        "normalized_probability": 0.064
+      },
+      {
+        "horse_id": 123,
+        "horse_name": "Noble Storm",
+        "total_score": 0.694,
+        "win_probability": 0.694,
+        "detailed_scores": {
+          "recent_form": 0.921,
+          "speed_figures": 0.717,
+          "class_rating": 0.46,
+          "pedigree_rating": 0.906,
+          "physical_fitness": 0.578,
+          "training_form": 0.821,
+          "track_suitability": 0.818,
+          "pace_scenario": 0.6,
+          "betting_confidence": 0.056
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.063
+      },
+      {
+        "horse_id": 137,
+        "horse_name": "Prince Kingdom",
+        "total_score": 0.666,
+        "win_probability": 0.666,
+        "detailed_scores": {
+          "recent_form": 0.363,
+          "speed_figures": 0.787,
+          "class_rating": 0.883,
+          "pedigree_rating": 0.983,
+          "physical_fitness": 0.495,
+          "training_form": 0.832,
+          "track_suitability": 0.817,
+          "pace_scenario": 0.54,
+          "betting_confidence": 0.033
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.061
+      },
+      {
+        "horse_id": 112,
+        "horse_name": "Force's",
+        "total_score": 0.664,
+        "win_probability": 0.664,
+        "detailed_scores": {
+          "recent_form": 0.505,
+          "speed_figures": 0.711,
+          "class_rating": 0.663,
+          "pedigree_rating": 1.17,
+          "physical_fitness": 0.522,
+          "training_form": 0.803,
+          "track_suitability": 0.81,
+          "pace_scenario": 0.57,
+          "betting_confidence": 0.045
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.061
+      },
+      {
+        "horse_id": 39,
+        "horse_name": "Storm Grace",
+        "total_score": 0.644,
+        "win_probability": 0.644,
+        "detailed_scores": {
+          "recent_form": 0.482,
+          "speed_figures": 0.617,
+          "class_rating": 0.467,
+          "pedigree_rating": 0.962,
+          "physical_fitness": 0.476,
+          "training_form": 0.84,
+          "track_suitability": 0.889,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.077
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.059
+      }
+    ],
+    "race_analysis": {
+      "field_size": 15,
+      "field_quality": "Strong",
+      "pace_scenario": "Fast",
+      "weather": "Cold",
+      "track_condition": "Fast"
+    }
+  },
+  {
+    "race_id": 7,
+    "race_name": "Mile Classic",
+    "race_date": "2025-09-18",
+    "predictions": [
+      {
+        "horse_id": 151,
+        "horse_name": "Dancing Storm",
+        "total_score": 0.797,
+        "win_probability": 0.797,
+        "detailed_scores": {
+          "recent_form": 0.573,
+          "speed_figures": 0.784,
+          "class_rating": 0.829,
+          "pedigree_rating": 1.124,
+          "physical_fitness": 0.798,
+          "training_form": 0.926,
+          "track_suitability": 0.922,
+          "pace_scenario": 0.96,
+          "betting_confidence": 0.084
+        },
+        "confidence": "High",
+        "normalized_probability": 0.085
+      },
+      {
+        "horse_id": 193,
+        "horse_name": "Mountain",
+        "total_score": 0.77,
+        "win_probability": 0.77,
+        "detailed_scores": {
+          "recent_form": 0.812,
+          "speed_figures": 0.671,
+          "class_rating": 0.933,
+          "pedigree_rating": 1.136,
+          "physical_fitness": 0.577,
+          "training_form": 0.84,
+          "track_suitability": 0.871,
+          "pace_scenario": 0.765,
+          "betting_confidence": 0.112
+        },
+        "confidence": "High",
+        "normalized_probability": 0.082
+      },
+      {
+        "horse_id": 69,
+        "horse_name": "Blazing Rush",
+        "total_score": 0.749,
+        "win_probability": 0.749,
+        "detailed_scores": {
+          "recent_form": 0.737,
+          "speed_figures": 0.641,
+          "class_rating": 0.587,
+          "pedigree_rating": 1.015,
+          "physical_fitness": 0.832,
+          "training_form": 0.903,
+          "track_suitability": 0.91,
+          "pace_scenario": 0.912,
+          "betting_confidence": 0.046
+        },
+        "confidence": "High",
+        "normalized_probability": 0.08
+      },
+      {
+        "horse_id": 167,
+        "horse_name": "Hero Light",
+        "total_score": 0.738,
+        "win_probability": 0.738,
+        "detailed_scores": {
+          "recent_form": 0.855,
+          "speed_figures": 0.602,
+          "class_rating": 0.567,
+          "pedigree_rating": 1.077,
+          "physical_fitness": 0.746,
+          "training_form": 0.795,
+          "track_suitability": 0.904,
+          "pace_scenario": 0.864,
+          "betting_confidence": 0.046
+        },
+        "confidence": "High",
+        "normalized_probability": 0.079
+      },
+      {
+        "horse_id": 122,
+        "horse_name": "Prince Harmony",
+        "total_score": 0.738,
+        "win_probability": 0.738,
+        "detailed_scores": {
+          "recent_form": 0.612,
+          "speed_figures": 0.765,
+          "class_rating": 0.762,
+          "pedigree_rating": 0.815,
+          "physical_fitness": 0.582,
+          "training_form": 0.982,
+          "track_suitability": 0.94,
+          "pace_scenario": 0.864,
+          "betting_confidence": 0.019
+        },
+        "confidence": "High",
+        "normalized_probability": 0.079
+      },
+      {
+        "horse_id": 163,
+        "horse_name": "River",
+        "total_score": 0.737,
+        "win_probability": 0.737,
+        "detailed_scores": {
+          "recent_form": 0.414,
+          "speed_figures": 0.863,
+          "class_rating": 0.731,
+          "pedigree_rating": 0.966,
+          "physical_fitness": 0.585,
+          "training_form": 0.881,
+          "track_suitability": 0.937,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.111
+        },
+        "confidence": "High",
+        "normalized_probability": 0.079
+      },
+      {
+        "horse_id": 9,
+        "horse_name": "Dream King",
+        "total_score": 0.713,
+        "win_probability": 0.713,
+        "detailed_scores": {
+          "recent_form": 0.55,
+          "speed_figures": 0.7,
+          "class_rating": 0.797,
+          "pedigree_rating": 0.951,
+          "physical_fitness": 0.852,
+          "training_form": 0.82,
+          "track_suitability": 0.853,
+          "pace_scenario": 0.6,
+          "betting_confidence": 0.125
+        },
+        "confidence": "High",
+        "normalized_probability": 0.076
+      },
+      {
+        "horse_id": 154,
+        "horse_name": "Journey Boy",
+        "total_score": 0.711,
+        "win_probability": 0.711,
+        "detailed_scores": {
+          "recent_form": 0.813,
+          "speed_figures": 0.613,
+          "class_rating": 0.633,
+          "pedigree_rating": 0.97,
+          "physical_fitness": 0.749,
+          "training_form": 0.928,
+          "track_suitability": 0.886,
+          "pace_scenario": 0.54,
+          "betting_confidence": 0.073
+        },
+        "confidence": "High",
+        "normalized_probability": 0.076
+      },
+      {
+        "horse_id": 197,
+        "horse_name": "Destiny Boy",
+        "total_score": 0.708,
+        "win_probability": 0.708,
+        "detailed_scores": {
+          "recent_form": 0.691,
+          "speed_figures": 0.622,
+          "class_rating": 0.627,
+          "pedigree_rating": 0.962,
+          "physical_fitness": 0.623,
+          "training_form": 0.921,
+          "track_suitability": 0.844,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.01
+        },
+        "confidence": "High",
+        "normalized_probability": 0.076
+      },
+      {
+        "horse_id": 53,
+        "horse_name": "Magic Blaze",
+        "total_score": 0.704,
+        "win_probability": 0.704,
+        "detailed_scores": {
+          "recent_form": 0.456,
+          "speed_figures": 0.758,
+          "class_rating": 0.814,
+          "pedigree_rating": 1.19,
+          "physical_fitness": 0.497,
+          "training_form": 0.84,
+          "track_suitability": 0.913,
+          "pace_scenario": 0.6,
+          "betting_confidence": 0.083
+        },
+        "confidence": "High",
+        "normalized_probability": 0.075
+      },
+      {
+        "horse_id": 196,
+        "horse_name": "Champion Charge",
+        "total_score": 0.674,
+        "win_probability": 0.674,
+        "detailed_scores": {
+          "recent_form": 0.615,
+          "speed_figures": 0.752,
+          "class_rating": 0.625,
+          "pedigree_rating": 0.929,
+          "physical_fitness": 0.548,
+          "training_form": 0.852,
+          "track_suitability": 0.817,
+          "pace_scenario": 0.57,
+          "betting_confidence": 0.085
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.072
+      },
+      {
+        "horse_id": 17,
+        "horse_name": "Thunder Wind",
+        "total_score": 0.67,
+        "win_probability": 0.67,
+        "detailed_scores": {
+          "recent_form": 0.23,
+          "speed_figures": 0.673,
+          "class_rating": 0.857,
+          "pedigree_rating": 1.151,
+          "physical_fitness": 0.647,
+          "training_form": 0.91,
+          "track_suitability": 0.916,
+          "pace_scenario": 0.57,
+          "betting_confidence": 0.04
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.072
+      },
+      {
+        "horse_id": 73,
+        "horse_name": "Prince",
+        "total_score": 0.66,
+        "win_probability": 0.66,
+        "detailed_scores": {
+          "recent_form": 0.408,
+          "speed_figures": 0.64,
+          "class_rating": 0.831,
+          "pedigree_rating": 1.084,
+          "physical_fitness": 0.5,
+          "training_form": 0.828,
+          "track_suitability": 0.91,
+          "pace_scenario": 0.57,
+          "betting_confidence": 0.041
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.07
+      }
+    ],
+    "race_analysis": {
+      "field_size": 13,
+      "field_quality": "Weak",
+      "pace_scenario": "Moderate",
+      "weather": "Light Rain",
+      "track_condition": "Good"
+    }
+  },
+  {
+    "race_id": 8,
+    "race_name": "Derby Trial",
+    "race_date": "2025-09-19",
+    "predictions": [
+      {
+        "horse_id": 47,
+        "horse_name": "Prince Pulse",
+        "total_score": 0.78,
+        "win_probability": 0.78,
+        "detailed_scores": {
+          "recent_form": 0.904,
+          "speed_figures": 0.792,
+          "class_rating": 0.763,
+          "pedigree_rating": 1.185,
+          "physical_fitness": 0.73,
+          "training_form": 0.846,
+          "track_suitability": 0.906,
+          "pace_scenario": 0.48,
+          "betting_confidence": 0.037
+        },
+        "confidence": "High",
+        "normalized_probability": 0.078
+      },
+      {
+        "horse_id": 146,
+        "horse_name": "Champion Grace",
+        "total_score": 0.773,
+        "win_probability": 0.773,
+        "detailed_scores": {
+          "recent_form": 0.862,
+          "speed_figures": 0.777,
+          "class_rating": 0.914,
+          "pedigree_rating": 1.047,
+          "physical_fitness": 0.517,
+          "training_form": 0.894,
+          "track_suitability": 0.826,
+          "pace_scenario": 0.7,
+          "betting_confidence": 0.049
+        },
+        "confidence": "High",
+        "normalized_probability": 0.077
+      },
+      {
+        "horse_id": 88,
+        "horse_name": "Sapphire Rhythm",
+        "total_score": 0.769,
+        "win_probability": 0.769,
+        "detailed_scores": {
+          "recent_form": 0.912,
+          "speed_figures": 0.695,
+          "class_rating": 0.617,
+          "pedigree_rating": 1.025,
+          "physical_fitness": 0.576,
+          "training_form": 0.836,
+          "track_suitability": 0.922,
+          "pace_scenario": 1.0,
+          "betting_confidence": 0.047
+        },
+        "confidence": "High",
+        "normalized_probability": 0.077
+      },
+      {
+        "horse_id": 45,
+        "horse_name": "Sunset Moon",
+        "total_score": 0.769,
+        "win_probability": 0.769,
+        "detailed_scores": {
+          "recent_form": 0.955,
+          "speed_figures": 0.655,
+          "class_rating": 0.857,
+          "pedigree_rating": 0.977,
+          "physical_fitness": 0.835,
+          "training_form": 0.87,
+          "track_suitability": 0.751,
+          "pace_scenario": 0.7,
+          "betting_confidence": 0.013
+        },
+        "confidence": "High",
+        "normalized_probability": 0.077
+      },
+      {
+        "horse_id": 40,
+        "horse_name": "Star Fortune",
+        "total_score": 0.735,
+        "win_probability": 0.735,
+        "detailed_scores": {
+          "recent_form": 0.654,
+          "speed_figures": 0.744,
+          "class_rating": 0.686,
+          "pedigree_rating": 1.034,
+          "physical_fitness": 0.794,
+          "training_form": 0.847,
+          "track_suitability": 0.897,
+          "pace_scenario": 0.665,
+          "betting_confidence": 0.042
+        },
+        "confidence": "High",
+        "normalized_probability": 0.073
+      },
+      {
+        "horse_id": 83,
+        "horse_name": "Dream",
+        "total_score": 0.734,
+        "win_probability": 0.734,
+        "detailed_scores": {
+          "recent_form": 0.712,
+          "speed_figures": 0.62,
+          "class_rating": 0.669,
+          "pedigree_rating": 1.021,
+          "physical_fitness": 0.759,
+          "training_form": 0.892,
+          "track_suitability": 0.857,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.031
+        },
+        "confidence": "High",
+        "normalized_probability": 0.073
+      },
+      {
+        "horse_id": 1,
+        "horse_name": "Thunder Bolt",
+        "total_score": 0.721,
+        "win_probability": 0.721,
+        "detailed_scores": {
+          "recent_form": 0.785,
+          "speed_figures": 0.876,
+          "class_rating": 0.831,
+          "pedigree_rating": 0.966,
+          "physical_fitness": 0.484,
+          "training_form": 0.795,
+          "track_suitability": 0.775,
+          "pace_scenario": 0.456,
+          "betting_confidence": 0.011
+        },
+        "confidence": "High",
+        "normalized_probability": 0.072
+      },
+      {
+        "horse_id": 126,
+        "horse_name": "Prince Spirit",
+        "total_score": 0.71,
+        "win_probability": 0.71,
+        "detailed_scores": {
+          "recent_form": 0.636,
+          "speed_figures": 0.571,
+          "class_rating": 0.763,
+          "pedigree_rating": 1.174,
+          "physical_fitness": 0.565,
+          "training_form": 0.88,
+          "track_suitability": 0.835,
+          "pace_scenario": 0.85,
+          "betting_confidence": 0.045
+        },
+        "confidence": "High",
+        "normalized_probability": 0.071
+      },
+      {
+        "horse_id": 85,
+        "horse_name": "Mountain Dancer",
+        "total_score": 0.691,
+        "win_probability": 0.691,
+        "detailed_scores": {
+          "recent_form": 0.642,
+          "speed_figures": 0.739,
+          "class_rating": 0.617,
+          "pedigree_rating": 0.861,
+          "physical_fitness": 0.475,
+          "training_form": 0.838,
+          "track_suitability": 0.811,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.047
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.069
+      },
+      {
+        "horse_id": 28,
+        "horse_name": "Magic Boy",
+        "total_score": 0.691,
+        "win_probability": 0.691,
+        "detailed_scores": {
+          "recent_form": 0.451,
+          "speed_figures": 0.76,
+          "class_rating": 0.785,
+          "pedigree_rating": 0.923,
+          "physical_fitness": 0.9,
+          "training_form": 0.846,
+          "track_suitability": 0.838,
+          "pace_scenario": 0.432,
+          "betting_confidence": 0.047
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.069
+      },
+      {
+        "horse_id": 42,
+        "horse_name": "Dream",
+        "total_score": 0.683,
+        "win_probability": 0.683,
+        "detailed_scores": {
+          "recent_form": 0.639,
+          "speed_figures": 0.666,
+          "class_rating": 0.806,
+          "pedigree_rating": 1.083,
+          "physical_fitness": 0.475,
+          "training_form": 0.86,
+          "track_suitability": 0.773,
+          "pace_scenario": 0.595,
+          "betting_confidence": 0.048
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.068
+      },
+      {
+        "horse_id": 112,
+        "horse_name": "Force's",
+        "total_score": 0.678,
+        "win_probability": 0.678,
+        "detailed_scores": {
+          "recent_form": 0.505,
+          "speed_figures": 0.711,
+          "class_rating": 0.829,
+          "pedigree_rating": 1.17,
+          "physical_fitness": 0.522,
+          "training_form": 0.803,
+          "track_suitability": 0.86,
+          "pace_scenario": 0.456,
+          "betting_confidence": 0.035
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.067
+      },
+      {
+        "horse_id": 52,
+        "horse_name": "Crystal Strike",
+        "total_score": 0.673,
+        "win_probability": 0.673,
+        "detailed_scores": {
+          "recent_form": 0.624,
+          "speed_figures": 0.662,
+          "class_rating": 0.695,
+          "pedigree_rating": 1.0,
+          "physical_fitness": 0.589,
+          "training_form": 0.898,
+          "track_suitability": 0.865,
+          "pace_scenario": 0.456,
+          "betting_confidence": 0.061
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.067
+      },
+      {
+        "horse_id": 143,
+        "horse_name": "Ocean Jewel",
+        "total_score": 0.639,
+        "win_probability": 0.639,
+        "detailed_scores": {
+          "recent_form": 0.327,
+          "speed_figures": 0.648,
+          "class_rating": 0.823,
+          "pedigree_rating": 0.856,
+          "physical_fitness": 0.796,
+          "training_form": 0.895,
+          "track_suitability": 0.815,
+          "pace_scenario": 0.432,
+          "betting_confidence": 0.029
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.064
+      }
+    ],
+    "race_analysis": {
+      "field_size": 14,
+      "field_quality": "Average",
+      "pace_scenario": "Very Fast",
+      "weather": "Drizzle",
+      "track_condition": "Fast"
+    }
+  },
+  {
+    "race_id": 9,
+    "race_name": "Fillies Stakes",
+    "race_date": "2025-09-20",
+    "predictions": [
+      {
+        "horse_id": 146,
+        "horse_name": "Champion Grace",
+        "total_score": 0.794,
+        "win_probability": 0.794,
+        "detailed_scores": {
+          "recent_form": 0.862,
+          "speed_figures": 0.777,
+          "class_rating": 0.914,
+          "pedigree_rating": 1.047,
+          "physical_fitness": 0.517,
+          "training_form": 0.894,
+          "track_suitability": 0.734,
+          "pace_scenario": 1.0,
+          "betting_confidence": 0.099
+        },
+        "confidence": "High",
+        "normalized_probability": 0.086
+      },
+      {
+        "horse_id": 105,
+        "horse_name": "Flying Kingdom",
+        "total_score": 0.764,
+        "win_probability": 0.764,
+        "detailed_scores": {
+          "recent_form": 0.961,
+          "speed_figures": 0.588,
+          "class_rating": 0.746,
+          "pedigree_rating": 0.934,
+          "physical_fitness": 0.824,
+          "training_form": 0.912,
+          "track_suitability": 0.747,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.063
+        },
+        "confidence": "High",
+        "normalized_probability": 0.082
+      },
+      {
+        "horse_id": 41,
+        "horse_name": "Valley Fire",
+        "total_score": 0.763,
+        "win_probability": 0.763,
+        "detailed_scores": {
+          "recent_form": 0.82,
+          "speed_figures": 0.788,
+          "class_rating": 0.763,
+          "pedigree_rating": 1.036,
+          "physical_fitness": 0.495,
+          "training_form": 0.851,
+          "track_suitability": 0.837,
+          "pace_scenario": 0.85,
+          "betting_confidence": 0.105
+        },
+        "confidence": "High",
+        "normalized_probability": 0.082
+      },
+      {
+        "horse_id": 194,
+        "horse_name": "Magic Wind",
+        "total_score": 0.763,
+        "win_probability": 0.763,
+        "detailed_scores": {
+          "recent_form": 1.01,
+          "speed_figures": 0.637,
+          "class_rating": 0.874,
+          "pedigree_rating": 0.943,
+          "physical_fitness": 0.505,
+          "training_form": 0.829,
+          "track_suitability": 0.726,
+          "pace_scenario": 0.95,
+          "betting_confidence": 0.092
+        },
+        "confidence": "High",
+        "normalized_probability": 0.082
+      },
+      {
+        "horse_id": 22,
+        "horse_name": "Flying",
+        "total_score": 0.754,
+        "win_probability": 0.754,
+        "detailed_scores": {
+          "recent_form": 0.461,
+          "speed_figures": 0.696,
+          "class_rating": 0.84,
+          "pedigree_rating": 1.158,
+          "physical_fitness": 0.839,
+          "training_form": 0.86,
+          "track_suitability": 0.803,
+          "pace_scenario": 1.0,
+          "betting_confidence": 0.062
+        },
+        "confidence": "High",
+        "normalized_probability": 0.081
+      },
+      {
+        "horse_id": 151,
+        "horse_name": "Dancing Storm",
+        "total_score": 0.749,
+        "win_probability": 0.749,
+        "detailed_scores": {
+          "recent_form": 0.573,
+          "speed_figures": 0.784,
+          "class_rating": 0.746,
+          "pedigree_rating": 1.124,
+          "physical_fitness": 0.798,
+          "training_form": 0.926,
+          "track_suitability": 0.753,
+          "pace_scenario": 0.8,
+          "betting_confidence": 0.05
+        },
+        "confidence": "High",
+        "normalized_probability": 0.081
+      },
+      {
+        "horse_id": 148,
+        "horse_name": "Mountain Rhythm",
+        "total_score": 0.706,
+        "win_probability": 0.706,
+        "detailed_scores": {
+          "recent_form": 0.384,
+          "speed_figures": 0.753,
+          "class_rating": 0.933,
+          "pedigree_rating": 1.087,
+          "physical_fitness": 0.664,
+          "training_form": 0.884,
+          "track_suitability": 0.769,
+          "pace_scenario": 0.68,
+          "betting_confidence": 0.021
+        },
+        "confidence": "High",
+        "normalized_probability": 0.076
+      },
+      {
+        "horse_id": 124,
+        "horse_name": "Sunset Harmony",
+        "total_score": 0.704,
+        "win_probability": 0.704,
+        "detailed_scores": {
+          "recent_form": 0.762,
+          "speed_figures": 0.605,
+          "class_rating": 0.785,
+          "pedigree_rating": 0.945,
+          "physical_fitness": 0.67,
+          "training_form": 0.78,
+          "track_suitability": 0.744,
+          "pace_scenario": 0.765,
+          "betting_confidence": 0.082
+        },
+        "confidence": "High",
+        "normalized_probability": 0.076
+      },
+      {
+        "horse_id": 55,
+        "horse_name": "Victory Storm",
+        "total_score": 0.69,
+        "win_probability": 0.69,
+        "detailed_scores": {
+          "recent_form": 0.463,
+          "speed_figures": 0.594,
+          "class_rating": 0.831,
+          "pedigree_rating": 1.151,
+          "physical_fitness": 0.576,
+          "training_form": 0.932,
+          "track_suitability": 0.658,
+          "pace_scenario": 0.95,
+          "betting_confidence": 0.072
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.074
+      },
+      {
+        "horse_id": 5,
+        "horse_name": "Fire Spirit",
+        "total_score": 0.678,
+        "win_probability": 0.678,
+        "detailed_scores": {
+          "recent_form": 0.58,
+          "speed_figures": 0.587,
+          "class_rating": 0.591,
+          "pedigree_rating": 0.952,
+          "physical_fitness": 0.844,
+          "training_form": 0.871,
+          "track_suitability": 0.746,
+          "pace_scenario": 0.8,
+          "betting_confidence": 0.059
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.073
+      },
+      {
+        "horse_id": 183,
+        "horse_name": "Empire",
+        "total_score": 0.674,
+        "win_probability": 0.674,
+        "detailed_scores": {
+          "recent_form": 0.705,
+          "speed_figures": 0.527,
+          "class_rating": 0.762,
+          "pedigree_rating": 1.084,
+          "physical_fitness": 0.592,
+          "training_form": 0.88,
+          "track_suitability": 0.768,
+          "pace_scenario": 0.6,
+          "betting_confidence": 0.061
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.073
+      },
+      {
+        "horse_id": 56,
+        "horse_name": "Victory's",
+        "total_score": 0.631,
+        "win_probability": 0.631,
+        "detailed_scores": {
+          "recent_form": 0.562,
+          "speed_figures": 0.633,
+          "class_rating": 0.566,
+          "pedigree_rating": 0.932,
+          "physical_fitness": 0.508,
+          "training_form": 0.81,
+          "track_suitability": 0.741,
+          "pace_scenario": 0.68,
+          "betting_confidence": 0.107
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.068
+      },
+      {
+        "horse_id": 57,
+        "horse_name": "Charge Girl",
+        "total_score": 0.614,
+        "win_probability": 0.614,
+        "detailed_scores": {
+          "recent_form": 0.357,
+          "speed_figures": 0.574,
+          "class_rating": 0.632,
+          "pedigree_rating": 0.896,
+          "physical_fitness": 0.792,
+          "training_form": 0.797,
+          "track_suitability": 0.759,
+          "pace_scenario": 0.6,
+          "betting_confidence": 0.07
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.066
+      }
+    ],
+    "race_analysis": {
+      "field_size": 13,
+      "field_quality": "Weak",
+      "pace_scenario": "Moderate",
+      "weather": "Cold",
+      "track_condition": "Soft"
+    }
+  },
+  {
+    "race_id": 10,
+    "race_name": "Handicap Race",
+    "race_date": "2025-09-21",
+    "predictions": [
+      {
+        "horse_id": 120,
+        "horse_name": "Shining King",
+        "total_score": 0.795,
+        "win_probability": 0.795,
+        "detailed_scores": {
+          "recent_form": 1.037,
+          "speed_figures": 0.733,
+          "class_rating": 0.8,
+          "pedigree_rating": 1.057,
+          "physical_fitness": 0.57,
+          "training_form": 0.897,
+          "track_suitability": 0.8,
+          "pace_scenario": 0.85,
+          "betting_confidence": 0.045
+        },
+        "confidence": "High",
+        "normalized_probability": 0.061
+      },
+      {
+        "horse_id": 70,
+        "horse_name": "Prince Will",
+        "total_score": 0.787,
+        "win_probability": 0.787,
+        "detailed_scores": {
+          "recent_form": 0.816,
+          "speed_figures": 0.776,
+          "class_rating": 0.867,
+          "pedigree_rating": 1.005,
+          "physical_fitness": 0.778,
+          "training_form": 0.871,
+          "track_suitability": 0.882,
+          "pace_scenario": 0.68,
+          "betting_confidence": 0.077
+        },
+        "confidence": "High",
+        "normalized_probability": 0.061
+      },
+      {
+        "horse_id": 171,
+        "horse_name": "Legend Bolt",
+        "total_score": 0.767,
+        "win_probability": 0.767,
+        "detailed_scores": {
+          "recent_form": 1.079,
+          "speed_figures": 0.745,
+          "class_rating": 0.785,
+          "pedigree_rating": 1.029,
+          "physical_fitness": 0.534,
+          "training_form": 0.859,
+          "track_suitability": 0.849,
+          "pace_scenario": 0.54,
+          "betting_confidence": 0.026
+        },
+        "confidence": "High",
+        "normalized_probability": 0.059
+      },
+      {
+        "horse_id": 89,
+        "horse_name": "Victory Spirit",
+        "total_score": 0.758,
+        "win_probability": 0.758,
+        "detailed_scores": {
+          "recent_form": 0.958,
+          "speed_figures": 0.735,
+          "class_rating": 0.627,
+          "pedigree_rating": 0.852,
+          "physical_fitness": 0.595,
+          "training_form": 0.823,
+          "track_suitability": 0.898,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.012
+        },
+        "confidence": "High",
+        "normalized_probability": 0.058
+      },
+      {
+        "horse_id": 123,
+        "horse_name": "Noble Storm",
+        "total_score": 0.752,
+        "win_probability": 0.752,
+        "detailed_scores": {
+          "recent_form": 0.921,
+          "speed_figures": 0.717,
+          "class_rating": 0.657,
+          "pedigree_rating": 0.906,
+          "physical_fitness": 0.578,
+          "training_form": 0.821,
+          "track_suitability": 0.848,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.072
+        },
+        "confidence": "High",
+        "normalized_probability": 0.058
+      },
+      {
+        "horse_id": 104,
+        "horse_name": "Glory",
+        "total_score": 0.749,
+        "win_probability": 0.749,
+        "detailed_scores": {
+          "recent_form": 0.747,
+          "speed_figures": 0.783,
+          "class_rating": 0.667,
+          "pedigree_rating": 0.947,
+          "physical_fitness": 0.659,
+          "training_form": 0.939,
+          "track_suitability": 0.86,
+          "pace_scenario": 0.765,
+          "betting_confidence": 0.078
+        },
+        "confidence": "High",
+        "normalized_probability": 0.058
+      },
+      {
+        "horse_id": 21,
+        "horse_name": "Beat",
+        "total_score": 0.739,
+        "win_probability": 0.739,
+        "detailed_scores": {
+          "recent_form": 0.998,
+          "speed_figures": 0.857,
+          "class_rating": 0.625,
+          "pedigree_rating": 0.852,
+          "physical_fitness": 0.604,
+          "training_form": 0.733,
+          "track_suitability": 0.815,
+          "pace_scenario": 0.57,
+          "betting_confidence": 0.007
+        },
+        "confidence": "High",
+        "normalized_probability": 0.057
+      },
+      {
+        "horse_id": 140,
+        "horse_name": "Grace Boy",
+        "total_score": 0.738,
+        "win_probability": 0.738,
+        "detailed_scores": {
+          "recent_form": 0.824,
+          "speed_figures": 0.703,
+          "class_rating": 0.709,
+          "pedigree_rating": 0.967,
+          "physical_fitness": 0.49,
+          "training_form": 0.854,
+          "track_suitability": 0.864,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.01
+        },
+        "confidence": "High",
+        "normalized_probability": 0.057
+      },
+      {
+        "horse_id": 55,
+        "horse_name": "Victory Storm",
+        "total_score": 0.725,
+        "win_probability": 0.725,
+        "detailed_scores": {
+          "recent_form": 0.463,
+          "speed_figures": 0.594,
+          "class_rating": 0.924,
+          "pedigree_rating": 1.151,
+          "physical_fitness": 0.576,
+          "training_form": 0.932,
+          "track_suitability": 0.853,
+          "pace_scenario": 0.95,
+          "betting_confidence": 0.091
+        },
+        "confidence": "High",
+        "normalized_probability": 0.056
+      },
+      {
+        "horse_id": 102,
+        "horse_name": "Sunset Bolt",
+        "total_score": 0.716,
+        "win_probability": 0.716,
+        "detailed_scores": {
+          "recent_form": 0.541,
+          "speed_figures": 0.883,
+          "class_rating": 0.819,
+          "pedigree_rating": 0.979,
+          "physical_fitness": 0.509,
+          "training_form": 0.828,
+          "track_suitability": 0.767,
+          "pace_scenario": 0.68,
+          "betting_confidence": 0.091
+        },
+        "confidence": "High",
+        "normalized_probability": 0.055
+      },
+      {
+        "horse_id": 30,
+        "horse_name": "Shining Will",
+        "total_score": 0.711,
+        "win_probability": 0.711,
+        "detailed_scores": {
+          "recent_form": 0.54,
+          "speed_figures": 0.694,
+          "class_rating": 0.746,
+          "pedigree_rating": 1.028,
+          "physical_fitness": 0.74,
+          "training_form": 0.835,
+          "track_suitability": 0.826,
+          "pace_scenario": 0.76,
+          "betting_confidence": 0.066
+        },
+        "confidence": "High",
+        "normalized_probability": 0.055
+      },
+      {
+        "horse_id": 94,
+        "horse_name": "Light Boy",
+        "total_score": 0.707,
+        "win_probability": 0.707,
+        "detailed_scores": {
+          "recent_form": 0.601,
+          "speed_figures": 0.798,
+          "class_rating": 0.513,
+          "pedigree_rating": 0.807,
+          "physical_fitness": 0.731,
+          "training_form": 0.916,
+          "track_suitability": 0.903,
+          "pace_scenario": 0.72,
+          "betting_confidence": 0.091
+        },
+        "confidence": "High",
+        "normalized_probability": 0.055
+      },
+      {
+        "horse_id": 181,
+        "horse_name": "Thunder Tale",
+        "total_score": 0.694,
+        "win_probability": 0.694,
+        "detailed_scores": {
+          "recent_form": 0.541,
+          "speed_figures": 0.757,
+          "class_rating": 0.518,
+          "pedigree_rating": 0.861,
+          "physical_fitness": 0.857,
+          "training_form": 0.809,
+          "track_suitability": 0.895,
+          "pace_scenario": 0.68,
+          "betting_confidence": 0.091
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.054
+      },
+      {
+        "horse_id": 198,
+        "horse_name": "Mountain",
+        "total_score": 0.693,
+        "win_probability": 0.693,
+        "detailed_scores": {
+          "recent_form": 0.632,
+          "speed_figures": 0.648,
+          "class_rating": 0.64,
+          "pedigree_rating": 1.005,
+          "physical_fitness": 0.874,
+          "training_form": 0.816,
+          "track_suitability": 0.866,
+          "pace_scenario": 0.54,
+          "betting_confidence": 0.008
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.053
+      },
+      {
+        "horse_id": 136,
+        "horse_name": "Prince Strike",
+        "total_score": 0.693,
+        "win_probability": 0.693,
+        "detailed_scores": {
+          "recent_form": 0.637,
+          "speed_figures": 0.667,
+          "class_rating": 0.724,
+          "pedigree_rating": 0.813,
+          "physical_fitness": 0.759,
+          "training_form": 0.833,
+          "track_suitability": 0.887,
+          "pace_scenario": 0.6,
+          "betting_confidence": 0.053
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.053
+      },
+      {
+        "horse_id": 121,
+        "horse_name": "Valley Flyer",
+        "total_score": 0.65,
+        "win_probability": 0.65,
+        "detailed_scores": {
+          "recent_form": 0.527,
+          "speed_figures": 0.694,
+          "class_rating": 0.495,
+          "pedigree_rating": 0.826,
+          "physical_fitness": 0.583,
+          "training_form": 0.861,
+          "track_suitability": 0.807,
+          "pace_scenario": 0.8,
+          "betting_confidence": 0.048
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.05
+      },
+      {
+        "horse_id": 162,
+        "horse_name": "Crimson Throne",
+        "total_score": 0.646,
+        "win_probability": 0.646,
+        "detailed_scores": {
+          "recent_form": 0.701,
+          "speed_figures": 0.689,
+          "class_rating": 0.607,
+          "pedigree_rating": 0.764,
+          "physical_fitness": 0.511,
+          "training_form": 0.837,
+          "track_suitability": 0.826,
+          "pace_scenario": 0.51,
+          "betting_confidence": 0.013
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.05
+      },
+      {
+        "horse_id": 164,
+        "horse_name": "Fortune",
+        "total_score": 0.64,
+        "win_probability": 0.64,
+        "detailed_scores": {
+          "recent_form": 0.361,
+          "speed_figures": 0.715,
+          "class_rating": 0.493,
+          "pedigree_rating": 0.899,
+          "physical_fitness": 0.486,
+          "training_form": 0.867,
+          "track_suitability": 0.842,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.047
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.049
+      }
+    ],
+    "race_analysis": {
+      "field_size": 18,
+      "field_quality": "Strong",
+      "pace_scenario": "Moderate",
+      "weather": "Cold",
+      "track_condition": "Fast"
+    }
+  },
+  {
+    "race_id": 11,
+    "race_name": "Maiden Special",
+    "race_date": "2025-09-22",
+    "predictions": [
+      {
+        "horse_id": 45,
+        "horse_name": "Sunset Moon",
+        "total_score": 0.815,
+        "win_probability": 0.815,
+        "detailed_scores": {
+          "recent_form": 0.955,
+          "speed_figures": 0.655,
+          "class_rating": 0.857,
+          "pedigree_rating": 0.977,
+          "physical_fitness": 0.835,
+          "training_form": 0.87,
+          "track_suitability": 0.844,
+          "pace_scenario": 1.0,
+          "betting_confidence": 0.099
+        },
+        "confidence": "High",
+        "normalized_probability": 0.069
+      },
+      {
+        "horse_id": 108,
+        "horse_name": "King",
+        "total_score": 0.796,
+        "win_probability": 0.796,
+        "detailed_scores": {
+          "recent_form": 0.976,
+          "speed_figures": 0.654,
+          "class_rating": 0.8,
+          "pedigree_rating": 0.991,
+          "physical_fitness": 0.864,
+          "training_form": 0.897,
+          "track_suitability": 0.781,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.042
+        },
+        "confidence": "High",
+        "normalized_probability": 0.068
+      },
+      {
+        "horse_id": 171,
+        "horse_name": "Legend Bolt",
+        "total_score": 0.78,
+        "win_probability": 0.78,
+        "detailed_scores": {
+          "recent_form": 1.079,
+          "speed_figures": 0.745,
+          "class_rating": 0.883,
+          "pedigree_rating": 1.029,
+          "physical_fitness": 0.534,
+          "training_form": 0.859,
+          "track_suitability": 0.85,
+          "pace_scenario": 0.54,
+          "betting_confidence": 0.044
+        },
+        "confidence": "High",
+        "normalized_probability": 0.066
+      },
+      {
+        "horse_id": 100,
+        "horse_name": "Champion Runner",
+        "total_score": 0.777,
+        "win_probability": 0.777,
+        "detailed_scores": {
+          "recent_form": 0.758,
+          "speed_figures": 0.882,
+          "class_rating": 0.6,
+          "pedigree_rating": 0.902,
+          "physical_fitness": 0.775,
+          "training_form": 0.837,
+          "track_suitability": 0.847,
+          "pace_scenario": 0.96,
+          "betting_confidence": 0.011
+        },
+        "confidence": "High",
+        "normalized_probability": 0.066
+      },
+      {
+        "horse_id": 71,
+        "horse_name": "Midnight Adventure",
+        "total_score": 0.773,
+        "win_probability": 0.773,
+        "detailed_scores": {
+          "recent_form": 0.745,
+          "speed_figures": 0.765,
+          "class_rating": 0.81,
+          "pedigree_rating": 0.957,
+          "physical_fitness": 0.684,
+          "training_form": 0.902,
+          "track_suitability": 0.856,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.027
+        },
+        "confidence": "High",
+        "normalized_probability": 0.066
+      },
+      {
+        "horse_id": 75,
+        "horse_name": "Wonder Soul",
+        "total_score": 0.769,
+        "win_probability": 0.769,
+        "detailed_scores": {
+          "recent_form": 0.852,
+          "speed_figures": 0.659,
+          "class_rating": 0.686,
+          "pedigree_rating": 1.101,
+          "physical_fitness": 0.79,
+          "training_form": 0.83,
+          "track_suitability": 0.805,
+          "pace_scenario": 0.95,
+          "betting_confidence": 0.043
+        },
+        "confidence": "High",
+        "normalized_probability": 0.065
+      },
+      {
+        "horse_id": 82,
+        "horse_name": "Diamond Moon",
+        "total_score": 0.767,
+        "win_probability": 0.767,
+        "detailed_scores": {
+          "recent_form": 0.582,
+          "speed_figures": 0.736,
+          "class_rating": 0.831,
+          "pedigree_rating": 1.173,
+          "physical_fitness": 0.827,
+          "training_form": 0.775,
+          "track_suitability": 0.799,
+          "pace_scenario": 0.96,
+          "betting_confidence": 0.049
+        },
+        "confidence": "High",
+        "normalized_probability": 0.065
+      },
+      {
+        "horse_id": 187,
+        "horse_name": "Emerald",
+        "total_score": 0.746,
+        "win_probability": 0.746,
+        "detailed_scores": {
+          "recent_form": 0.676,
+          "speed_figures": 0.759,
+          "class_rating": 0.81,
+          "pedigree_rating": 0.973,
+          "physical_fitness": 0.535,
+          "training_form": 0.819,
+          "track_suitability": 0.82,
+          "pace_scenario": 0.95,
+          "betting_confidence": 0.107
+        },
+        "confidence": "High",
+        "normalized_probability": 0.063
+      },
+      {
+        "horse_id": 13,
+        "horse_name": "Valley Hope",
+        "total_score": 0.735,
+        "win_probability": 0.735,
+        "detailed_scores": {
+          "recent_form": 0.943,
+          "speed_figures": 0.635,
+          "class_rating": 0.686,
+          "pedigree_rating": 0.774,
+          "physical_fitness": 0.53,
+          "training_form": 0.885,
+          "track_suitability": 0.847,
+          "pace_scenario": 0.95,
+          "betting_confidence": 0.03
+        },
+        "confidence": "High",
+        "normalized_probability": 0.062
+      },
+      {
+        "horse_id": 125,
+        "horse_name": "Forest Rush",
+        "total_score": 0.727,
+        "win_probability": 0.727,
+        "detailed_scores": {
+          "recent_form": 0.854,
+          "speed_figures": 0.779,
+          "class_rating": 0.762,
+          "pedigree_rating": 0.859,
+          "physical_fitness": 0.656,
+          "training_form": 0.768,
+          "track_suitability": 0.763,
+          "pace_scenario": 0.6,
+          "betting_confidence": 0.088
+        },
+        "confidence": "High",
+        "normalized_probability": 0.062
+      },
+      {
+        "horse_id": 83,
+        "horse_name": "Dream",
+        "total_score": 0.727,
+        "win_probability": 0.727,
+        "detailed_scores": {
+          "recent_form": 0.712,
+          "speed_figures": 0.62,
+          "class_rating": 0.669,
+          "pedigree_rating": 1.021,
+          "physical_fitness": 0.759,
+          "training_form": 0.892,
+          "track_suitability": 0.826,
+          "pace_scenario": 0.864,
+          "betting_confidence": 0.029
+        },
+        "confidence": "High",
+        "normalized_probability": 0.062
+      },
+      {
+        "horse_id": 55,
+        "horse_name": "Victory Storm",
+        "total_score": 0.69,
+        "win_probability": 0.69,
+        "detailed_scores": {
+          "recent_form": 0.463,
+          "speed_figures": 0.594,
+          "class_rating": 0.647,
+          "pedigree_rating": 1.151,
+          "physical_fitness": 0.576,
+          "training_form": 0.932,
+          "track_suitability": 0.853,
+          "pace_scenario": 0.95,
+          "betting_confidence": 0.055
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.059
+      },
+      {
+        "horse_id": 174,
+        "horse_name": "Victory Queen",
+        "total_score": 0.684,
+        "win_probability": 0.684,
+        "detailed_scores": {
+          "recent_form": 0.563,
+          "speed_figures": 0.76,
+          "class_rating": 0.564,
+          "pedigree_rating": 0.875,
+          "physical_fitness": 0.579,
+          "training_form": 0.849,
+          "track_suitability": 0.781,
+          "pace_scenario": 0.855,
+          "betting_confidence": 0.1
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.058
+      },
+      {
+        "horse_id": 99,
+        "horse_name": "Queen Adventure",
+        "total_score": 0.672,
+        "win_probability": 0.672,
+        "detailed_scores": {
+          "recent_form": 0.376,
+          "speed_figures": 0.666,
+          "class_rating": 0.905,
+          "pedigree_rating": 0.934,
+          "physical_fitness": 0.766,
+          "training_form": 0.845,
+          "track_suitability": 0.838,
+          "pace_scenario": 0.54,
+          "betting_confidence": 0.017
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.057
+      },
+      {
+        "horse_id": 164,
+        "horse_name": "Fortune",
+        "total_score": 0.66,
+        "win_probability": 0.66,
+        "detailed_scores": {
+          "recent_form": 0.361,
+          "speed_figures": 0.715,
+          "class_rating": 0.705,
+          "pedigree_rating": 0.899,
+          "physical_fitness": 0.486,
+          "training_form": 0.867,
+          "track_suitability": 0.808,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.033
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.056
+      },
+      {
+        "horse_id": 56,
+        "horse_name": "Victory's",
+        "total_score": 0.652,
+        "win_probability": 0.652,
+        "detailed_scores": {
+          "recent_form": 0.562,
+          "speed_figures": 0.633,
+          "class_rating": 0.566,
+          "pedigree_rating": 0.932,
+          "physical_fitness": 0.508,
+          "training_form": 0.81,
+          "track_suitability": 0.793,
+          "pace_scenario": 0.816,
+          "betting_confidence": 0.125
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.055
+      }
+    ],
+    "race_analysis": {
+      "field_size": 16,
+      "field_quality": "Strong",
+      "pace_scenario": "Moderate",
+      "weather": "Cold",
+      "track_condition": "Yielding"
+    }
+  },
+  {
+    "race_id": 12,
+    "race_name": "Turf Championship",
+    "race_date": "2025-09-23",
+    "predictions": [
+      {
+        "horse_id": 117,
+        "horse_name": "Adventure Queen",
+        "total_score": 0.793,
+        "win_probability": 0.793,
+        "detailed_scores": {
+          "recent_form": 0.803,
+          "speed_figures": 0.77,
+          "class_rating": 0.648,
+          "pedigree_rating": 1.113,
+          "physical_fitness": 0.825,
+          "training_form": 0.834,
+          "track_suitability": 0.954,
+          "pace_scenario": 0.85,
+          "betting_confidence": 0.06
+        },
+        "confidence": "High",
+        "normalized_probability": 0.06
+      },
+      {
+        "horse_id": 100,
+        "horse_name": "Champion Runner",
+        "total_score": 0.779,
+        "win_probability": 0.779,
+        "detailed_scores": {
+          "recent_form": 0.758,
+          "speed_figures": 0.882,
+          "class_rating": 0.6,
+          "pedigree_rating": 0.902,
+          "physical_fitness": 0.775,
+          "training_form": 0.837,
+          "track_suitability": 0.817,
+          "pace_scenario": 1.0,
+          "betting_confidence": 0.047
+        },
+        "confidence": "High",
+        "normalized_probability": 0.059
+      },
+      {
+        "horse_id": 62,
+        "horse_name": "Brave Light",
+        "total_score": 0.775,
+        "win_probability": 0.775,
+        "detailed_scores": {
+          "recent_form": 0.512,
+          "speed_figures": 0.919,
+          "class_rating": 0.617,
+          "pedigree_rating": 1.069,
+          "physical_fitness": 0.801,
+          "training_form": 0.806,
+          "track_suitability": 0.937,
+          "pace_scenario": 0.95,
+          "betting_confidence": 0.047
+        },
+        "confidence": "High",
+        "normalized_probability": 0.059
+      },
+      {
+        "horse_id": 120,
+        "horse_name": "Shining King",
+        "total_score": 0.772,
+        "win_probability": 0.772,
+        "detailed_scores": {
+          "recent_form": 1.037,
+          "speed_figures": 0.733,
+          "class_rating": 0.72,
+          "pedigree_rating": 1.057,
+          "physical_fitness": 0.57,
+          "training_form": 0.897,
+          "track_suitability": 0.824,
+          "pace_scenario": 0.714,
+          "betting_confidence": 0.004
+        },
+        "confidence": "High",
+        "normalized_probability": 0.059
+      },
+      {
+        "horse_id": 41,
+        "horse_name": "Valley Fire",
+        "total_score": 0.761,
+        "win_probability": 0.761,
+        "detailed_scores": {
+          "recent_form": 0.82,
+          "speed_figures": 0.788,
+          "class_rating": 0.763,
+          "pedigree_rating": 1.036,
+          "physical_fitness": 0.495,
+          "training_form": 0.851,
+          "track_suitability": 0.951,
+          "pace_scenario": 0.714,
+          "betting_confidence": 0.06
+        },
+        "confidence": "High",
+        "normalized_probability": 0.058
+      },
+      {
+        "horse_id": 90,
+        "horse_name": "Dream Dream",
+        "total_score": 0.759,
+        "win_probability": 0.759,
+        "detailed_scores": {
+          "recent_form": 0.615,
+          "speed_figures": 0.848,
+          "class_rating": 0.591,
+          "pedigree_rating": 0.941,
+          "physical_fitness": 0.823,
+          "training_form": 0.87,
+          "track_suitability": 0.942,
+          "pace_scenario": 0.84,
+          "betting_confidence": 0.036
+        },
+        "confidence": "High",
+        "normalized_probability": 0.058
+      },
+      {
+        "horse_id": 153,
+        "horse_name": "Angel Sun",
+        "total_score": 0.748,
+        "win_probability": 0.748,
+        "detailed_scores": {
+          "recent_form": 0.734,
+          "speed_figures": 0.716,
+          "class_rating": 0.651,
+          "pedigree_rating": 1.082,
+          "physical_fitness": 0.79,
+          "training_form": 0.783,
+          "track_suitability": 0.855,
+          "pace_scenario": 0.85,
+          "betting_confidence": 0.023
+        },
+        "confidence": "High",
+        "normalized_probability": 0.057
+      },
+      {
+        "horse_id": 58,
+        "horse_name": "Midnight Tale",
+        "total_score": 0.745,
+        "win_probability": 0.745,
+        "detailed_scores": {
+          "recent_form": 0.717,
+          "speed_figures": 0.743,
+          "class_rating": 0.617,
+          "pedigree_rating": 0.857,
+          "physical_fitness": 0.785,
+          "training_form": 0.82,
+          "track_suitability": 0.837,
+          "pace_scenario": 1.0,
+          "betting_confidence": 0.04
+        },
+        "confidence": "High",
+        "normalized_probability": 0.057
+      },
+      {
+        "horse_id": 195,
+        "horse_name": "Storm Hope",
+        "total_score": 0.742,
+        "win_probability": 0.742,
+        "detailed_scores": {
+          "recent_form": 0.833,
+          "speed_figures": 0.779,
+          "class_rating": 0.643,
+          "pedigree_rating": 0.794,
+          "physical_fitness": 0.663,
+          "training_form": 0.846,
+          "track_suitability": 0.836,
+          "pace_scenario": 0.84,
+          "betting_confidence": 0.047
+        },
+        "confidence": "High",
+        "normalized_probability": 0.056
+      },
+      {
+        "horse_id": 61,
+        "horse_name": "Melody",
+        "total_score": 0.736,
+        "win_probability": 0.736,
+        "detailed_scores": {
+          "recent_form": 0.933,
+          "speed_figures": 0.672,
+          "class_rating": 0.626,
+          "pedigree_rating": 0.939,
+          "physical_fitness": 0.627,
+          "training_form": 0.805,
+          "track_suitability": 0.899,
+          "pace_scenario": 0.756,
+          "betting_confidence": 0.009
+        },
+        "confidence": "High",
+        "normalized_probability": 0.056
+      },
+      {
+        "horse_id": 50,
+        "horse_name": "Angel Hope",
+        "total_score": 0.73,
+        "win_probability": 0.73,
+        "detailed_scores": {
+          "recent_form": 0.75,
+          "speed_figures": 0.654,
+          "class_rating": 0.669,
+          "pedigree_rating": 1.126,
+          "physical_fitness": 0.655,
+          "training_form": 0.83,
+          "track_suitability": 0.832,
+          "pace_scenario": 0.84,
+          "betting_confidence": 0.011
+        },
+        "confidence": "High",
+        "normalized_probability": 0.055
+      },
+      {
+        "horse_id": 94,
+        "horse_name": "Light Boy",
+        "total_score": 0.728,
+        "win_probability": 0.728,
+        "detailed_scores": {
+          "recent_form": 0.601,
+          "speed_figures": 0.798,
+          "class_rating": 0.587,
+          "pedigree_rating": 0.807,
+          "physical_fitness": 0.731,
+          "training_form": 0.916,
+          "track_suitability": 0.888,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.005
+        },
+        "confidence": "High",
+        "normalized_probability": 0.055
+      },
+      {
+        "horse_id": 116,
+        "horse_name": "Flyer Girl",
+        "total_score": 0.71,
+        "win_probability": 0.71,
+        "detailed_scores": {
+          "recent_form": 0.758,
+          "speed_figures": 0.639,
+          "class_rating": 0.526,
+          "pedigree_rating": 0.731,
+          "physical_fitness": 0.776,
+          "training_form": 0.861,
+          "track_suitability": 0.911,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.029
+        },
+        "confidence": "High",
+        "normalized_probability": 0.054
+      },
+      {
+        "horse_id": 55,
+        "horse_name": "Victory Storm",
+        "total_score": 0.699,
+        "win_probability": 0.699,
+        "detailed_scores": {
+          "recent_form": 0.463,
+          "speed_figures": 0.594,
+          "class_rating": 0.831,
+          "pedigree_rating": 1.151,
+          "physical_fitness": 0.576,
+          "training_form": 0.932,
+          "track_suitability": 0.874,
+          "pace_scenario": 0.798,
+          "betting_confidence": 0.043
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.053
+      },
+      {
+        "horse_id": 121,
+        "horse_name": "Valley Flyer",
+        "total_score": 0.688,
+        "win_probability": 0.688,
+        "detailed_scores": {
+          "recent_form": 0.527,
+          "speed_figures": 0.694,
+          "class_rating": 0.557,
+          "pedigree_rating": 0.826,
+          "physical_fitness": 0.583,
+          "training_form": 0.861,
+          "track_suitability": 0.906,
+          "pace_scenario": 1.0,
+          "betting_confidence": 0.033
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.052
+      },
+      {
+        "horse_id": 124,
+        "horse_name": "Sunset Harmony",
+        "total_score": 0.673,
+        "win_probability": 0.673,
+        "detailed_scores": {
+          "recent_form": 0.762,
+          "speed_figures": 0.605,
+          "class_rating": 0.785,
+          "pedigree_rating": 0.945,
+          "physical_fitness": 0.67,
+          "training_form": 0.78,
+          "track_suitability": 0.864,
+          "pace_scenario": 0.34,
+          "betting_confidence": 0.009
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.051
+      },
+      {
+        "horse_id": 144,
+        "horse_name": "Beat",
+        "total_score": 0.672,
+        "win_probability": 0.672,
+        "detailed_scores": {
+          "recent_form": 0.216,
+          "speed_figures": 0.652,
+          "class_rating": 0.84,
+          "pedigree_rating": 0.845,
+          "physical_fitness": 0.868,
+          "training_form": 0.8,
+          "track_suitability": 0.86,
+          "pace_scenario": 0.85,
+          "betting_confidence": 0.032
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.051
+      },
+      {
+        "horse_id": 12,
+        "horse_name": "Swift Light",
+        "total_score": 0.659,
+        "win_probability": 0.659,
+        "detailed_scores": {
+          "recent_form": 0.363,
+          "speed_figures": 0.569,
+          "class_rating": 0.8,
+          "pedigree_rating": 0.879,
+          "physical_fitness": 0.713,
+          "training_form": 0.804,
+          "track_suitability": 0.86,
+          "pace_scenario": 0.85,
+          "betting_confidence": 0.014
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.05
+      }
+    ],
+    "race_analysis": {
+      "field_size": 18,
+      "field_quality": "Strong",
+      "pace_scenario": "Very Fast",
+      "weather": "Cold",
+      "track_condition": "Good"
+    }
+  },
+  {
+    "race_id": 13,
+    "race_name": "Juvenile Stakes",
+    "race_date": "2025-09-24",
+    "predictions": [
+      {
+        "horse_id": 166,
+        "horse_name": "Diamond Bolt",
+        "total_score": 0.753,
+        "win_probability": 0.753,
+        "detailed_scores": {
+          "recent_form": 0.828,
+          "speed_figures": 0.678,
+          "class_rating": 0.574,
+          "pedigree_rating": 0.919,
+          "physical_fitness": 0.884,
+          "training_form": 0.877,
+          "track_suitability": 0.781,
+          "pace_scenario": 0.95,
+          "betting_confidence": 0.065
+        },
+        "confidence": "High",
+        "normalized_probability": 0.108
+      },
+      {
+        "horse_id": 9,
+        "horse_name": "Dream King",
+        "total_score": 0.734,
+        "win_probability": 0.734,
+        "detailed_scores": {
+          "recent_form": 0.55,
+          "speed_figures": 0.7,
+          "class_rating": 0.709,
+          "pedigree_rating": 0.951,
+          "physical_fitness": 0.852,
+          "training_form": 0.82,
+          "track_suitability": 0.793,
+          "pace_scenario": 1.0,
+          "betting_confidence": 0.083
+        },
+        "confidence": "High",
+        "normalized_probability": 0.105
+      },
+      {
+        "horse_id": 149,
+        "horse_name": "Star Dancer",
+        "total_score": 0.722,
+        "win_probability": 0.722,
+        "detailed_scores": {
+          "recent_form": 0.89,
+          "speed_figures": 0.703,
+          "class_rating": 0.762,
+          "pedigree_rating": 1.127,
+          "physical_fitness": 0.579,
+          "training_form": 0.884,
+          "track_suitability": 0.802,
+          "pace_scenario": 0.36,
+          "betting_confidence": 0.101
+        },
+        "confidence": "High",
+        "normalized_probability": 0.103
+      },
+      {
+        "horse_id": 118,
+        "horse_name": "Heart Girl",
+        "total_score": 0.721,
+        "win_probability": 0.721,
+        "detailed_scores": {
+          "recent_form": 0.753,
+          "speed_figures": 0.735,
+          "class_rating": 0.905,
+          "pedigree_rating": 0.914,
+          "physical_fitness": 0.66,
+          "training_form": 0.835,
+          "track_suitability": 0.85,
+          "pace_scenario": 0.4,
+          "betting_confidence": 0.086
+        },
+        "confidence": "High",
+        "normalized_probability": 0.103
+      },
+      {
+        "horse_id": 148,
+        "horse_name": "Mountain Rhythm",
+        "total_score": 0.708,
+        "win_probability": 0.708,
+        "detailed_scores": {
+          "recent_form": 0.384,
+          "speed_figures": 0.753,
+          "class_rating": 0.747,
+          "pedigree_rating": 1.087,
+          "physical_fitness": 0.664,
+          "training_form": 0.884,
+          "track_suitability": 0.823,
+          "pace_scenario": 0.85,
+          "betting_confidence": 0.04
+        },
+        "confidence": "High",
+        "normalized_probability": 0.101
+      },
+      {
+        "horse_id": 124,
+        "horse_name": "Sunset Harmony",
+        "total_score": 0.692,
+        "win_probability": 0.692,
+        "detailed_scores": {
+          "recent_form": 0.762,
+          "speed_figures": 0.605,
+          "class_rating": 0.981,
+          "pedigree_rating": 0.945,
+          "physical_fitness": 0.67,
+          "training_form": 0.78,
+          "track_suitability": 0.772,
+          "pace_scenario": 0.34,
+          "betting_confidence": 0.136
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.099
+      },
+      {
+        "horse_id": 197,
+        "horse_name": "Destiny Boy",
+        "total_score": 0.681,
+        "win_probability": 0.681,
+        "detailed_scores": {
+          "recent_form": 0.691,
+          "speed_figures": 0.622,
+          "class_rating": 0.895,
+          "pedigree_rating": 0.962,
+          "physical_fitness": 0.623,
+          "training_form": 0.921,
+          "track_suitability": 0.733,
+          "pace_scenario": 0.4,
+          "betting_confidence": 0.097
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.098
+      },
+      {
+        "horse_id": 14,
+        "horse_name": "Dream Soul",
+        "total_score": 0.669,
+        "win_probability": 0.669,
+        "detailed_scores": {
+          "recent_form": 0.714,
+          "speed_figures": 0.723,
+          "class_rating": 0.711,
+          "pedigree_rating": 0.881,
+          "physical_fitness": 0.487,
+          "training_form": 0.845,
+          "track_suitability": 0.826,
+          "pace_scenario": 0.4,
+          "betting_confidence": 0.12
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.096
+      },
+      {
+        "horse_id": 139,
+        "horse_name": "Flyer",
+        "total_score": 0.657,
+        "win_probability": 0.657,
+        "detailed_scores": {
+          "recent_form": 0.119,
+          "speed_figures": 0.766,
+          "class_rating": 0.673,
+          "pedigree_rating": 0.863,
+          "physical_fitness": 0.769,
+          "training_form": 0.914,
+          "track_suitability": 0.787,
+          "pace_scenario": 0.84,
+          "betting_confidence": 0.155
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.094
+      },
+      {
+        "horse_id": 137,
+        "horse_name": "Prince Kingdom",
+        "total_score": 0.641,
+        "win_probability": 0.641,
+        "detailed_scores": {
+          "recent_form": 0.363,
+          "speed_figures": 0.787,
+          "class_rating": 0.883,
+          "pedigree_rating": 0.983,
+          "physical_fitness": 0.495,
+          "training_form": 0.832,
+          "track_suitability": 0.757,
+          "pace_scenario": 0.36,
+          "betting_confidence": 0.03
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.092
+      }
+    ],
+    "race_analysis": {
+      "field_size": 10,
+      "field_quality": "Strong",
+      "pace_scenario": "Very Fast",
+      "weather": "Fog",
+      "track_condition": "Soft"
+    }
+  },
+  {
+    "race_id": 14,
+    "race_name": "Oaks Trial",
+    "race_date": "2025-09-25",
+    "predictions": [
+      {
+        "horse_id": 191,
+        "horse_name": "Wonder's",
+        "total_score": 0.762,
+        "win_probability": 0.762,
+        "detailed_scores": {
+          "recent_form": 0.67,
+          "speed_figures": 0.69,
+          "class_rating": 0.632,
+          "pedigree_rating": 1.144,
+          "physical_fitness": 0.783,
+          "training_form": 0.875,
+          "track_suitability": 0.72,
+          "pace_scenario": 1.2,
+          "betting_confidence": 0.035
+        },
+        "confidence": "High",
+        "normalized_probability": 0.071
+      },
+      {
+        "horse_id": 69,
+        "horse_name": "Blazing Rush",
+        "total_score": 0.757,
+        "win_probability": 0.757,
+        "detailed_scores": {
+          "recent_form": 0.737,
+          "speed_figures": 0.641,
+          "class_rating": 0.66,
+          "pedigree_rating": 1.015,
+          "physical_fitness": 0.832,
+          "training_form": 0.903,
+          "track_suitability": 0.724,
+          "pace_scenario": 1.14,
+          "betting_confidence": 0.035
+        },
+        "confidence": "High",
+        "normalized_probability": 0.07
+      },
+      {
+        "horse_id": 89,
+        "horse_name": "Victory Spirit",
+        "total_score": 0.753,
+        "win_probability": 0.753,
+        "detailed_scores": {
+          "recent_form": 0.958,
+          "speed_figures": 0.735,
+          "class_rating": 0.895,
+          "pedigree_rating": 0.852,
+          "physical_fitness": 0.595,
+          "training_form": 0.823,
+          "track_suitability": 0.834,
+          "pace_scenario": 0.6,
+          "betting_confidence": 0.023
+        },
+        "confidence": "High",
+        "normalized_probability": 0.07
+      },
+      {
+        "horse_id": 83,
+        "horse_name": "Dream",
+        "total_score": 0.745,
+        "win_probability": 0.745,
+        "detailed_scores": {
+          "recent_form": 0.712,
+          "speed_figures": 0.62,
+          "class_rating": 0.669,
+          "pedigree_rating": 1.021,
+          "physical_fitness": 0.759,
+          "training_form": 0.892,
+          "track_suitability": 0.797,
+          "pace_scenario": 1.08,
+          "betting_confidence": 0.023
+        },
+        "confidence": "High",
+        "normalized_probability": 0.069
+      },
+      {
+        "horse_id": 179,
+        "horse_name": "Fire Song",
+        "total_score": 0.74,
+        "win_probability": 0.74,
+        "detailed_scores": {
+          "recent_form": 0.665,
+          "speed_figures": 0.901,
+          "class_rating": 0.579,
+          "pedigree_rating": 1.101,
+          "physical_fitness": 0.791,
+          "training_form": 0.941,
+          "track_suitability": 0.722,
+          "pace_scenario": 0.6,
+          "betting_confidence": 0.033
+        },
+        "confidence": "High",
+        "normalized_probability": 0.069
+      },
+      {
+        "horse_id": 51,
+        "horse_name": "Swift Myth",
+        "total_score": 0.739,
+        "win_probability": 0.739,
+        "detailed_scores": {
+          "recent_form": 0.867,
+          "speed_figures": 0.811,
+          "class_rating": 0.571,
+          "pedigree_rating": 0.934,
+          "physical_fitness": 0.708,
+          "training_form": 0.845,
+          "track_suitability": 0.73,
+          "pace_scenario": 0.765,
+          "betting_confidence": 0.02
+        },
+        "confidence": "High",
+        "normalized_probability": 0.069
+      },
+      {
+        "horse_id": 150,
+        "horse_name": "Destiny's",
+        "total_score": 0.729,
+        "win_probability": 0.729,
+        "detailed_scores": {
+          "recent_form": 0.945,
+          "speed_figures": 0.731,
+          "class_rating": 0.556,
+          "pedigree_rating": 0.863,
+          "physical_fitness": 0.559,
+          "training_form": 0.799,
+          "track_suitability": 0.817,
+          "pace_scenario": 0.855,
+          "betting_confidence": 0.042
+        },
+        "confidence": "High",
+        "normalized_probability": 0.068
+      },
+      {
+        "horse_id": 153,
+        "horse_name": "Angel Sun",
+        "total_score": 0.729,
+        "win_probability": 0.729,
+        "detailed_scores": {
+          "recent_form": 0.734,
+          "speed_figures": 0.716,
+          "class_rating": 0.651,
+          "pedigree_rating": 1.082,
+          "physical_fitness": 0.79,
+          "training_form": 0.783,
+          "track_suitability": 0.766,
+          "pace_scenario": 0.765,
+          "betting_confidence": 0.019
+        },
+        "confidence": "High",
+        "normalized_probability": 0.068
+      },
+      {
+        "horse_id": 44,
+        "horse_name": "Knight Wind",
+        "total_score": 0.72,
+        "win_probability": 0.72,
+        "detailed_scores": {
+          "recent_form": 0.804,
+          "speed_figures": 0.848,
+          "class_rating": 0.703,
+          "pedigree_rating": 0.912,
+          "physical_fitness": 0.502,
+          "training_form": 0.835,
+          "track_suitability": 0.808,
+          "pace_scenario": 0.57,
+          "betting_confidence": 0.027
+        },
+        "confidence": "High",
+        "normalized_probability": 0.067
+      },
+      {
+        "horse_id": 20,
+        "horse_name": "Silver Power",
+        "total_score": 0.713,
+        "win_probability": 0.713,
+        "detailed_scores": {
+          "recent_form": 0.727,
+          "speed_figures": 0.667,
+          "class_rating": 0.686,
+          "pedigree_rating": 0.965,
+          "physical_fitness": 0.789,
+          "training_form": 0.811,
+          "track_suitability": 0.751,
+          "pace_scenario": 0.765,
+          "betting_confidence": 0.021
+        },
+        "confidence": "High",
+        "normalized_probability": 0.066
+      },
+      {
+        "horse_id": 54,
+        "horse_name": "Crystal Pride",
+        "total_score": 0.713,
+        "win_probability": 0.713,
+        "detailed_scores": {
+          "recent_form": 0.532,
+          "speed_figures": 0.825,
+          "class_rating": 0.709,
+          "pedigree_rating": 0.987,
+          "physical_fitness": 0.573,
+          "training_form": 0.91,
+          "track_suitability": 0.731,
+          "pace_scenario": 0.855,
+          "betting_confidence": 0.009
+        },
+        "confidence": "High",
+        "normalized_probability": 0.066
+      },
+      {
+        "horse_id": 159,
+        "horse_name": "Royal Spirit",
+        "total_score": 0.679,
+        "win_probability": 0.679,
+        "detailed_scores": {
+          "recent_form": 0.565,
+          "speed_figures": 0.741,
+          "class_rating": 0.705,
+          "pedigree_rating": 1.025,
+          "physical_fitness": 0.676,
+          "training_form": 0.895,
+          "track_suitability": 0.733,
+          "pace_scenario": 0.51,
+          "betting_confidence": 0.02
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.063
+      },
+      {
+        "horse_id": 84,
+        "horse_name": "Magic Light",
+        "total_score": 0.674,
+        "win_probability": 0.674,
+        "detailed_scores": {
+          "recent_form": 0.327,
+          "speed_figures": 0.754,
+          "class_rating": 0.874,
+          "pedigree_rating": 0.866,
+          "physical_fitness": 0.661,
+          "training_form": 0.769,
+          "track_suitability": 0.798,
+          "pace_scenario": 0.765,
+          "betting_confidence": 0.004
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.063
+      },
+      {
+        "horse_id": 55,
+        "horse_name": "Victory Storm",
+        "total_score": 0.663,
+        "win_probability": 0.663,
+        "detailed_scores": {
+          "recent_form": 0.463,
+          "speed_figures": 0.594,
+          "class_rating": 0.647,
+          "pedigree_rating": 1.151,
+          "physical_fitness": 0.576,
+          "training_form": 0.932,
+          "track_suitability": 0.705,
+          "pace_scenario": 0.855,
+          "betting_confidence": 0.046
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.062
+      },
+      {
+        "horse_id": 144,
+        "horse_name": "Beat",
+        "total_score": 0.655,
+        "win_probability": 0.655,
+        "detailed_scores": {
+          "recent_form": 0.216,
+          "speed_figures": 0.652,
+          "class_rating": 0.84,
+          "pedigree_rating": 0.845,
+          "physical_fitness": 0.868,
+          "training_form": 0.8,
+          "track_suitability": 0.799,
+          "pace_scenario": 0.765,
+          "betting_confidence": 0.01
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.061
+      }
+    ],
+    "race_analysis": {
+      "field_size": 15,
+      "field_quality": "Average",
+      "pace_scenario": "Fast",
+      "weather": "Clear",
+      "track_condition": "Heavy"
+    }
+  },
+  {
+    "race_id": 15,
+    "race_name": "Cup Final",
+    "race_date": "2025-09-26",
+    "predictions": [
+      {
+        "horse_id": 27,
+        "horse_name": "Lightning Fortune",
+        "total_score": 0.805,
+        "win_probability": 0.805,
+        "detailed_scores": {
+          "recent_form": 1.032,
+          "speed_figures": 0.729,
+          "class_rating": 0.857,
+          "pedigree_rating": 1.056,
+          "physical_fitness": 0.57,
+          "training_form": 0.917,
+          "track_suitability": 0.76,
+          "pace_scenario": 0.95,
+          "betting_confidence": 0.009
+        },
+        "confidence": "High",
+        "normalized_probability": 0.064
+      },
+      {
+        "horse_id": 93,
+        "horse_name": "Desert",
+        "total_score": 0.804,
+        "win_probability": 0.804,
+        "detailed_scores": {
+          "recent_form": 0.945,
+          "speed_figures": 0.765,
+          "class_rating": 0.952,
+          "pedigree_rating": 0.857,
+          "physical_fitness": 0.612,
+          "training_form": 0.827,
+          "track_suitability": 0.814,
+          "pace_scenario": 1.0,
+          "betting_confidence": 0.028
+        },
+        "confidence": "High",
+        "normalized_probability": 0.064
+      },
+      {
+        "horse_id": 190,
+        "horse_name": "Shadow Grace",
+        "total_score": 0.785,
+        "win_probability": 0.785,
+        "detailed_scores": {
+          "recent_form": 0.812,
+          "speed_figures": 0.885,
+          "class_rating": 0.857,
+          "pedigree_rating": 0.852,
+          "physical_fitness": 0.513,
+          "training_form": 0.949,
+          "track_suitability": 0.805,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.027
+        },
+        "confidence": "High",
+        "normalized_probability": 0.062
+      },
+      {
+        "horse_id": 88,
+        "horse_name": "Sapphire Rhythm",
+        "total_score": 0.784,
+        "win_probability": 0.784,
+        "detailed_scores": {
+          "recent_form": 0.912,
+          "speed_figures": 0.695,
+          "class_rating": 0.771,
+          "pedigree_rating": 1.025,
+          "physical_fitness": 0.576,
+          "training_form": 0.836,
+          "track_suitability": 0.904,
+          "pace_scenario": 1.0,
+          "betting_confidence": 0.011
+        },
+        "confidence": "High",
+        "normalized_probability": 0.062
+      },
+      {
+        "horse_id": 80,
+        "horse_name": "Rhythm Girl",
+        "total_score": 0.778,
+        "win_probability": 0.778,
+        "detailed_scores": {
+          "recent_form": 0.99,
+          "speed_figures": 0.67,
+          "class_rating": 0.651,
+          "pedigree_rating": 0.984,
+          "physical_fitness": 0.722,
+          "training_form": 0.805,
+          "track_suitability": 0.829,
+          "pace_scenario": 1.0,
+          "betting_confidence": 0.054
+        },
+        "confidence": "High",
+        "normalized_probability": 0.062
+      },
+      {
+        "horse_id": 82,
+        "horse_name": "Diamond Moon",
+        "total_score": 0.778,
+        "win_probability": 0.778,
+        "detailed_scores": {
+          "recent_form": 0.582,
+          "speed_figures": 0.736,
+          "class_rating": 0.831,
+          "pedigree_rating": 1.173,
+          "physical_fitness": 0.827,
+          "training_form": 0.775,
+          "track_suitability": 0.85,
+          "pace_scenario": 1.0,
+          "betting_confidence": 0.063
+        },
+        "confidence": "High",
+        "normalized_probability": 0.062
+      },
+      {
+        "horse_id": 182,
+        "horse_name": "Royal Destiny",
+        "total_score": 0.765,
+        "win_probability": 0.765,
+        "detailed_scores": {
+          "recent_form": 0.867,
+          "speed_figures": 0.66,
+          "class_rating": 0.746,
+          "pedigree_rating": 1.124,
+          "physical_fitness": 0.669,
+          "training_form": 0.837,
+          "track_suitability": 0.802,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.073
+        },
+        "confidence": "High",
+        "normalized_probability": 0.061
+      },
+      {
+        "horse_id": 79,
+        "horse_name": "Royal Mind",
+        "total_score": 0.759,
+        "win_probability": 0.759,
+        "detailed_scores": {
+          "recent_form": 0.943,
+          "speed_figures": 0.572,
+          "class_rating": 0.848,
+          "pedigree_rating": 0.982,
+          "physical_fitness": 0.759,
+          "training_form": 0.812,
+          "track_suitability": 0.838,
+          "pace_scenario": 0.81,
+          "betting_confidence": 0.011
+        },
+        "confidence": "High",
+        "normalized_probability": 0.06
+      },
+      {
+        "horse_id": 51,
+        "horse_name": "Swift Myth",
+        "total_score": 0.749,
+        "win_probability": 0.749,
+        "detailed_scores": {
+          "recent_form": 0.867,
+          "speed_figures": 0.811,
+          "class_rating": 0.571,
+          "pedigree_rating": 0.934,
+          "physical_fitness": 0.708,
+          "training_form": 0.845,
+          "track_suitability": 0.799,
+          "pace_scenario": 0.765,
+          "betting_confidence": 0.051
+        },
+        "confidence": "High",
+        "normalized_probability": 0.059
+      },
+      {
+        "horse_id": 50,
+        "horse_name": "Angel Hope",
+        "total_score": 0.731,
+        "win_probability": 0.731,
+        "detailed_scores": {
+          "recent_form": 0.75,
+          "speed_figures": 0.654,
+          "class_rating": 0.52,
+          "pedigree_rating": 1.126,
+          "physical_fitness": 0.655,
+          "training_form": 0.83,
+          "track_suitability": 0.922,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.044
+        },
+        "confidence": "High",
+        "normalized_probability": 0.058
+      },
+      {
+        "horse_id": 77,
+        "horse_name": "Brave Beauty",
+        "total_score": 0.73,
+        "win_probability": 0.73,
+        "detailed_scores": {
+          "recent_form": 0.534,
+          "speed_figures": 0.759,
+          "class_rating": 0.905,
+          "pedigree_rating": 0.986,
+          "physical_fitness": 0.586,
+          "training_form": 0.903,
+          "track_suitability": 0.841,
+          "pace_scenario": 0.765,
+          "betting_confidence": 0.057
+        },
+        "confidence": "High",
+        "normalized_probability": 0.058
+      },
+      {
+        "horse_id": 170,
+        "horse_name": "Diamond",
+        "total_score": 0.73,
+        "win_probability": 0.73,
+        "detailed_scores": {
+          "recent_form": 0.872,
+          "speed_figures": 0.607,
+          "class_rating": 0.453,
+          "pedigree_rating": 0.941,
+          "physical_fitness": 0.869,
+          "training_form": 0.785,
+          "track_suitability": 0.88,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.047
+        },
+        "confidence": "High",
+        "normalized_probability": 0.058
+      },
+      {
+        "horse_id": 4,
+        "horse_name": "Wind Runner",
+        "total_score": 0.727,
+        "win_probability": 0.727,
+        "detailed_scores": {
+          "recent_form": 0.78,
+          "speed_figures": 0.742,
+          "class_rating": 0.655,
+          "pedigree_rating": 1.004,
+          "physical_fitness": 0.58,
+          "training_form": 0.794,
+          "track_suitability": 0.823,
+          "pace_scenario": 0.81,
+          "betting_confidence": 0.028
+        },
+        "confidence": "High",
+        "normalized_probability": 0.058
+      },
+      {
+        "horse_id": 161,
+        "horse_name": "Ocean Speed",
+        "total_score": 0.716,
+        "win_probability": 0.716,
+        "detailed_scores": {
+          "recent_form": 0.705,
+          "speed_figures": 0.751,
+          "class_rating": 0.701,
+          "pedigree_rating": 0.9,
+          "physical_fitness": 0.473,
+          "training_form": 0.865,
+          "track_suitability": 0.808,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.015
+        },
+        "confidence": "High",
+        "normalized_probability": 0.057
+      },
+      {
+        "horse_id": 91,
+        "horse_name": "Diamond's",
+        "total_score": 0.679,
+        "win_probability": 0.679,
+        "detailed_scores": {
+          "recent_form": 0.437,
+          "speed_figures": 0.709,
+          "class_rating": 0.709,
+          "pedigree_rating": 0.907,
+          "physical_fitness": 0.711,
+          "training_form": 0.768,
+          "track_suitability": 0.781,
+          "pace_scenario": 0.855,
+          "betting_confidence": 0.044
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.054
+      },
+      {
+        "horse_id": 34,
+        "horse_name": "Hope",
+        "total_score": 0.674,
+        "win_probability": 0.674,
+        "detailed_scores": {
+          "recent_form": 0.616,
+          "speed_figures": 0.69,
+          "class_rating": 0.593,
+          "pedigree_rating": 1.081,
+          "physical_fitness": 0.553,
+          "training_form": 0.884,
+          "track_suitability": 0.718,
+          "pace_scenario": 0.72,
+          "betting_confidence": 0.034
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.053
+      },
+      {
+        "horse_id": 39,
+        "horse_name": "Storm Grace",
+        "total_score": 0.634,
+        "win_probability": 0.634,
+        "detailed_scores": {
+          "recent_form": 0.482,
+          "speed_figures": 0.617,
+          "class_rating": 0.467,
+          "pedigree_rating": 0.962,
+          "physical_fitness": 0.476,
+          "training_form": 0.84,
+          "track_suitability": 0.814,
+          "pace_scenario": 0.9,
+          "betting_confidence": 0.053
+        },
+        "confidence": "Medium",
+        "normalized_probability": 0.05
+      }
+    ],
+    "race_analysis": {
+      "field_size": 17,
+      "field_quality": "Average",
+      "pace_scenario": "Fast",
+      "weather": "Cold",
+      "track_condition": "Yielding"
+    }
+  }
+]

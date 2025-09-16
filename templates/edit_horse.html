@@ -1,0 +1,362 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Horse - {{ horse.name }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>
+        <i class="fas fa-edit me-2"></i>
+        Edit Horse: {{ horse.name }}
+    </h1>
+    <a href="{{ url_for('races') }}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-1"></i>
+        Back to Races
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <div class="card">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    <i class="fas fa-horse me-2"></i>
+                    Update Enhanced Horse Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <!-- Basic Information Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Basic Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.name.label(class="form-label") }}
+                                    {{ form.name(class="form-control") }}
+                                    {% if form.name.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.name.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-2">
+                                    {{ form.age.label(class="form-label") }}
+                                    {{ form.age(class="form-control") }}
+                                    {% if form.age.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.age.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.sex.label(class="form-label") }}
+                                    {{ form.sex(class="form-control") }}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.color.label(class="form-label") }}
+                                    {{ form.color(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.breed.label(class="form-label") }}
+                                    {{ form.breed(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.height.label(class="form-label") }}
+                                    {{ form.height(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.markings.label(class="form-label") }}
+                                    {{ form.markings(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pedigree Information Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0"><i class="fas fa-sitemap me-2"></i>Pedigree Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.sire.label(class="form-label") }}
+                                    {{ form.sire(class="form-control") }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.dam.label(class="form-label") }}
+                                    {{ form.dam(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.sire_line.label(class="form-label") }}
+                                    {{ form.sire_line(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.dam_line.label(class="form-label") }}
+                                    {{ form.dam_line(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.breeding_value.label(class="form-label") }}
+                                    {{ form.breeding_value(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Connections Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h6 class="mb-0"><i class="fas fa-users me-2"></i>Connections</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.trainer.label(class="form-label") }}
+                                    {{ form.trainer(class="form-control") }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.jockey.label(class="form-label") }}
+                                    {{ form.jockey(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.owner.label(class="form-label") }}
+                                    {{ form.owner(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.breeder.label(class="form-label") }}
+                                    {{ form.breeder(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.stable.label(class="form-label") }}
+                                    {{ form.stable(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Physical Attributes Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0"><i class="fas fa-weight me-2"></i>Physical Attributes</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    {{ form.weight.label(class="form-label") }}
+                                    {{ form.weight(class="form-control") }}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.body_condition.label(class="form-label") }}
+                                    {{ form.body_condition(class="form-control") }}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.conformation_score.label(class="form-label") }}
+                                    {{ form.conformation_score(class="form-control") }}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.temperament.label(class="form-label") }}
+                                    {{ form.temperament(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Analytics Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            <h6 class="mb-0"><i class="fas fa-chart-line me-2"></i>Performance Analytics</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.speed_rating.label(class="form-label") }}
+                                    {{ form.speed_rating(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.class_rating.label(class="form-label") }}
+                                    {{ form.class_rating(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.fitness_level.label(class="form-label") }}
+                                    {{ form.fitness_level(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.form_rating.label(class="form-label") }}
+                                    {{ form.form_rating(class="form-control") }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.consistency_rating.label(class="form-label") }}
+                                    {{ form.consistency_rating(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Training & Fitness Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-warning text-dark">
+                            <h6 class="mb-0"><i class="fas fa-dumbbell me-2"></i>Training & Fitness</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.training_intensity.label(class="form-label") }}
+                                    {{ form.training_intensity(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.last_workout_date.label(class="form-label") }}
+                                    {{ form.last_workout_date(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.workout_quality.label(class="form-label") }}
+                                    {{ form.workout_quality(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.recovery_time.label(class="form-label") }}
+                                    {{ form.recovery_time(class="form-control") }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.injury_history.label(class="form-label") }}
+                                    {{ form.injury_history(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Behavioral & Racing Style Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-dark text-white">
+                            <h6 class="mb-0"><i class="fas fa-brain me-2"></i>Behavioral & Racing Style</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.racing_style.label(class="form-label") }}
+                                    {{ form.racing_style(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.preferred_distance.label(class="form-label") }}
+                                    {{ form.preferred_distance(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.track_preference.label(class="form-label") }}
+                                    {{ form.track_preference(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.equipment_used.label(class="form-label") }}
+                                    {{ form.equipment_used(class="form-control") }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.medication_notes.label(class="form-label") }}
+                                    {{ form.medication_notes(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Financial Information Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0"><i class="fas fa-dollar-sign me-2"></i>Financial Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.purchase_price.label(class="form-label") }}
+                                    {{ form.purchase_price(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.current_value.label(class="form-label") }}
+                                    {{ form.current_value(class="form-control") }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.insurance_value.label(class="form-label") }}
+                                    {{ form.insurance_value(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.stud_fee.label(class="form-label") }}
+                                    {{ form.stud_fee(class="form-control") }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.syndication_details.label(class="form-label") }}
+                                    {{ form.syndication_details(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Notes Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-light text-dark">
+                            <h6 class="mb-0"><i class="fas fa-sticky-note me-2"></i>Additional Notes</h6>
+                        </div>
+                        <div class="card-body">
+                            {{ form.additional_notes.label(class="form-label") }}
+                            {{ form.additional_notes(class="form-control", rows="4") }}
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('races') }}" class="btn btn-secondary me-md-2">
+                            <i class="fas fa-times me-1"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save me-1"></i>Update Horse
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Enhancement Tips</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Performance Data</h6>
+                        <ul class="small">
+                            <li>Speed ratings help compare horses across different races</li>
+                            <li>Class ratings indicate the level of competition the horse can handle</li>
+                            <li>Fitness levels should reflect recent training and race activity</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Training Information</h6>
+                        <ul class="small">
+                            <li>Training intensity affects race readiness</li>
+                            <li>Recent workout quality indicates current form</li>
+                            <li>Recovery time between races is crucial for performance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

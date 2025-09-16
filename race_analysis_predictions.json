@@ -1,0 +1,920 @@
+{
+  "timestamp": "2025-09-16T16:01:38.543481",
+  "top_races": [
+    {
+      "id": 12,
+      "name": "Turf Championship",
+      "date": "2025-09-23",
+      "location": "Santa Anita",
+      "distance": "2200m",
+      "track_condition": "Good",
+      "race_type": "Claiming",
+      "purse": 150000.0,
+      "horse_ids": [
+        12,
+        58,
+        90,
+        120,
+        50,
+        61,
+        62,
+        117,
+        55,
+        121,
+        41,
+        116,
+        144,
+        94,
+        195,
+        124,
+        153,
+        100
+      ],
+      "results": {},
+      "status": "upcoming"
+    },
+    {
+      "id": 10,
+      "name": "Handicap Race",
+      "date": "2025-09-21",
+      "location": "Keeneland",
+      "distance": "1800m",
+      "track_condition": "Heavy",
+      "race_type": "Maiden",
+      "purse": 90000.0,
+      "horse_ids": [
+        102,
+        104,
+        21,
+        121,
+        162,
+        198,
+        55,
+        171,
+        140,
+        89,
+        70,
+        136,
+        164,
+        123,
+        181,
+        94,
+        30,
+        120
+      ],
+      "results": {},
+      "status": "upcoming"
+    },
+    {
+      "id": 15,
+      "name": "Cup Final",
+      "date": "2025-09-26",
+      "location": "Saratoga",
+      "distance": "2400m",
+      "track_condition": "Good",
+      "race_type": "Stakes",
+      "purse": 200000.0,
+      "horse_ids": [
+        93,
+        182,
+        190,
+        161,
+        50,
+        91,
+        34,
+        79,
+        4,
+        39,
+        80,
+        51,
+        27,
+        88,
+        82,
+        77,
+        170
+      ],
+      "results": {},
+      "status": "upcoming"
+    },
+    {
+      "id": 3,
+      "name": "Sample Stakes Race 3",
+      "date": "2025-09-18",
+      "location": "Sample Track 3",
+      "distance": "1600m",
+      "track_condition": "Good",
+      "race_type": null,
+      "purse": 70000.0,
+      "horse_ids": [
+        27,
+        29,
+        102,
+        64,
+        153,
+        41,
+        148,
+        99,
+        199,
+        159,
+        104,
+        124,
+        144,
+        52,
+        67,
+        24
+      ],
+      "results": {},
+      "status": "upcoming"
+    },
+    {
+      "id": 6,
+      "name": "Sprint Championship",
+      "date": "2025-09-17",
+      "location": "Churchill Downs",
+      "distance": "1000m",
+      "track_condition": "Heavy",
+      "race_type": "Stakes",
+      "purse": 80000.0,
+      "horse_ids": [
+        173,
+        157,
+        3,
+        137,
+        165,
+        39,
+        7,
+        123,
+        58,
+        15,
+        198,
+        25,
+        70,
+        112,
+        195
+      ],
+      "results": {},
+      "status": "upcoming"
+    }
+  ],
+  "race_analysis": [
+    {
+      "race_id": 12,
+      "race_name": "Turf Championship",
+      "data_score": 441.5,
+      "horse_count": 18,
+      "total_performances": 523,
+      "competitiveness": 0
+    },
+    {
+      "race_id": 10,
+      "race_name": "Handicap Race",
+      "data_score": 436.5,
+      "horse_count": 18,
+      "total_performances": 513,
+      "competitiveness": 0
+    },
+    {
+      "race_id": 15,
+      "race_name": "Cup Final",
+      "data_score": 434.0,
+      "horse_count": 17,
+      "total_performances": 528,
+      "competitiveness": 0
+    },
+    {
+      "race_id": 3,
+      "race_name": "Sample Stakes Race 3",
+      "data_score": 378.0,
+      "horse_count": 16,
+      "total_performances": 436,
+      "competitiveness": 0
+    },
+    {
+      "race_id": 6,
+      "race_name": "Sprint Championship",
+      "data_score": 374.5,
+      "horse_count": 15,
+      "total_performances": 449,
+      "competitiveness": 0
+    }
+  ],
+  "predictions": [
+    {
+      "race_id": 12,
+      "race_name": "Turf Championship",
+      "predictions": [
+        {
+          "horse_id": 195,
+          "horse_name": "Storm Hope",
+          "score": 78.67692307692307,
+          "win_probability": 0.06295985879587596,
+          "place_probability": 0.09443978819381393,
+          "show_probability": 0.1259197175917519
+        },
+        {
+          "horse_id": 100,
+          "horse_name": "Champion Runner",
+          "score": 77.4,
+          "win_probability": 0.0557442206964894,
+          "place_probability": 0.092907034494149,
+          "show_probability": 0.12387604599219866
+        },
+        {
+          "horse_id": 116,
+          "horse_name": "Flyer Girl",
+          "score": 76.38518518518518,
+          "win_probability": 0.04890074787143468,
+          "place_probability": 0.09168890225894002,
+          "show_probability": 0.1222518696785867
+        },
+        {
+          "horse_id": 90,
+          "horse_name": "Dream Dream",
+          "score": 75.37142857142857,
+          "win_probability": 0.042220285442819125,
+          "place_probability": 0.09047204023461242,
+          "show_probability": 0.12062938697948322
+        },
+        {
+          "horse_id": 94,
+          "horse_name": "Light Boy",
+          "score": 74.17931034482758,
+          "win_probability": 0.0356164327904862,
+          "place_probability": 0.0890410819762155,
+          "show_probability": 0.118721442634954
+        },
+        {
+          "horse_id": 50,
+          "horse_name": "Angel Hope",
+          "score": 73.73333333333333,
+          "win_probability": 0.02950191793009727,
+          "place_probability": 0.08850575379029181,
+          "show_probability": 0.11800767172038908
+        },
+        {
+          "horse_id": 117,
+          "horse_name": "Adventure Queen",
+          "score": 72.1,
+          "win_probability": 0.02307871554531659,
+          "place_probability": 0.08654518329493723,
+          "show_probability": 0.11539357772658297
+        },
+        {
+          "horse_id": 62,
+          "horse_name": "Brave Light",
+          "score": 71.15862068965518,
+          "win_probability": 0.017083039862971206,
+          "place_probability": 0.08541519931485604,
+          "show_probability": 0.11388693241980806
+        },
+        {
+          "horse_id": 61,
+          "horse_name": "Melody",
+          "score": 69.2,
+          "win_probability": 0.011075222716615174,
+          "place_probability": 0.08306417037461383,
+          "show_probability": 0.11075222716615177
+        },
+        {
+          "horse_id": 41,
+          "horse_name": "Valley Fire",
+          "score": 68.77142857142857,
+          "win_probability": 0.005503315664511299,
+          "place_probability": 0.08254973496766949,
+          "show_probability": 0.11006631329022598
+        },
+        {
+          "horse_id": 120,
+          "horse_name": "Shining King",
+          "score": 68.54545454545455,
+          "win_probability": 0.005485232480509619,
+          "place_probability": 0.08227848720764427,
+          "show_probability": 0.10970464961019237
+        },
+        {
+          "horse_id": 124,
+          "horse_name": "Sunset Harmony",
+          "score": 67.6,
+          "win_probability": 0.005409574101468107,
+          "place_probability": 0.0811436115220216,
+          "show_probability": 0.10819148202936213
+        },
+        {
+          "horse_id": 153,
+          "horse_name": "Angel Sun",
+          "score": 66.6,
+          "win_probability": 0.00532955081594343,
+          "place_probability": 0.07994326223915145,
+          "show_probability": 0.1065910163188686
+        },
+        {
+          "horse_id": 58,
+          "horse_name": "Midnight Tale",
+          "score": 63.62758620689655,
+          "win_probability": 0.005091688498280428,
+          "place_probability": 0.07637532747420642,
+          "show_probability": 0.10183376996560856
+        },
+        {
+          "horse_id": 12,
+          "horse_name": "Swift Light",
+          "score": 63.333333333333336,
+          "win_probability": 0.005068141416562822,
+          "place_probability": 0.07602212124844233,
+          "show_probability": 0.10136282833125644
+        },
+        {
+          "horse_id": 121,
+          "horse_name": "Valley Flyer",
+          "score": 62.73548387096774,
+          "win_probability": 0.005020299538335166,
+          "place_probability": 0.07530449307502748,
+          "show_probability": 0.10040599076670331
+        },
+        {
+          "horse_id": 144,
+          "horse_name": "Beat",
+          "score": 61.81818181818182,
+          "win_probability": 0.004946894014252707,
+          "place_probability": 0.07420341021379061,
+          "show_probability": 0.09893788028505414
+        },
+        {
+          "horse_id": 55,
+          "horse_name": "Victory Storm",
+          "score": 58.4,
+          "win_probability": 0.004673359874641086,
+          "place_probability": 0.07010039811961628,
+          "show_probability": 0.09346719749282172
+        }
+      ],
+      "analysis": {},
+      "confidence": 0.5,
+      "method": "Form Analysis"
+    },
+    {
+      "race_id": 10,
+      "race_name": "Handicap Race",
+      "predictions": [
+        {
+          "horse_id": 171,
+          "horse_name": "Legend Bolt",
+          "score": 90.0,
+          "win_probability": 0.07377961523141109,
+          "place_probability": 0.11066942284711664,
+          "show_probability": 0.14755923046282218
+        },
+        {
+          "horse_id": 140,
+          "horse_name": "Grace Boy",
+          "score": 75.08888888888889,
+          "win_probability": 0.05540029330376402,
+          "place_probability": 0.09233382217294003,
+          "show_probability": 0.12311176289725337
+        },
+        {
+          "horse_id": 21,
+          "horse_name": "Beat",
+          "score": 74.3027027027027,
+          "win_probability": 0.04872910947608297,
+          "place_probability": 0.09136708026765557,
+          "show_probability": 0.12182277369020743
+        },
+        {
+          "horse_id": 30,
+          "horse_name": "Shining Will",
+          "score": 73.91724137931035,
+          "win_probability": 0.042416777106144436,
+          "place_probability": 0.09089309379888094,
+          "show_probability": 0.12119079173184125
+        },
+        {
+          "horse_id": 162,
+          "horse_name": "Crimson Throne",
+          "score": 73.45882352941177,
+          "win_probability": 0.03613175823568085,
+          "place_probability": 0.09032939558920214,
+          "show_probability": 0.12043919411893618
+        },
+        {
+          "horse_id": 120,
+          "horse_name": "Shining King",
+          "score": 72.54545454545455,
+          "win_probability": 0.029735420684174774,
+          "place_probability": 0.08920626205252433,
+          "show_probability": 0.1189416827366991
+        },
+        {
+          "horse_id": 70,
+          "horse_name": "Prince Will",
+          "score": 70.04444444444444,
+          "win_probability": 0.022968231823151376,
+          "place_probability": 0.08613086933681768,
+          "show_probability": 0.1148411591157569
+        },
+        {
+          "horse_id": 198,
+          "horse_name": "Mountain",
+          "score": 68.21818181818182,
+          "win_probability": 0.01677703735443966,
+          "place_probability": 0.0838851867721983,
+          "show_probability": 0.11184691569626441
+        },
+        {
+          "horse_id": 123,
+          "horse_name": "Noble Storm",
+          "score": 66.86956521739131,
+          "win_probability": 0.01096357953873529,
+          "place_probability": 0.0822268465405147,
+          "show_probability": 0.10963579538735292
+        },
+        {
+          "horse_id": 94,
+          "horse_name": "Light Boy",
+          "score": 66.17931034482758,
+          "win_probability": 0.005425204503912803,
+          "place_probability": 0.08137806755869205,
+          "show_probability": 0.10850409007825607
+        },
+        {
+          "horse_id": 89,
+          "horse_name": "Victory Spirit",
+          "score": 65.2,
+          "win_probability": 0.005344923236764449,
+          "place_probability": 0.08017384855146673,
+          "show_probability": 0.10689846473528897
+        },
+        {
+          "horse_id": 181,
+          "horse_name": "Thunder Tale",
+          "score": 64.86486486486487,
+          "win_probability": 0.005317449746408007,
+          "place_probability": 0.0797617461961201,
+          "show_probability": 0.10634899492816013
+        },
+        {
+          "horse_id": 136,
+          "horse_name": "Prince Strike",
+          "score": 62.77142857142857,
+          "win_probability": 0.005145835386140006,
+          "place_probability": 0.07718753079210008,
+          "show_probability": 0.10291670772280011
+        },
+        {
+          "horse_id": 121,
+          "horse_name": "Valley Flyer",
+          "score": 62.73548387096774,
+          "win_probability": 0.00514288873484044,
+          "place_probability": 0.0771433310226066,
+          "show_probability": 0.1028577746968088
+        },
+        {
+          "horse_id": 102,
+          "horse_name": "Sunset Bolt",
+          "score": 61.53846153846154,
+          "win_probability": 0.005044760015822981,
+          "place_probability": 0.07567140023734471,
+          "show_probability": 0.10089520031645961
+        },
+        {
+          "horse_id": 164,
+          "horse_name": "Fortune",
+          "score": 59.2,
+          "win_probability": 0.004853059135221708,
+          "place_probability": 0.07279588702832561,
+          "show_probability": 0.09706118270443415
+        },
+        {
+          "horse_id": 104,
+          "horse_name": "Glory",
+          "score": 58.51428571428572,
+          "win_probability": 0.004796846095045395,
+          "place_probability": 0.07195269142568092,
+          "show_probability": 0.09593692190090788
+        },
+        {
+          "horse_id": 55,
+          "horse_name": "Victory Storm",
+          "score": 54.4,
+          "win_probability": 0.004459567853987515,
+          "place_probability": 0.06689351780981272,
+          "show_probability": 0.08919135707975029
+        }
+      ],
+      "analysis": {},
+      "confidence": 0.5,
+      "method": "Form Analysis"
+    },
+    {
+      "race_id": 15,
+      "race_name": "Cup Final",
+      "predictions": [
+        {
+          "horse_id": 79,
+          "horse_name": "Royal Mind",
+          "score": 86.61538461538461,
+          "win_probability": 0.07315072075727073,
+          "place_probability": 0.1097260811359061,
+          "show_probability": 0.14630144151454147
+        },
+        {
+          "horse_id": 93,
+          "horse_name": "Desert",
+          "score": 84.0,
+          "win_probability": 0.06384771612810451,
+          "place_probability": 0.10641286021350752,
+          "show_probability": 0.14188381361801003
+        },
+        {
+          "horse_id": 170,
+          "horse_name": "Diamond",
+          "score": 75.625,
+          "win_probability": 0.05109506383267623,
+          "place_probability": 0.09580324468626791,
+          "show_probability": 0.12773765958169056
+        },
+        {
+          "horse_id": 88,
+          "horse_name": "Sapphire Rhythm",
+          "score": 74.61538461538461,
+          "win_probability": 0.044111313849189,
+          "place_probability": 0.09452424396254788,
+          "show_probability": 0.12603232528339717
+        },
+        {
+          "horse_id": 50,
+          "horse_name": "Angel Hope",
+          "score": 73.73333333333333,
+          "win_probability": 0.03736273758607597,
+          "place_probability": 0.09340684396518993,
+          "show_probability": 0.12454245862025325
+        },
+        {
+          "horse_id": 80,
+          "horse_name": "Rhythm Girl",
+          "score": 73.67058823529412,
+          "win_probability": 0.031109119078290573,
+          "place_probability": 0.09332735723487172,
+          "show_probability": 0.12443647631316229
+        },
+        {
+          "horse_id": 27,
+          "horse_name": "Lightning Fortune",
+          "score": 72.4,
+          "win_probability": 0.024458066918914105,
+          "place_probability": 0.09171775094592792,
+          "show_probability": 0.12229033459457056
+        },
+        {
+          "horse_id": 51,
+          "horse_name": "Swift Myth",
+          "score": 72.18378378378378,
+          "win_probability": 0.018288768793966268,
+          "place_probability": 0.09144384396983135,
+          "show_probability": 0.12192512529310848
+        },
+        {
+          "horse_id": 161,
+          "horse_name": "Ocean Speed",
+          "score": 70.0,
+          "win_probability": 0.011823651134834166,
+          "place_probability": 0.08867738351125627,
+          "show_probability": 0.11823651134834169
+        },
+        {
+          "horse_id": 182,
+          "horse_name": "Royal Destiny",
+          "score": 66.17872340425532,
+          "win_probability": 0.005589100986290001,
+          "place_probability": 0.08383651479435,
+          "show_probability": 0.1117820197258
+        },
+        {
+          "horse_id": 34,
+          "horse_name": "Hope",
+          "score": 65.74545454545455,
+          "win_probability": 0.0055525094160468,
+          "place_probability": 0.083287641240702,
+          "show_probability": 0.111050188320936
+        },
+        {
+          "horse_id": 39,
+          "horse_name": "Storm Grace",
+          "score": 64.16363636363637,
+          "win_probability": 0.005418917513614258,
+          "place_probability": 0.08128376270421388,
+          "show_probability": 0.10837835027228516
+        },
+        {
+          "horse_id": 190,
+          "horse_name": "Shadow Grace",
+          "score": 62.6,
+          "win_probability": 0.005286861150290136,
+          "place_probability": 0.07930291725435204,
+          "show_probability": 0.10573722300580271
+        },
+        {
+          "horse_id": 4,
+          "horse_name": "Wind Runner",
+          "score": 62.142857142857146,
+          "win_probability": 0.0052482533098498615,
+          "place_probability": 0.07872379964774792,
+          "show_probability": 0.10496506619699722
+        },
+        {
+          "horse_id": 77,
+          "horse_name": "Brave Beauty",
+          "score": 60.96296296296296,
+          "win_probability": 0.005148605758713503,
+          "place_probability": 0.07722908638070254,
+          "show_probability": 0.10297211517427006
+        },
+        {
+          "horse_id": 91,
+          "horse_name": "Diamond's",
+          "score": 60.63030303030303,
+          "win_probability": 0.005120511080211301,
+          "place_probability": 0.0768076662031695,
+          "show_probability": 0.102410221604226
+        },
+        {
+          "horse_id": 82,
+          "horse_name": "Diamond Moon",
+          "score": 58.8,
+          "win_probability": 0.004965933476630351,
+          "place_probability": 0.07448900214945525,
+          "show_probability": 0.09931866953260701
+        }
+      ],
+      "analysis": {},
+      "confidence": 0.5,
+      "method": "Form Analysis"
+    },
+    {
+      "race_id": 3,
+      "race_name": "Sample Stakes Race 3",
+      "predictions": [
+        {
+          "horse_id": 29,
+          "horse_name": "Star",
+          "score": 83.98620689655172,
+          "win_probability": 0.07906357573222562,
+          "place_probability": 0.11859536359833844,
+          "show_probability": 0.15812715146445125
+        },
+        {
+          "horse_id": 159,
+          "horse_name": "Royal Spirit",
+          "score": 73.0,
+          "win_probability": 0.061849166875763466,
+          "place_probability": 0.10308194479293911,
+          "show_probability": 0.13744259305725215
+        },
+        {
+          "horse_id": 27,
+          "horse_name": "Lightning Fortune",
+          "score": 72.4,
+          "win_probability": 0.05452517116353456,
+          "place_probability": 0.10223469593162729,
+          "show_probability": 0.1363129279088364
+        },
+        {
+          "horse_id": 199,
+          "horse_name": "Diamond Moon",
+          "score": 71.85454545454546,
+          "win_probability": 0.047350085857233166,
+          "place_probability": 0.10146446969407108,
+          "show_probability": 0.13528595959209477
+        },
+        {
+          "horse_id": 41,
+          "horse_name": "Valley Fire",
+          "score": 68.77142857142857,
+          "win_probability": 0.03884434303195373,
+          "place_probability": 0.09711085757988433,
+          "show_probability": 0.12948114343984576
+        },
+        {
+          "horse_id": 67,
+          "horse_name": "Champion Spirit",
+          "score": 68.25,
+          "win_probability": 0.03212485265807349,
+          "place_probability": 0.09637455797422045,
+          "show_probability": 0.12849941063229395
+        },
+        {
+          "horse_id": 124,
+          "horse_name": "Sunset Harmony",
+          "score": 67.6,
+          "win_probability": 0.025455121344302035,
+          "place_probability": 0.09545670504113266,
+          "show_probability": 0.1272756067215102
+        },
+        {
+          "horse_id": 153,
+          "horse_name": "Angel Sun",
+          "score": 66.6,
+          "win_probability": 0.018808924721122583,
+          "place_probability": 0.09404462360561294,
+          "show_probability": 0.1253928314741506
+        },
+        {
+          "horse_id": 52,
+          "horse_name": "Crystal Strike",
+          "score": 65.3,
+          "win_probability": 0.012294522365258305,
+          "place_probability": 0.0922089177394373,
+          "show_probability": 0.12294522365258308
+        },
+        {
+          "horse_id": 24,
+          "horse_name": "Victory Throne",
+          "score": 65.08571428571429,
+          "win_probability": 0.0061270885906931595,
+          "place_probability": 0.09190632886039739,
+          "show_probability": 0.12254177181386318
+        },
+        {
+          "horse_id": 102,
+          "horse_name": "Sunset Bolt",
+          "score": 63.53846153846154,
+          "win_probability": 0.005981432131996327,
+          "place_probability": 0.0897214819799449,
+          "show_probability": 0.11962864263992654
+        },
+        {
+          "horse_id": 104,
+          "horse_name": "Glory",
+          "score": 62.51428571428572,
+          "win_probability": 0.005885017487461209,
+          "place_probability": 0.08827526231191812,
+          "show_probability": 0.11770034974922416
+        },
+        {
+          "horse_id": 144,
+          "horse_name": "Beat",
+          "score": 61.81818181818182,
+          "win_probability": 0.005819487128202457,
+          "place_probability": 0.08729230692303686,
+          "show_probability": 0.11638974256404915
+        },
+        {
+          "horse_id": 99,
+          "horse_name": "Queen Adventure",
+          "score": 61.65714285714286,
+          "win_probability": 0.005804327119717224,
+          "place_probability": 0.08706490679575836,
+          "show_probability": 0.11608654239434447
+        },
+        {
+          "horse_id": 148,
+          "horse_name": "Mountain Rhythm",
+          "score": 56.13333333333334,
+          "win_probability": 0.00528432252758933,
+          "place_probability": 0.07926483791383994,
+          "show_probability": 0.10568645055178659
+        },
+        {
+          "horse_id": 64,
+          "horse_name": "Bold Wind",
+          "score": 53.752380952380946,
+          "win_probability": 0.005060182617189374,
+          "place_probability": 0.0759027392578406,
+          "show_probability": 0.10120365234378748
+        }
+      ],
+      "analysis": {},
+      "confidence": 0.5,
+      "method": "Form Analysis"
+    },
+    {
+      "race_id": 6,
+      "race_name": "Sprint Championship",
+      "predictions": [
+        {
+          "horse_id": 157,
+          "horse_name": "Angel Song",
+          "score": 89.2,
+          "win_probability": 0.08400743978663824,
+          "place_probability": 0.12601115967995735,
+          "show_probability": 0.1680148795732765
+        },
+        {
+          "horse_id": 25,
+          "horse_name": "Sapphire Pulse",
+          "score": 83.33333333333334,
+          "win_probability": 0.07063405811656803,
+          "place_probability": 0.11772343019428005,
+          "show_probability": 0.1569645735923734
+        },
+        {
+          "horse_id": 112,
+          "horse_name": "Force's",
+          "score": 74.23030303030303,
+          "win_probability": 0.05592733374136405,
+          "place_probability": 0.10486375076505759,
+          "show_probability": 0.13981833435341012
+        },
+        {
+          "horse_id": 7,
+          "horse_name": "Silver Bullet",
+          "score": 73.61739130434783,
+          "win_probability": 0.048532354227293385,
+          "place_probability": 0.10399790191562869,
+          "show_probability": 0.13866386922083826
+        },
+        {
+          "horse_id": 3,
+          "horse_name": "Storm Chaser",
+          "score": 71.64444444444445,
+          "win_probability": 0.040484302820944944,
+          "place_probability": 0.10121075705236235,
+          "show_probability": 0.13494767606981647
+        },
+        {
+          "horse_id": 58,
+          "horse_name": "Midnight Tale",
+          "score": 71.62758620689655,
+          "win_probability": 0.033728980579249446,
+          "place_probability": 0.10118694173774834,
+          "show_probability": 0.13491592231699778
+        },
+        {
+          "horse_id": 195,
+          "horse_name": "Storm Hope",
+          "score": 70.67692307692307,
+          "win_probability": 0.026625055424616483,
+          "place_probability": 0.09984395784231184,
+          "show_probability": 0.13312527712308245
+        },
+        {
+          "horse_id": 70,
+          "horse_name": "Prince Will",
+          "score": 70.04444444444444,
+          "win_probability": 0.019790093438526432,
+          "place_probability": 0.09895046719263217,
+          "show_probability": 0.1319339562568429
+        },
+        {
+          "horse_id": 165,
+          "horse_name": "River Dancer",
+          "score": 68.70270270270271,
+          "win_probability": 0.012940668521247992,
+          "place_probability": 0.09705501390935996,
+          "show_probability": 0.12940668521247994
+        },
+        {
+          "horse_id": 198,
+          "horse_name": "Mountain",
+          "score": 68.21818181818182,
+          "win_probability": 0.006424702692202746,
+          "place_probability": 0.09637054038304119,
+          "show_probability": 0.1284940538440549
+        },
+        {
+          "horse_id": 15,
+          "horse_name": "Speed",
+          "score": 67.84827586206896,
+          "win_probability": 0.006389865413800425,
+          "place_probability": 0.09584798120700637,
+          "show_probability": 0.1277973082760085
+        },
+        {
+          "horse_id": 123,
+          "horse_name": "Noble Storm",
+          "score": 66.86956521739131,
+          "win_probability": 0.006297691674393139,
+          "place_probability": 0.09446537511589707,
+          "show_probability": 0.12595383348786277
+        },
+        {
+          "horse_id": 173,
+          "horse_name": "Light",
+          "score": 63.36296296296296,
+          "win_probability": 0.005967444277818498,
+          "place_probability": 0.08951166416727746,
+          "show_probability": 0.11934888555636995
+        },
+        {
+          "horse_id": 137,
+          "horse_name": "Prince Kingdom",
+          "score": 62.270967741935486,
+          "win_probability": 0.0058646015392784055,
+          "place_probability": 0.08796902308917608,
+          "show_probability": 0.1172920307855681
+        },
+        {
+          "horse_id": 39,
+          "horse_name": "Storm Grace",
+          "score": 60.16363636363637,
+          "win_probability": 0.005666135716550876,
+          "place_probability": 0.08499203574826314,
+          "show_probability": 0.11332271433101751
+        }
+      ],
+      "analysis": {},
+      "confidence": 0.5,
+      "method": "Form Analysis"
+    }
+  ]
+}
