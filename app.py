@@ -1,3 +1,8 @@
+import os
+# Enable TensorFlow CPU optimizations (AVX2, AVX512F, etc.)
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress TensorFlow warnings
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '1'  # Enable oneDNN optimizations
+
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_cors import CORS
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -6,7 +11,9 @@ import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import StandardScaler
-from models.sqlalchemy_models import Horse, Race, Prediction, User, APICredentials
+from models.sqlalchemy_models import Prediction, User, APICredentials
+from models.race import Race
+from models.horse import Horse
 from utils.data_processor import DataProcessor
 from utils.predictor import Predictor
 from forms import RaceForm, HorseForm, PredictionForm, RaceResultForm, AddHorseToRaceForm, LoginForm, RegisterForm, UserManagementForm, ChangePasswordForm, APICredentialsForm, APICredentialsTestForm
@@ -99,11 +106,11 @@ def races():
     """Display list of races"""
     try:
         # First try to get upcoming races
-        race_list = Race.get_upcoming()
+        race_list = Race.get_upcoming_races()
         
         # If no upcoming races, get all races
         if not race_list:
-            race_list = Race.get_all()
+            race_list = Race.get_all_races()
         
         return render_template('races.html', races=race_list)
     except Exception as e:
@@ -114,20 +121,20 @@ def races():
 @app.route('/race/<int:race_id>')
 def race_details(race_id):
     """Display details for a specific race"""
-    race = Race.get_by_id(race_id)
+    race = Race.get_race_by_id(race_id)
     if not race:
         flash('Race not found', 'error')
         return redirect(url_for('races'))
     
-    # Get horses for this race using the relationship
-    horses = race.horses
+    # Get horses for this race using the method
+    horses = race.get_horses()
     return render_template('race_details.html', race=race, horses=horses)
 
 @app.route('/predict/<int:race_id>', methods=['GET', 'POST'])
 @login_required
 def predict(race_id):
     """Generate and display predictions for a race"""
-    race = Race.get_by_id(race_id)
+    race = Race.get_race_by_id(race_id)
     if not race:
         flash('Race not found.', 'error')
         return redirect(url_for('races'))
@@ -138,7 +145,12 @@ def predict(race_id):
         # Generate prediction using selected algorithm
         algorithm = form.algorithm.data
         prediction = predictor.predict_race(race, {'algorithm': algorithm})
-        return render_template('prediction_results.html', race=race, prediction=prediction)
+        
+        if prediction is None:
+            flash('Unable to generate prediction for this race. Please check that the race has horses and valid data.', 'error')
+            return render_template('predict.html', race=race, form=form)
+            
+        return render_template('prediction_results.html', race=race, prediction=prediction, algorithm=algorithm)
     
     # GET request - show prediction form
     return render_template('predict.html', race=race, form=form)
@@ -147,7 +159,7 @@ def predict(race_id):
 @login_required
 def predict_ai(race_id):
     """Generate AI-enhanced predictions for a race"""
-    race = Race.get_by_id(race_id)
+    race = Race.get_race_by_id(race_id)
     if not race:
         flash('Race not found.', 'error')
         return redirect(url_for('races'))
@@ -161,12 +173,18 @@ def predict_ai(race_id):
             prediction = predictor.predict_race_with_ai(race, use_ai=use_ai, use_ensemble=use_ensemble)
             ai_insights = predictor.get_ai_insights(race)
             
+            # Handle case where prediction is None
+            if prediction is None:
+                flash('Unable to generate prediction for this race. The race may not have enough horse data.', 'warning')
+                return redirect(url_for('predict', race_id=race_id))
+            
             return render_template('ai_prediction_results.html', 
                                  race=race, 
                                  prediction=prediction, 
                                  ai_insights=ai_insights,
                                  use_ai=use_ai,
-                                 use_ensemble=use_ensemble)
+                                 use_ensemble=use_ensemble,
+                                 generated_at=datetime.now())
         except Exception as e:
             flash(f'Error generating AI prediction: {str(e)}', 'error')
             return redirect(url_for('predict', race_id=race_id))
@@ -178,7 +196,7 @@ def predict_ai(race_id):
 @login_required
 def api_predict_ai(race_id):
     """API endpoint for AI-enhanced predictions"""
-    race = Race.get_by_id(race_id)
+    race = Race.get_race_by_id(race_id)
     if not race:
         return jsonify({'error': 'Race not found'}), 404
     
@@ -216,7 +234,7 @@ def api_predict_ai(race_id):
 @login_required
 def api_ai_insights(race_id):
     """API endpoint to get AI insights for a race"""
-    race = Race.get_by_id(race_id)
+    race = Race.get_race_by_id(race_id)
     if not race:
         return jsonify({'error': 'Race not found'}), 404
     
@@ -254,23 +272,73 @@ def add_race():
     
     if form.validate_on_submit():
         try:
-            # Create new race from form data
+            # Create new race from form data with all enhanced fields
             race = Race(
+                # Basic Race Information
                 name=form.name.data,
                 date=form.date.data,
-                time=form.time.data if hasattr(form, 'time') and form.time.data else None,
                 track=form.location.data,
-                distance=float(form.distance.data),
-                track_condition=form.track_condition.data,
+                distance=float(form.distance.data) if form.distance.data else 0.0,
                 prize_money=float(form.purse.data) if form.purse.data else 0.0,
-                surface=getattr(form, 'surface', {}).data if hasattr(form, 'surface') else "",
-                race_class=getattr(form, 'race_class', {}).data if hasattr(form, 'race_class') else "",
-                weather=getattr(form, 'weather', {}).data if hasattr(form, 'weather') else ""
+                description=form.description.data,
+                
+                # Weather Conditions
+                temperature=form.temperature.data,
+                humidity=form.humidity.data,
+                wind_speed=form.wind_speed.data,
+                wind_direction=form.wind_direction.data,
+                weather_description=form.weather_description.data,
+                visibility=form.visibility.data,
+                
+                # Track Conditions
+                track_condition=form.track_condition.data,
+                surface_type=form.surface_type.data,
+                rail_position=form.rail_position.data,
+                track_bias=form.track_bias.data,
+                track_maintenance=form.track_maintenance.data,
+                
+                # Field Analysis
+                field_size=form.field_size.data,
+                field_quality=form.field_quality.data,
+                pace_scenario=form.pace_scenario.data,
+                competitive_balance=form.competitive_balance.data,
+                speed_figures_range=form.speed_figures_range.data,
+                
+                # Betting Information
+                total_pool=form.total_pool.data,
+                win_pool=form.win_pool.data,
+                exacta_pool=form.exacta_pool.data,
+                trifecta_pool=form.trifecta_pool.data,
+                superfecta_pool=form.superfecta_pool.data,
+                morning_line_favorite=form.morning_line_favorite.data,
+                
+                # Race Conditions
+                age_restrictions=form.age_restrictions.data,
+                sex_restrictions=form.sex_restrictions.data,
+                weight_conditions=form.weight_conditions.data,
+                claiming_price=form.claiming_price.data,
+                race_grade=form.race_grade.data,
+                
+                # Historical Data
+                track_record=form.track_record.data,
+                average_winning_time=form.average_winning_time.data,
+                course_record_holder=form.course_record_holder.data,
+                similar_race_results=form.similar_race_results.data,
+                trainer_jockey_stats=form.trainer_jockey_stats.data,
+                
+                # Media Coverage
+                tv_coverage=form.tv_coverage.data,
+                streaming_available=form.streaming_available.data,
+                featured_race=form.featured_race.data,
+                
+                # Legacy fields for compatibility
+                surface=form.surface_type.data,  # Map to legacy field
+                weather=form.weather_description.data  # Map to legacy field
             )
             
             # Save the race
             race.save()
-            flash('Race created successfully!', 'success')
+            flash('Race created successfully with enhanced data!', 'success')
             return redirect(url_for('races'))
         except Exception as e:
             flash(f'Error creating race: {str(e)}', 'error')
@@ -285,24 +353,239 @@ def add_horse():
     
     if form.validate_on_submit():
         try:
-            # Create new horse from form data
+            # Create new horse from form data with all enhanced fields
             horse = Horse(
+                # Basic Information
                 name=form.name.data,
                 age=form.age.data,
-                breed=form.breed.data,
+                sex=form.sex.data,
                 color=form.color.data,
-                jockey=form.jockey.data,
+                breed=form.breed.data,
+                height=form.height.data,
+                markings=form.markings.data,
+                
+                # Pedigree Information
+                sire=form.sire.data,
+                dam=form.dam.data,
+                sire_line=form.sire_line.data,
+                dam_line=form.dam_line.data,
+                breeding_value=form.breeding_value.data,
+                
+                # Connections
                 trainer=form.trainer.data,
+                jockey=form.jockey.data,
                 owner=form.owner.data,
-                weight=form.weight.data
+                breeder=form.breeder.data,
+                stable=form.stable.data,
+                
+                # Physical Attributes
+                weight=form.weight.data,
+                body_condition=form.body_condition.data,
+                conformation_score=form.conformation_score.data,
+                temperament=form.temperament.data,
+                
+                # Performance Analytics
+                speed_rating=form.speed_rating.data,
+                class_rating=form.class_rating.data,
+                distance_preference=form.distance_preference.data,
+                surface_preference=form.surface_preference.data,
+                track_bias_rating=form.track_bias_rating.data,
+                pace_style=form.pace_style.data,
+                closing_kick=form.closing_kick.data,
+                
+                # Training & Fitness
+                days_since_last_race=form.days_since_last_race.data,
+                fitness_level=form.fitness_level.data,
+                training_intensity=form.training_intensity.data,
+                workout_times=form.workout_times.data,
+                injury_history=form.injury_history.data,
+                recovery_time=form.recovery_time.data,
+                
+                # Behavioral & Racing Style
+                gate_behavior=form.gate_behavior.data,
+                racing_tactics=form.racing_tactics.data,
+                equipment_used=form.equipment_used.data,
+                medication_notes=form.medication_notes.data,
+                
+                # Financial Information
+                purchase_price=form.purchase_price.data,
+                current_value=form.current_value.data,
+                insurance_value=form.insurance_value.data,
+                stud_fee=form.stud_fee.data
             )
             horse.save()
-            flash('Horse added successfully!', 'success')
+            flash('Horse added successfully with enhanced data!', 'success')
             return redirect(url_for('races'))
         except Exception as e:
             flash(f'Error adding horse: {str(e)}', 'error')
     
     return render_template('add_horse.html', form=form)
+
+@app.route('/edit_horse/<int:horse_id>', methods=['GET', 'POST'])
+@login_required
+def edit_horse(horse_id):
+    """Edit an existing horse with enhanced data"""
+    horse = Horse.get_by_id(horse_id)
+    if not horse:
+        flash('Horse not found.', 'error')
+        return redirect(url_for('races'))
+    
+    form = HorseForm(obj=horse)
+    
+    if form.validate_on_submit():
+        try:
+            # Update horse with all enhanced fields
+            horse.name = form.name.data
+            horse.age = form.age.data
+            horse.sex = form.sex.data
+            horse.color = form.color.data
+            horse.breed = form.breed.data
+            horse.height = form.height.data
+            horse.markings = form.markings.data
+            
+            # Pedigree Information
+            horse.sire = form.sire.data
+            horse.dam = form.dam.data
+            horse.sire_line = form.sire_line.data
+            horse.dam_line = form.dam_line.data
+            horse.breeding_value = form.breeding_value.data
+            
+            # Connections
+            horse.trainer = form.trainer.data
+            horse.jockey = form.jockey.data
+            horse.owner = form.owner.data
+            horse.breeder = form.breeder.data
+            horse.stable = form.stable.data
+            
+            # Physical Attributes
+            horse.weight = form.weight.data
+            horse.body_condition = form.body_condition.data
+            horse.conformation_score = form.conformation_score.data
+            horse.temperament = form.temperament.data
+            
+            # Performance Analytics
+            horse.speed_rating = form.speed_rating.data
+            horse.class_rating = form.class_rating.data
+            horse.fitness_level = form.fitness_level.data
+            horse.form_rating = form.form_rating.data
+            horse.consistency_rating = form.consistency_rating.data
+            
+            # Training & Fitness
+            horse.training_intensity = form.training_intensity.data
+            horse.last_workout_date = form.last_workout_date.data
+            horse.workout_quality = form.workout_quality.data
+            horse.recovery_time = form.recovery_time.data
+            horse.injury_history = form.injury_history.data
+            
+            # Behavioral & Racing Style
+            horse.racing_style = form.racing_style.data
+            horse.preferred_distance = form.preferred_distance.data
+            horse.track_preference = form.track_preference.data
+            horse.equipment_used = form.equipment_used.data
+            horse.medication_notes = form.medication_notes.data
+            
+            # Financial Information
+            horse.purchase_price = form.purchase_price.data
+            horse.current_value = form.current_value.data
+            horse.insurance_value = form.insurance_value.data
+            horse.stud_fee = form.stud_fee.data
+            horse.syndication_details = form.syndication_details.data
+            
+            # Additional Notes
+            horse.additional_notes = form.additional_notes.data
+            
+            # Save the updated horse
+            horse.save()
+            flash('Horse updated successfully with enhanced data!', 'success')
+            return redirect(url_for('races'))
+        except Exception as e:
+            flash(f'Error updating horse: {str(e)}', 'error')
+    
+    return render_template('edit_horse.html', form=form, horse=horse)
+
+@app.route('/edit_race/<int:race_id>', methods=['GET', 'POST'])
+@login_required
+def edit_race(race_id):
+    """Edit an existing race with enhanced data"""
+    race = Race.get_race_by_id(race_id)
+    if not race:
+        flash('Race not found.', 'error')
+        return redirect(url_for('races'))
+    
+    form = RaceForm(obj=race)
+    
+    if form.validate_on_submit():
+        try:
+            # Update race with all enhanced fields
+            # Basic Race Information
+            race.name = form.name.data
+            race.date = form.date.data
+            race.track = form.location.data
+            race.distance = float(form.distance.data) if form.distance.data else 0.0
+            race.prize_money = float(form.purse.data) if form.purse.data else 0.0
+            race.description = form.description.data
+            
+            # Weather Conditions
+            race.temperature = form.temperature.data
+            race.humidity = form.humidity.data
+            race.wind_speed = form.wind_speed.data
+            race.wind_direction = form.wind_direction.data
+            race.weather_description = form.weather_description.data
+            race.visibility = form.visibility.data
+            
+            # Track Conditions
+            race.track_condition = form.track_condition.data
+            race.surface_type = form.surface_type.data
+            race.rail_position = form.rail_position.data
+            race.track_bias = form.track_bias.data
+            race.track_maintenance = form.track_maintenance.data
+            
+            # Field Analysis
+            race.field_size = form.field_size.data
+            race.field_quality = form.field_quality.data
+            race.pace_scenario = form.pace_scenario.data
+            race.competitive_balance = form.competitive_balance.data
+            race.speed_figures_range = form.speed_figures_range.data
+            
+            # Betting Information
+            race.total_pool = form.total_pool.data
+            race.win_pool = form.win_pool.data
+            race.exacta_pool = form.exacta_pool.data
+            race.trifecta_pool = form.trifecta_pool.data
+            race.superfecta_pool = form.superfecta_pool.data
+            race.morning_line_favorite = form.morning_line_favorite.data
+            
+            # Race Conditions
+            race.age_restrictions = form.age_restrictions.data
+            race.sex_restrictions = form.sex_restrictions.data
+            race.weight_conditions = form.weight_conditions.data
+            race.claiming_price = form.claiming_price.data
+            race.race_grade = form.race_grade.data
+            
+            # Historical Data
+            race.track_record = form.track_record.data
+            race.average_winning_time = form.average_winning_time.data
+            race.course_record_holder = form.course_record_holder.data
+            race.similar_race_results = form.similar_race_results.data
+            race.trainer_jockey_stats = form.trainer_jockey_stats.data
+            
+            # Media Coverage
+            race.tv_coverage = form.tv_coverage.data
+            race.streaming_available = form.streaming_available.data
+            race.featured_race = form.featured_race.data
+            
+            # Legacy fields for compatibility
+            race.surface = form.surface_type.data
+            race.weather = form.weather_description.data
+            
+            # Save the updated race
+            race.save()
+            flash('Race updated successfully with enhanced data!', 'success')
+            return redirect(url_for('races'))
+        except Exception as e:
+            flash(f'Error updating race: {str(e)}', 'error')
+    
+    return render_template('edit_race.html', form=form, race=race)
 
 @app.route('/history')
 @login_required
@@ -648,7 +931,7 @@ def change_password():
 @login_required
 def admin_dashboard():
     """Admin dashboard - requires admin role"""
-    if not current_user.is_admin():
+    if not current_user.is_admin:
         flash('Access denied. Administrator privileges required.', 'error')
         return redirect(url_for('index'))
     
@@ -656,7 +939,7 @@ def admin_dashboard():
     stats = {
         'total_users': len(users),
         'active_users': len([u for u in users if u.is_active]),
-        'admin_users': len([u for u in users if u.role == 'admin']),
+        'admin_users': len([u for u in users if u.is_admin]),
         'total_races': len(Race.get_all()),
         'total_horses': len(Horse.get_all()),
         'total_predictions': len(Prediction.get_all())
@@ -668,7 +951,7 @@ def admin_dashboard():
 @login_required
 def admin_users():
     """User management page"""
-    if not current_user.is_admin():
+    if not current_user.is_admin:
         flash('Access denied. Administrator privileges required.', 'error')
         return redirect(url_for('index'))
     
@@ -679,7 +962,7 @@ def admin_users():
 @login_required
 def admin_create_user():
     """Create new user"""
-    if not current_user.is_admin():
+    if not current_user.is_admin:
         flash('Access denied. Administrator privileges required.', 'error')
         return redirect(url_for('index'))
     
@@ -715,7 +998,7 @@ def admin_create_user():
 @login_required
 def admin_edit_user(user_id):
     """Edit existing user"""
-    if not current_user.is_admin():
+    if not current_user.is_admin:
         flash('Access denied. Administrator privileges required.', 'error')
         return redirect(url_for('index'))
     
@@ -755,7 +1038,7 @@ def admin_edit_user(user_id):
 @login_required
 def admin_delete_user(user_id):
     """Delete user"""
-    if not current_user.is_admin():
+    if not current_user.is_admin:
         flash('Access denied. Administrator privileges required.', 'error')
         return redirect(url_for('index'))
     
@@ -778,7 +1061,7 @@ def admin_delete_user(user_id):
 @login_required
 def admin_api_credentials():
     """List all API credentials"""
-    if not current_user.is_admin():
+    if not current_user.is_admin:
         flash('Access denied. Admin privileges required.', 'error')
         return redirect(url_for('index'))
     
@@ -790,17 +1073,24 @@ def admin_api_credentials():
 @login_required
 def admin_create_api_credentials():
     """Create new API credentials"""
-    if not current_user.is_admin():
+    if not current_user.is_admin:
         flash('Access denied. Admin privileges required.', 'error')
         return redirect(url_for('index'))
     
     form = APICredentialsForm()
     if form.validate_on_submit():
         try:
+            # Determine the provider name
+            provider_name = form.provider.data
+            if provider_name == 'custom' and form.custom_provider_name.data:
+                provider_name = form.custom_provider_name.data
+            
             credentials = APICredentials(
-                provider=form.provider.data,
-                api_key=form.api_key.data,
+                provider=provider_name,
+                api_key=form.api_key.data if form.api_key.data else None,
                 api_secret=form.api_secret.data if form.api_secret.data else None,
+                username=form.username.data if form.username.data else None,
+                password=form.password.data if form.password.data else None,
                 base_url=form.base_url.data if form.base_url.data else None,
                 description=form.description.data if form.description.data else None,
                 is_active=form.is_active.data
@@ -820,7 +1110,7 @@ def admin_create_api_credentials():
 @login_required
 def admin_edit_api_credentials(credential_id):
     """Edit existing API credentials"""
-    if not current_user.is_admin():
+    if not current_user.is_admin:
         flash('Access denied. Admin privileges required.', 'error')
         return redirect(url_for('index'))
     
@@ -830,11 +1120,29 @@ def admin_edit_api_credentials(credential_id):
         return redirect(url_for('admin_api_credentials'))
     
     form = APICredentialsForm(obj=credentials)
+    
+    # Set the provider field based on existing credentials
+    if request.method == 'GET':
+        # Check if the provider is one of the predefined ones
+        predefined_providers = ['theracingapi', 'odds_api', 'rapid_api', 'sample', 'mock']
+        if credentials.provider in predefined_providers:
+            form.provider.data = credentials.provider
+        else:
+            form.provider.data = 'custom'
+            form.custom_provider_name.data = credentials.provider
+    
     if form.validate_on_submit():
         try:
-            credentials.provider = form.provider.data
-            credentials.api_key = form.api_key.data
+            # Determine the provider name
+            provider_name = form.provider.data
+            if provider_name == 'custom' and form.custom_provider_name.data:
+                provider_name = form.custom_provider_name.data
+            
+            credentials.provider = provider_name
+            credentials.api_key = form.api_key.data if form.api_key.data else None
             credentials.api_secret = form.api_secret.data if form.api_secret.data else None
+            credentials.username = form.username.data if form.username.data else None
+            credentials.password = form.password.data if form.password.data else None
             credentials.base_url = form.base_url.data if form.base_url.data else None
             credentials.description = form.description.data if form.description.data else None
             credentials.is_active = form.is_active.data
@@ -853,7 +1161,7 @@ def admin_edit_api_credentials(credential_id):
 @login_required
 def admin_delete_api_credentials(credential_id):
     """Delete API credentials"""
-    if not current_user.is_admin():
+    if not current_user.is_admin:
         flash('Access denied. Admin privileges required.', 'error')
         return redirect(url_for('index'))
     
@@ -874,7 +1182,7 @@ def admin_delete_api_credentials(credential_id):
 @login_required
 def admin_test_api_credentials(credential_id):
     """Test API credentials connection"""
-    if not current_user.is_admin():
+    if not current_user.is_admin:
         flash('Access denied. Admin privileges required.', 'error')
         return redirect(url_for('index'))
     
@@ -899,4 +1207,4 @@ if __name__ == '__main__':
     # Create admin user if it doesn't exist
     with app.app_context():
         User.create_admin_user('admin', 'admin@example.com', 'admin123')
-    app.run(debug=True)
+    app.run(debug=True, port=8000)

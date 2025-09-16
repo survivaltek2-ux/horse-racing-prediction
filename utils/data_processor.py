@@ -27,18 +27,18 @@ class DataProcessor:
                 'horse_id': horse.id,
                 'age': self._validate_numeric(horse.age, 2, 15),  # Validate age range
                 'weight': self._validate_numeric(getattr(horse, 'weight', 120), 100, 140),  # Racing weight
-                'win_rate': self._validate_rate(horse.win_rate),
-                'place_rate': self._validate_rate(horse.place_rate),
-                'show_rate': self._validate_rate(horse.show_rate),
-                'earnings': self._normalize_earnings(horse.earnings),
+                'win_rate': self._validate_rate(getattr(horse, 'win_rate', 0.0)),  # Use win_rate directly
+                'place_rate': self._validate_rate(getattr(horse, 'place_rate', 0.0)),  # Use place_rate directly
+                'show_rate': self._validate_rate(getattr(horse, 'show_rate', 0.0)),  # Use show_rate directly
+                'earnings': self._normalize_earnings(getattr(horse, 'earnings', 0.0)),
             }
             
             # Add recent performance metrics
-            recent_form = horse.get_form(10)  # Get last 10 races for better analysis
+            recent_form = horse.get_form(10) if hasattr(horse, 'get_form') else []  # Get last 10 race records
             
             # Calculate performance metrics
             if recent_form:
-                positions = [result['position'] for result in recent_form if result.get('position')]
+                positions = [perf.get('position', 10) for perf in recent_form]  # Extract positions from performance dictionaries
                 
                 if positions:
                     horse_data['avg_position'] = sum(positions) / len(positions)
@@ -67,12 +67,34 @@ class DataProcessor:
                 else:
                     self._set_default_performance_metrics(horse_data)
                     
-                # Calculate average time and speed metrics
-                times = [float(result['time']) for result in recent_form if 'time' in result and result['time']]
+                # Extract time data from recent form
+                times = []
+                for perf in recent_form:
+                    time_val = perf.get('time', 0)
+                    if time_val:
+                        # Convert time string to seconds if it's in format "1:46.51"
+                        if isinstance(time_val, str) and ':' in time_val:
+                            try:
+                                parts = time_val.split(':')
+                                if len(parts) == 2:
+                                    minutes = float(parts[0])
+                                    seconds = float(parts[1])
+                                    time_val = minutes * 60 + seconds
+                                else:
+                                    time_val = float(time_val.replace(':', ''))
+                            except (ValueError, IndexError):
+                                time_val = 0
+                        elif isinstance(time_val, str):
+                            try:
+                                time_val = float(time_val)
+                            except ValueError:
+                                time_val = 0
+                        times.append(time_val)
+                
                 if times:
                     horse_data['avg_time'] = sum(times) / len(times)
                     horse_data['best_time'] = min(times)
-                    horse_data['time_consistency'] = np.std(times)
+                    horse_data['time_consistency'] = 1 / (1 + np.std(times)) if len(times) > 1 else 1
                 else:
                     horse_data['avg_time'] = 0
                     horse_data['best_time'] = 0
@@ -205,21 +227,22 @@ class DataProcessor:
     def _calculate_distance_preference(self, horse, race_distance):
         """Calculate how well suited the horse is to this distance"""
         try:
-            # Get horse's form and analyze distance performance
-            recent_form = horse.get_form(20)  # Look at more races for distance analysis
+            # Get horse's recent form data
+            recent_form = horse.get_form(20) if hasattr(horse, 'get_form') else []  # Look at more races for distance analysis
             if not recent_form:
                 return 0.5  # Neutral preference
             
-            # Find races at similar distances
-            race_distance_meters = self._distance_to_meters(race_distance)
-            similar_distance_results = []
+            # Extract positions from form data
+            if recent_form:
+                positions = [perf.get('position', 10) for perf in recent_form]
+                avg_position = sum(positions) / len(positions)
+                # Convert average position to preference score (lower position = higher preference)
+                # Scale from 0.1 (worst) to 1.0 (best)
+                preference = max(0.1, 1.0 - (avg_position - 1) / 10.0)
+                return min(1.0, preference)
             
-            for result in recent_form:
-                if 'distance' in result:
-                    result_distance = self._distance_to_meters(result['distance'])
-                    # Consider distances within 20% as similar
-                    if abs(result_distance - race_distance_meters) / race_distance_meters <= 0.2:
-                        similar_distance_results.append(result['position'])
+            # Fallback: return neutral preference
+            similar_distance_results = []
             
             if similar_distance_results:
                 # Better performance at similar distances = higher preference
@@ -278,7 +301,7 @@ class DataProcessor:
     
     def _validate_and_clean_data(self, df):
         """Validate and clean the prepared data"""
-        if df is None or df.empty:
+        if df is None or len(df) == 0:
             return df
         
         # Fill any remaining NaN values

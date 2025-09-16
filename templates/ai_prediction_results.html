@@ -33,7 +33,7 @@
                         <div class="col-md-4 text-end">
                             <div class="prediction-meta">
                                 <p class="mb-1"><strong>Algorithm:</strong> {{ prediction.algorithm|default('AI Ensemble') }}</p>
-                                <p class="mb-0"><strong>Generated:</strong> {{ moment().format('YYYY-MM-DD HH:mm') }}</p>
+                                <p class="mb-0"><strong>Generated:</strong> {{ generated_at.strftime('%Y-%m-%d %H:%M') }}</p>
                             </div>
                         </div>
                     </div>

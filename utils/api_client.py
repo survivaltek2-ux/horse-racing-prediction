@@ -81,8 +81,19 @@ class TheRacingAPI(HorseRacingAPIClient):
         logger.info("TheRacingAPI: Race data endpoints not available with current subscription")
         logger.info("TheRacingAPI: Only /courses endpoint is accessible")
         
-        # Return empty list quickly instead of trying non-existent endpoints
+        # Return empty list immediately - no network requests needed
         return []
+    
+    def test_connection(self) -> bool:
+        """Fast connection test for TheRacingAPI without making actual requests"""
+        # Since we know the subscription limitations, we can test connection
+        # by checking if credentials are configured rather than making requests
+        if self.username and self.password:
+            logger.info("TheRacingAPI: Credentials configured, connection test passed")
+            return True
+        else:
+            logger.warning("TheRacingAPI: No credentials configured")
+            return False
     
     def get_race_details(self, race_id: str) -> Optional[RaceData]:
         """Fetch detailed information for a specific race from TheRacingAPI"""

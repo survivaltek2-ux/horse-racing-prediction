@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import json
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, VotingRegressor
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler, RobustScaler
@@ -16,7 +17,10 @@ except ImportError:
     XGBOOST_AVAILABLE = False
     print("XGBoost not available. Using RandomForest as primary model.")
 
-from models.sqlalchemy_models import Horse, Race, Prediction
+from models.sqlalchemy_models import Horse, Race
+from models.sqlalchemy_models import Prediction as SQLPrediction
+from models.prediction import Prediction
+from config.database_config import db
 from utils.data_processor import DataProcessor
 from utils.ai_predictor import AIPredictor
 
@@ -84,7 +88,7 @@ class Predictor:
             
         # Prepare the race data with enhanced features
         race_data = self._prepare_enhanced_race_data(race)
-        if race_data is None or race_data.empty:
+        if race_data is None or len(race_data) == 0:
             return None
         
         # Use ML model if trained, otherwise fall back to enhanced heuristics
@@ -95,22 +99,42 @@ class Predictor:
             predictions = self._enhanced_heuristic_prediction(race_data, race)
             algorithm = 'enhanced_heuristic'
         
-        # Create and save the prediction
-        prediction = Prediction.create_prediction({
-            'race_id': race.id,
-            'predictions': predictions,
-            'algorithm': algorithm,
-            'confidence_scores': self._calculate_confidence_scores(predictions)
-        })
+        # Create and save individual prediction records for each horse
+        prediction_records = []
+        try:
+            # Sort horses by win probability to assign predicted positions
+            sorted_horses = sorted(predictions.items(), key=lambda x: x[1]['win_probability'], reverse=True)
+            
+            for position, (horse_id, pred_data) in enumerate(sorted_horses, 1):
+                # Create individual prediction record
+                prediction_record = SQLPrediction(
+                    race_id=race.id,
+                    horse_id=horse_id,
+                    predicted_position=position,
+                    confidence=pred_data.get('confidence', 0.5),
+                    odds=0.0,  # Will be updated when odds are available
+                    factors=json.dumps(pred_data),  # Store prediction data as JSON string
+                    model_version=algorithm
+                )
+                
+                db.session.add(prediction_record)
+                prediction_records.append(prediction_record)
+            
+            db.session.commit()
+            
+        except Exception as e:
+            db.session.rollback()
+            print(f"Error saving predictions: {e}")
+            return None
         
-        return prediction
+        return prediction_records
     
     def _prepare_enhanced_race_data(self, race):
         """Prepare race data with enhanced feature engineering"""
         try:
             # Get base race data
             race_data = self.data_processor.prepare_race_data(race)
-            if race_data is None or race_data.empty:
+            if race_data is None or len(race_data) == 0:
                 return None
             
             # Add enhanced features
@@ -271,7 +295,32 @@ class Predictor:
         
         return sum(confidence_factors) / len(confidence_factors)
     
-    def _prepare_enhanced_race_data(self, race_data, race):
+    def _calculate_confidence_scores(self, predictions):
+        """Calculate overall confidence scores for the predictions"""
+        if not predictions:
+            return {'overall': 0.0}
+        
+        # Calculate confidence based on prediction spread and quality
+        win_probs = [pred['win_prob'] for pred in predictions.values()]
+        
+        # Higher spread = lower confidence (more uncertainty)
+        prob_std = np.std(win_probs) if len(win_probs) > 1 else 0
+        spread_confidence = max(0, 1 - (prob_std * 2))  # Normalize std to confidence
+        
+        # Higher max probability = higher confidence in top pick
+        max_prob = max(win_probs) if win_probs else 0
+        top_pick_confidence = min(1.0, max_prob * 1.5)  # Scale up confidence
+        
+        # Overall confidence is average of factors
+        overall_confidence = (spread_confidence + top_pick_confidence) / 2
+        
+        return {
+            'overall': round(overall_confidence, 3),
+            'spread_confidence': round(spread_confidence, 3),
+            'top_pick_confidence': round(top_pick_confidence, 3)
+        }
+    
+    def _prepare_ml_race_data(self, race_data, race):
         """Prepare race data with enhanced features for ML prediction"""
         enhanced_data = race_data.copy()
         
@@ -295,34 +344,38 @@ class Predictor:
     
     def _add_enhanced_features(self, race_data, race):
         """Add enhanced features to race data"""
-        enhanced_data = race_data.copy()
-        
-        # Speed rating (normalized performance metric)
-        enhanced_data['speed_rating'] = self._calculate_speed_rating(enhanced_data)
-        
-        # Class rating (based on race quality)
-        enhanced_data['class_rating'] = self._calculate_class_rating(enhanced_data, race)
-        
-        # Distance suitability
-        enhanced_data['distance_suitability'] = self._calculate_distance_suitability(enhanced_data, race)
-        
-        # Form trend (recent performance trend)
-        enhanced_data['form_trend'] = self._calculate_form_trend(enhanced_data)
-        
-        # Weight-adjusted rating
-        enhanced_data['weight_adjusted_rating'] = self._calculate_weight_adjustment(enhanced_data)
-        
-        # Trainer-jockey combination rating
-        enhanced_data['trainer_jockey_combo'] = self._calculate_trainer_jockey_rating(enhanced_data)
-        
-        # Recent performance score
-        enhanced_data['recent_performance'] = self._calculate_recent_performance(enhanced_data)
-        
-        # Categorical features
-        enhanced_data['distance_category'] = self._categorize_distance(race)
-        enhanced_data['age_category'] = self._categorize_age(enhanced_data['age'])
-        
-        return enhanced_data
+        try:
+            enhanced_data = race_data.copy()
+            
+            # Speed rating (normalized performance metric)
+            enhanced_data['speed_rating'] = self._calculate_speed_rating(enhanced_data)
+            
+            # Class rating (based on race quality)
+            enhanced_data['class_rating'] = self._calculate_class_rating(enhanced_data, race)
+            
+            # Distance suitability
+            enhanced_data['distance_suitability'] = self._calculate_distance_suitability(enhanced_data, race)
+            
+            # Form trend (recent performance trend)
+            enhanced_data['form_trend'] = self._calculate_form_trend(enhanced_data)
+            
+            # Weight-adjusted rating
+            enhanced_data['weight_adjusted_rating'] = self._calculate_weight_adjustment(enhanced_data)
+            
+            # Trainer-jockey combination rating
+            enhanced_data['trainer_jockey_combo'] = self._calculate_trainer_jockey_rating(enhanced_data)
+            
+            # Recent performance score
+            enhanced_data['recent_performance'] = self._calculate_recent_performance(enhanced_data)
+            
+            # Categorical features
+            enhanced_data['distance_category'] = self._categorize_distance(race)
+            enhanced_data['age_category'] = self._categorize_age(enhanced_data['age'])
+            
+            return enhanced_data
+        except Exception as e:
+            print(f"Error in _add_enhanced_features: {e}")
+            return race_data
     
     def _calculate_speed_rating(self, data):
         """Calculate speed rating based on performance metrics"""
@@ -354,7 +407,25 @@ class Predictor:
         """Calculate how suitable the race distance is for each horse"""
         # Simple implementation based on age and experience
         suitability = []
-        race_distance = getattr(race, 'distance', 1200)  # Default distance
+        race_distance_str = getattr(race, 'distance', '1200m')  # Default distance
+        
+        # Parse distance string to extract numeric value
+        try:
+            if isinstance(race_distance_str, str):
+                # Extract numeric part from strings like "1200m", "1.5km", etc.
+                import re
+                distance_match = re.search(r'(\d+(?:\.\d+)?)', race_distance_str)
+                if distance_match:
+                    race_distance = float(distance_match.group(1))
+                    # Convert km to meters if needed
+                    if 'km' in race_distance_str.lower():
+                        race_distance *= 1000
+                else:
+                    race_distance = 1200  # Default fallback
+            else:
+                race_distance = float(race_distance_str)
+        except (ValueError, AttributeError):
+            race_distance = 1200  # Default fallback
         
         for _, row in data.iterrows():
             age = row.get('age', 5)
@@ -414,7 +485,26 @@ class Predictor:
     
     def _categorize_distance(self, race):
         """Categorize race distance"""
-        distance = getattr(race, 'distance', 1200)
+        distance_str = getattr(race, 'distance', '1200m')
+        
+        # Parse distance string to extract numeric value
+        try:
+            if isinstance(distance_str, str):
+                # Extract numeric part from strings like "1200m", "1.5km", etc.
+                import re
+                distance_match = re.search(r'(\d+(?:\.\d+)?)', distance_str)
+                if distance_match:
+                    distance = float(distance_match.group(1))
+                    # Convert km to meters if needed
+                    if 'km' in distance_str.lower():
+                        distance *= 1000
+                else:
+                    distance = 1200  # Default fallback
+            else:
+                distance = float(distance_str)
+        except (ValueError, AttributeError):
+            distance = 1200  # Default fallback
+        
         if distance < 1200:
             return 0  # Sprint
         elif distance < 1600:
@@ -541,10 +631,12 @@ class Predictor:
         
         # Build predictions dictionary
         for horse in horse_scores:
-            predictions[str(horse['horse_id'])] = {
-                'win_prob': round(horse['win_prob'], 3),
-                'place_prob': round(horse['place_prob'], 3),
-                'show_prob': round(horse['show_prob'], 3)
+            predictions[horse['horse_id']] = {
+                'win_probability': round(horse['win_prob'], 3),
+                'place_probability': round(horse['place_prob'], 3),
+                'show_probability': round(horse['show_prob'], 3),
+                'confidence': horse['confidence'],
+                'method': 'enhanced_heuristic'
             }
         
         return predictions
@@ -557,33 +649,35 @@ class Predictor:
             return {
                 'total_predictions': 0,
                 'accuracy': 0,
-                'avg_accuracy': 0,
+                'avg_confidence': 0,
                 'win_predictions': 0,
                 'place_predictions': 0,
                 'show_predictions': 0
             }
         
-        # Calculate statistics
+        # Calculate statistics based on available attributes
         total_predictions = len(predictions)
-        accurate_predictions = sum(1 for pred in predictions if pred.accuracy and pred.accuracy >= 1.0)
         
-        # Calculate average accuracy for completed predictions
-        completed_predictions = [pred for pred in predictions if pred.accuracy is not None]
-        avg_accuracy = sum(pred.accuracy for pred in completed_predictions) / len(completed_predictions) if completed_predictions else 0
+        # Use confidence as a proxy for accuracy (high confidence predictions)
+        high_confidence_predictions = sum(1 for pred in predictions if pred.confidence and pred.confidence >= 0.8)
         
-        # Count different types of successful predictions
-        win_predictions = sum(1 for pred in predictions if pred.accuracy and pred.accuracy >= 1.0)
-        place_predictions = sum(1 for pred in predictions if pred.accuracy and pred.accuracy >= 0.5)
-        show_predictions = sum(1 for pred in predictions if pred.accuracy and pred.accuracy >= 0.3)
+        # Calculate average confidence for all predictions
+        predictions_with_confidence = [pred for pred in predictions if pred.confidence is not None]
+        avg_confidence = sum(pred.confidence for pred in predictions_with_confidence) / len(predictions_with_confidence) if predictions_with_confidence else 0
+        
+        # Count predictions by confidence levels (using confidence as proxy for different bet types)
+        win_predictions = sum(1 for pred in predictions if pred.confidence and pred.confidence >= 0.8)
+        place_predictions = sum(1 for pred in predictions if pred.confidence and pred.confidence >= 0.6)
+        show_predictions = sum(1 for pred in predictions if pred.confidence and pred.confidence >= 0.4)
         
         return {
             'total_predictions': total_predictions,
-            'accuracy': round(accurate_predictions / total_predictions * 100, 1) if total_predictions > 0 else 0,
-            'avg_accuracy': round(avg_accuracy * 100, 1),
+            'accuracy': round(high_confidence_predictions / total_predictions * 100, 1) if total_predictions > 0 else 0,
+            'avg_confidence': round(avg_confidence * 100, 1),
             'win_predictions': win_predictions,
             'place_predictions': place_predictions,
             'show_predictions': show_predictions,
-            'completed_predictions': len(completed_predictions)
+            'completed_predictions': len(predictions_with_confidence)
         }
     
     def train_model(self, training_data=None):
@@ -746,7 +840,7 @@ class Predictor:
                 # Only use races with results for training
                 if hasattr(race, 'results') and race.results:
                     race_data = self.data_processor.prepare_race_data(race)
-                    if race_data is not None and not race_data.empty:
+                    if race_data is not None and len(race_data) > 0:
                         # Add race results to the data
                         for _, horse_row in race_data.iterrows():
                             horse_id = horse_row['horse_id']

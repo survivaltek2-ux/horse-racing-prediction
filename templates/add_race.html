@@ -15,103 +15,411 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-8 mx-auto">
+    <div class="col-lg-10 mx-auto">
         <div class="card">
             <div class="card-header bg-primary text-white">
                 <h5 class="mb-0">
                     <i class="fas fa-info-circle me-2"></i>
-                    Race Information
+                    Enhanced Race Information
                 </h5>
             </div>
             <div class="card-body">
                 <form method="POST">
                     {{ form.hidden_tag() }}
                     
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            {{ form.name.label(class="form-label") }}
-                            {{ form.name(class="form-control") }}
-                            {% if form.name.errors %}
-                                <div class="text-danger mt-1">
-                                    {% for error in form.name.errors %}
-                                        <small>{{ error }}</small>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
+                    <!-- Basic Race Information Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Basic Race Information</h6>
                         </div>
-                        <div class="col-md-6">
-                            {{ form.date.label(class="form-label") }}
-                            {{ form.date(class="form-control") }}
-                            {% if form.date.errors %}
-                                <div class="text-danger mt-1">
-                                    {% for error in form.date.errors %}
-                                        <small>{{ error }}</small>
-                                    {% endfor %}
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.name.label(class="form-label") }}
+                                    {{ form.name(class="form-control") }}
+                                    {% if form.name.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.name.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            {{ form.location.label(class="form-label") }}
-                            {{ form.location(class="form-control") }}
-                            {% if form.location.errors %}
-                                <div class="text-danger mt-1">
-                                    {% for error in form.location.errors %}
-                                        <small>{{ error }}</small>
-                                    {% endfor %}
+                                <div class="col-md-6">
+                                    {{ form.date.label(class="form-label") }}
+                                    {{ form.date(class="form-control") }}
+                                    {% if form.date.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.date.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 </div>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form.distance.label(class="form-label") }}
-                            {{ form.distance(class="form-control") }}
-                            {% if form.distance.errors %}
-                                <div class="text-danger mt-1">
-                                    {% for error in form.distance.errors %}
-                                        <small>{{ error }}</small>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            {{ form.track_condition.label(class="form-label") }}
-                            {{ form.track_condition(class="form-control") }}
-                            {% if form.track_condition.errors %}
-                                <div class="text-danger mt-1">
-                                    {% for error in form.track_condition.errors %}
-                                        <small>{{ error }}</small>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form.purse.label(class="form-label") }}
-                            {{ form.purse(class="form-control") }}
-                            {% if form.purse.errors %}
-                                <div class="text-danger mt-1">
-                                    {% for error in form.purse.errors %}
-                                        <small>{{ error }}</small>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    
-                    <div class="mb-3">
-                        {{ form.description.label(class="form-label") }}
-                        {{ form.description(class="form-control", rows="4") }}
-                        {% if form.description.errors %}
-                            <div class="text-danger mt-1">
-                                {% for error in form.description.errors %}
-                                    <small>{{ error }}</small>
-                                {% endfor %}
                             </div>
-                        {% endif %}
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.location.label(class="form-label") }}
+                                    {{ form.location(class="form-control") }}
+                                    {% if form.location.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.location.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.distance.label(class="form-label") }}
+                                    {{ form.distance(class="form-control") }}
+                                    {% if form.distance.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.distance.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.purse.label(class="form-label") }}
+                                    {{ form.purse(class="form-control") }}
+                                    {% if form.purse.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.purse.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.description.label(class="form-label") }}
+                                {{ form.description(class="form-control", rows="3") }}
+                                {% if form.description.errors %}
+                                    <div class="text-danger mt-1">
+                                        {% for error in form.description.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weather Conditions Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0"><i class="fas fa-cloud-sun me-2"></i>Weather Conditions</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <label class="form-label">Temperature (°F)</label>
+                                    <input type="number" name="temperature" class="form-control" placeholder="72">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Humidity (%)</label>
+                                    <input type="number" min="0" max="100" name="humidity" class="form-control" placeholder="65">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Wind Speed (mph)</label>
+                                    <input type="number" name="wind_speed" class="form-control" placeholder="8">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Wind Direction</label>
+                                    <select name="wind_direction" class="form-control">
+                                        <option value="">Select Direction</option>
+                                        <option value="N">North</option>
+                                        <option value="NE">Northeast</option>
+                                        <option value="E">East</option>
+                                        <option value="SE">Southeast</option>
+                                        <option value="S">South</option>
+                                        <option value="SW">Southwest</option>
+                                        <option value="W">West</option>
+                                        <option value="NW">Northwest</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Weather Description</label>
+                                    <select name="weather_description" class="form-control">
+                                        <option value="">Select Weather</option>
+                                        <option value="Clear">Clear</option>
+                                        <option value="Partly Cloudy">Partly Cloudy</option>
+                                        <option value="Overcast">Overcast</option>
+                                        <option value="Light Rain">Light Rain</option>
+                                        <option value="Heavy Rain">Heavy Rain</option>
+                                        <option value="Fog">Fog</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Visibility (miles)</label>
+                                    <input type="number" step="0.1" name="visibility" class="form-control" placeholder="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Track Conditions Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-warning text-dark">
+                            <h6 class="mb-0"><i class="fas fa-road me-2"></i>Track Conditions</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.track_condition.label(class="form-label") }}
+                                    {{ form.track_condition(class="form-control") }}
+                                    {% if form.track_condition.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.track_condition.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Surface Type</label>
+                                    <select name="surface_type" class="form-control">
+                                        <option value="">Select Surface</option>
+                                        <option value="Dirt">Dirt</option>
+                                        <option value="Turf">Turf</option>
+                                        <option value="Synthetic">Synthetic</option>
+                                        <option value="All Weather">All Weather</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Rail Position</label>
+                                    <input type="text" name="rail_position" class="form-control" placeholder="Normal, +2 feet, etc.">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Track Bias</label>
+                                    <select name="track_bias" class="form-control">
+                                        <option value="">Select Bias</option>
+                                        <option value="None">None</option>
+                                        <option value="Speed Favoring">Speed Favoring</option>
+                                        <option value="Closer Favoring">Closer Favoring</option>
+                                        <option value="Inside Bias">Inside Bias</option>
+                                        <option value="Outside Bias">Outside Bias</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Track Maintenance Notes</label>
+                                    <input type="text" name="track_maintenance" class="form-control" placeholder="Recent maintenance or changes">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Field Analysis Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0"><i class="fas fa-users me-2"></i>Field Analysis</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Field Size</label>
+                                    <input type="number" min="2" max="20" name="field_size" class="form-control" placeholder="12">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Field Quality</label>
+                                    <select name="field_quality" class="form-control">
+                                        <option value="">Select Quality</option>
+                                        <option value="Weak">Weak</option>
+                                        <option value="Average">Average</option>
+                                        <option value="Strong">Strong</option>
+                                        <option value="Elite">Elite</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Pace Scenario</label>
+                                    <select name="pace_scenario" class="form-control">
+                                        <option value="">Select Pace</option>
+                                        <option value="Slow">Slow</option>
+                                        <option value="Moderate">Moderate</option>
+                                        <option value="Fast">Fast</option>
+                                        <option value="Contested">Contested</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Competitive Balance</label>
+                                    <select name="competitive_balance" class="form-control">
+                                        <option value="">Select Balance</option>
+                                        <option value="Even">Even</option>
+                                        <option value="Top Heavy">Top Heavy</option>
+                                        <option value="Wide Open">Wide Open</option>
+                                        <option value="Dominant Favorite">Dominant Favorite</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Speed Figures Range</label>
+                                    <input type="text" name="speed_figures_range" class="form-control" placeholder="75-95">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Betting Information Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-danger text-white">
+                            <h6 class="mb-0"><i class="fas fa-money-bill me-2"></i>Betting Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Total Pool ($)</label>
+                                    <input type="number" name="total_pool" class="form-control" placeholder="250000">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Win Pool ($)</label>
+                                    <input type="number" name="win_pool" class="form-control" placeholder="100000">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Exacta Pool ($)</label>
+                                    <input type="number" name="exacta_pool" class="form-control" placeholder="75000">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Trifecta Pool ($)</label>
+                                    <input type="number" name="trifecta_pool" class="form-control" placeholder="50000">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Superfecta Pool ($)</label>
+                                    <input type="number" name="superfecta_pool" class="form-control" placeholder="25000">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Morning Line Favorite Odds</label>
+                                    <input type="text" name="morning_line_favorite" class="form-control" placeholder="2-1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Race Conditions Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h6 class="mb-0"><i class="fas fa-gavel me-2"></i>Race Conditions</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Age Restrictions</label>
+                                    <input type="text" name="age_restrictions" class="form-control" placeholder="3-year-olds and up">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Sex Restrictions</label>
+                                    <select name="sex_restrictions" class="form-control">
+                                        <option value="">No Restrictions</option>
+                                        <option value="Fillies and Mares">Fillies and Mares</option>
+                                        <option value="Colts and Geldings">Colts and Geldings</option>
+                                        <option value="Fillies Only">Fillies Only</option>
+                                        <option value="Mares Only">Mares Only</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Weight Conditions</label>
+                                    <input type="text" name="weight_conditions" class="form-control" placeholder="Allowance, Handicap, etc.">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Claiming Price ($)</label>
+                                    <input type="number" name="claiming_price" class="form-control" placeholder="25000">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Race Grade</label>
+                                    <select name="race_grade" class="form-control">
+                                        <option value="">Select Grade</option>
+                                        <option value="Grade 1">Grade 1</option>
+                                        <option value="Grade 2">Grade 2</option>
+                                        <option value="Grade 3">Grade 3</option>
+                                        <option value="Listed">Listed</option>
+                                        <option value="Allowance">Allowance</option>
+                                        <option value="Claiming">Claiming</option>
+                                        <option value="Maiden">Maiden</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Historical Data Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-dark text-white">
+                            <h6 class="mb-0"><i class="fas fa-history me-2"></i>Historical Data</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Track Record Time</label>
+                                    <input type="text" name="track_record" class="form-control" placeholder="1:09.23">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Average Winning Time</label>
+                                    <input type="text" name="average_winning_time" class="form-control" placeholder="1:11.45">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Course Record Holder</label>
+                                    <input type="text" name="course_record_holder" class="form-control" placeholder="Horse name">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Similar Race Results</label>
+                                    <textarea name="similar_race_results" class="form-control" rows="2" placeholder="Previous similar race outcomes and patterns"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Trainer/Jockey Stats</label>
+                                    <textarea name="trainer_jockey_stats" class="form-control" rows="2" placeholder="Relevant trainer and jockey statistics"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Media Coverage Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0"><i class="fas fa-tv me-2"></i>Media Coverage</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">TV Coverage</label>
+                                    <select name="tv_coverage" class="form-control">
+                                        <option value="">Select Coverage</option>
+                                        <option value="None">None</option>
+                                        <option value="Local">Local</option>
+                                        <option value="National">National</option>
+                                        <option value="International">International</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Streaming Available</label>
+                                    <select name="streaming_available" class="form-control">
+                                        <option value="">Select Option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Featured Race</label>
+                                    <select name="featured_race" class="form-control">
+                                        <option value="">Select Option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -126,13 +434,14 @@
         </div>
         
         <div class="alert alert-info mt-4">
-            <h6><i class="fas fa-lightbulb me-1"></i> Tips for Adding Races:</h6>
+            <h6><i class="fas fa-lightbulb me-1"></i> Enhanced Race Entry Tips:</h6>
             <ul class="mb-0">
-                <li>Make sure to use a descriptive name for the race</li>
-                <li>Set the date and time accurately for proper scheduling</li>
-                <li>Include location details for better context</li>
-                <li>Distance should be in standard units (furlongs or meters)</li>
-                <li>Track condition affects predictions significantly</li>
+                <li>Complete all sections for comprehensive race analysis</li>
+                <li>Weather conditions significantly impact performance</li>
+                <li>Track conditions and bias affect race outcomes</li>
+                <li>Field analysis helps predict pace and competition</li>
+                <li>Betting pools indicate public interest and confidence</li>
+                <li>Historical data provides valuable context</li>
             </ul>
         </div>
     </div>

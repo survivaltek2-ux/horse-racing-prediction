@@ -60,6 +60,69 @@ class AIPredictor:
         # CNN for pattern recognition in racing data
         self.neural_models['cnn_pattern'] = self._create_cnn_model()
     
+    def _initialize_pytorch_models(self):
+        """Initialize PyTorch neural network models"""
+        try:
+            # PyTorch models for additional AI capabilities
+            self.neural_models['pytorch_dnn'] = self._create_pytorch_dnn()
+            self.neural_models['pytorch_rnn'] = self._create_pytorch_rnn()
+            print("PyTorch models initialized successfully")
+        except Exception as e:
+            print(f"Error initializing PyTorch models: {str(e)}")
+    
+    def _create_pytorch_dnn(self):
+        """Create a PyTorch deep neural network"""
+        if not PYTORCH_AVAILABLE:
+            return None
+        
+        class PyTorchDNN(nn.Module):
+            def __init__(self, input_dim=50):
+                super(PyTorchDNN, self).__init__()
+                self.layers = nn.Sequential(
+                    nn.Linear(input_dim, 256),
+                    nn.ReLU(),
+                    nn.Dropout(0.3),
+                    nn.Linear(256, 128),
+                    nn.ReLU(),
+                    nn.Dropout(0.3),
+                    nn.Linear(128, 64),
+                    nn.ReLU(),
+                    nn.Dropout(0.2),
+                    nn.Linear(64, 32),
+                    nn.ReLU(),
+                    nn.Dropout(0.2),
+                    nn.Linear(32, 1),
+                    nn.Sigmoid()
+                )
+            
+            def forward(self, x):
+                return self.layers(x)
+        
+        return PyTorchDNN()
+    
+    def _create_pytorch_rnn(self):
+        """Create a PyTorch RNN model"""
+        if not PYTORCH_AVAILABLE:
+            return None
+        
+        class PyTorchRNN(nn.Module):
+            def __init__(self, input_size=20, hidden_size=128, num_layers=2):
+                super(PyTorchRNN, self).__init__()
+                self.hidden_size = hidden_size
+                self.num_layers = num_layers
+                self.rnn = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True, dropout=0.3)
+                self.fc = nn.Linear(hidden_size, 1)
+                self.sigmoid = nn.Sigmoid()
+            
+            def forward(self, x):
+                h0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size)
+                c0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size)
+                out, _ = self.rnn(x, (h0, c0))
+                out = self.fc(out[:, -1, :])
+                return self.sigmoid(out)
+        
+        return PyTorchRNN()
+    
     def _create_dnn_model(self, input_dim=50):
         """Create a deep neural network for win probability prediction"""
         model = models.Sequential([
@@ -184,7 +247,7 @@ class AIPredictor:
         try:
             # Get base race data
             race_data = self.data_processor.prepare_race_data(race)
-            if race_data is None or race_data.empty:
+            if race_data is None or len(race_data) == 0:
                 return None
             
             # Enhanced feature engineering for AI

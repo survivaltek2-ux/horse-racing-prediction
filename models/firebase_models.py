@@ -446,7 +446,7 @@ class User(UserMixin, FirebaseModel):
     def set_password(self, password: str):
         """Set password hash"""
         from werkzeug.security import generate_password_hash
-        self.password_hash = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password, method='pbkdf2:sha256')
     
     def get_id(self):
         """Flask-Login required method - return user ID as string"""
@@ -536,7 +536,7 @@ class User(UserMixin, FirebaseModel):
             user_data = {
                 'username': username,
                 'email': email,
-                'password_hash': generate_password_hash(password),
+                'password_hash': generate_password_hash(password, method='pbkdf2:sha256'),
                 'is_admin': True,
                 'created_at': datetime.now().isoformat()
             }

@@ -47,7 +47,7 @@
 </div>
 
 <!-- Top Picks -->
-{% set top_picks = prediction.get_top_picks(3) %}
+{% set top_picks = prediction[:3] if prediction else [] %}
 {% if top_picks %}
 <div class="card mb-4">
     <div class="card-header bg-success text-white">
@@ -85,19 +85,19 @@
                             <div class="row">
                                 <div class="col-4">
                                     <div class="text-center">
-                                        <div class="h5 text-success">{{ "{:.1%}".format(pick.win_probability) }}</div>
+                                        <div class="h5 text-success">{{ "{:.1%}".format(pick.factors_dict.get('win_probability', 0)) }}</div>
                                         <small class="text-muted">Win</small>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="text-center">
-                                        <div class="h5 text-info">{{ "{:.1%}".format(pick.place_probability) }}</div>
+                                        <div class="h5 text-info">{{ "{:.1%}".format(pick.factors_dict.get('place_probability', 0)) }}</div>
                                         <small class="text-muted">Place</small>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="text-center">
-                                        <div class="h5 text-warning">{{ "{:.1%}".format(pick.show_probability) }}</div>
+                                        <div class="h5 text-warning">{{ "{:.1%}".format(pick.factors_dict.get('show_probability', 0)) }}</div>
                                         <small class="text-muted">Show</small>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
                         
                         <div class="progress mb-2" style="height: 8px;">
                             <div class="progress-bar bg-success" role="progressbar" 
-                                 style="width: {{ pick.win_probability * 100 }}%"></div>
+                                 style="width: {{ pick.factors_dict.get('win_probability', 0) * 100 }}%"></div>
                         </div>
                         <small class="text-muted">Win Probability</small>
                     </div>
@@ -141,7 +141,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for pick in prediction.get_top_picks(20) %}
+                    {% for pick in prediction %}
                     <tr>
                         <td>
                             <span class="badge bg-{{ 'warning' if loop.index == 1 else 'info' if loop.index <= 3 else 'secondary' }} fs-6">
@@ -165,27 +165,27 @@
                             <div class="d-flex align-items-center">
                                 <div class="progress me-2" style="width: 60px; height: 8px;">
                                     <div class="progress-bar bg-success" role="progressbar" 
-                                         style="width: {{ pick.win_probability * 100 }}%"></div>
+                                         style="width: {{ pick.factors_dict.get('win_probability', 0) * 100 }}%"></div>
                                 </div>
-                                <span class="badge bg-success">{{ "{:.1%}".format(pick.win_probability) }}</span>
+                                <span class="badge bg-success">{{ "{:.1%}".format(pick.factors_dict.get('win_probability', 0)) }}</span>
                             </div>
                         </td>
                         <td>
                             <div class="d-flex align-items-center">
                                 <div class="progress me-2" style="width: 60px; height: 8px;">
                                     <div class="progress-bar bg-info" role="progressbar" 
-                                         style="width: {{ pick.place_probability * 100 }}%"></div>
+                                         style="width: {{ pick.factors_dict.get('place_probability', 0) * 100 }}%"></div>
                                 </div>
-                                <span class="badge bg-info">{{ "{:.1%}".format(pick.place_probability) }}</span>
+                                <span class="badge bg-info">{{ "{:.1%}".format(pick.factors_dict.get('place_probability', 0)) }}</span>
                             </div>
                         </td>
                         <td>
                             <div class="d-flex align-items-center">
                                 <div class="progress me-2" style="width: 60px; height: 8px;">
                                     <div class="progress-bar bg-warning" role="progressbar" 
-                                         style="width: {{ pick.show_probability * 100 }}%"></div>
+                                         style="width: {{ pick.factors_dict.get('show_probability', 0) * 100 }}%"></div>
                                 </div>
-                                <span class="badge bg-warning">{{ "{:.1%}".format(pick.show_probability) }}</span>
+                                <span class="badge bg-warning">{{ "{:.1%}".format(pick.factors_dict.get('show_probability', 0)) }}</span>
                             </div>
                         </td>
                         <td>
@@ -208,6 +208,149 @@
     </div>
 </div>
 
+<!-- Detailed Horse Information -->
+<div class="card mt-4">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0">
+            <i class="fas fa-horse me-2"></i>
+            Detailed Horse Information
+        </h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            {% for pick in prediction.picks %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0">{{ pick.horse.name }}</h6>
+                        <small class="text-muted">{{ pick.horse.breed or 'Unknown Breed' }}</small>
+                    </div>
+                    <div class="card-body">
+                        <!-- Basic Information -->
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <small><strong>Age:</strong> {{ pick.horse.age }} years</small><br>
+                                <small><strong>Jockey:</strong> {{ pick.horse.jockey or 'TBD' }}</small><br>
+                                <small><strong>Trainer:</strong> {{ pick.horse.trainer or 'TBD' }}</small>
+                            </div>
+                            <div class="col-6">
+                                <small><strong>Weight:</strong> {{ pick.horse.weight or 'TBD' }}</small><br>
+                                <small><strong>Owner:</strong> {{ pick.horse.owner or 'TBD' }}</small><br>
+                                <small><strong>Color:</strong> {{ pick.horse.color or 'TBD' }}</small>
+                            </div>
+                        </div>
+
+                        <!-- Performance Analytics -->
+                        {% if pick.horse.speed_rating or pick.horse.class_rating or pick.horse.distance_preference or pick.horse.surface_preference or pick.horse.track_bias_rating %}
+                        <div class="mb-3">
+                            <h6 class="text-primary mb-2">Performance Analytics</h6>
+                            <div class="row">
+                                {% if pick.horse.speed_rating %}
+                                <div class="col-6 mb-2">
+                                    <small><strong>Speed Rating:</strong> 
+                                        <span class="badge bg-{{ 'success' if pick.horse.speed_rating >= 80 else 'warning' if pick.horse.speed_rating >= 60 else 'secondary' }}">
+                                            {{ pick.horse.speed_rating }}
+                                        </span>
+                                    </small>
+                                </div>
+                                {% endif %}
+                                {% if pick.horse.class_rating %}
+                                <div class="col-6 mb-2">
+                                    <small><strong>Class Rating:</strong> 
+                                        <span class="badge bg-{{ 'success' if pick.horse.class_rating >= 80 else 'warning' if pick.horse.class_rating >= 60 else 'secondary' }}">
+                                            {{ pick.horse.class_rating }}
+                                        </span>
+                                    </small>
+                                </div>
+                                {% endif %}
+                                {% if pick.horse.distance_preference %}
+                                <div class="col-6 mb-2">
+                                    <small><strong>Distance:</strong> {{ pick.horse.distance_preference }}</small>
+                                </div>
+                                {% endif %}
+                                {% if pick.horse.surface_preference %}
+                                <div class="col-6 mb-2">
+                                    <small><strong>Surface:</strong> {{ pick.horse.surface_preference }}</small>
+                                </div>
+                                {% endif %}
+                                {% if pick.horse.track_bias_rating %}
+                                <div class="col-12 mb-2">
+                                    <small><strong>Track Bias Rating:</strong> 
+                                        <span class="badge bg-{{ 'success' if pick.horse.track_bias_rating >= 80 else 'warning' if pick.horse.track_bias_rating >= 60 else 'secondary' }}">
+                                            {{ pick.horse.track_bias_rating }}
+                                        </span>
+                                    </small>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Recent Form & Fitness -->
+                        {% if pick.horse.days_since_last_race or pick.horse.fitness_level or pick.horse.workout_times or pick.horse.injury_history %}
+                        <div class="mb-3">
+                            <h6 class="text-success mb-2">Recent Form & Fitness</h6>
+                            <div class="row">
+                                {% if pick.horse.days_since_last_race %}
+                                <div class="col-6 mb-2">
+                                    <small><strong>Days Since Last Race:</strong> 
+                                        <span class="badge bg-{{ 'success' if pick.horse.days_since_last_race <= 30 else 'warning' if pick.horse.days_since_last_race <= 60 else 'danger' }}">
+                                            {{ pick.horse.days_since_last_race }}
+                                        </span>
+                                    </small>
+                                </div>
+                                {% endif %}
+                                {% if pick.horse.fitness_level %}
+                                <div class="col-6 mb-2">
+                                    <small><strong>Fitness Level:</strong> 
+                                        <span class="badge bg-{{ 'success' if pick.horse.fitness_level == 'Excellent' else 'warning' if pick.horse.fitness_level == 'Good' else 'secondary' }}">
+                                            {{ pick.horse.fitness_level }}
+                                        </span>
+                                    </small>
+                                </div>
+                                {% endif %}
+                                {% if pick.horse.workout_times %}
+                                <div class="col-12 mb-2">
+                                    <small><strong>Recent Workouts:</strong></small>
+                                    <div class="mt-1">
+                                        {% set workouts = pick.horse.workout_times | from_json if pick.horse.workout_times else [] %}
+                                        {% for workout in workouts[:3] %}
+                                        <span class="badge bg-light text-dark me-1">{{ workout.distance }}: {{ workout.time }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if pick.horse.injury_history %}
+                                <div class="col-12 mb-2">
+                                    <small><strong>Injury History:</strong></small>
+                                    <div class="mt-1">
+                                        {% set injuries = pick.horse.injury_history | from_json if pick.horse.injury_history else [] %}
+                                        {% for injury in injuries[:2] %}
+                                        <span class="badge bg-warning text-dark me-1">{{ injury.type }} ({{ injury.date }})</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Earnings -->
+                        {% if pick.horse.earnings %}
+                        <div class="text-center">
+                            <small><strong>Career Earnings:</strong> 
+                                <span class="badge bg-success">${{ "{:,.0f}".format(pick.horse.earnings) }}</span>
+                            </small>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 <!-- Prediction Details -->
 <div class="card mt-4">
     <div class="card-header bg-secondary text-white">
@@ -219,16 +362,14 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <p><strong>Algorithm:</strong> {{ prediction.algorithm.title() }}</p>
-                <p><strong>Generated:</strong> {{ prediction.date }}</p>
-                <p><strong>Prediction ID:</strong> #{{ prediction.id }}</p>
+                <p><strong>Algorithm:</strong> {{ algorithm.title() }}</p>
+                <p><strong>Generated:</strong> {{ prediction[0].created_at.strftime('%Y-%m-%d %H:%M') if prediction else 'N/A' }}</p>
+                <p><strong>Predictions Count:</strong> {{ prediction|length if prediction else 0 }}</p>
             </div>
             <div class="col-md-6">
-                {% if prediction.accuracy is not none %}
-                <p><strong>Accuracy:</strong> 
-                    <span class="badge bg-{{ 'success' if prediction.accuracy >= 0.7 else 'warning' if prediction.accuracy >= 0.3 else 'danger' }}">
-                        {{ "{:.1%}".format(prediction.accuracy) }}
-                    </span>
+                {% if prediction and prediction[0].model_version %}
+                <p><strong>Model Version:</strong> 
+                    <span class="badge bg-info">{{ prediction[0].model_version }}</span>
                 </p>
                 {% else %}
                 <p><strong>Status:</strong> <span class="badge bg-info">Pending Results</span></p>

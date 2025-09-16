@@ -144,8 +144,8 @@
                                     <td>{{ user.username }}</td>
                                     <td>{{ user.email }}</td>
                                     <td>
-                                        <span class="badge bg-{{ 'danger' if user.role == 'admin' else 'primary' }}">
-                                            {{ user.role.title() }}
+                                        <span class="badge bg-{{ 'danger' if user.is_admin else 'primary' }}">
+                                            {{ 'Admin' if user.is_admin else 'User' }}
                                         </span>
                                     </td>
                                     <td>
@@ -154,7 +154,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="{{ url_for('admin_edit_user', user_id=user.user_id) }}" 
+                                        <a href="{{ url_for('admin_edit_user', user_id=user.id) }}" 
                                            class="btn btn-sm btn-outline-primary">Edit</a>
                                     </td>
                                 </tr>

@@ -81,7 +81,7 @@
                     <strong>Horses Entered:</strong>
                     <span class="badge bg-primary">{{ horses|length }}</span>
                 </div>
-                {% if race.results %}
+                {% if race.results_dict %}
                 <div class="mb-2">
                     <strong>Results Available:</strong>
                     <span class="badge bg-success">Yes</span>
@@ -113,7 +113,7 @@
                         <th>Win Rate</th>
                         <th>Recent Form</th>
                         <th>Earnings</th>
-                        {% if race.results %}
+                        {% if race.results_dict %}
                         <th>Position</th>
                         <th>Time</th>
                         {% endif %}
@@ -132,8 +132,8 @@
                         <td>{{ horse.jockey or 'TBD' }}</td>
                         <td>{{ horse.trainer or 'TBD' }}</td>
                         <td>
-                            <span class="badge bg-{{ 'success' if horse.win_percentage > 30 else 'warning' if horse.win_percentage > 10 else 'secondary' }}">
-                                {{ "{:.1f}%".format(horse.win_percentage) }}
+                            <span class="badge bg-{{ 'success' if (horse.win_rate * 100) > 30 else 'warning' if (horse.win_rate * 100) > 10 else 'secondary' }}">
+                                {{ "{:.1f}%".format(horse.win_rate * 100) }}
                             </span>
                         </td>
                         <td>
@@ -148,15 +148,15 @@
                             {% endif %}
                         </td>
                         <td>${{ "{:,.0f}".format(horse.earnings) if horse.earnings else '0' }}</td>
-                        {% if race.results and race.results.get(horse.id|string) %}
-                        {% set result = race.results[horse.id|string] %}
+                        {% if race.results_dict and race.results_dict.get(horse.id|string) %}
+                        {% set result = race.results_dict[horse.id|string] %}
                         <td>
                             <span class="badge bg-{{ 'warning' if result.position == 1 else 'info' if result.position <= 3 else 'secondary' }} fs-6">
                                 {{ result.position }}
                             </span>
                         </td>
                         <td>{{ result.time }}</td>
-                        {% elif race.results %}
+                        {% elif race.results_dict %}
                         <td colspan="2" class="text-muted">No result</td>
                         {% endif %}
                     </tr>
@@ -175,7 +175,7 @@
 </div>
 
 <!-- Race Results (if completed) -->
-{% if race.status == 'completed' and race.results %}
+{% if race.status == 'completed' and race.results_dict %}
 <div class="card mt-4">
     <div class="card-header bg-success text-white">
         <h5 class="mb-0">
@@ -196,7 +196,7 @@
         
         <!-- Results would be displayed here -->
         <div class="row">
-            {% for horse_id, result in race.results.items() %}
+            {% for horse_id, result in race.results_dict.items() %}
             {% set horse = horses|selectattr('id', 'equalto', horse_id|int)|first %}
             {% if horse %}
             <div class="col-md-4 mb-3">

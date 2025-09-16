@@ -108,7 +108,7 @@ class Prediction:
         # Get the top N horses
         top_horses = []
         for horse_id, probs in sorted_horses[:limit]:
-            horse = Horse.get_horse_by_id(int(horse_id))
+            horse = Horse.get_by_id(int(horse_id))
             if horse:
                 top_horses.append({
                     'horse': horse,

@@ -77,6 +77,11 @@ class APIService:
         days_ahead = days_ahead or self.config['default_days_ahead']
         
         try:
+            # For TheRacingAPI, we know it returns empty list quickly
+            if provider == 'theracingapi':
+                logger.info("TheRacingAPI: Using fast path - no race data available with current subscription")
+                return []
+            
             races = self.api_manager.get_upcoming_races(provider, days_ahead)
             logger.info(f"Fetched {len(races)} races from {provider or 'default'} provider")
             return races
@@ -390,6 +395,8 @@ class APIService:
                         'provider': credentials.provider,
                         'api_key': credentials.get_decrypted_api_key(),
                         'api_secret': credentials.get_decrypted_api_secret(),
+                        'username': credentials.get_decrypted_username() if hasattr(credentials, 'get_decrypted_username') else credentials.username,
+                        'password': credentials.get_decrypted_password() if hasattr(credentials, 'get_decrypted_password') else credentials.password,
                         'base_url': credentials.base_url,
                         'configured': True
                     }
@@ -404,6 +411,8 @@ class APIService:
                             'provider': cred.provider,
                             'api_key': cred.get_decrypted_api_key(),
                             'api_secret': cred.get_decrypted_api_secret(),
+                            'username': cred.get_decrypted_username() if hasattr(cred, 'get_decrypted_username') else cred.username,
+                            'password': cred.get_decrypted_password() if hasattr(cred, 'get_decrypted_password') else cred.password,
                             'base_url': cred.base_url,
                             'configured': True
                         }
@@ -423,11 +432,15 @@ class APIService:
             # Get the decrypted credentials
             api_key = credentials.get_decrypted_api_key()
             api_secret = credentials.get_decrypted_api_secret()
+            username = credentials.get_decrypted_username() if hasattr(credentials, 'get_decrypted_username') else credentials.username
+            password = credentials.get_decrypted_password() if hasattr(credentials, 'get_decrypted_password') else credentials.password
             
             # Create test configuration
             test_config = {
                 'api_key': api_key,
                 'api_secret': api_secret,
+                'username': username,
+                'password': password,
                 'base_url': credentials.base_url,
                 'timeout': 10  # Short timeout for testing
             }
@@ -441,12 +454,19 @@ class APIService:
             test_url = credentials.base_url or 'https://httpbin.org/status/200'
             
             headers = {}
-            if api_key:
+            auth = None
+            
+            # Set up authentication based on available credentials
+            if username and password:
+                # Use basic authentication
+                auth = (username, password)
+            elif api_key:
+                # Use API key authentication
                 headers['Authorization'] = f'Bearer {api_key}'
                 # Or API key in header
                 headers['X-API-Key'] = api_key
             
-            response = requests.get(test_url, headers=headers, timeout=10)
+            response = requests.get(test_url, headers=headers, auth=auth, timeout=10)
             
             if response.status_code == 200:
                 return {
@@ -493,10 +513,18 @@ class APIService:
                     
                     # Create new provider instances with database credentials
                     if provider_name == 'theracingapi':
-                        # TheRacingAPI uses username/password
+                        # TheRacingAPI can use either username/password or API key/secret
+                        username = creds.get('username', '')
+                        password = creds.get('password', '')
                         api_key = creds.get('api_key', '')
                         api_secret = creds.get('api_secret', '')
-                        if api_key and api_secret:
+                        
+                        if username and password:
+                            # Use username/password authentication
+                            new_provider = TheRacingAPI(username=username, password=password)
+                            self.api_manager.add_provider(provider_name, new_provider)
+                        elif api_key and api_secret:
+                            # Use API key/secret authentication
                             new_provider = TheRacingAPI(username=api_key, password=api_secret)
                             self.api_manager.add_provider(provider_name, new_provider)
                     
