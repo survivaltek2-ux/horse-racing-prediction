@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: hrp-app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-here}
+      - DEBUG=False
+      - DATABASE_URL=sqlite:///app/data/hrp_database.db
+      - API_TIMEOUT=30
+      - API_MAX_RETRIES=3
+      - DEFAULT_API_PROVIDER=mock
+      - SAMPLE_API_KEY=${SAMPLE_API_KEY:-}
+      - ODDS_API_API_KEY=${ODDS_API_API_KEY:-}
+      - RAPID_API_API_KEY=${RAPID_API_API_KEY:-}
+      - THERACINGAPI_USERNAME=${THERACINGAPI_USERNAME:-}
+      - THERACINGAPI_PASSWORD=${THERACINGAPI_PASSWORD:-}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./backups:/app/backups
+    networks:
+      - hrp-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  nginx:
+    image: nginx:alpine
+    container_name: hrp-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - ./static-html:/usr/share/nginx/html/static-html:ro
+    depends_on:
+      - app
+    networks:
+      - hrp-network
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  hrp-network:
+    driver: bridge
+
+volumes:
+  hrp-data:
+    driver: local
+  hrp-logs:
+    driver: local
+  hrp-backups:
+    driver: local
