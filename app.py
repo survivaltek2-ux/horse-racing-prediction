@@ -179,12 +179,8 @@ def add_horse():
             'owner': form.owner.data,
             'weight': form.weight.data
         }
-        horse = Horse(horse_data)
-        horse_id = horse.save()
-        if horse_id:
-            flash('Horse added successfully!', 'success')
-        else:
-            flash('Error adding horse. Please try again.', 'error')
+        horse = Horse.create_horse(horse_data)
+        flash('Horse added successfully!', 'success')
         return redirect(url_for('races'))
     
     return render_template('add_horse.html', form=form)
