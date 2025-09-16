@@ -2,6 +2,8 @@
 
 This is a static HTML version of the Horse Racing Prediction application, converted from the original Flask-based web application. It can be hosted on any static web server without requiring a backend.
 
+**Last Deployment:** January 17, 2025 - Updated with async data loading and authentication considerations
+
 ## Features
 
 - **Dashboard**: Overview of races, horses, and statistics
