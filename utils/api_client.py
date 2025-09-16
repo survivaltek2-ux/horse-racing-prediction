@@ -416,7 +416,7 @@ class APIManager:
             'sample': SampleRacingAPI(),
             'theracingapi': TheRacingAPI()
             # Add more providers as needed
-            # 'sample': SampleRacingAPI(api_key='your_key_here')
+            # 'sample': SampleRacingAPI(api_key=os.getenv('SAMPLE_API_KEY'))
         }
         self.default_provider = 'mock'
     

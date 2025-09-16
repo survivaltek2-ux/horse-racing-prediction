@@ -28,9 +28,14 @@ def create_admin_user():
         return False
     
     # Admin user credentials
-    admin_username = "admin"
-    admin_email = "admin@hrp.com"
-    admin_password = "HRP_Admin_2024!"
+    admin_username = os.getenv('ADMIN_USERNAME', 'admin')
+    admin_email = os.getenv('ADMIN_EMAIL', 'admin@hrp.com')
+    admin_password = os.getenv('ADMIN_PASSWORD')
+    
+    if not admin_password:
+        print("❌ Error: ADMIN_PASSWORD environment variable is required!")
+        print("Please set: ADMIN_PASSWORD=your_secure_password")
+        return False
     
     try:
         # Use the create_admin_user class method
@@ -40,9 +45,9 @@ def create_admin_user():
             print("✓ Admin user created successfully!")
             print(f"  Username: {admin_username}")
             print(f"  Email: {admin_email}")
-            print(f"  Password: {admin_password}")
             print(f"  Is Admin: {admin_user.is_admin}")
             print(f"  Created: {admin_user.created_at}")
+            print("  Password: [HIDDEN FOR SECURITY]")
             return True
         else:
             print("✗ Failed to create admin user")

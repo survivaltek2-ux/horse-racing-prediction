@@ -1,0 +1,1586 @@
+{
+  "monitoring_period": {
+    "start": "2025-09-16T10:37:11.726138",
+    "end": "2025-09-16T10:37:11.766007",
+    "duration_minutes": 0.0006645166666666666
+  },
+  "summary": {
+    "total_events": 175,
+    "unique_users": 6,
+    "unique_collections": 4,
+    "failed_operations": 40,
+    "suspicious_patterns": 27
+  },
+  "access_log": [
+    {
+      "timestamp": "2025-09-16T10:37:11.726970",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.0",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727053",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.1",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727065",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.2",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727070",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.3",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727074",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.4",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727077",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.5",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727080",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.6",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727106",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.7",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727113",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.8",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727117",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.9",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727121",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.0",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727126",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.1",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727129",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.2",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727133",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.3",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727137",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.4",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727140",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.5",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727144",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.6",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727147",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.7",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727160",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.8",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727165",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.9",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727168",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.0",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727171",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.1",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727173",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.2",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727176",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.3",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727178",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.4",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727184",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.5",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727187",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.6",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727189",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.7",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727192",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.8",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727196",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.9",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727198",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.0",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727204",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.1",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727207",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.2",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727215",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.3",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727218",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.4",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727220",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.5",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727222",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.6",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727228",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.7",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727230",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.8",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727232",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.9",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727235",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.0",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727237",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.1",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727240",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.2",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727242",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.3",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727244",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.4",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727247",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.5",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727249",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.6",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727251",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.7",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727253",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.8",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727258",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.9",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727261",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.0",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727263",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.1",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727266",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.2",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727268",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.3",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727271",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.4",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727273",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.5",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727275",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.6",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727286",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.7",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727288",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.8",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727290",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.9",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727293",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.0",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727295",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.1",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727300",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.2",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727303",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.3",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727305",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.4",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727310",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.5",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727312",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.6",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727315",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.7",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727317",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.8",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727320",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.9",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727323",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.0",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727326",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.1",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727328",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.2",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727330",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.3",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727332",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.4",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727335",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.5",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727340",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.6",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727345",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.7",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727348",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.8",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727351",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.9",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727353",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.0",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727358",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.1",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727361",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.2",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727363",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.3",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727365",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.4",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727368",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.5",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727370",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.6",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727373",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.7",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727376",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.8",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727378",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.9",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727380",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.0",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727383",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.1",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727385",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.2",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727389",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.3",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727391",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.4",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727394",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.5",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727404",
+      "collection": "races",
+      "operation": "read",
+      "user_id": "user_001",
+      "ip_address": "192.168.1.6",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727406",
+      "collection": "users",
+      "operation": "write",
+      "user_id": "user_002",
+      "ip_address": "192.168.1.7",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727409",
+      "collection": "predictions",
+      "operation": "update",
+      "user_id": "user_003",
+      "ip_address": "192.168.1.8",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727412",
+      "collection": "api_credentials",
+      "operation": "delete",
+      "user_id": "admin_001",
+      "ip_address": "192.168.1.9",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727418",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727421",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727423",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727425",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727427",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727429",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727431",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727433",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727435",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727439",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727441",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727442",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727449",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727451",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727452",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727461",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727463",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727465",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727467",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727469",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727471",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727473",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727475",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727477",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727479",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727480",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727485",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727487",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727489",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727491",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727494",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727497",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727498",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727500",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727502",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727518",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727520",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727522",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727524",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727526",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727528",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727530",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727531",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727533",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727536",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727539",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727541",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727543",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727544",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727552",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727553",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727555",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727557",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727560",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727568",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727570",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727572",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727574",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727577",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727579",
+      "collection": "users",
+      "operation": "read",
+      "user_id": "suspicious_user",
+      "ip_address": "192.168.1.100",
+      "success": true
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727581",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727584",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727587",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727595",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727598",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727600",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727603",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727604",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727606",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727608",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727610",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727612",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727614",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727617",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    },
+    {
+      "timestamp": "2025-09-16T10:37:11.727625",
+      "collection": "users",
+      "operation": "auth_login",
+      "user_id": "attacker",
+      "ip_address": "192.168.1.200",
+      "success": false
+    }
+  ],
+  "suspicious_patterns": [
+    {
+      "type": "High frequency access",
+      "user_id": "suspicious_user",
+      "count": 60,
+      "severity": "medium"
+    },
+    {
+      "type": "Multiple authentication failures",
+      "count": 15,
+      "severity": "high"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    },
+    {
+      "type": "Unauthorized admin collection access attempt",
+      "user_id": "admin_001",
+      "collection": "api_credentials",
+      "severity": "critical"
+    }
+  ],
+  "recommendations": [
+    "Implement rate limiting for API endpoints",
+    "Set up real-time monitoring alerts",
+    "Regular security rule audits",
+    "User access review and cleanup",
+    "Implement session timeout policies"
+  ]
+}

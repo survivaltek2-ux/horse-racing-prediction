@@ -20,23 +20,48 @@ class FirebaseConfig:
         try:
             # Check if Firebase is already initialized
             if not firebase_admin._apps:
-                # Try to get service account key from environment
-                service_account_path = os.getenv('FIREBASE_SERVICE_ACCOUNT_PATH')
+                # Priority 1: Try environment variables for service account (most secure)
+                firebase_project_id = os.getenv('FIREBASE_PROJECT_ID')
+                firebase_private_key = os.getenv('FIREBASE_PRIVATE_KEY')
+                firebase_client_email = os.getenv('FIREBASE_CLIENT_EMAIL')
                 
-                if service_account_path and os.path.exists(service_account_path):
-                    # Use service account file
-                    cred = credentials.Certificate(service_account_path)
+                if firebase_project_id and firebase_private_key and firebase_client_email:
+                    # Use environment variables (recommended for production)
+                    service_account_info = {
+                        "type": "service_account",
+                        "project_id": firebase_project_id,
+                        "private_key": firebase_private_key.replace('\\n', '\n'),
+                        "client_email": firebase_client_email,
+                        "token_uri": "https://oauth2.googleapis.com/token",
+                    }
+                    cred = credentials.Certificate(service_account_info)
                     firebase_admin.initialize_app(cred)
+                    print("Firebase initialized with environment variables (secure mode)")
+                
+                # Priority 2: Try service account file (for local development only)
+                elif os.getenv('FIREBASE_SERVICE_ACCOUNT_PATH'):
+                    service_account_path = os.getenv('FIREBASE_SERVICE_ACCOUNT_PATH')
+                    if os.path.exists(service_account_path):
+                        print("WARNING: Using service account file. This should only be used for local development!")
+                        print("For production, use environment variables: FIREBASE_PROJECT_ID, FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL")
+                        cred = credentials.Certificate(service_account_path)
+                        firebase_admin.initialize_app(cred)
+                    else:
+                        print(f"Warning: Firebase service account file not found: {service_account_path}")
+                        return
+                
+                # Priority 3: Try default credentials (Google Cloud environment)
                 else:
-                    # Use default credentials (for local development)
-                    # You'll need to set GOOGLE_APPLICATION_CREDENTIALS environment variable
-                    # or use Firebase emulator for local development
                     try:
                         cred = credentials.ApplicationDefault()
                         firebase_admin.initialize_app(cred)
+                        print("Firebase initialized with default credentials (Google Cloud environment)")
                     except Exception as e:
                         print(f"Warning: Firebase not initialized - {e}")
-                        print("Please set up Firebase credentials or use emulator for local development")
+                        print("Please set up Firebase credentials:")
+                        print("1. For production: Set FIREBASE_PROJECT_ID, FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL")
+                        print("2. For local development: Set FIREBASE_SERVICE_ACCOUNT_PATH")
+                        print("3. For Google Cloud: Use default credentials")
                         return
             
             # Get Firestore client

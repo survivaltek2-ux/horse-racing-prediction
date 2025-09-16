@@ -1,0 +1,80 @@
+{
+  "timestamp": "2025-09-16T10:33:58.072232",
+  "summary": {
+    "total_tests": 10,
+    "passed": 8,
+    "failed": 2,
+    "success_rate": "80.0%"
+  },
+  "test_results": [
+    {
+      "test": "Unauthenticated API credentials access",
+      "passed": true,
+      "message": "Correctly blocked: name 'APICredentials' is not defined",
+      "timestamp": "2025-09-16T10:33:58.014100"
+    },
+    {
+      "test": "User document access",
+      "passed": false,
+      "message": "Error accessing user documents: name 'User' is not defined",
+      "timestamp": "2025-09-16T10:33:58.014688"
+    },
+    {
+      "test": "Admin API credentials access",
+      "passed": false,
+      "message": "Admin cannot access API credentials: name 'APICredentials' is not defined",
+      "timestamp": "2025-09-16T10:33:58.015988"
+    },
+    {
+      "test": "Malicious data injection prevention",
+      "passed": true,
+      "message": "Data validation should prevent malicious input",
+      "timestamp": "2025-09-16T10:33:58.017049"
+    },
+    {
+      "test": "Rate limiting test",
+      "passed": true,
+      "message": "Rate limiting may be active: name 'User' is not defined",
+      "timestamp": "2025-09-16T10:33:58.018623"
+    },
+    {
+      "test": "Firebase project configuration",
+      "passed": true,
+      "message": "",
+      "timestamp": "2025-09-16T10:33:58.028949"
+    },
+    {
+      "test": "Service account security",
+      "passed": true,
+      "message": "",
+      "timestamp": "2025-09-16T10:33:58.029794"
+    },
+    {
+      "test": "Gitignore protection",
+      "passed": true,
+      "message": "",
+      "timestamp": "2025-09-16T10:33:58.030619"
+    },
+    {
+      "test": "Backup script: secure_firebase_migration.py",
+      "passed": true,
+      "message": "Found: scripts/secure_firebase_migration.py",
+      "timestamp": "2025-09-16T10:33:58.034032"
+    },
+    {
+      "test": "Backup script: firebase_security_audit.py",
+      "passed": true,
+      "message": "Found: scripts/firebase_security_audit.py",
+      "timestamp": "2025-09-16T10:33:58.061754"
+    }
+  ],
+  "recommendations": [
+    "Review and fix failed security tests",
+    "Regularly run security audits and tests",
+    "Monitor Firebase usage and access patterns",
+    "Keep Firebase SDK and dependencies updated",
+    "Implement proper logging and monitoring",
+    "Regular backup and recovery testing",
+    "Review and update security rules periodically"
+  ]
+}

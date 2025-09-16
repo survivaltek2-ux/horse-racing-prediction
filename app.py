@@ -6,13 +6,13 @@ import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import StandardScaler
-from models.firebase_models import Horse, Race, Prediction, User
-from models.api_credentials import APICredentials
+from models.sqlalchemy_models import Horse, Race, Prediction, User, APICredentials
 from utils.data_processor import DataProcessor
 from utils.predictor import Predictor
 from forms import RaceForm, HorseForm, PredictionForm, RaceResultForm, AddHorseToRaceForm, LoginForm, RegisterForm, UserManagementForm, ChangePasswordForm, APICredentialsForm, APICredentialsTestForm
 from services.api_service import api_service
 from config.api_config import APIConfig
+from config.database_config import init_database, db
 import os
 from datetime import datetime
 from dotenv import load_dotenv
@@ -22,7 +22,18 @@ load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
-app.secret_key = os.urandom(24)
+
+# Initialize SQLite database
+init_database(app)
+
+# Use environment variable for secret key, fallback to random for development
+secret_key = os.getenv('SECRET_KEY')
+if secret_key:
+    app.secret_key = secret_key
+else:
+    # Generate a random key for development (not recommended for production)
+    app.secret_key = os.urandom(24)
+    print("⚠️  WARNING: Using random secret key. Set SECRET_KEY environment variable for production!")
 
 # Initialize Flask-Login
 login_manager = LoginManager()
@@ -37,7 +48,10 @@ bcrypt = Bcrypt(app)
 @login_manager.user_loader
 def load_user(user_id):
     """Load user by ID for Flask-Login"""
-    return User.get_by_id(user_id)
+    try:
+        return User.get_by_id(int(user_id))
+    except (ValueError, TypeError):
+        return None
 
 # Initialize data processor and predictor
 data_processor = DataProcessor()
@@ -45,6 +59,11 @@ predictor = Predictor()
 
 # Initialize API service
 api_service.init_app(app)
+
+# Create database tables
+with app.app_context():
+    db.create_all()
+    print("Database tables created successfully")
 
 @app.route('/')
 def index():
@@ -57,7 +76,7 @@ def index():
     
     # Calculate additional stats for the dashboard
     predictions = Prediction.get_all()
-    win_predictions = len([p for p in predictions if p.prediction_type == 'win']) if predictions else 0
+    win_predictions = len([p for p in predictions if p.predicted_position == 1]) if predictions else 0
     
     # Calculate accuracy (placeholder calculation - you may want to implement proper accuracy calculation)
     accuracy = 75 if total_predictions > 0 else 0  # Placeholder value
@@ -92,7 +111,7 @@ def races():
         flash('Error loading races. Please try again.', 'error')
         return render_template('races.html', races=[])
 
-@app.route('/race/<race_id>')
+@app.route('/race/<int:race_id>')
 def race_details(race_id):
     """Display details for a specific race"""
     race = Race.get_by_id(race_id)
@@ -100,11 +119,11 @@ def race_details(race_id):
         flash('Race not found', 'error')
         return redirect(url_for('races'))
     
-    # Get horses for this race (simplified for Firebase)
-    horses = Horse.get_all()  # In a real implementation, you'd filter by race
+    # Get horses for this race using the relationship
+    horses = race.horses
     return render_template('race_details.html', race=race, horses=horses)
 
-@app.route('/predict/<race_id>', methods=['GET', 'POST'])
+@app.route('/predict/<int:race_id>', methods=['GET', 'POST'])
 @login_required
 def predict(race_id):
     """Generate and display predictions for a race"""
@@ -124,7 +143,7 @@ def predict(race_id):
     # GET request - show prediction form
     return render_template('predict.html', race=race, form=form)
 
-@app.route('/predict_ai/<race_id>', methods=['GET', 'POST'])
+@app.route('/predict_ai/<int:race_id>', methods=['GET', 'POST'])
 @login_required
 def predict_ai(race_id):
     """Generate AI-enhanced predictions for a race"""
@@ -155,7 +174,7 @@ def predict_ai(race_id):
     # GET request - show AI prediction form
     return render_template('predict_ai.html', race=race)
 
-@app.route('/api/predict_ai/<race_id>', methods=['POST'])
+@app.route('/api/predict_ai/<int:race_id>', methods=['POST'])
 @login_required
 def api_predict_ai(race_id):
     """API endpoint for AI-enhanced predictions"""
@@ -193,7 +212,7 @@ def api_predict_ai(race_id):
     except Exception as e:
         return jsonify({'error': f'Prediction failed: {str(e)}'}), 500
 
-@app.route('/api/ai_insights/<race_id>', methods=['GET'])
+@app.route('/api/ai_insights/<int:race_id>', methods=['GET'])
 @login_required
 def api_ai_insights(race_id):
     """API endpoint to get AI insights for a race"""
@@ -234,33 +253,27 @@ def add_race():
     form = RaceForm()
     
     if form.validate_on_submit():
-        # Create new race from form data
-        race_data = {
-            'name': form.name.data,
-            'date': form.date.data.isoformat(),
-            'time': form.time.data if hasattr(form, 'time') and form.time.data else "",
-            'track': form.location.data,
-            'distance': float(form.distance.data),
-            'track_condition': form.track_condition.data,
-            'prize_money': float(form.purse.data) if form.purse.data else 0.0,
-            'surface': getattr(form, 'surface', {}).data if hasattr(form, 'surface') else "",
-            'race_class': getattr(form, 'race_class', {}).data if hasattr(form, 'race_class') else "",
-            'weather': getattr(form, 'weather', {}).data if hasattr(form, 'weather') else "",
-            'horses': [],
-            'results': {},
-            'created_at': datetime.now().isoformat(),
-            'updated_at': datetime.now().isoformat()
-        }
-        
-        # Create and save the race
-        race = Race(race_data)
-        race_id = race.save()
-        
-        if race_id:
+        try:
+            # Create new race from form data
+            race = Race(
+                name=form.name.data,
+                date=form.date.data,
+                time=form.time.data if hasattr(form, 'time') and form.time.data else None,
+                track=form.location.data,
+                distance=float(form.distance.data),
+                track_condition=form.track_condition.data,
+                prize_money=float(form.purse.data) if form.purse.data else 0.0,
+                surface=getattr(form, 'surface', {}).data if hasattr(form, 'surface') else "",
+                race_class=getattr(form, 'race_class', {}).data if hasattr(form, 'race_class') else "",
+                weather=getattr(form, 'weather', {}).data if hasattr(form, 'weather') else ""
+            )
+            
+            # Save the race
+            race.save()
             flash('Race created successfully!', 'success')
             return redirect(url_for('races'))
-        else:
-            flash('Error creating race. Please try again.', 'error')
+        except Exception as e:
+            flash(f'Error creating race: {str(e)}', 'error')
     
     return render_template('add_race.html', form=form)
 
@@ -271,20 +284,23 @@ def add_horse():
     form = HorseForm()
     
     if form.validate_on_submit():
-        # Create new horse from form data
-        horse_data = {
-            'name': form.name.data,
-            'age': form.age.data,
-            'breed': form.breed.data,
-            'color': form.color.data,
-            'jockey': form.jockey.data,
-            'trainer': form.trainer.data,
-            'owner': form.owner.data,
-            'weight': form.weight.data
-        }
-        horse = Horse.create_horse(horse_data)
-        flash('Horse added successfully!', 'success')
-        return redirect(url_for('races'))
+        try:
+            # Create new horse from form data
+            horse = Horse(
+                name=form.name.data,
+                age=form.age.data,
+                breed=form.breed.data,
+                color=form.color.data,
+                jockey=form.jockey.data,
+                trainer=form.trainer.data,
+                owner=form.owner.data,
+                weight=form.weight.data
+            )
+            horse.save()
+            flash('Horse added successfully!', 'success')
+            return redirect(url_for('races'))
+        except Exception as e:
+            flash(f'Error adding horse: {str(e)}', 'error')
     
     return render_template('add_horse.html', form=form)
 
@@ -299,9 +315,10 @@ def prediction_history():
 def statistics():
     """Display application statistics"""
     stats = predictor.get_performance_stats()
+    all_races = Race.get_all()
     race_stats = {
-        'total_races': len(Race.get_all()),
-        'completed_races': len([r for r in Race.get_all() if r.status == 'completed']),
+        'total_races': len(all_races),
+        'completed_races': len([r for r in all_races if hasattr(r, 'status') and r.status == 'completed']),
         'upcoming_races': len(Race.get_upcoming()),
         'total_horses': len(Horse.get_all()),
         'total_predictions': len(Prediction.get_all())
@@ -635,7 +652,7 @@ def admin_dashboard():
         flash('Access denied. Administrator privileges required.', 'error')
         return redirect(url_for('index'))
     
-    users = User.get_all_users()
+    users = User.get_all()
     stats = {
         'total_users': len(users),
         'active_users': len([u for u in users if u.is_active]),
@@ -655,7 +672,7 @@ def admin_users():
         flash('Access denied. Administrator privileges required.', 'error')
         return redirect(url_for('index'))
     
-    users = User.get_all_users()
+    users = User.get_all()
     return render_template('admin/users.html', users=users)
 
 @app.route('/admin/user/new', methods=['GET', 'POST'])
@@ -694,7 +711,7 @@ def admin_create_user():
     
     return render_template('admin/user_form.html', form=form, action='Create')
 
-@app.route('/admin/user/<user_id>/edit', methods=['GET', 'POST'])
+@app.route('/admin/user/<int:user_id>/edit', methods=['GET', 'POST'])
 @login_required
 def admin_edit_user(user_id):
     """Edit existing user"""
@@ -711,12 +728,12 @@ def admin_edit_user(user_id):
     if form.validate_on_submit():
         # Check if username or email conflicts with other users
         existing_user = User.get_by_username(form.username.data)
-        if existing_user and existing_user.user_id != user.user_id:
+        if existing_user and existing_user.id != user.id:
             flash('Username already exists.', 'error')
             return render_template('admin/user_form.html', form=form, action='Edit', user=user)
         
         existing_user = User.get_by_email(form.email.data)
-        if existing_user and existing_user.user_id != user.user_id:
+        if existing_user and existing_user.id != user.id:
             flash('Email already registered.', 'error')
             return render_template('admin/user_form.html', form=form, action='Edit', user=user)
         
@@ -734,7 +751,7 @@ def admin_edit_user(user_id):
     
     return render_template('admin/user_form.html', form=form, action='Edit', user=user)
 
-@app.route('/admin/user/<user_id>/delete', methods=['POST'])
+@app.route('/admin/user/<int:user_id>/delete', methods=['POST'])
 @login_required
 def admin_delete_user(user_id):
     """Delete user"""
@@ -747,7 +764,7 @@ def admin_delete_user(user_id):
         flash('User not found.', 'error')
         return redirect(url_for('admin_users'))
     
-    if user.user_id == current_user.user_id:
+    if user.id == current_user.id:
         flash('You cannot delete your own account.', 'error')
         return redirect(url_for('admin_users'))
     
@@ -799,7 +816,7 @@ def admin_create_api_credentials():
     return render_template('admin/api_credentials_form.html', form=form, title='Add API Credentials')
 
 
-@app.route('/admin/api_credentials/<credential_id>/edit', methods=['GET', 'POST'])
+@app.route('/admin/api_credentials/<int:credential_id>/edit', methods=['GET', 'POST'])
 @login_required
 def admin_edit_api_credentials(credential_id):
     """Edit existing API credentials"""
@@ -832,7 +849,7 @@ def admin_edit_api_credentials(credential_id):
     return render_template('admin/api_credentials_form.html', form=form, credentials=credentials, title='Edit API Credentials')
 
 
-@app.route('/admin/api_credentials/<credential_id>/delete', methods=['POST'])
+@app.route('/admin/api_credentials/<int:credential_id>/delete', methods=['POST'])
 @login_required
 def admin_delete_api_credentials(credential_id):
     """Delete API credentials"""
@@ -853,7 +870,7 @@ def admin_delete_api_credentials(credential_id):
     return redirect(url_for('admin_api_credentials'))
 
 
-@app.route('/admin/api_credentials/<credential_id>/test', methods=['POST'])
+@app.route('/admin/api_credentials/<int:credential_id>/test', methods=['POST'])
 @login_required
 def admin_test_api_credentials(credential_id):
     """Test API credentials connection"""
@@ -880,5 +897,6 @@ def admin_test_api_credentials(credential_id):
 
 if __name__ == '__main__':
     # Create admin user if it doesn't exist
-    User.create_admin_user('admin', 'admin@example.com', 'admin123')
+    with app.app_context():
+        User.create_admin_user('admin', 'admin@example.com', 'admin123')
     app.run(debug=True)

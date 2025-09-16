@@ -1,7 +1,7 @@
 import json
 import os
 from datetime import datetime
-from models.firebase_models import Race, Horse
+from models.sqlalchemy_models import Race, Horse
 
 class Prediction:
     """Class representing a race prediction with probabilities for each horse"""

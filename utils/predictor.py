@@ -16,7 +16,7 @@ except ImportError:
     XGBOOST_AVAILABLE = False
     print("XGBoost not available. Using RandomForest as primary model.")
 
-from models.firebase_models import Horse, Race, Prediction
+from models.sqlalchemy_models import Horse, Race, Prediction
 from utils.data_processor import DataProcessor
 from utils.ai_predictor import AIPredictor
 

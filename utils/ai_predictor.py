@@ -26,7 +26,7 @@ except ImportError:
     PYTORCH_AVAILABLE = False
     print("PyTorch not available. Install with: pip install torch")
 
-from models.firebase_models import Horse, Race, Prediction
+from models.sqlalchemy_models import Horse, Race, Prediction
 from utils.data_processor import DataProcessor
 
 class AIPredictor:

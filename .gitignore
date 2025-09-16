@@ -146,3 +146,26 @@ config/local_config.py
 # API keys and secrets
 api_keys.txt
 secrets.txt
+data/.encryption_key
+.encryption_key
+
+# Firebase service account keys
+*service-account*.json
+firebase-service-account.json
+config/firebase-service-account.json
+
+# Security keys and certificates
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Database files with potential sensitive data
+*.db
+*.sqlite
+*.sqlite3
+data/api_credentials.json
+
+# Log files that might contain sensitive information
+logs/
+*.log

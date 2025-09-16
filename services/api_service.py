@@ -8,7 +8,7 @@ from typing import List, Dict, Optional, Any
 import logging
 
 # Import our models
-from models.firebase_models import Race, Horse, Prediction, APICredentials
+from models.sqlalchemy_models import Race, Horse, Prediction, APICredentials
 
 from utils.api_client import APIManager, RaceData, HorseData
 from config.api_config import APIConfig
@@ -139,7 +139,8 @@ class APIService:
                 race = existing_race
             else:
                 # Create new race
-                race = Race.create_race(race_dict)
+                race = Race(**race_dict)
+                race.save()
             
             logger.info(f"Successfully imported race: {race_data.name}")
             return race
@@ -155,7 +156,7 @@ class APIService:
         for horse_info in horses_data:
             try:
                 # Check if horse exists
-                existing_horses = Horse.get_all_horses()
+                existing_horses = Horse.get_all()
                 existing_horse = None
                 
                 for horse in existing_horses:
@@ -192,7 +193,7 @@ class APIService:
                         'weight': horse_info.get('weight', 0),
                         'odds': horse_info.get('odds')
                     }
-                    horse = Horse(horse_data)
+                    horse = Horse(**horse_data)
                     horse_id = horse.save()
                     if horse_id:
                         horse_ids.append(horse_id)

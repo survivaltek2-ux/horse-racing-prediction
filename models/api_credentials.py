@@ -28,19 +28,28 @@ class APICredentials:
     
     @staticmethod
     def get_encryption_key():
-        """Get or create encryption key for credentials"""
-        key_file = os.path.join(os.path.dirname(__file__), '..', 'data', '.encryption_key')
+        """Get encryption key for credentials from environment variable"""
+        # First try to get from environment variable
+        encryption_key = os.getenv('ENCRYPTION_KEY')
         
+        if encryption_key:
+            # If it's a string, encode it to bytes
+            if isinstance(encryption_key, str):
+                return encryption_key.encode()
+            return encryption_key
+        
+        # Fallback: check for legacy key file (for backward compatibility)
+        key_file = os.path.join(os.path.dirname(__file__), '..', 'data', '.encryption_key')
         if os.path.exists(key_file):
+            print("WARNING: Using legacy encryption key file. Please migrate to ENCRYPTION_KEY environment variable.")
             with open(key_file, 'rb') as f:
                 return f.read()
-        else:
-            # Generate new key
-            key = Fernet.generate_key()
-            os.makedirs(os.path.dirname(key_file), exist_ok=True)
-            with open(key_file, 'wb') as f:
-                f.write(key)
-            return key
+        
+        # If no key found, raise an error with instructions
+        raise ValueError(
+            "No encryption key found. Please set the ENCRYPTION_KEY environment variable.\n"
+            "Generate a new key with: python -c \"from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())\""
+        )
     
     def encrypt_sensitive_data(self):
         """Encrypt sensitive credential data"""
