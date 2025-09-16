@@ -124,6 +124,109 @@ def predict(race_id):
     # GET request - show prediction form
     return render_template('predict.html', race=race, form=form)
 
+@app.route('/predict_ai/<race_id>', methods=['GET', 'POST'])
+@login_required
+def predict_ai(race_id):
+    """Generate AI-enhanced predictions for a race"""
+    race = Race.get_by_id(race_id)
+    if not race:
+        flash('Race not found.', 'error')
+        return redirect(url_for('races'))
+    
+    if request.method == 'POST':
+        # Generate AI-enhanced prediction
+        use_ai = request.form.get('use_ai', 'true').lower() == 'true'
+        use_ensemble = request.form.get('use_ensemble', 'true').lower() == 'true'
+        
+        try:
+            prediction = predictor.predict_race_with_ai(race, use_ai=use_ai, use_ensemble=use_ensemble)
+            ai_insights = predictor.get_ai_insights(race)
+            
+            return render_template('ai_prediction_results.html', 
+                                 race=race, 
+                                 prediction=prediction, 
+                                 ai_insights=ai_insights,
+                                 use_ai=use_ai,
+                                 use_ensemble=use_ensemble)
+        except Exception as e:
+            flash(f'Error generating AI prediction: {str(e)}', 'error')
+            return redirect(url_for('predict', race_id=race_id))
+    
+    # GET request - show AI prediction form
+    return render_template('predict_ai.html', race=race)
+
+@app.route('/api/predict_ai/<race_id>', methods=['POST'])
+@login_required
+def api_predict_ai(race_id):
+    """API endpoint for AI-enhanced predictions"""
+    race = Race.get_by_id(race_id)
+    if not race:
+        return jsonify({'error': 'Race not found'}), 404
+    
+    try:
+        # Get parameters from request
+        data = request.get_json() or {}
+        use_ai = data.get('use_ai', True)
+        use_ensemble = data.get('use_ensemble', True)
+        
+        # Generate AI prediction
+        prediction = predictor.predict_race_with_ai(race, use_ai=use_ai, use_ensemble=use_ensemble)
+        ai_insights = predictor.get_ai_insights(race)
+        
+        # Format response
+        response = {
+            'race_id': race_id,
+            'race_name': race.name,
+            'prediction': {
+                'algorithm': getattr(prediction, 'algorithm', 'ai_ensemble'),
+                'confidence_scores': getattr(prediction, 'confidence_scores', {}),
+                'predictions': getattr(prediction, 'predictions', {}),
+                'ai_insights': ai_insights
+            },
+            'ai_enabled': use_ai,
+            'ensemble_enabled': use_ensemble,
+            'timestamp': datetime.now().isoformat()
+        }
+        
+        return jsonify(response)
+        
+    except Exception as e:
+        return jsonify({'error': f'Prediction failed: {str(e)}'}), 500
+
+@app.route('/api/ai_insights/<race_id>', methods=['GET'])
+@login_required
+def api_ai_insights(race_id):
+    """API endpoint to get AI insights for a race"""
+    race = Race.get_by_id(race_id)
+    if not race:
+        return jsonify({'error': 'Race not found'}), 404
+    
+    try:
+        insights = predictor.get_ai_insights(race)
+        return jsonify({
+            'race_id': race_id,
+            'insights': insights,
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        return jsonify({'error': f'Failed to get insights: {str(e)}'}), 500
+
+@app.route('/api/train_ai', methods=['POST'])
+@login_required
+def api_train_ai():
+    """API endpoint to train AI models"""
+    try:
+        # Check if user has admin privileges (you might want to add this check)
+        success = predictor.train_ai_models()
+        
+        return jsonify({
+            'success': success,
+            'message': 'AI models trained successfully' if success else 'AI training failed',
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        return jsonify({'error': f'Training failed: {str(e)}'}), 500
+
 @app.route('/add_race', methods=['GET', 'POST'])
 @login_required
 def add_race():

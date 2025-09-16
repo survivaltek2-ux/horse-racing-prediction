@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}AI Prediction Results - {{ race.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Header -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0">
+                            <i class="fas fa-brain"></i>
+                            AI-Enhanced Prediction Results
+                        </h3>
+                        <div class="badge-group">
+                            {% if use_ai %}
+                                <span class="badge bg-success">AI Enabled</span>
+                            {% endif %}
+                            {% if use_ensemble %}
+                                <span class="badge bg-info">Ensemble Learning</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4>{{ race.name }}</h4>
+                            <p class="text-muted">{{ race.date }} • {{ race.track }} • {{ race.distance }}m</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="prediction-meta">
+                                <p class="mb-1"><strong>Algorithm:</strong> {{ prediction.algorithm|default('AI Ensemble') }}</p>
+                                <p class="mb-0"><strong>Generated:</strong> {{ moment().format('YYYY-MM-DD HH:mm') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Confidence Scores -->
+            {% if prediction.confidence_scores %}
+            <div class="card mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-bar"></i>
+                        Confidence Analysis
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <h6>Overall Confidence</h6>
+                                <div class="progress mb-2" style="height: 20px;">
+                                    <div class="progress-bar bg-primary" style="width: {{ (prediction.confidence_scores.overall * 100)|round(1) }}%">
+                                        {{ (prediction.confidence_scores.overall * 100)|round(1) }}%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if prediction.confidence_scores.ml_confidence %}
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <h6>ML Confidence</h6>
+                                <div class="progress mb-2" style="height: 20px;">
+                                    <div class="progress-bar bg-success" style="width: {{ (prediction.confidence_scores.ml_confidence * 100)|round(1) }}%">
+                                        {{ (prediction.confidence_scores.ml_confidence * 100)|round(1) }}%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if prediction.confidence_scores.ai_confidence %}
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <h6>AI Confidence</h6>
+                                <div class="progress mb-2" style="height: 20px;">
+                                    <div class="progress-bar bg-warning" style="width: {{ (prediction.confidence_scores.ai_confidence * 100)|round(1) }}%">
+                                        {{ (prediction.confidence_scores.ai_confidence * 100)|round(1) }}%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Prediction Results -->
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-trophy"></i>
+                        Prediction Results
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if prediction.predictions %}
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Horse</th>
+                                        <th>Win Probability</th>
+                                        {% if use_ai %}
+                                        <th>ML Score</th>
+                                        <th>AI Score</th>
+                                        {% endif %}
+                                        <th>Confidence</th>
+                                        <th>Recommendation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for horse_id, pred_data in prediction.predictions.items() %}
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-primary">{{ loop.index }}</span>
+                                        </td>
+                                        <td>
+                                            <strong>Horse {{ horse_id }}</strong>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="progress me-2" style="width: 100px; height: 20px;">
+                                                    <div class="progress-bar" style="width: {{ (pred_data.win_probability * 100)|round(1) }}%"></div>
+                                                </div>
+                                                <span>{{ (pred_data.win_probability * 100)|round(1) }}%</span>
+                                            </div>
+                                        </td>
+                                        {% if use_ai %}
+                                        <td>{{ (pred_data.ml_score * 100)|round(1) }}%</td>
+                                        <td>{{ (pred_data.ai_score * 100)|round(1) }}%</td>
+                                        {% endif %}
+                                        <td>
+                                            <span class="badge {% if pred_data.combined_confidence > 0.7 %}bg-success{% elif pred_data.combined_confidence > 0.5 %}bg-warning{% else %}bg-danger{% endif %}">
+                                                {{ (pred_data.combined_confidence * 100)|round(1) }}%
+                                            </span>
+                                        </td>
+                                        <td>
+                                            {% if pred_data.win_probability > 0.7 %}
+                                                <span class="badge bg-success">Strong Pick</span>
+                                            {% elif pred_data.win_probability > 0.5 %}
+                                                <span class="badge bg-warning">Consider</span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">Unlikely</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            No prediction data available. The AI models may need training or there might be insufficient race data.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- AI Insights -->
+            {% if ai_insights %}
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-lightbulb"></i>
+                        AI-Powered Insights
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for insight in ai_insights %}
+                        <div class="col-md-6 mb-3">
+                            <div class="alert alert-info mb-0">
+                                <i class="fas fa-info-circle"></i>
+                                {{ insight }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Action Buttons -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <a href="{{ url_for('races') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i>
+                                Back to Races
+                            </a>
+                            <a href="{{ url_for('predict_ai', race_id=race.id) }}" class="btn btn-outline-primary">
+                                <i class="fas fa-redo"></i>
+                                New AI Prediction
+                            </a>
+                        </div>
+                        <div>
+                            <a href="{{ url_for('predict', race_id=race.id) }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-chart-line"></i>
+                                Compare with Standard
+                            </a>
+                            <button class="btn btn-success" onclick="exportPrediction()">
+                                <i class="fas fa-download"></i>
+                                Export Results
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function exportPrediction() {
+    // Create a simple text export of the prediction results
+    let exportData = `AI-Enhanced Prediction Results\n`;
+    exportData += `Race: {{ race.name }}\n`;
+    exportData += `Date: {{ race.date }}\n`;
+    exportData += `Track: {{ race.track }}\n`;
+    exportData += `Distance: {{ race.distance }}m\n\n`;
+    
+    exportData += `Algorithm: {{ prediction.algorithm|default('AI Ensemble') }}\n`;
+    exportData += `Overall Confidence: {{ (prediction.confidence_scores.overall * 100)|round(1) }}%\n\n`;
+    
+    exportData += `Predictions:\n`;
+    {% for horse_id, pred_data in prediction.predictions.items() %}
+    exportData += `{{ loop.index }}. Horse {{ horse_id }}: {{ (pred_data.win_probability * 100)|round(1) }}% (Confidence: {{ (pred_data.combined_confidence * 100)|round(1) }}%)\n`;
+    {% endfor %}
+    
+    {% if ai_insights %}
+    exportData += `\nAI Insights:\n`;
+    {% for insight in ai_insights %}
+    exportData += `- {{ insight }}\n`;
+    {% endfor %}
+    {% endif %}
+    
+    // Create and download the file
+    const blob = new Blob([exportData], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ai_prediction_{{ race.name|replace(' ', '_') }}_{{ race.date }}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+}
+</script>
+{% endblock %}

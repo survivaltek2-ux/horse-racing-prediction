@@ -18,14 +18,18 @@ except ImportError:
 
 from models.firebase_models import Horse, Race, Prediction
 from utils.data_processor import DataProcessor
+from utils.ai_predictor import AIPredictor
 
 class Predictor:
     """Enhanced prediction engine for horse racing with advanced ML algorithms"""
     
     def __init__(self):
-        """Initialize the predictor with ensemble models"""
+        """Initialize the predictor with ensemble models and AI capabilities"""
         self.data_processor = DataProcessor()
         self.scaler = RobustScaler()  # More robust to outliers than StandardScaler
+        
+        # Initialize AI predictor
+        self.ai_predictor = AIPredictor()
         
         # Initialize multiple models for ensemble
         self.models = {}
@@ -1024,3 +1028,112 @@ class Predictor:
         except Exception as e:
             print(f"Error restoring backup: {str(e)}")
             return False
+    
+    def predict_race_with_ai(self, race, use_ai=True, use_ensemble=True):
+        """Enhanced prediction using both traditional ML and AI models"""
+        try:
+            # Get traditional ML prediction
+            ml_prediction = self.predict_race(race)
+            
+            if not use_ai:
+                return ml_prediction
+            
+            # Get AI prediction
+            ai_prediction = self.ai_predictor.predict_race_ai(race, use_ensemble)
+            
+            # Combine predictions intelligently
+            combined_prediction = self._combine_ml_ai_predictions(ml_prediction, ai_prediction)
+            
+            return combined_prediction
+            
+        except Exception as e:
+            print(f"Error in AI-enhanced prediction: {str(e)}")
+            return self.predict_race(race)  # Fallback to traditional ML
+    
+    def _combine_ml_ai_predictions(self, ml_pred, ai_pred):
+        """Intelligently combine ML and AI predictions"""
+        try:
+            # Extract prediction values from ML prediction
+            ml_predictions = ml_pred.predictions if hasattr(ml_pred, 'predictions') else {}
+            ml_confidence = getattr(ml_pred, 'confidence_scores', {}).get('overall', 0.7)
+            
+            # Extract AI prediction values
+            ai_value = ai_pred.get('predictions', 0.5) if isinstance(ai_pred, dict) else 0.5
+            ai_confidence = ai_pred.get('confidence_scores', {}).get('overall', 0.6) if isinstance(ai_pred, dict) else 0.6
+            
+            # Enhance ML predictions with AI insights
+            enhanced_predictions = {}
+            for horse_id, ml_score in ml_predictions.items():
+                # Combine ML and AI scores
+                total_confidence = ml_confidence + ai_confidence
+                if total_confidence > 0:
+                    combined_score = (ml_score * ml_confidence + ai_value * ai_confidence) / total_confidence
+                else:
+                    combined_score = (ml_score + ai_value) / 2
+                
+                enhanced_predictions[horse_id] = {
+                    'win_probability': combined_score,
+                    'ml_score': ml_score,
+                    'ai_score': ai_value,
+                    'combined_confidence': (ml_confidence + ai_confidence) / 2
+                }
+            
+            # Create enhanced prediction object
+            enhanced_pred = Prediction.create_prediction({
+                'race_id': ml_pred.race_id if hasattr(ml_pred, 'race_id') else None,
+                'predictions': enhanced_predictions,
+                'algorithm': 'ml_ai_ensemble',
+                'confidence_scores': {
+                    'overall': (ml_confidence + ai_confidence) / 2,
+                    'ml_confidence': ml_confidence,
+                    'ai_confidence': ai_confidence
+                },
+                'ai_insights': ai_pred.get('ai_insights', []) if isinstance(ai_pred, dict) else [],
+                'ml_details': ml_predictions,
+                'ai_details': ai_pred if isinstance(ai_pred, dict) else {}
+            })
+            
+            return enhanced_pred
+            
+        except Exception as e:
+            print(f"Error combining predictions: {str(e)}")
+            return ml_pred
+    
+    def train_ai_models(self, training_data=None):
+        """Train the AI models with historical data"""
+        try:
+            if training_data is None:
+                # Generate training data from existing races
+                training_data = self._prepare_ai_training_data()
+            
+            success = self.ai_predictor.train_ai_models(training_data)
+            if success:
+                print("AI models trained successfully")
+            else:
+                print("AI model training failed")
+            
+            return success
+            
+        except Exception as e:
+            print(f"Error training AI models: {str(e)}")
+            return False
+    
+    def _prepare_ai_training_data(self):
+        """Prepare training data for AI models from historical races"""
+        try:
+            # This would fetch historical race data
+            # For now, return empty to use the fallback in ai_predictor
+            return None
+            
+        except Exception as e:
+            print(f"Error preparing AI training data: {str(e)}")
+            return None
+    
+    def get_ai_insights(self, race):
+        """Get AI-powered insights for a race"""
+        try:
+            ai_prediction = self.ai_predictor.predict_race_ai(race, use_ensemble=True)
+            return ai_prediction.get('ai_insights', [])
+        except Exception as e:
+            print(f"Error getting AI insights: {str(e)}")
+            return ["AI insights temporarily unavailable"]

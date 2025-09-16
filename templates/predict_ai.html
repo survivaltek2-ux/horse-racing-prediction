@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block title %}AI-Enhanced Prediction - {{ race.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-brain"></i>
+                        AI-Enhanced Prediction
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <!-- Race Information -->
+                    <div class="race-info mb-4">
+                        <h4>{{ race.name }}</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Date:</strong> {{ race.date }}</p>
+                                <p><strong>Track:</strong> {{ race.track }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Distance:</strong> {{ race.distance }}m</p>
+                                <p><strong>Condition:</strong> {{ race.track_condition }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Configuration Form -->
+                    <form method="POST" id="aiPredictionForm">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="card border-info">
+                                    <div class="card-header bg-info text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-cogs"></i>
+                                            AI Configuration
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" id="use_ai" name="use_ai" value="true" checked>
+                                            <label class="form-check-label" for="use_ai">
+                                                <strong>Enable AI Enhancement</strong>
+                                                <small class="d-block text-muted">Use neural networks and deep learning models</small>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" id="use_ensemble" name="use_ensemble" value="true" checked>
+                                            <label class="form-check-label" for="use_ensemble">
+                                                <strong>Ensemble Learning</strong>
+                                                <small class="d-block text-muted">Combine multiple AI models for better accuracy</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-info-circle"></i>
+                                            AI Features
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="mb-2">
+                                                <i class="fas fa-check text-success"></i>
+                                                Deep Neural Networks (DNN)
+                                            </li>
+                                            <li class="mb-2">
+                                                <i class="fas fa-check text-success"></i>
+                                                LSTM for Form Analysis
+                                            </li>
+                                            <li class="mb-2">
+                                                <i class="fas fa-check text-success"></i>
+                                                CNN Pattern Recognition
+                                            </li>
+                                            <li class="mb-2">
+                                                <i class="fas fa-check text-success"></i>
+                                                AI-Powered Insights
+                                            </li>
+                                            <li class="mb-0">
+                                                <i class="fas fa-check text-success"></i>
+                                                Confidence Scoring
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('races') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i>
+                                Back to Races
+                            </a>
+                            
+                            <div>
+                                <a href="{{ url_for('predict', race_id=race.id) }}" class="btn btn-outline-primary me-2">
+                                    <i class="fas fa-chart-line"></i>
+                                    Standard Prediction
+                                </a>
+                                <button type="submit" class="btn btn-primary" id="generateBtn">
+                                    <i class="fas fa-brain"></i>
+                                    Generate AI Prediction
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- AI Information Card -->
+            <div class="card mt-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-lightbulb"></i>
+                        About AI-Enhanced Predictions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6 class="text-primary">Deep Learning</h6>
+                            <p class="small">Advanced neural networks analyze complex patterns in racing data that traditional methods might miss.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="text-primary">Form Analysis</h6>
+                            <p class="small">LSTM networks examine sequential performance data to understand form trends and momentum.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="text-primary">Pattern Recognition</h6>
+                            <p class="small">Convolutional networks identify hidden patterns in racing performance matrices.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('aiPredictionForm').addEventListener('submit', function(e) {
+    const generateBtn = document.getElementById('generateBtn');
+    generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating AI Prediction...';
+    generateBtn.disabled = true;
+});
+
+// Toggle ensemble option based on AI enablement
+document.getElementById('use_ai').addEventListener('change', function() {
+    const ensembleCheckbox = document.getElementById('use_ensemble');
+    if (!this.checked) {
+        ensembleCheckbox.checked = false;
+        ensembleCheckbox.disabled = true;
+    } else {
+        ensembleCheckbox.disabled = false;
+        ensembleCheckbox.checked = true;
+    }
+});
+</script>
+{% endblock %}

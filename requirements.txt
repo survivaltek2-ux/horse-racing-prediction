@@ -13,3 +13,16 @@ werkzeug==2.3.7
 cryptography==41.0.7
 firebase-admin==7.1.0
 python-dotenv==1.1.1
+
+# AI/ML Dependencies (Optional - install based on your needs)
+# For TensorFlow/Keras support:
+# tensorflow==2.13.0
+# keras==2.13.1
+
+# For PyTorch support:
+# torch==2.0.1
+# torchvision==0.15.2
+
+# Additional ML libraries
+xgboost==1.7.6
+lightgbm==4.0.0
