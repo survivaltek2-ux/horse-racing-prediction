@@ -1,0 +1,102 @@
+[
+  {
+    "id": "1ccfab24-278a-4be0-98ae-cf2c7af3a039",
+    "username": "admin",
+    "email": "admin@example.com",
+    "password_hash": "pbkdf2:sha256:600000$tOPS8Ego5xtrb97m$f4cce4527bae060e6d38f07836643277c0ba7313b84d6ac578f638963e28b098",
+    "role": "admin",
+    "is_active": true,
+    "created_at": "2025-09-15T19:53:27.995629",
+    "last_login": null
+  },
+  {
+    "id": "b9aab42d-ae39-447c-9868-5e92ef746658",
+    "username": "admin",
+    "email": "admin@example.com",
+    "password_hash": "pbkdf2:sha256:600000$onfLxHbgv9WrmeHz$86015a6c312057e51b6b157ed06cee3d7539cf1db0aa44ca680a5eb3f440e443",
+    "role": "admin",
+    "is_active": true,
+    "created_at": "2025-09-15T19:53:30.065706",
+    "last_login": null
+  },
+  {
+    "id": "a27b31e0-e4e1-49c0-90b7-597e7a1b6df6",
+    "username": "admin",
+    "email": "admin@example.com",
+    "password_hash": "pbkdf2:sha256:600000$zgHAU1HQxpAF6i5c$3f6160e0c560fa723e7e32a042cac0be931c6f485bb83b8caf416e4a65530a7e",
+    "role": "admin",
+    "is_active": true,
+    "created_at": "2025-09-15T19:57:12.817152",
+    "last_login": null
+  },
+  {
+    "id": "73fadae6-73d8-49b9-bf14-515e6810fec1",
+    "username": "admin",
+    "email": "admin@example.com",
+    "password_hash": "pbkdf2:sha256:600000$p64pw5UmwRkPgYU3$c8647f77b571a42e2c90ef0d6c4bfc5a135da5abcec04b125941d020818d2919",
+    "role": "admin",
+    "is_active": true,
+    "created_at": "2025-09-15T20:01:28.131430",
+    "last_login": null
+  },
+  {
+    "id": "52af4d12-6b6e-47cc-b816-95d2a7f3ee50",
+    "username": "admin",
+    "email": "admin@example.com",
+    "password_hash": "pbkdf2:sha256:600000$SEM0o6FZUgCb7aOS$c805bbb3bde548771265f174827d749be09c64998b291b9b279571d0e26a3a4b",
+    "role": "admin",
+    "is_active": true,
+    "created_at": "2025-09-15T20:01:30.151170",
+    "last_login": null
+  },
+  {
+    "id": "84e3387c-7917-4f01-bc38-ff09c724bc04",
+    "username": "admin",
+    "email": "admin@example.com",
+    "password_hash": "pbkdf2:sha256:600000$4dua4ib7ez3YzZuK$c0f25ccf9289ca49e5e255546a1b1805bd5a14186bbe85d3833ed61f8a9f8649",
+    "role": "admin",
+    "is_active": true,
+    "created_at": "2025-09-15T20:06:04.011923",
+    "last_login": null
+  },
+  {
+    "id": "dad7d618-538e-4d6d-a59f-acbc09afefdf",
+    "username": "admin",
+    "email": "admin@example.com",
+    "password_hash": "pbkdf2:sha256:600000$2JjqHJQSEvrZZq9A$8ed7d81b712ca57fe7a86e105e49cae9a3f64e9ddd5787fa22ff0e1b0637ca46",
+    "role": "admin",
+    "is_active": true,
+    "created_at": "2025-09-15T20:33:55.275969",
+    "last_login": null
+  },
+  {
+    "id": "91d51bc4-d548-458c-afe9-655d5f31e66b",
+    "username": "admin",
+    "email": "admin@example.com",
+    "password_hash": "pbkdf2:sha256:600000$m6q9mySj2BAq82te$8cd2957acdd03995d2d97b3b5d5312cbd8c6e32b445212e31e6e634a52671f40",
+    "role": "admin",
+    "is_active": true,
+    "created_at": "2025-09-15T20:34:37.713769",
+    "last_login": null
+  },
+  {
+    "id": "73ac8ba3-b1f9-49e6-b104-e09bc9d4590b",
+    "username": "admin",
+    "email": "admin@example.com",
+    "password_hash": "pbkdf2:sha256:600000$zSIGGNlBib2he2VM$426a3c4b9ceef9b0cd0375296fa632d9993fb0097530cd34e354355673bf9d0b",
+    "role": "admin",
+    "is_active": true,
+    "created_at": "2025-09-15T20:34:40.607897",
+    "last_login": null
+  },
+  {
+    "id": "e5999604-e161-44f2-920d-101fb3bb5e52",
+    "username": "admin",
+    "email": "admin@example.com",
+    "password_hash": "pbkdf2:sha256:600000$KoAhJV1eDHaBmvmq$6fca98672c50c1cbc19ea8b5cac87fcbd9e1b5e92383ee26c69b2fecfad2153e",
+    "role": "admin",
+    "is_active": true,
+    "created_at": "2025-09-15T20:35:04.613406",
+    "last_login": null
+  }
+]

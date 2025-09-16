@@ -5,8 +5,8 @@
 {% block content %}
 <div class="row">
     <div class="col-12">
-        <!-- Hero Section -->
-        <div class="jumbotron bg-gradient text-white rounded p-5 mb-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <!-- Enhanced Hero Section -->
+        <div class="hero-section text-white rounded p-5 mb-4 animate__animated animate__fadeIn">
             <div class="container-fluid py-5">
                 <h1 class="display-4 fw-bold">
                     <i class="fas fa-horse-head me-3"></i>
@@ -15,53 +15,114 @@
                 <p class="lead">Advanced AI-powered predictions for horse racing enthusiasts</p>
                 <hr class="my-4">
                 <p>Get accurate predictions, analyze horse performance, and track your betting success with our intelligent prediction system.</p>
-                <a class="btn btn-light btn-lg" href="{{ url_for('races') }}" role="button">
-                    <i class="fas fa-flag-checkered me-2"></i>
-                    View Upcoming Races
-                </a>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a class="btn btn-light btn-lg" href="{{ url_for('races') }}" role="button">
+                        <i class="fas fa-flag-checkered me-2"></i>
+                        View Upcoming Races
+                    </a>
+                    {% if current_user.is_authenticated %}
+                    <a class="btn btn-outline-light btn-lg" href="{{ url_for('prediction_history') }}" role="button">
+                        <i class="fas fa-chart-line me-2"></i>
+                        My Predictions
+                    </a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Enhanced Statistics Section -->
+<div class="row mb-5">
+    <div class="col-12">
+        <h2 class="text-center mb-4">
+            <i class="fas fa-chart-bar me-2"></i>
+            Performance Dashboard
+        </h2>
+    </div>
+</div>
+
 <div class="row">
-    <!-- Quick Stats -->
-    <div class="col-md-3 mb-4">
-        <div class="card text-center h-100">
+    <!-- Enhanced Quick Stats -->
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card stat-card h-100 animate__animated animate__fadeInUp">
             <div class="card-body">
-                <i class="fas fa-trophy fa-3x text-warning mb-3"></i>
-                <h5 class="card-title">Predictions Made</h5>
-                <h2 class="text-primary">{{ stats.total_predictions if stats else 0 }}</h2>
+                <i class="fas fa-trophy fa-3x mb-3"></i>
+                <div class="stat-number">{{ stats.total_predictions if stats else 0 }}</div>
+                <div class="stat-label">Predictions Made</div>
+                <div class="progress mt-3">
+                    <div class="progress-bar bg-warning" style="width: {{ (stats.total_predictions if stats else 0) / 10 if (stats.total_predictions if stats else 0) < 100 else 100 }}%"></div>
+                </div>
             </div>
         </div>
     </div>
     
-    <div class="col-md-3 mb-4">
-        <div class="card text-center h-100">
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card stat-card h-100 animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
             <div class="card-body">
-                <i class="fas fa-bullseye fa-3x text-success mb-3"></i>
-                <h5 class="card-title">Accuracy Rate</h5>
-                <h2 class="text-success">{{ stats.accuracy if stats else 0 }}%</h2>
+                <i class="fas fa-bullseye fa-3x mb-3"></i>
+                <div class="stat-number">{{ stats.accuracy if stats else 0 }}%</div>
+                <div class="stat-label">Accuracy Rate</div>
+                <div class="progress mt-3">
+                    <div class="progress-bar bg-success" style="width: {{ stats.accuracy if stats else 0 }}%"></div>
+                </div>
             </div>
         </div>
     </div>
     
-    <div class="col-md-3 mb-4">
-        <div class="card text-center h-100">
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card stat-card h-100 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
             <div class="card-body">
-                <i class="fas fa-horse fa-3x text-info mb-3"></i>
-                <h5 class="card-title">Win Predictions</h5>
-                <h2 class="text-info">{{ stats.win_predictions if stats else 0 }}</h2>
+                <i class="fas fa-horse fa-3x mb-3"></i>
+                <div class="stat-number">{{ stats.win_predictions if stats else 0 }}</div>
+                <div class="stat-label">Win Predictions</div>
+                <div class="progress mt-3">
+                    <div class="progress-bar bg-info" style="width: {{ (stats.win_predictions if stats else 0) / 5 if (stats.win_predictions if stats else 0) < 50 else 100 }}%"></div>
+                </div>
             </div>
         </div>
     </div>
     
-    <div class="col-md-3 mb-4">
-        <div class="card text-center h-100">
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card stat-card h-100 animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
             <div class="card-body">
-                <i class="fas fa-chart-line fa-3x text-danger mb-3"></i>
-                <h5 class="card-title">Avg. Accuracy</h5>
-                <h2 class="text-danger">{{ stats.avg_accuracy if stats else 0 }}%</h2>
+                <i class="fas fa-chart-line fa-3x mb-3"></i>
+                <div class="stat-number">{{ stats.avg_accuracy if stats else 0 }}%</div>
+                <div class="stat-label">Avg. Accuracy</div>
+                <div class="progress mt-3">
+                    <div class="progress-bar bg-danger" style="width: {{ stats.avg_accuracy if stats else 0 }}%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Performance Chart Section -->
+<div class="row mb-5">
+    <div class="col-lg-8 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-area me-2"></i>
+                    Prediction Performance Trend
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="performanceChart" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-pie-chart me-2"></i>
+                    Prediction Types
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="predictionTypesChart" height="150"></canvas>
             </div>
         </div>
     </div>
@@ -159,4 +220,110 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if Chart.js is loaded
+    if (typeof Chart === 'undefined') {
+        console.error('Chart.js is not loaded. Charts will not be displayed.');
+        return;
+    }
+    
+    // Performance Chart
+    const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+    const performanceChart = new Chart(performanceCtx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Accuracy %',
+                data: [65, 72, 68, 75, 78, 82],
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                tension: 0.4,
+                fill: true
+            }, {
+                label: 'Win Rate %',
+                data: [45, 52, 48, 55, 58, 62],
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Monthly Performance Trends'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+
+    // Prediction Types Chart
+    const typesCtx = document.getElementById('predictionTypesChart').getContext('2d');
+    const typesChart = new Chart(typesCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Win', 'Place', 'Show', 'Exacta'],
+            datasets: [{
+                data: [35, 25, 20, 20],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 205, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 205, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: true,
+                    text: 'Prediction Distribution'
+                }
+            }
+        }
+    });
+
+    // Add hover effects to stat cards
+    document.querySelectorAll('.stat-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+        });
+    });
+});
+</script>
 {% endblock %}

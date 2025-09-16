@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Profile - Horse Racing Prediction{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>User Profile</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-3"><strong>Username:</strong></div>
+                        <div class="col-sm-9">{{ user.username }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3"><strong>Email:</strong></div>
+                        <div class="col-sm-9">{{ user.email }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3"><strong>Role:</strong></div>
+                        <div class="col-sm-9">
+                            <span class="badge bg-{{ 'danger' if user.role == 'admin' else 'primary' }}">
+                                {{ user.role.title() }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3"><strong>Status:</strong></div>
+                        <div class="col-sm-9">
+                            <span class="badge bg-{{ 'success' if user.is_active else 'secondary' }}">
+                                {{ 'Active' if user.is_active else 'Inactive' }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3"><strong>Member Since:</strong></div>
+                        <div class="col-sm-9">{{ user.created_at.strftime('%B %d, %Y') if user.created_at else 'N/A' }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Account Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{{ url_for('change_password') }}" class="btn btn-outline-primary">
+                            <i class="fas fa-key"></i> Change Password
+                        </a>
+                        {% if user.is_admin %}
+                        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-danger">
+                            <i class="fas fa-cog"></i> Admin Dashboard
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5>Quick Stats</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <small class="text-muted">
+                            Welcome to the Horse Racing Prediction System!
+                            {% if user.is_admin %}
+                            As an administrator, you have access to user management and system settings.
+                            {% else %}
+                            You can view races, make predictions, and track your betting history.
+                            {% endif %}
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

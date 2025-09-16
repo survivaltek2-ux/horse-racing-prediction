@@ -8,9 +8,7 @@ from typing import List, Dict, Optional, Any
 import logging
 
 # Import our models
-from models.race import Race
-from models.horse import Horse
-from models.prediction import Prediction
+from models.firebase_models import Race, Horse, Prediction, APICredentials
 
 from utils.api_client import APIManager, RaceData, HorseData
 from config.api_config import APIConfig
@@ -35,14 +33,33 @@ class APIService:
         """Initialize with Flask app"""
         self.app = app
         app.api_service = self
+        
+        # Load database credentials on startup
+        try:
+            self.update_api_manager_with_db_credentials()
+            logger.info("Successfully loaded database credentials on startup")
+        except Exception as e:
+            logger.warning(f"Could not load database credentials on startup: {e}")
     
     def get_available_providers(self) -> Dict[str, Dict[str, Any]]:
         """Get list of available API providers"""
         providers = APIConfig.get_available_providers()
         
-        # Add configuration status
+        # Add configuration status - check both environment variables and database
         for name, config in providers.items():
-            config['configured'] = APIConfig.is_provider_configured(name)
+            # First check environment variables
+            env_configured = APIConfig.is_provider_configured(name)
+            
+            # Then check database credentials
+            db_configured = False
+            try:
+                db_creds = self.get_database_credentials(name)
+                db_configured = db_creds.get('configured', False)
+            except Exception as e:
+                logger.warning(f"Error checking database credentials for {name}: {e}")
+            
+            # Provider is configured if either environment or database has credentials
+            config['configured'] = env_configured or db_configured
         
         return providers
     
@@ -357,6 +374,141 @@ class APIService:
                 'status': 'success'
             }
         ]
+    
+    def get_database_credentials(self, provider: str = None) -> Dict[str, Any]:
+        """
+        Get API credentials from database instead of environment variables
+        """
+        try:
+            if provider:
+                # Get specific provider credentials
+                credentials = APICredentials.get_by_provider(provider)
+                if credentials and credentials.is_active:
+                    return {
+                        'provider': credentials.provider,
+                        'api_key': credentials.get_decrypted_api_key(),
+                        'api_secret': credentials.get_decrypted_api_secret(),
+                        'base_url': credentials.base_url,
+                        'configured': True
+                    }
+                return {'configured': False}
+            else:
+                # Get all active credentials
+                all_credentials = APICredentials.get_all()
+                result = {}
+                for cred in all_credentials:
+                    if cred.is_active:
+                        result[cred.provider] = {
+                            'provider': cred.provider,
+                            'api_key': cred.get_decrypted_api_key(),
+                            'api_secret': cred.get_decrypted_api_secret(),
+                            'base_url': cred.base_url,
+                            'configured': True
+                        }
+                return result
+        except Exception as e:
+            logger.error(f"Error loading database credentials: {e}")
+            return {}
+    
+    def test_connection_with_credentials(self, credentials: APICredentials) -> Dict[str, Any]:
+        """
+        Test API connection using database credentials
+        """
+        try:
+            # Create a temporary API client with the credentials
+            from utils.api_client import HorseRacingAPIClient
+            
+            # Get the decrypted credentials
+            api_key = credentials.get_decrypted_api_key()
+            api_secret = credentials.get_decrypted_api_secret()
+            
+            # Create test configuration
+            test_config = {
+                'api_key': api_key,
+                'api_secret': api_secret,
+                'base_url': credentials.base_url,
+                'timeout': 10  # Short timeout for testing
+            }
+            
+            # Create a generic client for testing
+            client = HorseRacingAPIClient(test_config)
+            
+            # Try to make a simple test request
+            # This is a basic connectivity test
+            import requests
+            test_url = credentials.base_url or 'https://httpbin.org/status/200'
+            
+            headers = {}
+            if api_key:
+                headers['Authorization'] = f'Bearer {api_key}'
+                # Or API key in header
+                headers['X-API-Key'] = api_key
+            
+            response = requests.get(test_url, headers=headers, timeout=10)
+            
+            if response.status_code == 200:
+                return {
+                    'success': True,
+                    'message': f'Successfully connected to {credentials.provider}',
+                    'status_code': response.status_code
+                }
+            else:
+                return {
+                    'success': False,
+                    'error': f'HTTP {response.status_code}: {response.text[:100]}',
+                    'status_code': response.status_code
+                }
+                
+        except requests.exceptions.Timeout:
+            return {
+                'success': False,
+                'error': 'Connection timeout - API endpoint may be unreachable'
+            }
+        except requests.exceptions.ConnectionError:
+            return {
+                'success': False,
+                'error': 'Connection error - Check network connectivity and API endpoint'
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': f'Test failed: {str(e)}'
+            }
+    
+    def update_api_manager_with_db_credentials(self):
+        """
+        Update the API manager to use credentials from database instead of environment
+        """
+        try:
+            from utils.api_client import APIManager, TheRacingAPI, SampleRacingAPI
+            
+            db_credentials = self.get_database_credentials()
+            
+            # Update the API manager with database credentials
+            for provider_name, creds in db_credentials.items():
+                if creds.get('configured'):
+                    logger.info(f"Updating {provider_name} with database credentials")
+                    
+                    # Create new provider instances with database credentials
+                    if provider_name == 'theracingapi':
+                        # TheRacingAPI uses username/password
+                        api_key = creds.get('api_key', '')
+                        api_secret = creds.get('api_secret', '')
+                        if api_key and api_secret:
+                            new_provider = TheRacingAPI(username=api_key, password=api_secret)
+                            self.api_manager.add_provider(provider_name, new_provider)
+                    
+                    elif provider_name in ['sample', 'odds_api', 'rapid_api']:
+                        # These use API key authentication
+                        api_key = creds.get('api_key', '')
+                        if api_key:
+                            new_provider = SampleRacingAPI(api_key=api_key)
+                            self.api_manager.add_provider(provider_name, new_provider)
+                    
+            return True
+        except Exception as e:
+            logger.error(f"Error updating API manager with database credentials: {e}")
+            return False
 
 # Global service instance
 api_service = APIService()

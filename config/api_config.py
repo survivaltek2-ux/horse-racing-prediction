@@ -56,7 +56,7 @@ class APIConfig:
             'name': 'The Racing API',
             'description': 'Comprehensive UK, Ireland & USA horse racing data',
             'base_url': 'https://api.theracingapi.com/v1',
-            'api_key_required': False,
+            'api_key_required': True,
             'auth_type': 'basic',  # HTTP Basic Authentication
             'username_required': True,
             'password_required': True,
@@ -95,6 +95,15 @@ class APIConfig:
             api_key = os.getenv(env_key)
             provider_config['api_key'] = api_key
         
+        # Load username/password for basic auth providers
+        if provider_config.get('auth_type') == 'basic':
+            username_key = f"{provider_name.upper()}_USERNAME"
+            password_key = f"{provider_name.upper()}_PASSWORD"
+            username = os.getenv(username_key)
+            password = os.getenv(password_key)
+            provider_config['username'] = username
+            provider_config['password'] = password
+        
         return provider_config
     
     @classmethod
@@ -110,15 +119,15 @@ class APIConfig:
         if not provider_config:
             return False
         
-        # Check if API key is required and available
-        if provider_config.get('api_key_required'):
-            return bool(provider_config.get('api_key'))
-        
-        # Check if HTTP Basic Auth is required and available
+        # Check if HTTP Basic Auth is required and available (check this first)
         if provider_config.get('auth_type') == 'basic':
             username = os.getenv(f"{provider_name.upper()}_USERNAME")
             password = os.getenv(f"{provider_name.upper()}_PASSWORD")
             return bool(username and password)
+        
+        # Check if API key is required and available
+        if provider_config.get('api_key_required'):
+            return bool(provider_config.get('api_key'))
         
         return True
 
@@ -136,11 +145,11 @@ API_DEFAULT_DAYS=7
 SAMPLE_API_KEY=your_sample_api_key_here
 ODDS_API_API_KEY=your_odds_api_key_here
 RAPID_API_API_KEY=your_rapidapi_key_here
-THERACINGAPI_USERNAME=your_theracingapi_username_here
-THERACINGAPI_PASSWORD=your_theracingapi_password_here
+THERACINGAPI_USERNAME=H2vuk1zZVKP9nsz8ElvHfQC9
+THERACINGAPI_PASSWORD=yHZh0dh2iPCG7E8OhXGHgTvJ
 
 # Provider Selection
-DEFAULT_API_PROVIDER=mock
+DEFAULT_API_PROVIDER=theracingapi
 FALLBACK_API_PROVIDER=sample
 """
 

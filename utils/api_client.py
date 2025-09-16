@@ -76,30 +76,13 @@ class TheRacingAPI(HorseRacingAPIClient):
     
     def get_upcoming_races(self, days_ahead: int = 7) -> List[RaceData]:
         """Fetch upcoming races from TheRacingAPI"""
-        end_date = datetime.now() + timedelta(days=days_ahead)
+        # Note: Current subscription only has access to /courses endpoint
+        # Race data endpoints (/meetings, /racecards) require a higher subscription plan
+        logger.info("TheRacingAPI: Race data endpoints not available with current subscription")
+        logger.info("TheRacingAPI: Only /courses endpoint is accessible")
         
-        params = {
-            'date_from': datetime.now().strftime('%Y-%m-%d'),
-            'date_to': end_date.strftime('%Y-%m-%d')
-        }
-        
-        url = f"{self.base_url}/meetings"
-        data = self._make_request(url, params=params)
-        
-        if not data:
-            return []
-        
-        races = []
-        for meeting in data.get('meetings', []):
-            for race_info in meeting.get('races', []):
-                try:
-                    race = self._parse_theracing_race_data(race_info, meeting)
-                    races.append(race)
-                except Exception as e:
-                    logger.error(f"Error parsing TheRacingAPI race data: {e}")
-                    continue
-        
-        return races
+        # Return empty list quickly instead of trying non-existent endpoints
+        return []
     
     def get_race_details(self, race_id: str) -> Optional[RaceData]:
         """Fetch detailed information for a specific race from TheRacingAPI"""
@@ -180,8 +163,8 @@ class TheRacingAPI(HorseRacingAPIClient):
     def _load_config(self) -> Dict[str, Any]:
         """Load API configuration from environment or config file"""
         return {
-            'timeout': int(os.getenv('API_TIMEOUT', '30')),
-            'max_retries': int(os.getenv('API_MAX_RETRIES', '3')),
+            'timeout': int(os.getenv('API_TIMEOUT', '10')),  # Reduced from 30 to 10 seconds
+            'max_retries': int(os.getenv('API_MAX_RETRIES', '1')),  # Reduced from 3 to 1 retry
             'base_urls': {
                 'sample': 'https://api.example-racing.com/v1',
                 'mock': 'http://localhost:8080/api'  # For testing

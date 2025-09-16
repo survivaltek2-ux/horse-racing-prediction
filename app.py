@@ -1,19 +1,43 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask_cors import CORS
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from flask_bcrypt import Bcrypt
 import pandas as pd
 import numpy as np
-from models.horse import Horse
-from models.race import Race
-from models.prediction import Prediction
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.preprocessing import StandardScaler
+from models.firebase_models import Horse, Race, Prediction, User
+from models.api_credentials import APICredentials
 from utils.data_processor import DataProcessor
 from utils.predictor import Predictor
-from forms import RaceForm, HorseForm, PredictionForm, RaceResultForm, AddHorseToRaceForm
+from forms import RaceForm, HorseForm, PredictionForm, RaceResultForm, AddHorseToRaceForm, LoginForm, RegisterForm, UserManagementForm, ChangePasswordForm, APICredentialsForm, APICredentialsTestForm
 from services.api_service import api_service
 from config.api_config import APIConfig
 import os
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = os.urandom(24)
+
+# Initialize Flask-Login
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+login_manager.login_message = 'Please log in to access this page.'
+login_manager.login_message_category = 'info'
+
+# Initialize Bcrypt for password hashing
+bcrypt = Bcrypt(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    """Load user by ID for Flask-Login"""
+    return User.get_by_id(user_id)
 
 # Initialize data processor and predictor
 data_processor = DataProcessor()
@@ -26,16 +50,27 @@ api_service.init_app(app)
 def index():
     """Render the home page"""
     # Get some basic statistics for the dashboard
-    total_races = len(Race.get_all_races())
-    total_horses = len(Horse.get_all_horses())
-    total_predictions = len(Prediction.get_all_predictions())
-    upcoming_races = len(Race.get_upcoming_races())
+    total_races = len(Race.get_all())
+    total_horses = len(Horse.get_all())
+    total_predictions = len(Prediction.get_all())
+    upcoming_races = len(Race.get_upcoming())
+    
+    # Calculate additional stats for the dashboard
+    predictions = Prediction.get_all()
+    win_predictions = len([p for p in predictions if p.prediction_type == 'win']) if predictions else 0
+    
+    # Calculate accuracy (placeholder calculation - you may want to implement proper accuracy calculation)
+    accuracy = 75 if total_predictions > 0 else 0  # Placeholder value
+    avg_accuracy = 78 if total_predictions > 0 else 0  # Placeholder value
     
     stats = {
         'total_races': total_races,
         'total_horses': total_horses,
         'total_predictions': total_predictions,
-        'upcoming_races': upcoming_races
+        'upcoming_races': upcoming_races,
+        'win_predictions': win_predictions,
+        'accuracy': accuracy,
+        'avg_accuracy': avg_accuracy
     }
     
     return render_template('index.html', stats=stats)
@@ -43,17 +78,23 @@ def index():
 @app.route('/races')
 def races():
     """Display list of upcoming races"""
-    race_list = Race.get_upcoming_races()
+    race_list = Race.get_upcoming()
     return render_template('races.html', races=race_list)
 
-@app.route('/race/<int:race_id>')
+@app.route('/race/<race_id>')
 def race_details(race_id):
     """Display details for a specific race"""
-    race = Race.get_race_by_id(race_id)
-    horses = race.get_horses()
+    race = Race.get_by_id(race_id)
+    if not race:
+        flash('Race not found', 'error')
+        return redirect(url_for('races'))
+    
+    # Get horses for this race (simplified for Firebase)
+    horses = Horse.get_all()  # In a real implementation, you'd filter by race
     return render_template('race_details.html', race=race, horses=horses)
 
 @app.route('/predict/<int:race_id>', methods=['GET', 'POST'])
+@login_required
 def predict(race_id):
     """Generate and display predictions for a race"""
     race = Race.get_race_by_id(race_id)
@@ -69,6 +110,7 @@ def predict(race_id):
     return render_template('predict.html', race=race, form=form)
 
 @app.route('/add_race', methods=['GET', 'POST'])
+@login_required
 def add_race():
     """Add a new race"""
     form = RaceForm()
@@ -91,6 +133,7 @@ def add_race():
     return render_template('add_race.html', form=form)
 
 @app.route('/add_horse', methods=['GET', 'POST'])
+@login_required
 def add_horse():
     """Add a new horse"""
     form = HorseForm()
@@ -114,6 +157,7 @@ def add_horse():
     return render_template('add_horse.html', form=form)
 
 @app.route('/history')
+@login_required
 def prediction_history():
     """Display prediction history"""
     predictions = Prediction.get_all_predictions()
@@ -173,6 +217,7 @@ def fetch_races():
         }), 500
 
 @app.route('/api/import_races', methods=['POST'])
+@login_required
 def import_races():
     """Import races from API to database"""
     provider = request.form.get('provider', 'mock')
@@ -228,5 +273,480 @@ def test_api_connection(provider):
             'error': str(e)
         }), 500
 
+@app.route('/api/train_model', methods=['POST'])
+@login_required
+def train_model():
+    """Train the prediction model"""
+    try:
+        # Get training parameters from request
+        data = request.get_json() or {}
+        
+        # Start training
+        result = predictor.train_model()
+        
+        return jsonify(result)
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'message': 'Training failed due to an error'
+        }), 500
+
+@app.route('/api/model/info', methods=['GET'])
+def get_model_info():
+    """Get information about the current model"""
+    try:
+        info = predictor.get_model_info()
+        return jsonify(info)
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'Error getting model info: {str(e)}'
+        }), 500
+
+@app.route('/api/model/backups', methods=['GET'])
+def list_model_backups():
+    """List available model backups"""
+    try:
+        backups = predictor.list_model_backups()
+        return jsonify({
+            'success': True,
+            'backups': backups
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'Error listing backups: {str(e)}'
+        }), 500
+
+@app.route('/api/model/restore', methods=['POST'])
+@login_required
+def restore_model_backup():
+    """Restore a model from backup"""
+    try:
+        data = request.get_json()
+        if not data or 'timestamp' not in data:
+            return jsonify({
+                'success': False,
+                'message': 'Timestamp is required'
+            }), 400
+        
+        success = predictor.restore_backup(data['timestamp'])
+        
+        if success:
+            return jsonify({
+                'success': True,
+                'message': 'Model restored successfully'
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'message': 'Failed to restore model'
+            }), 400
+            
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'Error restoring backup: {str(e)}'
+        }), 500
+
+@app.route('/api/model/load', methods=['POST'])
+@login_required
+def load_model():
+    """Load a previously trained model"""
+    try:
+        success = predictor.load_model()
+        
+        if success:
+            return jsonify({
+                'success': True,
+                'message': 'Model loaded successfully'
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'message': 'No saved model found or failed to load'
+            }), 404
+            
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'Error loading model: {str(e)}'
+        }), 500
+
+@app.route('/api/model_status')
+def model_status():
+    """Get current model training status and performance"""
+    try:
+        # Load model if not already loaded
+        if not predictor.is_trained:
+            predictor.load_model()
+        
+        # Get performance stats
+        stats = predictor.get_performance_stats()
+        
+        return jsonify({
+            'success': True,
+            'is_trained': predictor.is_trained,
+            'model_type': 'RandomForestRegressor',
+            'performance_stats': stats
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/retrain_model', methods=['POST'])
+@login_required
+def retrain_model():
+    """Retrain the model with fresh data"""
+    try:
+        # Reset the predictor
+        predictor.is_trained = False
+        predictor.model = RandomForestRegressor(n_estimators=100, random_state=42)
+        predictor.scaler = StandardScaler()
+        
+        # Retrain
+        result = predictor.train_model()
+        
+        return jsonify(result)
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'message': 'Retraining failed due to an error'
+        }), 500
+
+# Authentication Routes
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """User login"""
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.get_by_username(form.username.data)
+        if user and user.check_password(form.password.data):
+            if user.is_active:
+                login_user(user, remember=form.remember_me.data)
+                next_page = request.args.get('next')
+                flash(f'Welcome back, {user.username}!', 'success')
+                return redirect(next_page) if next_page else redirect(url_for('index'))
+            else:
+                flash('Your account has been deactivated. Please contact an administrator.', 'error')
+        else:
+            flash('Invalid username or password.', 'error')
+    
+    return render_template('auth/login.html', form=form)
+
+@app.route('/logout')
+@login_required
+def logout():
+    """User logout"""
+    logout_user()
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('index'))
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    """User registration"""
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User(
+            username=form.username.data,
+            email=form.email.data,
+            role='user'
+        )
+        user.set_password(form.password.data)
+        user.save()
+        flash('Registration successful! You can now log in.', 'success')
+        return redirect(url_for('login'))
+    
+    return render_template('auth/register.html', form=form)
+
+@app.route('/profile')
+@login_required
+def profile():
+    """User profile page"""
+    return render_template('auth/profile.html', user=current_user)
+
+@app.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    """Change user password"""
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        if current_user.check_password(form.current_password.data):
+            current_user.set_password(form.new_password.data)
+            current_user.save()
+            flash('Your password has been updated.', 'success')
+            return redirect(url_for('profile'))
+        else:
+            flash('Current password is incorrect.', 'error')
+    
+    return render_template('auth/change_password.html', form=form)
+
+# Admin Routes
+@app.route('/admin')
+@login_required
+def admin_dashboard():
+    """Admin dashboard - requires admin role"""
+    if not current_user.is_admin():
+        flash('Access denied. Administrator privileges required.', 'error')
+        return redirect(url_for('index'))
+    
+    users = User.get_all_users()
+    stats = {
+        'total_users': len(users),
+        'active_users': len([u for u in users if u.is_active]),
+        'admin_users': len([u for u in users if u.role == 'admin']),
+        'total_races': len(Race.get_all_races()),
+        'total_horses': len(Horse.get_all_horses()),
+        'total_predictions': len(Prediction.get_all_predictions())
+    }
+    
+    return render_template('admin/dashboard.html', stats=stats, users=users[:10])
+
+@app.route('/admin/users')
+@login_required
+def admin_users():
+    """User management page"""
+    if not current_user.is_admin():
+        flash('Access denied. Administrator privileges required.', 'error')
+        return redirect(url_for('index'))
+    
+    users = User.get_all_users()
+    return render_template('admin/users.html', users=users)
+
+@app.route('/admin/user/new', methods=['GET', 'POST'])
+@login_required
+def admin_create_user():
+    """Create new user"""
+    if not current_user.is_admin():
+        flash('Access denied. Administrator privileges required.', 'error')
+        return redirect(url_for('index'))
+    
+    form = UserManagementForm()
+    if form.validate_on_submit():
+        # Check if username or email already exists
+        if User.get_by_username(form.username.data):
+            flash('Username already exists.', 'error')
+            return render_template('admin/user_form.html', form=form, action='Create')
+        
+        if User.get_by_email(form.email.data):
+            flash('Email already registered.', 'error')
+            return render_template('admin/user_form.html', form=form, action='Create')
+        
+        user = User(
+            username=form.username.data,
+            email=form.email.data,
+            role=form.role.data,
+            is_active=form.is_active.data
+        )
+        if form.password.data:
+            user.set_password(form.password.data)
+        else:
+            user.set_password('password123')  # Default password
+        
+        user.save()
+        flash(f'User {user.username} created successfully.', 'success')
+        return redirect(url_for('admin_users'))
+    
+    return render_template('admin/user_form.html', form=form, action='Create')
+
+@app.route('/admin/user/<user_id>/edit', methods=['GET', 'POST'])
+@login_required
+def admin_edit_user(user_id):
+    """Edit existing user"""
+    if not current_user.is_admin():
+        flash('Access denied. Administrator privileges required.', 'error')
+        return redirect(url_for('index'))
+    
+    user = User.get_by_id(user_id)
+    if not user:
+        flash('User not found.', 'error')
+        return redirect(url_for('admin_users'))
+    
+    form = UserManagementForm(obj=user)
+    if form.validate_on_submit():
+        # Check if username or email conflicts with other users
+        existing_user = User.get_by_username(form.username.data)
+        if existing_user and existing_user.user_id != user.user_id:
+            flash('Username already exists.', 'error')
+            return render_template('admin/user_form.html', form=form, action='Edit', user=user)
+        
+        existing_user = User.get_by_email(form.email.data)
+        if existing_user and existing_user.user_id != user.user_id:
+            flash('Email already registered.', 'error')
+            return render_template('admin/user_form.html', form=form, action='Edit', user=user)
+        
+        user.username = form.username.data
+        user.email = form.email.data
+        user.role = form.role.data
+        user.is_active = form.is_active.data
+        
+        if form.password.data:
+            user.set_password(form.password.data)
+        
+        user.save()
+        flash(f'User {user.username} updated successfully.', 'success')
+        return redirect(url_for('admin_users'))
+    
+    return render_template('admin/user_form.html', form=form, action='Edit', user=user)
+
+@app.route('/admin/user/<user_id>/delete', methods=['POST'])
+@login_required
+def admin_delete_user(user_id):
+    """Delete user"""
+    if not current_user.is_admin():
+        flash('Access denied. Administrator privileges required.', 'error')
+        return redirect(url_for('index'))
+    
+    user = User.get_by_id(user_id)
+    if not user:
+        flash('User not found.', 'error')
+        return redirect(url_for('admin_users'))
+    
+    if user.user_id == current_user.user_id:
+        flash('You cannot delete your own account.', 'error')
+        return redirect(url_for('admin_users'))
+    
+    username = user.username
+    user.delete()
+    flash(f'User {username} deleted successfully.', 'success')
+    return redirect(url_for('admin_users'))
+
+
+@app.route('/admin/api_credentials')
+@login_required
+def admin_api_credentials():
+    """List all API credentials"""
+    if not current_user.is_admin():
+        flash('Access denied. Admin privileges required.', 'error')
+        return redirect(url_for('index'))
+    
+    credentials = APICredentials.get_all()
+    return render_template('admin/api_credentials.html', credentials=credentials)
+
+
+@app.route('/admin/api_credentials/new', methods=['GET', 'POST'])
+@login_required
+def admin_create_api_credentials():
+    """Create new API credentials"""
+    if not current_user.is_admin():
+        flash('Access denied. Admin privileges required.', 'error')
+        return redirect(url_for('index'))
+    
+    form = APICredentialsForm()
+    if form.validate_on_submit():
+        try:
+            credentials = APICredentials(
+                provider=form.provider.data,
+                api_key=form.api_key.data,
+                api_secret=form.api_secret.data if form.api_secret.data else None,
+                base_url=form.base_url.data if form.base_url.data else None,
+                description=form.description.data if form.description.data else None,
+                is_active=form.is_active.data
+            )
+            credentials.save()
+            # Refresh API manager with new credentials
+            api_service.update_api_manager_with_db_credentials()
+            flash(f'API credentials for {form.provider.data} created successfully.', 'success')
+            return redirect(url_for('admin_api_credentials'))
+        except Exception as e:
+            flash(f'Error creating API credentials: {str(e)}', 'error')
+    
+    return render_template('admin/api_credentials_form.html', form=form, title='Add API Credentials')
+
+
+@app.route('/admin/api_credentials/<credential_id>/edit', methods=['GET', 'POST'])
+@login_required
+def admin_edit_api_credentials(credential_id):
+    """Edit existing API credentials"""
+    if not current_user.is_admin():
+        flash('Access denied. Admin privileges required.', 'error')
+        return redirect(url_for('index'))
+    
+    credentials = APICredentials.get_by_id(credential_id)
+    if not credentials:
+        flash('API credentials not found.', 'error')
+        return redirect(url_for('admin_api_credentials'))
+    
+    form = APICredentialsForm(obj=credentials)
+    if form.validate_on_submit():
+        try:
+            credentials.provider = form.provider.data
+            credentials.api_key = form.api_key.data
+            credentials.api_secret = form.api_secret.data if form.api_secret.data else None
+            credentials.base_url = form.base_url.data if form.base_url.data else None
+            credentials.description = form.description.data if form.description.data else None
+            credentials.is_active = form.is_active.data
+            credentials.save()
+            # Refresh API manager with updated credentials
+            api_service.update_api_manager_with_db_credentials()
+            flash(f'API credentials for {form.provider.data} updated successfully.', 'success')
+            return redirect(url_for('admin_api_credentials'))
+        except Exception as e:
+            flash(f'Error updating API credentials: {str(e)}', 'error')
+    
+    return render_template('admin/api_credentials_form.html', form=form, credentials=credentials, title='Edit API Credentials')
+
+
+@app.route('/admin/api_credentials/<credential_id>/delete', methods=['POST'])
+@login_required
+def admin_delete_api_credentials(credential_id):
+    """Delete API credentials"""
+    if not current_user.is_admin():
+        flash('Access denied. Admin privileges required.', 'error')
+        return redirect(url_for('index'))
+    
+    credentials = APICredentials.get_by_id(credential_id)
+    if not credentials:
+        flash('API credentials not found.', 'error')
+        return redirect(url_for('admin_api_credentials'))
+    
+    provider_name = credentials.provider
+    credentials.delete()
+    # Refresh API manager after deleting credentials
+    api_service.update_api_manager_with_db_credentials()
+    flash(f'API credentials for {provider_name} deleted successfully.', 'success')
+    return redirect(url_for('admin_api_credentials'))
+
+
+@app.route('/admin/api_credentials/<credential_id>/test', methods=['POST'])
+@login_required
+def admin_test_api_credentials(credential_id):
+    """Test API credentials connection"""
+    if not current_user.is_admin():
+        flash('Access denied. Admin privileges required.', 'error')
+        return redirect(url_for('index'))
+    
+    credentials = APICredentials.get_by_id(credential_id)
+    if not credentials:
+        flash('API credentials not found.', 'error')
+        return redirect(url_for('admin_api_credentials'))
+    
+    try:
+        # Test the connection using the API service
+        test_result = api_service.test_connection_with_credentials(credentials)
+        if test_result.get('success'):
+            flash(f'Connection to {credentials.provider} successful!', 'success')
+        else:
+            flash(f'Connection to {credentials.provider} failed: {test_result.get("error", "Unknown error")}', 'error')
+    except Exception as e:
+        flash(f'Error testing connection: {str(e)}', 'error')
+    
+    return redirect(url_for('admin_api_credentials'))
+
 if __name__ == '__main__':
+    # Create admin user if it doesn't exist
+    User.create_admin_user('admin', 'admin@example.com', 'admin123')
     app.run(debug=True)

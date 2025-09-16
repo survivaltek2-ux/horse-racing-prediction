@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, FloatField, TextAreaField, SelectField, DateTimeField, SubmitField
-from wtforms.validators import DataRequired, NumberRange, Length, Optional
+from wtforms import StringField, IntegerField, FloatField, DateField, DateTimeField, TextAreaField, SelectField, SubmitField, PasswordField, BooleanField, HiddenField
+from wtforms.validators import DataRequired, NumberRange, Optional, Length, Email, EqualTo, ValidationError, URL
 from datetime import datetime
+from models.user import User
 
 class RaceForm(FlaskForm):
     name = StringField('Race Name', validators=[DataRequired(), Length(min=2, max=100)])
@@ -58,3 +59,69 @@ class AddHorseToRaceForm(FlaskForm):
     post_position = IntegerField('Post Position', validators=[Optional(), NumberRange(min=1, max=20)])
     morning_line_odds = StringField('Morning Line Odds', validators=[Optional(), Length(max=10)])
     submit = SubmitField('Add Horse to Race')
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Remember Me')
+    submit = SubmitField('Sign In')
+
+class RegisterForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])
+    password2 = PasswordField('Confirm Password', 
+                             validators=[DataRequired(), EqualTo('password', message='Passwords must match')])
+    submit = SubmitField('Register')
+    
+    def validate_username(self, username):
+        user = User.get_by_username(username.data)
+        if user:
+            raise ValidationError('Username already exists. Please choose a different one.')
+    
+    def validate_email(self, email):
+        user = User.get_by_email(email.data)
+        if user:
+            raise ValidationError('Email already registered. Please choose a different one.')
+
+class UserManagementForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    role = SelectField('Role', choices=[('user', 'User'), ('admin', 'Administrator')], default='user')
+    is_active = BooleanField('Active', default=True)
+    password = PasswordField('Password (leave blank to keep current)', validators=[Optional(), Length(min=6)])
+    submit = SubmitField('Save User')
+
+class ChangePasswordForm(FlaskForm):
+    current_password = PasswordField('Current Password', validators=[DataRequired()])
+    new_password = PasswordField('New Password', validators=[DataRequired(), Length(min=6)])
+    new_password2 = PasswordField('Confirm New Password', 
+                                 validators=[DataRequired(), EqualTo('new_password', message='Passwords must match')])
+    submit = SubmitField('Change Password')
+    
+    def validate_password(self, field):
+        if len(field.data) < 6:
+            raise ValidationError('Password must be at least 6 characters long.')
+
+
+class APICredentialsForm(FlaskForm):
+    """Form for managing API credentials"""
+    provider = StringField('Provider Name', validators=[DataRequired(), Length(min=2, max=50)])
+    api_key = StringField('API Key', validators=[DataRequired(), Length(min=5, max=200)])
+    api_secret = PasswordField('API Secret', validators=[Optional(), Length(max=200)])
+    base_url = StringField('Base URL', validators=[Optional(), URL(), Length(max=200)])
+    description = TextAreaField('Description', validators=[Optional(), Length(max=500)])
+    is_active = BooleanField('Active', default=True)
+    submit = SubmitField('Save Credentials')
+    
+    def validate_provider(self, field):
+        # Check for valid provider name format
+        if not field.data.replace('_', '').replace('-', '').isalnum():
+            raise ValidationError('Provider name can only contain letters, numbers, hyphens, and underscores.')
+
+
+class APICredentialsTestForm(FlaskForm):
+    """Form for testing API credentials"""
+    credential_id = HiddenField('Credential ID', validators=[DataRequired()])
+    test_endpoint = StringField('Test Endpoint', validators=[Optional(), Length(max=200)])
+    submit = SubmitField('Test Connection')
