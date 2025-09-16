@@ -229,12 +229,21 @@
             loadRecentActivity();
         });
 
-        function loadDashboardStats() {
-            const stats = DataManager.getStats();
-            document.getElementById('total-races').textContent = stats.totalRaces;
-            document.getElementById('total-horses').textContent = stats.totalHorses;
-            document.getElementById('total-predictions').textContent = stats.totalPredictions;
-            document.getElementById('upcoming-races').textContent = stats.upcomingRaces;
+        async function loadDashboardStats() {
+            try {
+                const stats = await DataManager.getStats();
+                document.getElementById('total-races').textContent = stats.totalRaces;
+                document.getElementById('total-horses').textContent = stats.totalHorses;
+                document.getElementById('total-predictions').textContent = stats.totalPredictions;
+                document.getElementById('upcoming-races').textContent = stats.upcomingRaces;
+            } catch (error) {
+                console.error('Error loading dashboard stats:', error);
+                // Set default values if loading fails
+                document.getElementById('total-races').textContent = '0';
+                document.getElementById('total-horses').textContent = '0';
+                document.getElementById('total-predictions').textContent = '0';
+                document.getElementById('upcoming-races').textContent = '0';
+            }
         }
 
         function loadRecentActivity() {

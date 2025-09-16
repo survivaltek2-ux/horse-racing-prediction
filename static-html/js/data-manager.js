@@ -15,8 +15,19 @@ class DataManager {
         }
     }
 
-    static getRaces() {
+    static async getRaces() {
         try {
+            // Try to load from JSON file first (for static deployment)
+            try {
+                const response = await fetch('data/races.json');
+                if (response.ok) {
+                    return await response.json();
+                }
+            } catch (fetchError) {
+                console.log('Loading from JSON file failed, using localStorage');
+            }
+            
+            // Fallback to localStorage
             return JSON.parse(localStorage.getItem('races') || '[]');
         } catch (error) {
             console.error('Error loading races:', error);
@@ -89,8 +100,19 @@ class DataManager {
         }
     }
 
-    static getHorses() {
+    static async getHorses() {
         try {
+            // Try to load from JSON file first (for static deployment)
+            try {
+                const response = await fetch('data/horses.json');
+                if (response.ok) {
+                    return await response.json();
+                }
+            } catch (fetchError) {
+                console.log('Loading from JSON file failed, using localStorage');
+            }
+            
+            // Fallback to localStorage
             return JSON.parse(localStorage.getItem('horses') || '[]');
         } catch (error) {
             console.error('Error loading horses:', error);
@@ -140,9 +162,25 @@ class DataManager {
         return this.addPrediction(raceId, predictions);
     }
 
-    static getPredictions() {
-        const races = this.getRaces();
-        return races.filter(race => race.predictions && race.predictions.length > 0);
+    static async getPredictions() {
+        try {
+            // Try to load from JSON file first (for static deployment)
+            try {
+                const response = await fetch('data/predictions.json');
+                if (response.ok) {
+                    return await response.json();
+                }
+            } catch (fetchError) {
+                console.log('Loading from JSON file failed, using localStorage');
+            }
+            
+            // Fallback to localStorage - get races with predictions
+            const races = await this.getRaces();
+            return races.filter(race => race.predictions && race.predictions.length > 0);
+        } catch (error) {
+            console.error('Error loading predictions:', error);
+            return [];
+        }
     }
 
     // Results management
@@ -164,9 +202,15 @@ class DataManager {
     }
 
     // Statistics
-    static getStats() {
-        const races = this.getRaces();
-        const horses = this.getHorses();
+    static async getStats() {
+        const races = await this.getRaces();
+        const horses = await this.getHorses();
+        const predictions = await this.getPredictions();
+        
+        const upcomingRaces = races.filter(race => {
+            const raceDate = new Date(race.date);
+            return raceDate > new Date();
+        });
         
         const completedRaces = races.filter(race => race.results);
         const racesWithPredictions = completedRaces.filter(race => race.predictions && race.predictions.length > 0);
@@ -177,16 +221,17 @@ class DataManager {
         const predictionAccuracy = racesWithPredictions.length > 0 ? 
             (correctPredictions.length / racesWithPredictions.length * 100) : 0;
         
-        const totalPrizeMoney = races.reduce((sum, race) => sum + (race.prizeMoney || 0), 0);
+        const totalPrizeMoney = races.reduce((sum, race) => sum + (race.purse || 0), 0);
         
         return {
             totalRaces: races.length,
             totalHorses: horses.length,
+            totalPredictions: predictions.length,
+            upcomingRaces: upcomingRaces.length,
             completedRaces: completedRaces.length,
             predictionAccuracy: predictionAccuracy.toFixed(1),
             totalPrizeMoney: totalPrizeMoney,
-            correctPredictions: correctPredictions.length,
-            totalPredictions: racesWithPredictions.length
+            correctPredictions: correctPredictions.length
         };
     }
 

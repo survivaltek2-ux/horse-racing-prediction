@@ -381,12 +381,23 @@
             });
         }
 
-        function loadRaces() {
-
-            currentRaces = DataManager.getUpcomingRaces();
-            filteredRaces = [...currentRaces];
-            populateFilters();
-            displayRaces();
+        async function loadRaces() {
+            try {
+                const allRaces = await DataManager.getRaces();
+                currentRaces = allRaces.filter(race => {
+                    const raceDate = new Date(race.date);
+                    return raceDate > new Date();
+                }).sort((a, b) => new Date(a.date) - new Date(b.date));
+                
+                filteredRaces = [...currentRaces];
+                populateFilters();
+                displayRaces();
+            } catch (error) {
+                console.error('Error loading races:', error);
+                currentRaces = [];
+                filteredRaces = [];
+                displayRaces();
+            }
         }
 
         function populateFilters() {
