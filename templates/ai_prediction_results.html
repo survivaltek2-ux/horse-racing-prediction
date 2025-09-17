@@ -127,27 +127,27 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <div class="progress me-2" style="width: 100px; height: 20px;">
-                                                    <div class="progress-bar" style="width: {{ (pred_data.win_probability * 100)|round(1) }}%"></div>
+                                                    <div class="progress-bar" style="width: {{ (pred_data['win_probability'] * 100)|round(1) }}%"></div>
                                                 </div>
-                                                <span>{{ (pred_data.win_probability * 100)|round(1) }}%</span>
+                                                <span>{{ (pred_data['win_probability'] * 100)|round(1) }}%</span>
                                             </div>
                                         </td>
                                         {% if use_ai %}
-                                        <td>{{ (pred_data.ml_score * 100)|round(1) }}%</td>
-                                        <td>{{ (pred_data.ai_score * 100)|round(1) }}%</td>
+                                        <td>{{ (pred_data['ml_score'] * 100)|round(1) }}%</td>
+                                        <td>{{ (pred_data['ai_score'] * 100)|round(1) }}%</td>
                                         {% endif %}
                                         <td>
-                                            <span class="badge {% if pred_data.combined_confidence > 0.7 %}bg-success{% elif pred_data.combined_confidence > 0.5 %}bg-warning{% else %}bg-danger{% endif %}">
-                                                {{ (pred_data.combined_confidence * 100)|round(1) }}%
+                                            <span class="badge {% if pred_data['confidence'] > 0.7 %}bg-success{% elif pred_data['confidence'] > 0.5 %}bg-warning{% else %}bg-danger{% endif %}">
+                                                {{ (pred_data['confidence'] * 100)|round(1) }}%
                                             </span>
                                         </td>
                                         <td>
-                                            {% if pred_data.win_probability > 0.7 %}
-                                                <span class="badge bg-success">Strong Pick</span>
-                                            {% elif pred_data.win_probability > 0.5 %}
-                                                <span class="badge bg-warning">Consider</span>
+                                            {% if pred_data['win_probability'] > 0.7 %}
+                                                <span class="badge bg-success">Strong Win</span>
+                                            {% elif pred_data['win_probability'] > 0.5 %}
+                                                <span class="badge bg-warning">Good Chance</span>
                                             {% else %}
-                                                <span class="badge bg-secondary">Unlikely</span>
+                                                <span class="badge bg-secondary">Long Shot</span>
                                             {% endif %}
                                         </td>
                                     </tr>
@@ -233,7 +233,7 @@ function exportPrediction() {
     
     exportData += `Predictions:\n`;
     {% for horse_id, pred_data in prediction.predictions.items() %}
-    exportData += `{{ loop.index }}. Horse {{ horse_id }}: {{ (pred_data.win_probability * 100)|round(1) }}% (Confidence: {{ (pred_data.combined_confidence * 100)|round(1) }}%)\n`;
+    exportData += `{{ loop.index }}. Horse {{ horse_id }}: {{ (pred_data['win_probability'] * 100)|round(1) }}% (Confidence: {{ (pred_data['confidence'] * 100)|round(1) }}%)\n`;
     {% endfor %}
     
     {% if ai_insights %}

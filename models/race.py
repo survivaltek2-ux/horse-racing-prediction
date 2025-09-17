@@ -166,12 +166,53 @@ class Race:
         
         return None
     
+    def save(self):
+        """Save this race to the data store"""
+        print(f"DEBUG: Starting save for race: {self.name}")
+        try:
+            races = self.get_all_races()
+            print(f"DEBUG: Retrieved {len(races)} existing races")
+            
+            # If this race doesn't have an ID, generate one
+            if not self.id:
+                self.id = max([race.id for race in races], default=0) + 1
+                print(f"DEBUG: Generated new race ID: {self.id}")
+            
+            # Check if this race already exists (update) or is new (create)
+            race_exists = False
+            for i, race in enumerate(races):
+                if race.id == self.id:
+                    races[i] = self
+                    race_exists = True
+                    break
+            
+            # If race doesn't exist, add it to the list
+            if not race_exists:
+                races.append(self)
+                print(f"DEBUG: Added new race to list. Total races: {len(races)}")
+            else:
+                print(f"DEBUG: Updated existing race at index {i}")
+            
+            # Save all races
+            print(f"DEBUG: Calling _save_races with {len(races)} races")
+            self._save_races(races)
+            print(f"DEBUG: Successfully saved race: {self.name}")
+            return self
+        except Exception as e:
+            print(f"DEBUG: Error in save method: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            raise
+
     def to_dict(self):
         """Convert race object to dictionary for serialization"""
-        return {
+        # Convert datetime to string if it exists
+        date_str = self.date.isoformat() if isinstance(self.date, datetime) else self.date
+        
+        race_dict = {
             'id': self.id,
             'name': self.name,
-            'date': self.date,
+            'date': date_str,
             'location': self.location,
             'distance': self.distance,
             'track_condition': self.track_condition,
@@ -181,6 +222,32 @@ class Race:
             'results': self.results,
             'status': self.status
         }
+        
+        # Add any additional attributes that were set via kwargs
+        # Exclude properties that contain non-serializable objects
+        excluded_attrs = {'horses'}  # horses property contains Horse objects
+        
+        for attr_name in dir(self):
+            if (not attr_name.startswith('_') and 
+                attr_name not in race_dict and 
+                attr_name not in excluded_attrs and
+                not callable(getattr(self, attr_name))):
+                
+                try:
+                    attr_value = getattr(self, attr_name)
+                    # Only include serializable values
+                    if isinstance(attr_value, (str, int, float, bool, list, dict, type(None))):
+                        # For lists, check if all items are serializable
+                        if isinstance(attr_value, list):
+                            if all(isinstance(item, (str, int, float, bool, dict, type(None))) for item in attr_value):
+                                race_dict[attr_name] = attr_value
+                        else:
+                            race_dict[attr_name] = attr_value
+                except Exception:
+                    # Skip attributes that cause errors when accessed
+                    continue
+        
+        return race_dict
     
     @classmethod
     def _save_races(cls, races):

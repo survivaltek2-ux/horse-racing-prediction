@@ -1,5 +1,6 @@
 import os
 import warnings
+import logging
 
 # Suppress TensorFlow CPU optimization warnings
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress all TensorFlow logs except errors
@@ -14,6 +15,10 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 from flask_cors import CORS
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import Bcrypt
+
+# Import comprehensive logging and error handling systems
+from config.logging_config import debug_logger, performance_monitor, debug_route
+from config.error_handler import error_handler, catch_exceptions, validate_form_data, log_database_operation
 
 # Try to import data science libraries
 try:
@@ -55,13 +60,13 @@ import os
 import uuid
 import threading
 from datetime import datetime
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
+
+# Initialize comprehensive logging and error handling systems
+debug_logger.init_app(app)
+error_handler.init_app(app)
 
 # Initialize SQLite database
 init_database(app)
@@ -668,7 +673,14 @@ def add_race():
         horse_choices.append((str(horse.id), f"{horse.name} - {horse.age}yo {horse.sex}"))
     form.assigned_horses.choices = horse_choices
     
+    print(f"DEBUG: Request method: {request.method}")
+    print(f"DEBUG: Form validation result: {form.validate_on_submit()}")
+    print(f"DEBUG: Form data: {request.form}")
+    if form.errors:
+        print(f"DEBUG: Form errors: {form.errors}")
+    
     if form.validate_on_submit():
+        print("DEBUG: Form validation passed, creating race...")
         try:
             # Create new race from form data with all enhanced fields
             race = Race(
@@ -820,6 +832,9 @@ def add_horse():
 
 @app.route('/edit_horse/<int:horse_id>', methods=['GET', 'POST'])
 @login_required
+@debug_route
+@performance_monitor
+@catch_exceptions
 def edit_horse(horse_id):
     """Edit an existing horse with enhanced data"""
     horse = Horse.get_by_id(horse_id)
@@ -922,14 +937,35 @@ def edit_horse(horse_id):
 
 @app.route('/edit_race/<int:race_id>', methods=['GET', 'POST'])
 @login_required
+@debug_route
+@performance_monitor
+@catch_exceptions
 def edit_race(race_id):
     """Edit an existing race with enhanced data"""
-    race = Race.get_race_by_id(race_id)
-    if not race:
-        flash('Race not found.', 'error')
+    import logging
+    logger = logging.getLogger('debug')
+    logger.info(f"Starting edit_race for race_id: {race_id}")
+    
+    try:
+        race = Race.get_race_by_id(race_id)
+        logger.info(f"Retrieved race: {race.name if race else 'None'}")
+        if not race:
+            flash('Race not found.', 'error')
+            return redirect(url_for('races'))
+    except Exception as e:
+        logger.error(f"Error retrieving race: {str(e)}")
+        flash('Error retrieving race.', 'error')
         return redirect(url_for('races'))
     
-    form = RaceForm(obj=race)
+    try:
+        logger.info("Creating RaceForm instance with race data")
+        form = RaceForm(obj=race)
+        logger.info("RaceForm created and populated successfully")
+    except Exception as e:
+        logger.error(f"Error creating/populating RaceForm: {str(e)}")
+        logger.error(f"Race data: {race.__dict__ if race else 'None'}")
+        flash('Error creating form.', 'error')
+        return redirect(url_for('races'))
     
     # Populate horse choices
     horses = Horse.get_all_horses()
@@ -1022,6 +1058,15 @@ def edit_race(race_id):
             return redirect(url_for('races'))
         except Exception as e:
             flash(f'Error updating race: {str(e)}', 'error')
+    
+    # Convert string date to datetime object for template rendering
+    if hasattr(race, 'date') and isinstance(race.date, str):
+        try:
+            from datetime import datetime
+            race.date = datetime.strptime(race.date, '%Y-%m-%d')
+        except (ValueError, TypeError):
+            # If date parsing fails, use current date
+            race.date = datetime.now()
     
     return render_template('edit_race.html', form=form, race=race)
 

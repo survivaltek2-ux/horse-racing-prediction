@@ -6,10 +6,6 @@ Script to fix the admin user password hash compatibility issue
 import sys
 import os
 from datetime import datetime
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
 
 # Add the current directory to the Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))

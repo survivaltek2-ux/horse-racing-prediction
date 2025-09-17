@@ -65,8 +65,8 @@ log "Creating necessary directories..."
 mkdir -p data logs backups
 
 # Set production environment variables
-export FLASK_ENV=production
-export DEBUG=False
+export FLASK_ENV=development
+export DEBUG=True
 export HOST=0.0.0.0
 export PORT=8001  # Use different port to avoid conflicts
 
@@ -99,9 +99,9 @@ else:
     exit(1)
 "
 
-log "Starting application in production mode with gunicorn..."
+log "Starting application in debug mode with enhanced logging..."
 log "Application will be available at: http://localhost:8001/"
 log "Press Ctrl+C to stop the server"
 
-# Start the application with gunicorn
-gunicorn --bind 0.0.0.0:8001 --workers 4 --timeout 120 --access-logfile - --error-logfile - app:app
+# Start the application with Gunicorn in debug mode
+exec gunicorn --bind 0.0.0.0:8001 --workers 1 --timeout 120 --log-level debug --access-logfile - --error-logfile - --reload app:app

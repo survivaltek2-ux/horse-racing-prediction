@@ -19,7 +19,8 @@
       8
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 2,
@@ -45,7 +46,8 @@
       94
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 3,
@@ -75,7 +77,8 @@
       24
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 4,
@@ -103,7 +106,8 @@
       160
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 5,
@@ -127,7 +131,8 @@
       160
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 6,
@@ -156,7 +161,8 @@
       195
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 7,
@@ -183,7 +189,8 @@
       154
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 8,
@@ -211,7 +218,8 @@
       126
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 9,
@@ -238,7 +246,8 @@
       194
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 10,
@@ -270,7 +279,8 @@
       120
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 11,
@@ -300,7 +310,8 @@
       83
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 12,
@@ -332,7 +343,8 @@
       100
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 13,
@@ -356,7 +368,8 @@
       9
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 14,
@@ -385,7 +398,8 @@
       191
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
   },
   {
     "id": 15,
@@ -416,6 +430,113 @@
       170
     ],
     "results": {},
-    "status": "upcoming"
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json"
+  },
+  {
+    "id": 16,
+    "name": "Test Race Debug",
+    "date": "2025-09-17T19:09:00",
+    "location": null,
+    "distance": 1200.0,
+    "track_condition": "good",
+    "race_type": null,
+    "purse": 0.0,
+    "horse_ids": [],
+    "results": {},
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json",
+    "age_restrictions": null,
+    "average_winning_time": null,
+    "claiming_price": null,
+    "competitive_balance": null,
+    "course_record_holder": null,
+    "description": "Test race for debugging",
+    "exacta_pool": null,
+    "featured_race": null,
+    "field_quality": null,
+    "field_size": null,
+    "humidity": null,
+    "morning_line_favorite": null,
+    "pace_scenario": null,
+    "prize_money": 50000.0,
+    "race_grade": null,
+    "rail_position": null,
+    "sex_restrictions": null,
+    "similar_race_results": null,
+    "speed_figures_range": null,
+    "streaming_available": null,
+    "superfecta_pool": null,
+    "surface": null,
+    "surface_type": null,
+    "temperature": null,
+    "total_pool": null,
+    "track": "Test Track",
+    "track_bias": null,
+    "track_maintenance": null,
+    "track_record": null,
+    "trainer_jockey_stats": null,
+    "trifecta_pool": null,
+    "tv_coverage": null,
+    "visibility": null,
+    "weather": null,
+    "weather_description": null,
+    "weight_conditions": null,
+    "win_pool": null,
+    "wind_direction": null,
+    "wind_speed": null
+  },
+  {
+    "id": 17,
+    "name": "test race",
+    "date": "2025-09-17T19:38:00",
+    "location": null,
+    "distance": 0.0,
+    "track_condition": "good",
+    "race_type": null,
+    "purse": 0.0,
+    "horse_ids": [],
+    "results": {},
+    "status": "upcoming",
+    "DATA_FILE": "/Users/richardsiebert/HorseRacingPrediction/APP/data/races.json",
+    "age_restrictions": "",
+    "average_winning_time": "",
+    "claiming_price": null,
+    "competitive_balance": "",
+    "course_record_holder": "",
+    "description": "",
+    "exacta_pool": null,
+    "featured_race": "",
+    "field_quality": "",
+    "field_size": null,
+    "humidity": null,
+    "morning_line_favorite": "",
+    "pace_scenario": "",
+    "prize_money": 0.0,
+    "race_grade": "",
+    "rail_position": "",
+    "sex_restrictions": "",
+    "similar_race_results": "",
+    "speed_figures_range": "",
+    "streaming_available": "",
+    "superfecta_pool": null,
+    "surface": "",
+    "surface_type": "",
+    "temperature": null,
+    "total_pool": null,
+    "track": "",
+    "track_bias": "",
+    "track_maintenance": "",
+    "track_record": "",
+    "trainer_jockey_stats": "",
+    "trifecta_pool": null,
+    "tv_coverage": "",
+    "visibility": null,
+    "weather": "",
+    "weather_description": "",
+    "weight_conditions": "",
+    "win_pool": null,
+    "wind_direction": "",
+    "wind_speed": null
   }
 ]

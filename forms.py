@@ -6,8 +6,8 @@ from models.sqlalchemy_models import User
 
 class RaceForm(FlaskForm):
     # Basic Race Information
-    name = StringField('Race Name', validators=[DataRequired(), Length(min=2, max=100)])
-    date = DateTimeField('Race Date & Time', validators=[DataRequired()], default=datetime.now)
+    name = StringField('Race Name', validators=[Optional(), Length(min=2, max=100)])
+    date = DateTimeField('Race Date & Time', validators=[Optional()], default=datetime.now, format='%Y-%m-%dT%H:%M')
     location = StringField('Location', validators=[Optional(), Length(max=100)])
     distance = StringField('Distance', validators=[Optional(), Length(max=50)])
     purse = FloatField('Purse Amount', validators=[Optional(), NumberRange(min=0)])
@@ -29,7 +29,7 @@ class RaceForm(FlaskForm):
                                    ('W', 'West'),
                                    ('NW', 'Northwest')
                                ],
-                               validators=[DataRequired()])
+                               validators=[Optional()])
     weather_description = SelectField('Weather Description',
                                     choices=[
                                         ('', 'Select Weather'),

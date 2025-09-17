@@ -46,15 +46,29 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-6">
-                                    {{ form.date.label(class="form-label") }}
-                                    {{ form.date(class="form-control") }}
-                                    {% if form.date.errors %}
-                                        <div class="text-danger mt-1">
-                                            {% for error in form.date.errors %}
-                                                <small>{{ error }}</small>
-                                            {% endfor %}
+                                    <div class="datetime-picker-container">
+                                        <label for="{{ form.date.id }}" class="form-label datetime-label">
+                                            <i class="fas fa-calendar-alt me-2"></i>
+                                            {{ form.date.label.text }}
+                                            <span class="text-muted small">(Select race date and time)</span>
+                                        </label>
+                                        <div class="datetime-input-wrapper">
+                                            {{ form.date(class="form-control datetime-input", placeholder="Select date and time") }}
+                                            <div class="datetime-helper">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-info-circle me-1"></i>
+                                                    Click to open date/time picker
+                                                </small>
+                                            </div>
                                         </div>
-                                    {% endif %}
+                                        {% if form.date.errors %}
+                                            <div class="text-danger mt-1">
+                                                {% for error in form.date.errors %}
+                                                    <small><i class="fas fa-exclamation-triangle me-1"></i>{{ error }}</small>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                             
@@ -481,7 +495,8 @@
         <div class="alert alert-info mt-4">
             <h6><i class="fas fa-lightbulb me-1"></i> Enhanced Race Entry Tips:</h6>
             <ul class="mb-0">
-                <li>Complete all sections for comprehensive race analysis</li>
+                <li>All fields are optional - fill in what information you have available</li>
+                <li>More complete data provides better race analysis</li>
                 <li>Weather conditions significantly impact performance</li>
                 <li>Track conditions and bias affect race outcomes</li>
                 <li>Field analysis helps predict pace and competition</li>

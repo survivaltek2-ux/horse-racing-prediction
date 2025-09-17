@@ -99,6 +99,223 @@ body {
     padding: 2rem 1rem;
 }
 
+/* Enhanced Date/Time Picker Styles */
+.datetime-picker-container {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.datetime-label {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.datetime-label i {
+    color: var(--secondary-color);
+    font-size: 1.1em;
+}
+
+.datetime-input-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.datetime-input {
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    position: relative;
+}
+
+.datetime-input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    outline: none;
+    transform: translateY(-1px);
+}
+
+.datetime-input:hover {
+    border-color: var(--secondary-color);
+    cursor: pointer;
+}
+
+/* Custom styling for datetime-local input */
+.datetime-input::-webkit-calendar-picker-indicator {
+    background: var(--secondary-color);
+    border-radius: 50%;
+    padding: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.datetime-input::-webkit-calendar-picker-indicator:hover {
+    background: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* Firefox datetime input styling */
+.datetime-input::-moz-focus-inner {
+    border: 0;
+}
+
+.datetime-helper {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.datetime-helper i {
+    color: var(--info-color);
+}
+
+.datetime-input:focus + .datetime-helper,
+.datetime-input:hover + .datetime-helper {
+    opacity: 1;
+}
+
+/* Accessibility improvements */
+.datetime-input:focus-visible {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Dark theme specific adjustments */
+[data-theme="dark"] .datetime-input {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .datetime-input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+[data-theme="dark"] .datetime-input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+/* Enhanced error styling for datetime */
+.datetime-picker-container .text-danger {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 3px solid var(--danger-color);
+    border-radius: 0 5px 5px 0;
+}
+
+.datetime-picker-container .text-danger i {
+    color: var(--danger-color);
+}
+
+/* Animation for better UX */
+.datetime-picker-container {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* JavaScript-enhanced datetime picker states */
+.datetime-input-wrapper.focused {
+    transform: scale(1.02);
+}
+
+.datetime-input.is-valid {
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 0.2rem rgba(39, 174, 96, 0.25);
+}
+
+.datetime-input.is-invalid {
+    border-color: var(--danger-color);
+    box-shadow: 0 0 0 0.2rem rgba(231, 76, 60, 0.25);
+}
+
+.datetime-preview {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    background-color: rgba(39, 174, 96, 0.1);
+    border-left: 3px solid var(--success-color);
+    border-radius: 0 5px 5px 0;
+    animation: slideInFromLeft 0.3s ease-out;
+}
+
+.datetime-preview i {
+    color: var(--success-color);
+}
+
+.datetime-error {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Enhanced focus states for better accessibility */
+.datetime-input:focus-within {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+    .datetime-input {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 1rem;
+    }
+    
+    .datetime-label {
+        font-size: 0.95rem;
+    }
+    
+    .datetime-helper {
+        font-size: 0.85rem;
+    }
+    
+    .datetime-input-wrapper.focused {
+        transform: none; /* Disable scaling on mobile */
+    }
+}
+
 .stat-card .stat-number {
     font-size: 2.5rem;
     font-weight: bold;
