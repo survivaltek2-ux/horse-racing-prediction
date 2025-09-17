@@ -11,7 +11,10 @@ services:
       - FLASK_ENV=production
       - SECRET_KEY=${SECRET_KEY:-your-secret-key-here}
       - DEBUG=False
-      - DATABASE_URL=sqlite:///app/data/hrp_database.db
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DATABASE_URL=${DATABASE_URL:-sqlite:///app/data/hrp_database.db}
+      - DATABASE_ECHO=False
       - API_TIMEOUT=30
       - API_MAX_RETRIES=3
       - DEFAULT_API_PROVIDER=mock
@@ -20,6 +23,10 @@ services:
       - RAPID_API_API_KEY=${RAPID_API_API_KEY:-}
       - THERACINGAPI_USERNAME=${THERACINGAPI_USERNAME:-}
       - THERACINGAPI_PASSWORD=${THERACINGAPI_PASSWORD:-}
+      - SESSION_COOKIE_SECURE=True
+      - SESSION_COOKIE_HTTPONLY=True
+      - SESSION_COOKIE_SAMESITE=Lax
+      - LOG_LEVEL=INFO
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs

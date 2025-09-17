@@ -206,6 +206,7 @@ function startAIPrediction() {
     // Start async prediction
     fetch(`/api/predict_ai_async/{{ race.id }}`, {
         method: 'POST',
+        credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -245,7 +246,12 @@ function startPolling() {
     if (!currentJobId) return;
     
     pollInterval = setInterval(() => {
-        fetch(`/api/prediction_status/${currentJobId}`)
+        fetch(`/api/prediction_status/${currentJobId}`, {
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
         .then(response => response.json())
         .then(data => {
             if (data.error) {

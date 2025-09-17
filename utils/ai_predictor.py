@@ -11,6 +11,8 @@ warnings.filterwarnings('ignore')
 # Try to import deep learning libraries
 try:
     import tensorflow as tf
+    # Enable eager execution for TensorFlow
+    tf.config.run_functions_eagerly(True)
     from tensorflow import keras
     from tensorflow.keras import layers, models, optimizers
     TENSORFLOW_AVAILABLE = True
@@ -698,6 +700,12 @@ class AIPredictor:
             
             # Train DNN model
             if 'dnn_win' in self.neural_models:
+                # Recompile the model to fix optimizer issues
+                self.neural_models['dnn_win'].compile(
+                    optimizer=optimizers.Adam(learning_rate=0.001),
+                    loss='binary_crossentropy',
+                    metrics=['accuracy', 'precision', 'recall']
+                )
                 self.neural_models['dnn_win'].fit(
                     X_train, y_train,
                     epochs=50,

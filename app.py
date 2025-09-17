@@ -41,7 +41,7 @@ except ImportError as e:
     SKLEARN_AVAILABLE = False
     RandomForestRegressor = None
     StandardScaler = None
-from models.sqlalchemy_models import User, APICredentials
+from models.sqlalchemy_models import User, APICredentials, Horse as SQLHorse
 from models.race import Race
 from models.horse import Horse
 from models.prediction import Prediction
@@ -85,6 +85,9 @@ login_manager.login_message_category = 'info'
 # Initialize Bcrypt for password hashing
 bcrypt = Bcrypt(app)
 
+# Add hasattr to Jinja2 template globals
+app.jinja_env.globals['hasattr'] = hasattr
+
 @login_manager.user_loader
 def load_user(user_id):
     """Load user by ID for Flask-Login"""
@@ -97,8 +100,78 @@ def load_user(user_id):
 data_processor = DataProcessor()
 predictor = Predictor()
 
-# Global dictionary to store prediction status
-prediction_status = {}
+# Persistent prediction status storage
+import json
+import fcntl
+
+class PredictionStatusManager:
+    def __init__(self, storage_file='prediction_status.json'):
+        self.storage_file = storage_file
+        self._ensure_file_exists()
+    
+    def _ensure_file_exists(self):
+        """Ensure the storage file exists"""
+        if not os.path.exists(self.storage_file):
+            with open(self.storage_file, 'w') as f:
+                json.dump({}, f)
+    
+    def _read_status(self):
+        """Read status from file with file locking"""
+        try:
+            with open(self.storage_file, 'r') as f:
+                fcntl.flock(f.fileno(), fcntl.LOCK_SH)  # Shared lock for reading
+                data = json.load(f)
+                fcntl.flock(f.fileno(), fcntl.LOCK_UN)  # Unlock
+                return data
+        except (FileNotFoundError, json.JSONDecodeError):
+            return {}
+    
+    def _write_status(self, data):
+        """Write status to file with file locking"""
+        with open(self.storage_file, 'w') as f:
+            fcntl.flock(f.fileno(), fcntl.LOCK_EX)  # Exclusive lock for writing
+            json.dump(data, f, indent=2, default=str)
+            fcntl.flock(f.fileno(), fcntl.LOCK_UN)  # Unlock
+    
+    def get(self, job_id):
+        """Get job status"""
+        data = self._read_status()
+        return data.get(job_id)
+    
+    def set(self, job_id, status_data):
+        """Set job status"""
+        data = self._read_status()
+        data[job_id] = status_data
+        self._write_status(data)
+    
+    def delete(self, job_id):
+        """Delete job status"""
+        data = self._read_status()
+        if job_id in data:
+            del data[job_id]
+            self._write_status(data)
+    
+    def __contains__(self, job_id):
+        """Check if job exists"""
+        data = self._read_status()
+        return job_id in data
+    
+    def __getitem__(self, job_id):
+        """Get job status (dict-like access)"""
+        result = self.get(job_id)
+        if result is None:
+            raise KeyError(job_id)
+        return result
+    
+    def __setitem__(self, job_id, status_data):
+        """Set job status (dict-like access)"""
+        self.set(job_id, status_data)
+
+# Global prediction status manager
+prediction_status = PredictionStatusManager()
+
+# Simple thread test storage
+thread_test_status = {}
 
 # Initialize API service
 api_service.init_app(app)
@@ -239,6 +312,48 @@ def predict_ai(race_id):
     # GET request - show AI prediction form
     return render_template('predict_ai.html', race=race)
 
+@app.route('/ai_prediction_results/<int:race_id>')
+@login_required
+def ai_prediction_results(race_id):
+    """Display AI prediction results for a specific race"""
+    app.logger.info(f"DEBUG ROUTE: ai_prediction_results called for race_id {race_id}")
+    race = Race.get_race_by_id(race_id)
+    if not race:
+        flash('Race not found', 'error')
+        return redirect(url_for('races'))
+    
+    try:
+        # Generate AI-enhanced prediction with default settings
+        use_ai = True
+        use_ensemble = True
+        
+        app.logger.info(f"DEBUG ROUTE: About to call predict_race_with_ai")
+        prediction = predictor.predict_race_with_ai(race, use_ai=use_ai, use_ensemble=use_ensemble)
+        app.logger.info(f"DEBUG ROUTE: Got prediction: {type(prediction)}")
+        if hasattr(prediction, 'predictions'):
+            app.logger.info(f"DEBUG ROUTE: Prediction data: {prediction.predictions}")
+        
+        ai_insights = predictor.get_ai_insights(race)
+        
+        # Handle case where prediction is None
+        if prediction is None:
+            flash('Unable to generate prediction for this race. The race may not have enough horse data.', 'warning')
+            return redirect(url_for('predict_ai', race_id=race_id))
+        
+        return render_template('ai_prediction_results.html', 
+                             race=race, 
+                             prediction=prediction, 
+                             ai_insights=ai_insights,
+                             use_ai=use_ai,
+                             use_ensemble=use_ensemble,
+                             generated_at=datetime.now())
+    except Exception as e:
+        app.logger.error(f"DEBUG ROUTE: Exception in ai_prediction_results: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        flash(f'Error generating AI prediction: {str(e)}', 'error')
+        return redirect(url_for('predict_ai', race_id=race_id))
+
 @app.route('/api/predict_ai/<int:race_id>', methods=['POST'])
 @login_required
 def api_predict_ai(race_id):
@@ -297,30 +412,53 @@ def api_ai_insights(race_id):
 
 def run_ai_prediction_async(job_id, race_id, use_ai, use_ensemble):
     """Background function to run AI prediction"""
-    with app.app_context():
-        try:
-            # Update status to processing
-            prediction_status[job_id]['status'] = 'processing'
-            prediction_status[job_id]['progress'] = 10
+    print(f"🧵 Thread {threading.current_thread().name} starting for job: {job_id}")
+    
+    try:
+        with app.app_context():
+            print(f"✅ Flask app context established for job: {job_id}")
+            print(f"🚀 Starting background prediction for job: {job_id}")
+            print(f"🔍 Job parameters: race_id={race_id}, use_ai={use_ai}, use_ensemble={use_ensemble}")
+            
+            # Update status to processing - use proper status manager methods
+            job_data = prediction_status.get(job_id) or {}
+            job_data['status'] = 'processing'
+            job_data['progress'] = 10
+            prediction_status.set(job_id, job_data)
+            print(f"📈 Job {job_id} progress: 10% (processing started)")
             
             # Get race data
+            print(f"🏇 Fetching race data for race_id: {race_id}")
             race = Race.get_race_by_id(race_id)
             if not race:
-                prediction_status[job_id]['status'] = 'error'
-                prediction_status[job_id]['error'] = 'Race not found'
+                print(f"❌ Race {race_id} not found")
+                job_data['status'] = 'error'
+                job_data['error'] = 'Race not found'
+                prediction_status.set(job_id, job_data)
                 return
             
-            prediction_status[job_id]['progress'] = 30
+            print(f"✅ Race found: {race.name if hasattr(race, 'name') else 'Unknown'}")
+            job_data['progress'] = 30
+            prediction_status.set(job_id, job_data)
+            print(f"📈 Job {job_id} progress: 30% (race data loaded)")
             
             # Run the prediction
+            print(f"🤖 Starting prediction with AI={use_ai}, ensemble={use_ensemble}")
             if use_ai:
-                prediction_status[job_id]['progress'] = 50
+                job_data['progress'] = 50
+                prediction_status.set(job_id, job_data)
+                print(f"📈 Job {job_id} progress: 50% (running AI prediction)")
                 predictions = predictor.predict_race_with_ai(race, use_ensemble=use_ensemble)
             else:
-                prediction_status[job_id]['progress'] = 50
+                job_data['progress'] = 50
+                prediction_status.set(job_id, job_data)
+                print(f"📈 Job {job_id} progress: 50% (running traditional prediction)")
                 predictions = predictor.predict_race(race)
             
-            prediction_status[job_id]['progress'] = 80
+            print(f"✅ Prediction completed successfully")
+            job_data['progress'] = 80
+            prediction_status.set(job_id, job_data)
+            print(f"📈 Job {job_id} progress: 80% (prediction complete, formatting results)")
             
             # Format the response - convert Prediction object to dict if needed
             if hasattr(predictions, 'to_dict'):
@@ -350,14 +488,25 @@ def run_ai_prediction_async(job_id, race_id, use_ai, use_ensemble):
             }
             
             # Update status to completed
-            prediction_status[job_id]['status'] = 'completed'
-            prediction_status[job_id]['progress'] = 100
-            prediction_status[job_id]['result'] = response
+            print(f"🎉 Job {job_id} completed successfully")
+            job_data['status'] = 'completed'
+            job_data['progress'] = 100
+            job_data['result'] = response
+            job_data['completed_at'] = datetime.now().isoformat()
+            prediction_status.set(job_id, job_data)
+            print(f"📈 Job {job_id} progress: 100% (COMPLETED)")
             
-        except Exception as e:
-            prediction_status[job_id]['status'] = 'error'
-            prediction_status[job_id]['error'] = str(e)
-            print(f"Error in AI-enhanced prediction: {str(e)}")
+    except Exception as e:
+        print(f"❌ ERROR in background prediction job {job_id}: {str(e)}")
+        print(f"🔍 Error type: {type(e).__name__}")
+        import traceback
+        print(f"📋 Full traceback:\n{traceback.format_exc()}")
+        job_data = prediction_status.get(job_id) or {}
+        job_data['status'] = 'error'
+        job_data['error'] = str(e)
+        job_data['progress'] = 0
+        prediction_status.set(job_id, job_data)
+        print(f"💾 Error saved to job status")
 
 @app.route('/api/predict_ai_async/<int:race_id>', methods=['POST'])
 @login_required
@@ -372,20 +521,29 @@ def api_predict_ai_async(race_id):
         job_id = str(uuid.uuid4())
         
         # Initialize job status
-        prediction_status[job_id] = {
+        job_data = {
             'status': 'started',
             'progress': 0,
             'race_id': race_id,
             'created_at': datetime.now().isoformat()
         }
+        prediction_status[job_id] = job_data
+        
+        # Debug logging
+        print(f"🔄 Created AI prediction job: {job_id} for race {race_id}")
+        print(f"📊 Job data: {job_data}")
         
         # Start prediction in background thread
+        print(f"🧵 Creating background thread for job: {job_id}")
         thread = threading.Thread(
             target=run_ai_prediction_async,
-            args=(job_id, race_id, use_ai, use_ensemble)
+            args=(job_id, race_id, use_ai, use_ensemble),
+            name=f"AI-Prediction-{job_id[:8]}"
         )
-        thread.daemon = True
+        # Remove daemon=True to prevent thread termination when request completes
+        print(f"🚀 Starting background thread: {thread.name}")
         thread.start()
+        print(f"✅ Background thread started successfully: {thread.name}")
         
         return jsonify({
             'job_id': job_id,
@@ -400,10 +558,18 @@ def api_predict_ai_async(race_id):
 @login_required
 def api_prediction_status(job_id):
     """API endpoint to check prediction status"""
+    # Debug logging
+    print(f"🔍 Looking up job status for: {job_id}")
+    
     if job_id not in prediction_status:
+        print(f"❌ Job not found: {job_id}")
+        # List all current jobs for debugging
+        all_jobs = prediction_status._read_status()
+        print(f"📋 Current jobs in storage: {list(all_jobs.keys())}")
         return jsonify({'error': 'Job not found'}), 404
     
     job_data = prediction_status[job_id].copy()
+    print(f"✅ Found job: {job_id}, status: {job_data.get('status', 'unknown')}")
     
     # Clean up completed or errored jobs after 1 hour
     if job_data['status'] in ['completed', 'error']:
@@ -428,6 +594,66 @@ def api_train_ai():
         })
     except Exception as e:
         return jsonify({'error': f'Training failed: {str(e)}'}), 500
+
+def simple_thread_test(test_id):
+    """Simple function to test if threads work under gunicorn"""
+    print(f"🧵 Thread test {test_id} starting...")
+    import time
+    for i in range(5):
+        time.sleep(1)
+        thread_test_status[test_id] = {
+            'status': 'running',
+            'progress': (i + 1) * 20,
+            'message': f'Step {i + 1}/5'
+        }
+        print(f"🔄 Thread test {test_id}: Step {i + 1}/5")
+    
+    thread_test_status[test_id] = {
+        'status': 'completed',
+        'progress': 100,
+        'message': 'Test completed successfully'
+    }
+    print(f"✅ Thread test {test_id} completed!")
+
+@app.route('/api/test_thread', methods=['POST'])
+@login_required
+def api_test_thread():
+    """Test endpoint to check if threads work under gunicorn"""
+    test_id = str(uuid.uuid4())[:8]
+    
+    # Initialize status
+    thread_test_status[test_id] = {
+        'status': 'started',
+        'progress': 0,
+        'message': 'Thread test starting...'
+    }
+    
+    print(f"🧵 Creating thread test: {test_id}")
+    
+    # Create and start thread
+    thread = threading.Thread(
+        target=simple_thread_test,
+        args=(test_id,),
+        name=f"ThreadTest-{test_id}"
+    )
+    print(f"🚀 Starting thread test: {test_id}")
+    thread.start()
+    print(f"✅ Thread test started: {test_id}")
+    
+    return jsonify({
+        'success': True,
+        'test_id': test_id,
+        'message': 'Thread test started'
+    })
+
+@app.route('/api/test_thread_status/<test_id>', methods=['GET'])
+@login_required
+def api_test_thread_status(test_id):
+    """Get status of thread test"""
+    if test_id in thread_test_status:
+        return jsonify(thread_test_status[test_id])
+    else:
+        return jsonify({'error': 'Test not found'}), 404
 
 @app.route('/add_race', methods=['GET', 'POST'])
 @login_required
@@ -545,67 +771,32 @@ def add_horse():
     
     if form.validate_on_submit():
         try:
-            # Create new horse from form data with all enhanced fields
-            horse = Horse(
+            # Create new horse from form data using SQLAlchemy model
+            # Only include fields that exist in the SQLAlchemy Horse model
+            horse = SQLHorse(
                 # Basic Information
                 name=form.name.data,
                 age=form.age.data,
                 sex=form.sex.data,
                 color=form.color.data,
                 breed=form.breed.data,
-                height=form.height.data,
-                markings=form.markings.data,
-                
-                # Pedigree Information
-                sire=form.sire.data,
-                dam=form.dam.data,
-                sire_line=form.sire_line.data,
-                dam_line=form.dam_line.data,
-                breeding_value=form.breeding_value.data,
                 
                 # Connections
                 trainer=form.trainer.data,
                 jockey=form.jockey.data,
                 owner=form.owner.data,
-                breeder=form.breeder.data,
-                stable=form.stable.data,
                 
-                # Physical Attributes
-                weight=form.weight.data,
-                body_condition=form.body_condition.data,
-                conformation_score=form.conformation_score.data,
-                temperament=form.temperament.data,
+                # Pedigree Information
+                sire=form.sire.data,
+                dam=form.dam.data,
                 
-                # Performance Analytics
-                speed_rating=form.speed_rating.data,
-                class_rating=form.class_rating.data,
-                distance_preference=form.distance_preference.data,
-                surface_preference=form.surface_preference.data,
-                track_bias_rating=form.track_bias_rating.data,
-                pace_style=form.pace_style.data,
-                closing_kick=form.closing_kick.data,
-                
-                # Training & Fitness
-                days_since_last_race=form.days_since_last_race.data,
-                fitness_level=form.fitness_level.data,
-                training_intensity=form.training_intensity.data,
-                workout_times=form.workout_times.data,
-                injury_history=form.injury_history.data,
-                recovery_time=form.recovery_time.data,
-                
-                # Behavioral & Racing Style
-                gate_behavior=form.gate_behavior.data,
-                racing_tactics=form.racing_tactics.data,
-                equipment_used=form.equipment_used.data,
-                medication_notes=form.medication_notes.data,
-                
-                # Financial Information
-                purchase_price=form.purchase_price.data,
-                current_value=form.current_value.data,
-                insurance_value=form.insurance_value.data,
-                stud_fee=form.stud_fee.data
+                # Use the most recent speed rating for the speed_rating field
+                speed_rating=form.speed_rating_race_1.data
             )
-            horse.save()
+            
+            # Save to database using SQLAlchemy
+            db.session.add(horse)
+            db.session.commit()
             
             # Handle race assignment if selected
             if form.assigned_races.data:
@@ -653,7 +844,6 @@ def edit_horse(horse_id):
             horse.sex = form.sex.data
             horse.color = form.color.data
             horse.breed = form.breed.data
-            horse.height = form.height.data
             horse.markings = form.markings.data
             
             # Pedigree Information
@@ -1066,10 +1256,19 @@ def model_status():
         # Get performance stats
         stats = predictor.get_performance_stats()
         
+        # Check AI predictor training status
+        ai_trained = False
+        ai_model_type = "AI Models (TensorFlow + PyTorch)"
+        try:
+            ai_trained = predictor.ai_predictor.is_trained
+        except:
+            ai_trained = False
+        
         return jsonify({
             'success': True,
-            'is_trained': predictor.is_trained,
-            'model_type': 'RandomForestRegressor',
+            'is_trained': ai_trained,  # Use AI predictor status
+            'traditional_ml_trained': predictor.is_trained,  # Keep traditional ML status
+            'model_type': ai_model_type,
             'performance_stats': stats
         })
         
@@ -1099,6 +1298,74 @@ def retrain_model():
             'success': False,
             'error': str(e),
             'message': 'Retraining failed due to an error'
+        }), 500
+
+# AI Monitoring Routes
+@app.route('/ai_monitor')
+@login_required
+def ai_monitor():
+    """AI prediction monitoring dashboard"""
+    return render_template('ai_monitor.html')
+
+@app.route('/api/ai_monitor/jobs', methods=['GET'])
+@login_required
+def api_ai_monitor_jobs():
+    """Get all AI prediction jobs and their status"""
+    try:
+        status_data = prediction_status._read_status()
+        jobs = []
+        
+        for job_id, job_data in status_data.items():
+            jobs.append({
+                'job_id': job_id,
+                'status': job_data.get('status', 'unknown'),
+                'progress': job_data.get('progress', 0),
+                'race_id': job_data.get('race_id'),
+                'created_at': job_data.get('created_at'),
+                'completed_at': job_data.get('completed_at'),
+                'error': job_data.get('error'),
+                'result': job_data.get('result')
+            })
+        
+        # Sort by created_at descending (newest first)
+        jobs.sort(key=lambda x: x.get('created_at', ''), reverse=True)
+        
+        return jsonify({
+            'success': True,
+            'jobs': jobs
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/ai_monitor/clear_completed', methods=['POST'])
+@login_required
+def api_ai_monitor_clear_completed():
+    """Clear completed and failed jobs from the status tracker"""
+    try:
+        status_data = prediction_status._read_status()
+        
+        # Keep only jobs that are not completed or failed
+        active_jobs = {
+            job_id: job_data 
+            for job_id, job_data in status_data.items() 
+            if job_data.get('status') not in ['completed', 'failed', 'error']
+        }
+        
+        prediction_status._write_status(active_jobs)
+        
+        return jsonify({
+            'success': True,
+            'message': 'Completed jobs cleared successfully'
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
         }), 500
 
 # Authentication Routes
@@ -1452,7 +1719,13 @@ def admin_test_api_credentials(credential_id):
     return redirect(url_for('admin_api_credentials'))
 
 if __name__ == '__main__':
-    # Create admin user if it doesn't exist
     with app.app_context():
+        # Create admin user if it doesn't exist
         User.create_admin_user('admin', 'admin@example.com', 'admin123')
-    app.run(debug=True, port=8000)
+    
+    # Production configuration
+    debug_mode = os.getenv('DEBUG', 'False').lower() == 'true'
+    host = os.getenv('HOST', '127.0.0.1')
+    port = int(os.getenv('PORT', 8000))
+    
+    app.run(debug=debug_mode, host=host, port=port)

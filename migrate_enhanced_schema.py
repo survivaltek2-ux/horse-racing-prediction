@@ -23,7 +23,6 @@ def add_horse_columns(cursor):
         ('breed', 'VARCHAR(50)'),
         ('color', 'VARCHAR(30)'),
         ('sex', 'VARCHAR(20)'),
-        ('height', 'VARCHAR(10)'),
         ('markings', 'TEXT'),
         
         # Pedigree

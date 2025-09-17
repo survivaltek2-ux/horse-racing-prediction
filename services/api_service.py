@@ -34,10 +34,11 @@ class APIService:
         self.app = app
         app.api_service = self
         
-        # Load database credentials on startup
+        # Load database credentials on startup within app context
         try:
-            self.update_api_manager_with_db_credentials()
-            logger.info("Successfully loaded database credentials on startup")
+            with app.app_context():
+                self.update_api_manager_with_db_credentials()
+                logger.info("Successfully loaded database credentials on startup")
         except Exception as e:
             logger.warning(f"Could not load database credentials on startup: {e}")
     

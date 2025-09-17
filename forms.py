@@ -29,7 +29,7 @@ class RaceForm(FlaskForm):
                                    ('W', 'West'),
                                    ('NW', 'Northwest')
                                ],
-                               validators=[Optional()])
+                               validators=[DataRequired()])
     weather_description = SelectField('Weather Description',
                                     choices=[
                                         ('', 'Select Weather'),
@@ -183,131 +183,158 @@ class RaceForm(FlaskForm):
 
 class HorseForm(FlaskForm):
     # Basic Information
-    name = StringField('Horse Name', validators=[DataRequired(), Length(min=2, max=100)])
-    age = IntegerField('Age', validators=[DataRequired(), NumberRange(min=2, max=20)])
-    breed = StringField('Breed', validators=[Optional(), Length(max=50)])
-    color = StringField('Color', validators=[Optional(), Length(max=30)])
-    height = StringField('Height (hands)', validators=[Optional(), Length(max=10)])
-    markings = TextAreaField('Markings', validators=[Optional(), Length(max=200)])
+    name = StringField('Horse Name', validators=[Optional(), Length(min=2, max=100)])
+    age = IntegerField('Age', validators=[Optional(), NumberRange(min=2, max=20)])
+    sex = SelectField('Sex', 
+                     choices=[
+                         ('', 'Select Sex'),
+                         ('colt', 'Colt'),
+                         ('filly', 'Filly'),
+                         ('gelding', 'Gelding'),
+                         ('mare', 'Mare'),
+                         ('stallion', 'Stallion')
+                     ],
+                     validators=[Optional()])
+    color = SelectField('Color',
+                       choices=[
+                           ('', 'Select Color'),
+                           ('bay', 'Bay'),
+                           ('brown', 'Brown'),
+                           ('chestnut', 'Chestnut'),
+                           ('black', 'Black'),
+                           ('gray', 'Gray'),
+                           ('roan', 'Roan'),
+                           ('palomino', 'Palomino'),
+                           ('pinto', 'Pinto'),
+                           ('dun', 'Dun'),
+                           ('buckskin', 'Buckskin'),
+                           ('cremello', 'Cremello'),
+                           ('perlino', 'Perlino'),
+                           ('white', 'White')
+                       ],
+                       validators=[Optional()])
+    breed = SelectField('Breed',
+                       choices=[
+                           ('', 'Select Breed'),
+                           ('thoroughbred', 'Thoroughbred'),
+                           ('quarter_horse', 'Quarter Horse'),
+                           ('standardbred', 'Standardbred'),
+                           ('arabian', 'Arabian'),
+                           ('appaloosa', 'Appaloosa'),
+                           ('paint', 'Paint'),
+                           ('tennessee_walker', 'Tennessee Walking Horse'),
+                           ('morgan', 'Morgan'),
+                           ('friesian', 'Friesian'),
+                           ('clydesdale', 'Clydesdale'),
+                           ('percheron', 'Percheron'),
+                           ('mustang', 'Mustang'),
+                           ('warmblood', 'Warmblood'),
+                           ('other', 'Other')
+                       ],
+                       validators=[Optional()])
+    
+    # Connections
+    owner = StringField('Owner', validators=[Optional(), Length(max=100)])
+    trainer = StringField('Trainer', validators=[Optional(), Length(max=100)])
+    jockey = StringField('Jockey', validators=[Optional(), Length(max=100)])
     
     # Pedigree Information
     sire = StringField('Sire', validators=[Optional(), Length(max=100)])
     dam = StringField('Dam', validators=[Optional(), Length(max=100)])
-    pedigree_rating = IntegerField('Pedigree Rating (1-10)', validators=[Optional(), NumberRange(min=1, max=10)])
-    bloodline_notes = TextAreaField('Bloodline Notes', validators=[Optional(), Length(max=500)])
     
-    # Connections
-    jockey = StringField('Jockey', validators=[Optional(), Length(max=100)])
-    trainer = StringField('Trainer', validators=[Optional(), Length(max=100)])
-    owner = StringField('Owner', validators=[Optional(), Length(max=100)])
-    breeder = StringField('Breeder', validators=[Optional(), Length(max=100)])
+    # Speed Ratings - Last 3 Races
+    speed_rating_race_1 = IntegerField('Speed Rating - Most Recent Race', validators=[Optional(), NumberRange(min=0, max=130)])
+    speed_rating_race_2 = IntegerField('Speed Rating - 2nd Most Recent Race', validators=[Optional(), NumberRange(min=0, max=130)])
+    speed_rating_race_3 = IntegerField('Speed Rating - 3rd Most Recent Race', validators=[Optional(), NumberRange(min=0, max=130)])
     
-    # Physical Attributes
-    weight = FloatField('Weight (lbs)', validators=[Optional(), NumberRange(min=800, max=1400)])
-    body_condition = SelectField('Body Condition',
-                               choices=[
-                                   ('', 'Select Condition'),
-                                   ('poor', 'Poor'),
-                                   ('fair', 'Fair'),
-                                   ('good', 'Good'),
-                                   ('excellent', 'Excellent')
-                               ],
-                               validators=[Optional()])
-    muscle_tone = SelectField('Muscle Tone',
-                            choices=[
-                                ('', 'Select Tone'),
-                                ('poor', 'Poor'),
-                                ('average', 'Average'),
-                                ('good', 'Good'),
-                                ('excellent', 'Excellent')
-                            ],
-                            validators=[Optional()])
+    # Highest Speed Rating from Last 10 Races for Today's Distance
+    highest_speed_rating_distance = IntegerField('Highest Speed Rating (Last 10 Races at Today\'s Distance)', validators=[Optional(), NumberRange(min=0, max=130)])
     
-    # Performance Analytics
-    speed_rating = IntegerField('Speed Rating (0-120)', validators=[Optional(), NumberRange(min=0, max=120)])
-    class_rating = IntegerField('Class Rating (1-10)', validators=[Optional(), NumberRange(min=1, max=10)])
-    distance_preference = SelectField('Distance Preference', 
-                                    choices=[
-                                        ('', 'Select Distance'),
-                                        ('5f-7f', '5f-7f (Sprint)'),
-                                        ('6f-1m', '6f-1m (Middle)'),
-                                        ('7f-1.25m', '7f-1.25m (Mile)'),
-                                        ('1m-1.5m', '1m-1.5m (Route)'),
-                                        ('1m-1.75m', '1m-1.75m (Long Route)'),
-                                        ('1.5m+', '1.5m+ (Marathon)')
-                                    ],
-                                    validators=[Optional()])
-    surface_preference = SelectField('Surface Preference',
-                                   choices=[
-                                       ('', 'Select Surface'),
-                                       ('dirt', 'Dirt'),
-                                       ('turf', 'Turf'),
-                                       ('synthetic', 'Synthetic')
-                                   ],
-                                   validators=[Optional()])
-    track_bias_rating = IntegerField('Track Bias Rating (1-10)', validators=[Optional(), NumberRange(min=1, max=10)])
-    best_beyer_speed = IntegerField('Best Beyer Speed Figure', validators=[Optional(), NumberRange(min=0, max=130)])
-    avg_speed_last_3 = IntegerField('Average Speed Last 3 Races', validators=[Optional(), NumberRange(min=0, max=130)])
+    # Beaten Lengths in Previous 3 Races
+    beaten_lengths_race_1 = FloatField('Beaten Lengths - Most Recent Race', validators=[Optional(), NumberRange(min=0, max=50)])
+    beaten_lengths_race_2 = FloatField('Beaten Lengths - 2nd Most Recent Race', validators=[Optional(), NumberRange(min=0, max=50)])
+    beaten_lengths_race_3 = FloatField('Beaten Lengths - 3rd Most Recent Race', validators=[Optional(), NumberRange(min=0, max=50)])
     
-    # Training & Fitness
-    days_since_last_race = IntegerField('Days Since Last Race', validators=[Optional(), NumberRange(min=0, max=365)])
-    fitness_level = IntegerField('Fitness Level (1-10)', validators=[Optional(), NumberRange(min=1, max=10)])
-    training_intensity = SelectField('Training Intensity',
-                                   choices=[
-                                       ('', 'Select Intensity'),
-                                       ('light', 'Light'),
-                                       ('moderate', 'Moderate'),
-                                       ('heavy', 'Heavy'),
-                                       ('intense', 'Intense')
-                                   ],
-                                   validators=[Optional()])
-    workout_times = TextAreaField('Recent Workout Times (JSON)', validators=[Optional(), Length(max=1000)])
-    injury_history = TextAreaField('Injury History (JSON)', validators=[Optional(), Length(max=1000)])
-    recovery_status = SelectField('Recovery Status',
-                                choices=[
-                                    ('', 'Select Status'),
-                                    ('fully_recovered', 'Fully Recovered'),
-                                    ('recovering', 'Recovering'),
-                                    ('minor_issue', 'Minor Issue'),
-                                    ('major_concern', 'Major Concern')
-                                ],
-                                validators=[Optional()])
-    
-    # Behavioral & Racing Style
-    temperament = SelectField('Temperament',
-                            choices=[
-                                ('', 'Select Temperament'),
-                                ('calm', 'Calm'),
-                                ('nervous', 'Nervous'),
-                                ('aggressive', 'Aggressive'),
-                                ('lazy', 'Lazy'),
-                                ('eager', 'Eager')
-                            ],
-                            validators=[Optional()])
-    running_style = SelectField('Running Style',
+    # Pace-Related Running Style
+    running_style = SelectField('Running Style (Pace Position)',
                               choices=[
-                                  ('', 'Select Style'),
-                                  ('front_runner', 'Front Runner'),
-                                  ('presser', 'Presser'),
-                                  ('stalker', 'Stalker'),
-                                  ('closer', 'Closer')
-                              ],
-                              validators=[Optional()])
-    gate_behavior = SelectField('Gate Behavior',
-                              choices=[
-                                  ('', 'Select Behavior'),
-                                  ('excellent', 'Excellent'),
-                                  ('good', 'Good'),
-                                  ('average', 'Average'),
-                                  ('poor', 'Poor')
+                                  ('', 'Select Running Style'),
+                                  ('pace_leader', 'Pace Leader'),
+                                  ('contesting_pace', 'Contesting Pace'),
+                                  ('stalking', 'Stalking'),
+                                  ('closing', 'Closing')
                               ],
                               validators=[Optional()])
     
-    # Financial Information
-    purchase_price = FloatField('Purchase Price ($)', validators=[Optional(), NumberRange(min=0)])
-    current_value = FloatField('Current Estimated Value ($)', validators=[Optional(), NumberRange(min=0)])
-    earnings_to_date = FloatField('Earnings to Date ($)', validators=[Optional(), NumberRange(min=0)])
-    insurance_value = FloatField('Insurance Value ($)', validators=[Optional(), NumberRange(min=0)])
+    # Pace Analysis
+    early_pace_ability = SelectField('Early Pace Ability',
+                                   choices=[
+                                       ('', 'Select Ability'),
+                                       ('excellent', 'Excellent'),
+                                       ('good', 'Good'),
+                                       ('average', 'Average'),
+                                       ('poor', 'Poor')
+                                   ],
+                                   validators=[Optional()])
+    
+    late_pace_ability = SelectField('Late Pace Ability (Closing Kick)',
+                                  choices=[
+                                      ('', 'Select Ability'),
+                                      ('excellent', 'Excellent'),
+                                      ('good', 'Good'),
+                                      ('average', 'Average'),
+                                      ('poor', 'Poor')
+                                  ],
+                                  validators=[Optional()])
+    
+    pace_versatility = SelectField('Pace Versatility',
+                                 choices=[
+                                     ('', 'Select Versatility'),
+                                     ('very_versatile', 'Very Versatile'),
+                                     ('somewhat_versatile', 'Somewhat Versatile'),
+                                     ('limited', 'Limited'),
+                                     ('one_dimensional', 'One Dimensional')
+                                 ],
+                                 validators=[Optional()])
+    
+    # Pedigree - Speed/Stamina Capability
+    pedigree_speed_rating = SelectField('Pedigree Speed Rating',
+                                      choices=[
+                                          ('', 'Select Rating'),
+                                          ('excellent', 'Excellent Speed Pedigree'),
+                                          ('good', 'Good Speed Pedigree'),
+                                          ('average', 'Average Speed Pedigree'),
+                                          ('poor', 'Poor Speed Pedigree')
+                                      ],
+                                      validators=[Optional()])
+    
+    pedigree_stamina_rating = SelectField('Pedigree Stamina Rating',
+                                        choices=[
+                                            ('', 'Select Rating'),
+                                            ('excellent', 'Excellent Stamina Pedigree'),
+                                            ('good', 'Good Stamina Pedigree'),
+                                            ('average', 'Average Stamina Pedigree'),
+                                            ('poor', 'Poor Stamina Pedigree')
+                                        ],
+                                        validators=[Optional()])
+    
+    distance_pedigree_suitability = SelectField('Distance Suitability (Pedigree)',
+                                              choices=[
+                                                  ('', 'Select Suitability'),
+                                                  ('sprint_specialist', 'Sprint Specialist (5f-7f)'),
+                                                  ('miler', 'Miler (7f-1m)'),
+                                                  ('middle_distance', 'Middle Distance (1m-1.25m)'),
+                                                  ('router', 'Router (1.25m+)'),
+                                                  ('versatile', 'Versatile (All Distances)')
+                                              ],
+                                              validators=[Optional()])
+    # Trainer/Jockey Performance
+    trainer_win_percentage = FloatField('Trainer Win Percentage (%)', validators=[Optional(), NumberRange(min=0, max=100)])
+    trainer_win_percentage_distance = FloatField('Trainer Win % at This Distance (%)', validators=[Optional(), NumberRange(min=0, max=100)])
+    trainer_win_percentage_surface = FloatField('Trainer Win % on This Surface (%)', validators=[Optional(), NumberRange(min=0, max=100)])
+    
+    jockey_win_percentage = FloatField('Jockey Win Percentage (%)', validators=[Optional(), NumberRange(min=0, max=100)])
+    trainer_jockey_combo_wins = IntegerField('Trainer/Jockey Combo Wins', validators=[Optional(), NumberRange(min=0, max=1000)])
 
     # Race Assignment
     assigned_races = SelectField('Assign to Race', coerce=str, validators=[Optional()])

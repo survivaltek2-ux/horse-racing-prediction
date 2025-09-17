@@ -19,7 +19,7 @@ def import_races_from_json():
     
     try:
         from app import app, db
-        from models.race import Race
+        from models.sqlalchemy_models import Race
         
         with app.app_context():
             # Clear existing races
@@ -110,7 +110,7 @@ def import_horses_from_json():
     
     try:
         from app import app, db
-        from models.horse import Horse
+        from models.sqlalchemy_models import Horse
         
         with app.app_context():
             # Check for horse JSON files

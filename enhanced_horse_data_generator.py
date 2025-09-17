@@ -53,7 +53,6 @@ class EnhancedHorseDataGenerator:
     def generate_physical_stats(self):
         """Generate physical characteristics and measurements"""
         return {
-            "height": round(random.uniform(15.0, 17.2), 1),  # hands
             "weight": random.randint(900, 1200),  # pounds
             "chest_girth": random.randint(70, 80),  # inches
             "cannon_bone": round(random.uniform(7.5, 9.0), 1),  # inches
@@ -215,7 +214,7 @@ def main():
         sample_horse = enhanced_horses[0]
         print(f"Horse: {sample_horse['name']} (ID: {sample_horse['id']})")
         print(f"Pedigree: {sample_horse['pedigree']['sire']} x {sample_horse['pedigree']['dam']}")
-        print(f"Physical: {sample_horse['physical_stats']['height']} hands, {sample_horse['physical_stats']['weight']} lbs")
+        print(f"Physical: {sample_horse['physical_stats']['weight']} lbs")
         print(f"Speed Figure: {sample_horse['speed_figures']['beyer_speed_figure']}")
         print(f"Training: {sample_horse['training_data']['training_center']}")
         print(f"Temperament: {sample_horse['behavioral_data']['temperament']}")

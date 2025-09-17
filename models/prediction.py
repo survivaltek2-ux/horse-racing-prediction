@@ -15,7 +15,7 @@ class Prediction:
         self.id = id
         self.race_id = race_id
         self.date = date or datetime.now().strftime('%Y-%m-%d')
-        self.predictions = predictions or {}  # {horse_id: {'win_prob': 0.xx, 'place_prob': 0.xx, 'show_prob': 0.xx}}
+        self.predictions = predictions or {}  # {horse_id: {'win_probability': 0.xx, 'place_probability': 0.xx, 'show_probability': 0.xx}}
         self.algorithm = algorithm or 'default'
         self.accuracy = accuracy  # Set after race is completed
         self.actual_results = actual_results  # Actual race results
@@ -98,10 +98,13 @@ class Prediction:
         if not self.predictions:
             return []
             
-        # Sort horses by win probability
+        # Sort horses by win probability (handle both old and new formats)
+        def get_win_prob(probs):
+            return probs.get('win_probability', probs.get('win_prob', 0))
+        
         sorted_horses = sorted(
             self.predictions.items(),
-            key=lambda x: x[1]['win_prob'],
+            key=lambda x: get_win_prob(x[1]),
             reverse=True
         )
         
@@ -110,11 +113,16 @@ class Prediction:
         for horse_id, probs in sorted_horses[:limit]:
             horse = Horse.get_by_id(int(horse_id))
             if horse:
+                # Handle both old and new formats
+                win_prob = probs.get('win_probability', probs.get('win_prob', 0))
+                place_prob = probs.get('place_probability', probs.get('place_prob', 0))
+                show_prob = probs.get('show_probability', probs.get('show_prob', 0))
+                
                 top_horses.append({
                     'horse': horse,
-                    'win_probability': probs['win_prob'],
-                    'place_probability': probs.get('place_prob', 0),
-                    'show_probability': probs.get('show_prob', 0)
+                    'win_probability': win_prob,
+                    'place_probability': place_prob,
+                    'show_probability': show_prob
                 })
                 
         return top_horses

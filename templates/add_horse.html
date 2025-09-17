@@ -3,34 +3,36 @@
 {% block title %}Add New Horse{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>
-        <i class="fas fa-plus-circle me-2"></i>
-        Add New Horse
-    </h1>
-    <a href="{{ url_for('races') }}" class="btn btn-outline-secondary">
-        <i class="fas fa-arrow-left me-1"></i>
-        Back to Races
-    </a>
-</div>
+<div class="add-horse-page">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-white">
+                <i class="fas fa-plus-circle me-2"></i>
+                Add New Horse - Racing Performance Focus
+            </h1>
+            <a href="{{ url_for('races') }}" class="btn btn-outline-light">
+                <i class="fas fa-arrow-left me-1"></i>
+                Back to Races
+            </a>
+        </div>
 
-<div class="row">
-    <div class="col-lg-10 mx-auto">
-        <div class="card">
-            <div class="card-header bg-success text-white">
-                <h5 class="mb-0">
-                    <i class="fas fa-horse me-2"></i>
-                    Enhanced Horse Information
-                </h5>
-            </div>
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="card main-card">
+                    <div class="card-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+                        <h5 class="mb-0">
+                            <i class="fas fa-horse me-2 section-icon"></i>
+                            Racing Performance Analysis Form
+                        </h5>
+                    </div>
             <div class="card-body">
                 <form method="POST">
                     {{ form.hidden_tag() }}
                     
                     <!-- Basic Information Section -->
-                    <div class="card mb-4">
-                        <div class="card-header bg-primary text-white">
-                            <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Basic Information</h6>
+                    <div class="card section-card mb-4">
+                        <div class="card-header basic-info-header">
+                            <h6 class="mb-0"><i class="fas fa-info-circle me-2 section-icon"></i>Basic Information</h6>
                         </div>
                         <div class="card-body">
                             <div class="row mb-3">
@@ -57,19 +59,16 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-4">
-                                    {{ form.breed.label(class="form-label") }}
-                                    {{ form.breed(class="form-control") }}
-                                    {% if form.breed.errors %}
+                                    {{ form.sex.label(class="form-label") }}
+                                    {{ form.sex(class="form-control") }}
+                                    {% if form.sex.errors %}
                                         <div class="text-danger mt-1">
-                                            {% for error in form.breed.errors %}
+                                            {% for error in form.sex.errors %}
                                                 <small>{{ error }}</small>
                                             {% endfor %}
                                         </div>
                                     {% endif %}
                                 </div>
-                            </div>
-                            
-                            <div class="row mb-3">
                                 <div class="col-md-4">
                                     {{ form.color.label(class="form-label") }}
                                     {{ form.color(class="form-control") }}
@@ -82,88 +81,257 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label">Height (hands)</label>
-                                    <input type="number" step="0.1" name="height" class="form-control" placeholder="16.2">
-                                </div>
-                                <div class="col-md-4">
-                                    {{ form.weight.label(class="form-label") }}
-                                    {{ form.weight(class="form-control") }}
-                                    {% if form.weight.errors %}
+                                    {{ form.breed.label(class="form-label") }}
+                                    {{ form.breed(class="form-control") }}
+                                    {% if form.breed.errors %}
                                         <div class="text-danger mt-1">
-                                            {% for error in form.weight.errors %}
+                                            {% for error in form.breed.errors %}
                                                 <small>{{ error }}</small>
                                             {% endfor %}
                                         </div>
                                     {% endif %}
                                 </div>
                             </div>
-                            
+                        </div>
+                    </div>
+
+                    <!-- Speed Ratings Section -->
+                    <div class="card section-card mb-4">
+                        <div class="card-header speed-rating-header">
+                            <h6 class="mb-0"><i class="fas fa-tachometer-alt me-2 section-icon"></i>Speed Ratings (Last 5 Races)</h6>
+                        </div>
+                        <div class="card-body">
                             <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Markings</label>
-                                    <input type="text" name="markings" class="form-control" placeholder="White blaze, left hind sock">
+                                <div class="col-md-3">
+                                    {{ form.speed_rating_race_1.label(class="form-label") }}
+                                    {{ form.speed_rating_race_1(class="form-control") }}
+                                    {% if form.speed_rating_race_1.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.speed_rating_race_1.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Sex</label>
-                                    <select name="sex" class="form-control">
-                                        <option value="">Select Sex</option>
-                                        <option value="Colt">Colt</option>
-                                        <option value="Filly">Filly</option>
-                                        <option value="Gelding">Gelding</option>
-                                        <option value="Mare">Mare</option>
-                                        <option value="Stallion">Stallion</option>
-                                    </select>
+                                <div class="col-md-3">
+                                    {{ form.speed_rating_race_2.label(class="form-label") }}
+                                    {{ form.speed_rating_race_2(class="form-control") }}
+                                    {% if form.speed_rating_race_2.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.speed_rating_race_2.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.speed_rating_race_3.label(class="form-label") }}
+                                    {{ form.speed_rating_race_3(class="form-control") }}
+                                    {% if form.speed_rating_race_3.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.speed_rating_race_3.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.highest_speed_rating_distance.label(class="form-label") }}
+                                    {{ form.highest_speed_rating_distance(class="form-control") }}
+                                    {% if form.highest_speed_rating_distance.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.highest_speed_rating_distance.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Pedigree Information Section -->
-                    <div class="card mb-4">
-                        <div class="card-header bg-warning text-dark">
-                            <h6 class="mb-0"><i class="fas fa-sitemap me-2"></i>Pedigree Information</h6>
+                    <!-- Beaten Lengths Section -->
+                    <div class="card section-card mb-4">
+                        <div class="card-header beaten-lengths-header">
+                            <h6 class="mb-0"><i class="fas fa-ruler me-2 section-icon"></i>Beaten Lengths (Last 5 Races)</h6>
                         </div>
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label class="form-label">Sire</label>
-                                    <input type="text" name="sire" class="form-control" placeholder="Father's name">
+                                    {{ form.beaten_lengths_race_1.label(class="form-label") }}
+                                    {{ form.beaten_lengths_race_1(class="form-control", step="0.1") }}
+                                    {% if form.beaten_lengths_race_1.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.beaten_lengths_race_1.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label">Dam</label>
-                                    <input type="text" name="dam" class="form-control" placeholder="Mother's name">
+                                    {{ form.beaten_lengths_race_2.label(class="form-label") }}
+                                    {{ form.beaten_lengths_race_2(class="form-control", step="0.1") }}
+                                    {% if form.beaten_lengths_race_2.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.beaten_lengths_race_2.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label">Grandsire</label>
-                                    <input type="text" name="grandsire" class="form-control" placeholder="Maternal grandfather">
+                                    {{ form.beaten_lengths_race_3.label(class="form-label") }}
+                                    {{ form.beaten_lengths_race_3(class="form-control", step="0.1") }}
+                                    {% if form.beaten_lengths_race_3.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.beaten_lengths_race_3.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pace Analysis Section -->
+                    <div class="card section-card mb-4">
+                        <div class="card-header pace-analysis-header">
+                            <h6 class="mb-0"><i class="fas fa-clock me-2 section-icon"></i>Pace Analysis</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.running_style.label(class="form-label") }}
+                                    {{ form.running_style(class="form-control") }}
+                                    {% if form.running_style.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.running_style.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.pace_versatility.label(class="form-label") }}
+                                    {{ form.pace_versatility(class="form-control") }}
+                                    {% if form.pace_versatility.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.pace_versatility.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label class="form-label">Breeding Farm</label>
-                                    <input type="text" name="breeding_farm" class="form-control" placeholder="Farm where bred">
+                                    {{ form.early_pace_ability.label(class="form-label") }}
+                                    {{ form.early_pace_ability(class="form-control") }}
+                                    {% if form.early_pace_ability.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.early_pace_ability.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label">Bloodline Rating (1-10)</label>
-                                    <input type="number" min="1" max="10" name="bloodline_rating" class="form-control" placeholder="8">
+                                    {{ form.late_pace_ability.label(class="form-label") }}
+                                    {{ form.late_pace_ability(class="form-control") }}
+                                    {% if form.late_pace_ability.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.late_pace_ability.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pedigree Analysis Section -->
+                    <div class="card section-card mb-4">
+                        <div class="card-header pedigree-header">
+                            <h6 class="mb-0"><i class="fas fa-dna me-2 section-icon"></i>Pedigree Analysis</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.sire.label(class="form-label") }}
+                                    {{ form.sire(class="form-control") }}
+                                    {% if form.sire.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.sire.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.dam.label(class="form-label") }}
+                                    {{ form.dam(class="form-control") }}
+                                    {% if form.dam.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.dam.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form.pedigree_speed_rating.label(class="form-label") }}
+                                    {{ form.pedigree_speed_rating(class="form-control") }}
+                                    {% if form.pedigree_speed_rating.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.pedigree_speed_rating.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.pedigree_stamina_rating.label(class="form-label") }}
+                                    {{ form.pedigree_stamina_rating(class="form-control") }}
+                                    {% if form.pedigree_stamina_rating.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.pedigree_stamina_rating.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form.distance_pedigree_suitability.label(class="form-label") }}
+                                    {{ form.distance_pedigree_suitability(class="form-control") }}
+                                    {% if form.distance_pedigree_suitability.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.distance_pedigree_suitability.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Connections Section -->
-                    <div class="card mb-4">
-                        <div class="card-header bg-info text-white">
-                            <h6 class="mb-0"><i class="fas fa-users me-2"></i>Connections</h6>
+                    <div class="card section-card mb-4">
+                        <div class="card-header connections-header">
+                            <h6 class="mb-0"><i class="fas fa-users me-2 section-icon"></i>Connections</h6>
                         </div>
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    {{ form.jockey.label(class="form-label") }}
-                                    {{ form.jockey(class="form-control") }}
-                                    {% if form.jockey.errors %}
+                                    {{ form.owner.label(class="form-label") }}
+                                    {{ form.owner(class="form-control") }}
+                                    {% if form.owner.errors %}
                                         <div class="text-danger mt-1">
-                                            {% for error in form.jockey.errors %}
+                                            {% for error in form.owner.errors %}
                                                 <small>{{ error }}</small>
                                             {% endfor %}
                                         </div>
@@ -181,224 +349,87 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-4">
-                                    {{ form.owner.label(class="form-label") }}
-                                    {{ form.owner(class="form-control") }}
-                                    {% if form.owner.errors %}
+                                    {{ form.jockey.label(class="form-label") }}
+                                    {{ form.jockey(class="form-control") }}
+                                    {% if form.jockey.errors %}
                                         <div class="text-danger mt-1">
-                                            {% for error in form.owner.errors %}
+                                            {% for error in form.jockey.errors %}
                                                 <small>{{ error }}</small>
                                             {% endfor %}
                                         </div>
                                     {% endif %}
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Performance Analytics Section -->
-                    <div class="card mb-4">
-                        <div class="card-header bg-primary text-white">
-                            <h6 class="mb-0"><i class="fas fa-chart-line me-2"></i>Performance Analytics</h6>
-                        </div>
-                        <div class="card-body">
                             <div class="row mb-3">
-                                <div class="col-md-4">
-                                    {{ form.speed_rating.label(class="form-label") }}
-                                    {{ form.speed_rating(class="form-control") }}
-                                    {% if form.speed_rating.errors %}
+                                <div class="col-md-3">
+                                    {{ form.trainer_win_percentage.label(class="form-label") }}
+                                    {{ form.trainer_win_percentage(class="form-control", step="0.1") }}
+                                    {% if form.trainer_win_percentage.errors %}
                                         <div class="text-danger mt-1">
-                                            {% for error in form.speed_rating.errors %}
+                                            {% for error in form.trainer_win_percentage.errors %}
                                                 <small>{{ error }}</small>
                                             {% endfor %}
                                         </div>
                                     {% endif %}
                                 </div>
-                                <div class="col-md-4">
-                                    {{ form.class_rating.label(class="form-label") }}
-                                    {{ form.class_rating(class="form-control") }}
-                                    {% if form.class_rating.errors %}
+                                <div class="col-md-3">
+                                    {{ form.trainer_win_percentage_distance.label(class="form-label") }}
+                                    {{ form.trainer_win_percentage_distance(class="form-control", step="0.1") }}
+                                    {% if form.trainer_win_percentage_distance.errors %}
                                         <div class="text-danger mt-1">
-                                            {% for error in form.class_rating.errors %}
+                                            {% for error in form.trainer_win_percentage_distance.errors %}
                                                 <small>{{ error }}</small>
                                             {% endfor %}
                                         </div>
                                     {% endif %}
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Beyer Speed Figure</label>
-                                    <input type="number" name="beyer_speed_figure" class="form-control" placeholder="85">
-                                </div>
-                            </div>
-                            
-                            <div class="row mb-3">
-                                <div class="col-md-4">
-                                    {{ form.distance_preference.label(class="form-label") }}
-                                    {{ form.distance_preference(class="form-control") }}
-                                    {% if form.distance_preference.errors %}
+                                <div class="col-md-3">
+                                    {{ form.trainer_win_percentage_surface.label(class="form-label") }}
+                                    {{ form.trainer_win_percentage_surface(class="form-control", step="0.1") }}
+                                    {% if form.trainer_win_percentage_surface.errors %}
                                         <div class="text-danger mt-1">
-                                            {% for error in form.distance_preference.errors %}
+                                            {% for error in form.trainer_win_percentage_surface.errors %}
                                                 <small>{{ error }}</small>
                                             {% endfor %}
                                         </div>
                                     {% endif %}
                                 </div>
-                                <div class="col-md-4">
-                                    {{ form.surface_preference.label(class="form-label") }}
-                                    {{ form.surface_preference(class="form-control") }}
-                                    {% if form.surface_preference.errors %}
+                                <div class="col-md-3">
+                                    {{ form.jockey_win_percentage.label(class="form-label") }}
+                                    {{ form.jockey_win_percentage(class="form-control", step="0.1") }}
+                                    {% if form.jockey_win_percentage.errors %}
                                         <div class="text-danger mt-1">
-                                            {% for error in form.surface_preference.errors %}
-                                                <small>{{ error }}</small>
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-4">
-                                    {{ form.track_bias_rating.label(class="form-label") }}
-                                    {{ form.track_bias_rating(class="form-control") }}
-                                    {% if form.track_bias_rating.errors %}
-                                        <div class="text-danger mt-1">
-                                            {% for error in form.track_bias_rating.errors %}
+                                            {% for error in form.jockey_win_percentage.errors %}
                                                 <small>{{ error }}</small>
                                             {% endfor %}
                                         </div>
                                     {% endif %}
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Training & Fitness Section -->
-                    <div class="card mb-4">
-                        <div class="card-header bg-success text-white">
-                            <h6 class="mb-0"><i class="fas fa-heartbeat me-2"></i>Training & Fitness</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-md-4">
-                                    {{ form.days_since_last_race.label(class="form-label") }}
-                                    {{ form.days_since_last_race(class="form-control") }}
-                                    {% if form.days_since_last_race.errors %}
-                                        <div class="text-danger mt-1">
-                                            {% for error in form.days_since_last_race.errors %}
-                                                <small>{{ error }}</small>
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-4">
-                                    {{ form.fitness_level.label(class="form-label") }}
-                                    {{ form.fitness_level(class="form-control") }}
-                                    {% if form.fitness_level.errors %}
-                                        <div class="text-danger mt-1">
-                                            {% for error in form.fitness_level.errors %}
-                                                <small>{{ error }}</small>
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Training Intensity (1-10)</label>
-                                    <input type="number" min="1" max="10" name="training_intensity" class="form-control" placeholder="7">
-                                </div>
-                            </div>
-                            
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    {{ form.workout_times.label(class="form-label") }}
-                                    {{ form.workout_times(class="form-control", rows="3", placeholder='Recent workout times and distances') }}
-                                    {% if form.workout_times.errors %}
+                                    {{ form.trainer_jockey_combo_wins.label(class="form-label") }}
+                                    {{ form.trainer_jockey_combo_wins(class="form-control") }}
+                                    {% if form.trainer_jockey_combo_wins.errors %}
                                         <div class="text-danger mt-1">
-                                            {% for error in form.workout_times.errors %}
+                                            {% for error in form.trainer_jockey_combo_wins.errors %}
                                                 <small>{{ error }}</small>
                                             {% endfor %}
                                         </div>
                                     {% endif %}
-                                    <small class="form-text text-muted">Enter recent workout data</small>
-                                </div>
-                                <div class="col-md-6">
-                                    {{ form.injury_history.label(class="form-label") }}
-                                    {{ form.injury_history(class="form-control", rows="3", placeholder='Any injury history or health notes') }}
-                                    {% if form.injury_history.errors %}
-                                        <div class="text-danger mt-1">
-                                            {% for error in form.injury_history.errors %}
-                                                <small>{{ error }}</small>
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                    <small class="form-text text-muted">Enter injury/health history</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Behavioral & Racing Style Section -->
-                    <div class="card mb-4">
-                        <div class="card-header bg-secondary text-white">
-                            <h6 class="mb-0"><i class="fas fa-brain me-2"></i>Behavioral & Racing Style</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <label class="form-label">Temperament</label>
-                                    <select name="temperament" class="form-control">
-                                        <option value="">Select Temperament</option>
-                                        <option value="Calm">Calm</option>
-                                        <option value="Aggressive">Aggressive</option>
-                                        <option value="Nervous">Nervous</option>
-                                        <option value="Eager">Eager</option>
-                                        <option value="Lazy">Lazy</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Racing Style</label>
-                                    <select name="racing_style" class="form-control">
-                                        <option value="">Select Racing Style</option>
-                                        <option value="Front Runner">Front Runner</option>
-                                        <option value="Stalker">Stalker</option>
-                                        <option value="Closer">Closer</option>
-                                        <option value="Deep Closer">Deep Closer</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Equipment</label>
-                                    <input type="text" name="equipment" class="form-control" placeholder="Blinkers, tongue tie, etc.">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Financial Information Section -->
-                    <div class="card mb-4">
-                        <div class="card-header bg-warning text-dark">
-                            <h6 class="mb-0"><i class="fas fa-dollar-sign me-2"></i>Financial Information</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <label class="form-label">Career Earnings ($)</label>
-                                    <input type="number" name="career_earnings" class="form-control" placeholder="125000">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Purchase Price ($)</label>
-                                    <input type="number" name="purchase_price" class="form-control" placeholder="50000">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Insurance Value ($)</label>
-                                    <input type="number" name="insurance_value" class="form-control" placeholder="200000">
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Race Assignment Section -->
-                    <div class="card mb-4">
-                        <div class="card-header bg-info text-white">
-                            <h6 class="mb-0"><i class="fas fa-flag-checkered me-2"></i>Race Assignment</h6>
+                    <div class="card section-card mb-4">
+                        <div class="card-header race-assignment-header">
+                            <h6 class="mb-0"><i class="fas fa-flag-checkered me-2 section-icon"></i>Race Assignment</h6>
                         </div>
                         <div class="card-body">
                             <div class="row mb-3">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     {{ form.assigned_races.label(class="form-label") }}
                                     {{ form.assigned_races(class="form-control") }}
                                     {% if form.assigned_races.errors %}
@@ -408,9 +439,8 @@
                                             {% endfor %}
                                         </div>
                                     {% endif %}
-                                    <small class="form-text text-muted">Optional: Select a race to assign this horse to</small>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     {{ form.post_position.label(class="form-label") }}
                                     {{ form.post_position(class="form-control") }}
                                     {% if form.post_position.errors %}
@@ -421,7 +451,7 @@
                                         </div>
                                     {% endif %}
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     {{ form.morning_line_odds.label(class="form-label") }}
                                     {{ form.morning_line_odds(class="form-control", placeholder="3-1") }}
                                     {% if form.morning_line_odds.errors %}
@@ -435,29 +465,62 @@
                             </div>
                         </div>
                     </div>
-                    
+
+                    <!-- Submit Button -->
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{{ url_for('races') }}" class="btn btn-outline-secondary me-md-2">
+                        <button type="button" class="btn btn-secondary me-md-2" onclick="history.back()">
                             <i class="fas fa-times me-1"></i>
                             Cancel
-                        </a>
-                        {{ form.submit(class="btn btn-success") }}
+                        </button>
+                        {{ form.submit(class="btn btn-submit") }}
                     </div>
                 </form>
             </div>
         </div>
-        
-        <div class="alert alert-success mt-4">
-            <h6><i class="fas fa-horse-head me-1"></i> Enhanced Horse Registration Tips:</h6>
-            <ul class="mb-0">
-                <li>Complete all sections for comprehensive analysis</li>
-                <li>Pedigree information helps predict genetic potential</li>
-                <li>Physical characteristics affect performance capabilities</li>
-                <li>Training data provides fitness insights</li>
-                <li>Behavioral traits influence race strategy</li>
-                <li>Financial data helps assess investment value</li>
-            </ul>
-        </div>
     </div>
 </div>
+</div>
+
+<script>
+// Add some client-side validation and UX improvements
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-calculate average speed rating
+    const speedFields = ['speed_rating_race_1', 'speed_rating_race_2', 'speed_rating_race_3'];
+    speedFields.forEach(fieldName => {
+        const field = document.getElementById(fieldName);
+        if (field) {
+            field.addEventListener('input', function() {
+                // Add visual feedback for speed ratings
+                const value = parseInt(this.value);
+                if (value >= 100) {
+                    this.style.borderColor = '#28a745'; // Green for excellent
+                } else if (value >= 80) {
+                    this.style.borderColor = '#ffc107'; // Yellow for good
+                } else if (value >= 60) {
+                    this.style.borderColor = '#fd7e14'; // Orange for average
+                } else if (value > 0) {
+                    this.style.borderColor = '#dc3545'; // Red for poor
+                } else {
+                    this.style.borderColor = '#ced4da'; // Default
+                }
+            });
+        }
+    });
+
+    // Add tooltips for better UX
+    const tooltips = {
+        'speed_rating_race_1': 'Enter the speed rating from the horse\'s most recent race (0-130)',
+        'beaten_lengths_race_1': 'Enter how many lengths the horse was beaten by (0 if won)',
+        'running_style': 'Select the horse\'s typical position during the race',
+        'pedigree_speed_rating': 'Rate the pedigree\'s speed potential based on sire/dam lineage'
+    };
+
+    Object.keys(tooltips).forEach(fieldName => {
+        const field = document.getElementById(fieldName);
+        if (field) {
+            field.setAttribute('title', tooltips[fieldName]);
+        }
+    });
+});
+</script>
 {% endblock %}

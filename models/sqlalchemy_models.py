@@ -266,7 +266,6 @@ class Horse(BaseModel):
     sex = Column(String(10), nullable=True)
     color = Column(String(50), nullable=True)
     breed = Column(String(100), nullable=True)
-    height = Column(Float, nullable=True)  # Height in hands
     markings = Column(Text, nullable=True)  # Physical markings description
     
     # Pedigree Information

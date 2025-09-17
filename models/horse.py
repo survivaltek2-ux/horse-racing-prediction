@@ -9,13 +9,32 @@ class Horse:
     # Path to store horse data
     DATA_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'horses.json')
     
-    def __init__(self, id=None, name=None, age=None, breed=None, jockey=None, trainer=None, 
+    def __init__(self, id=None, name=None, age=None, sex=None, color=None, breed=None, jockey=None, trainer=None, 
                  win_rate=None, place_rate=None, show_rate=None, earnings=None, 
-                 recent_performances=None, **kwargs):
-        """Initialize a horse with its attributes"""
+                 recent_performances=None, 
+                 # Speed Rating Fields
+                 speed_rating_race_1=None, speed_rating_race_2=None, speed_rating_race_3=None,
+                 highest_speed_rating_distance=None,
+                 # Beaten Lengths Fields
+                 beaten_lengths_race_1=None, beaten_lengths_race_2=None, beaten_lengths_race_3=None,
+                 # Pace Analysis Fields
+                 running_style=None, pace_versatility=None, early_pace_ability=None, late_pace_ability=None,
+                 # Pedigree Fields
+                 sire=None, dam=None, pedigree_speed_rating=None, pedigree_stamina_rating=None,
+                 distance_pedigree_suitability=None,
+                 # Connections Fields
+                 owner=None, trainer_win_percentage=None, trainer_win_percentage_distance=None,
+                 trainer_win_percentage_surface=None, jockey_win_percentage=None, trainer_jockey_combo_wins=None,
+                 # Race Assignment Fields
+                 assigned_races=None, post_position=None, morning_line_odds=None,
+                 **kwargs):
+        """Initialize a horse with its racing performance attributes"""
+        # Basic Information
         self.id = id
         self.name = name
         self.age = age
+        self.sex = sex
+        self.color = color
         self.breed = breed
         self.jockey = jockey
         self.trainer = trainer
@@ -24,6 +43,43 @@ class Horse:
         self.show_rate = show_rate or 0.0
         self.earnings = earnings or 0.0
         self.recent_performances = recent_performances or []
+        
+        # Speed Rating Fields
+        self.speed_rating_race_1 = speed_rating_race_1
+        self.speed_rating_race_2 = speed_rating_race_2
+        self.speed_rating_race_3 = speed_rating_race_3
+        self.highest_speed_rating_distance = highest_speed_rating_distance
+        
+        # Beaten Lengths Fields
+        self.beaten_lengths_race_1 = beaten_lengths_race_1
+        self.beaten_lengths_race_2 = beaten_lengths_race_2
+        self.beaten_lengths_race_3 = beaten_lengths_race_3
+        
+        # Pace Analysis Fields
+        self.running_style = running_style
+        self.pace_versatility = pace_versatility
+        self.early_pace_ability = early_pace_ability
+        self.late_pace_ability = late_pace_ability
+        
+        # Pedigree Fields
+        self.sire = sire
+        self.dam = dam
+        self.pedigree_speed_rating = pedigree_speed_rating
+        self.pedigree_stamina_rating = pedigree_stamina_rating
+        self.distance_pedigree_suitability = distance_pedigree_suitability
+        
+        # Connections Fields
+        self.owner = owner
+        self.trainer_win_percentage = trainer_win_percentage
+        self.trainer_win_percentage_distance = trainer_win_percentage_distance
+        self.trainer_win_percentage_surface = trainer_win_percentage_surface
+        self.jockey_win_percentage = jockey_win_percentage
+        self.trainer_jockey_combo_wins = trainer_jockey_combo_wins
+        
+        # Race Assignment Fields
+        self.assigned_races = assigned_races
+        self.post_position = post_position
+        self.morning_line_odds = morning_line_odds
         
         # Additional attributes can be passed as kwargs
         for key, value in kwargs.items():
@@ -148,9 +204,12 @@ class Horse:
     def to_dict(self):
         """Convert horse object to dictionary for serialization"""
         return {
+            # Basic Information
             'id': self.id,
             'name': self.name,
             'age': self.age,
+            'sex': self.sex,
+            'color': self.color,
             'breed': self.breed,
             'jockey': self.jockey,
             'trainer': self.trainer,
@@ -158,7 +217,44 @@ class Horse:
             'place_rate': self.place_rate,
             'show_rate': self.show_rate,
             'earnings': self.earnings,
-            'recent_performances': self.recent_performances
+            'recent_performances': self.recent_performances,
+            
+            # Speed Rating Fields
+            'speed_rating_race_1': getattr(self, 'speed_rating_race_1', None),
+            'speed_rating_race_2': getattr(self, 'speed_rating_race_2', None),
+            'speed_rating_race_3': getattr(self, 'speed_rating_race_3', None),
+            'highest_speed_rating_distance': getattr(self, 'highest_speed_rating_distance', None),
+            
+            # Beaten Lengths Fields
+            'beaten_lengths_race_1': getattr(self, 'beaten_lengths_race_1', None),
+            'beaten_lengths_race_2': getattr(self, 'beaten_lengths_race_2', None),
+            'beaten_lengths_race_3': getattr(self, 'beaten_lengths_race_3', None),
+            
+            # Pace Analysis Fields
+            'running_style': getattr(self, 'running_style', None),
+            'pace_versatility': getattr(self, 'pace_versatility', None),
+            'early_pace_ability': getattr(self, 'early_pace_ability', None),
+            'late_pace_ability': getattr(self, 'late_pace_ability', None),
+            
+            # Pedigree Fields
+            'sire': getattr(self, 'sire', None),
+            'dam': getattr(self, 'dam', None),
+            'pedigree_speed_rating': getattr(self, 'pedigree_speed_rating', None),
+            'pedigree_stamina_rating': getattr(self, 'pedigree_stamina_rating', None),
+            'distance_pedigree_suitability': getattr(self, 'distance_pedigree_suitability', None),
+            
+            # Connections Fields
+            'owner': getattr(self, 'owner', None),
+            'trainer_win_percentage': getattr(self, 'trainer_win_percentage', None),
+            'trainer_win_percentage_distance': getattr(self, 'trainer_win_percentage_distance', None),
+            'trainer_win_percentage_surface': getattr(self, 'trainer_win_percentage_surface', None),
+            'jockey_win_percentage': getattr(self, 'jockey_win_percentage', None),
+            'trainer_jockey_combo_wins': getattr(self, 'trainer_jockey_combo_wins', None),
+            
+            # Race Assignment Fields
+            'assigned_races': getattr(self, 'assigned_races', None),
+            'post_position': getattr(self, 'post_position', None),
+            'morning_line_odds': getattr(self, 'morning_line_odds', None)
         }
     
     @classmethod

@@ -33,7 +33,6 @@ def generate_horse_enhanced_data():
         'breed': random.choice(BREEDS),
         'color': random.choice(COLORS),
         'sex': random.choice(['Colt', 'Filly', 'Gelding', 'Mare', 'Stallion']),
-        'height': f"{random.randint(15, 17)}.{random.randint(0, 3)}",
         'markings': random.choice(['Star', 'Blaze', 'White socks', 'No markings', 'Star and snip']),
         
         # Pedigree

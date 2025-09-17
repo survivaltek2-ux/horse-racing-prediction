@@ -112,6 +112,11 @@ class Race:
         """Get all horses participating in this race"""
         return [Horse.get_horse_by_id(horse_id) for horse_id in self.horse_ids]
     
+    @property
+    def horses(self):
+        """Property to get all horses participating in this race"""
+        return self.get_horses()
+    
     def record_result(self, horse_id, position, time, earnings=None):
         """Record the result for a horse in this race"""
         if not self.results:

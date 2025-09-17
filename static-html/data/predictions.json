@@ -5,44 +5,44 @@
     "date": "2025-09-16",
     "predictions": {
       "1": {
-        "win_prob": 0.126,
-        "place_prob": 0.426,
-        "show_prob": 0.626
+        "win_probability": 0.126,
+        "place_probability": 0.426,
+        "show_probability": 0.626
       },
       "2": {
-        "win_prob": 0.126,
-        "place_prob": 0.376,
-        "show_prob": 0.576
+        "win_probability": 0.126,
+        "place_probability": 0.376,
+        "show_probability": 0.576
       },
       "3": {
-        "win_prob": 0.126,
-        "place_prob": 0.326,
-        "show_prob": 0.526
+        "win_probability": 0.126,
+        "place_probability": 0.326,
+        "show_probability": 0.526
       },
       "4": {
-        "win_prob": 0.126,
-        "place_prob": 0.326,
-        "show_prob": 0.476
+        "win_probability": 0.126,
+        "place_probability": 0.326,
+        "show_probability": 0.476
       },
       "6": {
-        "win_prob": 0.126,
-        "place_prob": 0.326,
-        "show_prob": 0.476
+        "win_probability": 0.126,
+        "place_probability": 0.326,
+        "show_probability": 0.476
       },
       "7": {
-        "win_prob": 0.126,
-        "place_prob": 0.326,
-        "show_prob": 0.476
+        "win_probability": 0.126,
+        "place_probability": 0.326,
+        "show_probability": 0.476
       },
       "8": {
-        "win_prob": 0.126,
-        "place_prob": 0.326,
-        "show_prob": 0.476
+        "win_probability": 0.126,
+        "place_probability": 0.326,
+        "show_probability": 0.476
       },
       "5": {
-        "win_prob": 0.121,
-        "place_prob": 0.321,
-        "show_prob": 0.471
+        "win_probability": 0.121,
+        "place_probability": 0.321,
+        "show_probability": 0.471
       }
     },
     "algorithm": "enhanced_heuristic",
@@ -55,44 +55,44 @@
     "date": "2025-09-16",
     "predictions": {
       "1": {
-        "win_prob": 0.126,
-        "place_prob": 0.426,
-        "show_prob": 0.626
+        "win_probability": 0.126,
+        "place_probability": 0.426,
+        "show_probability": 0.626
       },
       "2": {
-        "win_prob": 0.126,
-        "place_prob": 0.376,
-        "show_prob": 0.576
+        "win_probability": 0.126,
+        "place_probability": 0.376,
+        "show_probability": 0.576
       },
       "3": {
-        "win_prob": 0.126,
-        "place_prob": 0.326,
-        "show_prob": 0.526
+        "win_probability": 0.126,
+        "place_probability": 0.326,
+        "show_probability": 0.526
       },
       "4": {
-        "win_prob": 0.126,
-        "place_prob": 0.326,
-        "show_prob": 0.476
+        "win_probability": 0.126,
+        "place_probability": 0.326,
+        "show_probability": 0.476
       },
       "6": {
-        "win_prob": 0.126,
-        "place_prob": 0.326,
-        "show_prob": 0.476
+        "win_probability": 0.126,
+        "place_probability": 0.326,
+        "show_probability": 0.476
       },
       "7": {
-        "win_prob": 0.126,
-        "place_prob": 0.326,
-        "show_prob": 0.476
+        "win_probability": 0.126,
+        "place_probability": 0.326,
+        "show_probability": 0.476
       },
       "8": {
-        "win_prob": 0.126,
-        "place_prob": 0.326,
-        "show_prob": 0.476
+        "win_probability": 0.126,
+        "place_probability": 0.326,
+        "show_probability": 0.476
       },
       "5": {
-        "win_prob": 0.121,
-        "place_prob": 0.321,
-        "show_prob": 0.471
+        "win_probability": 0.121,
+        "place_probability": 0.321,
+        "show_probability": 0.471
       }
     },
     "algorithm": "enhanced_heuristic",
@@ -105,34 +105,34 @@
     "date": "2025-09-16",
     "predictions": {
       "25": {
-        "win_prob": 0.215,
-        "place_prob": 0.515,
-        "show_prob": 0.715
+        "win_probability": 0.215,
+        "place_probability": 0.515,
+        "show_probability": 0.715
       },
       "26": {
-        "win_prob": 0.181,
-        "place_prob": 0.431,
-        "show_prob": 0.631
+        "win_probability": 0.181,
+        "place_probability": 0.431,
+        "show_probability": 0.631
       },
       "5": {
-        "win_prob": 0.177,
-        "place_prob": 0.377,
-        "show_prob": 0.577
+        "win_probability": 0.177,
+        "place_probability": 0.377,
+        "show_probability": 0.577
       },
       "2": {
-        "win_prob": 0.167,
-        "place_prob": 0.367,
-        "show_prob": 0.517
+        "win_probability": 0.167,
+        "place_probability": 0.367,
+        "show_probability": 0.517
       },
       "20": {
-        "win_prob": 0.133,
-        "place_prob": 0.333,
-        "show_prob": 0.483
+        "win_probability": 0.133,
+        "place_probability": 0.333,
+        "show_probability": 0.483
       },
       "39": {
-        "win_prob": 0.126,
-        "place_prob": 0.326,
-        "show_prob": 0.476
+        "win_probability": 0.126,
+        "place_probability": 0.326,
+        "show_probability": 0.476
       }
     },
     "algorithm": "enhanced_heuristic",
@@ -145,34 +145,34 @@
     "date": "2025-09-16",
     "predictions": {
       "25": {
-        "win_prob": 0.215,
-        "place_prob": 0.515,
-        "show_prob": 0.715
+        "win_probability": 0.215,
+        "place_probability": 0.515,
+        "show_probability": 0.715
       },
       "26": {
-        "win_prob": 0.181,
-        "place_prob": 0.431,
-        "show_prob": 0.631
+        "win_probability": 0.181,
+        "place_probability": 0.431,
+        "show_probability": 0.631
       },
       "5": {
-        "win_prob": 0.177,
-        "place_prob": 0.377,
-        "show_prob": 0.577
+        "win_probability": 0.177,
+        "place_probability": 0.377,
+        "show_probability": 0.577
       },
       "2": {
-        "win_prob": 0.167,
-        "place_prob": 0.367,
-        "show_prob": 0.517
+        "win_probability": 0.167,
+        "place_probability": 0.367,
+        "show_probability": 0.517
       },
       "20": {
-        "win_prob": 0.133,
-        "place_prob": 0.333,
-        "show_prob": 0.483
+        "win_probability": 0.133,
+        "place_probability": 0.333,
+        "show_probability": 0.483
       },
       "39": {
-        "win_prob": 0.126,
-        "place_prob": 0.326,
-        "show_prob": 0.476
+        "win_probability": 0.126,
+        "place_probability": 0.326,
+        "show_probability": 0.476
       }
     },
     "algorithm": "enhanced_heuristic",
@@ -185,54 +185,54 @@
     "date": "2025-09-16",
     "predictions": {
       "11": {
-        "win_prob": 0.145,
-        "place_prob": 0.445,
-        "show_prob": 0.645
+        "win_probability": 0.145,
+        "place_probability": 0.445,
+        "show_probability": 0.645
       },
       "13": {
-        "win_prob": 0.144,
-        "place_prob": 0.394,
-        "show_prob": 0.594
+        "win_probability": 0.144,
+        "place_probability": 0.394,
+        "show_probability": 0.594
       },
       "40": {
-        "win_prob": 0.114,
-        "place_prob": 0.314,
-        "show_prob": 0.514
+        "win_probability": 0.114,
+        "place_probability": 0.314,
+        "show_probability": 0.514
       },
       "34": {
-        "win_prob": 0.113,
-        "place_prob": 0.313,
-        "show_prob": 0.463
+        "win_probability": 0.113,
+        "place_probability": 0.313,
+        "show_probability": 0.463
       },
       "6": {
-        "win_prob": 0.103,
-        "place_prob": 0.303,
-        "show_prob": 0.453
+        "win_probability": 0.103,
+        "place_probability": 0.303,
+        "show_probability": 0.453
       },
       "1": {
-        "win_prob": 0.093,
-        "place_prob": 0.293,
-        "show_prob": 0.443
+        "win_probability": 0.093,
+        "place_probability": 0.293,
+        "show_probability": 0.443
       },
       "29": {
-        "win_prob": 0.089,
-        "place_prob": 0.289,
-        "show_prob": 0.439
+        "win_probability": 0.089,
+        "place_probability": 0.289,
+        "show_probability": 0.439
       },
       "20": {
-        "win_prob": 0.069,
-        "place_prob": 0.269,
-        "show_prob": 0.419
+        "win_probability": 0.069,
+        "place_probability": 0.269,
+        "show_probability": 0.419
       },
       "10": {
-        "win_prob": 0.066,
-        "place_prob": 0.266,
-        "show_prob": 0.416
+        "win_probability": 0.066,
+        "place_probability": 0.266,
+        "show_probability": 0.416
       },
       "7": {
-        "win_prob": 0.065,
-        "place_prob": 0.265,
-        "show_prob": 0.415
+        "win_probability": 0.065,
+        "place_probability": 0.265,
+        "show_probability": 0.415
       }
     },
     "algorithm": "enhanced_heuristic",
@@ -245,54 +245,54 @@
     "date": "2025-09-16",
     "predictions": {
       "11": {
-        "win_prob": 0.145,
-        "place_prob": 0.445,
-        "show_prob": 0.645
+        "win_probability": 0.145,
+        "place_probability": 0.445,
+        "show_probability": 0.645
       },
       "13": {
-        "win_prob": 0.144,
-        "place_prob": 0.394,
-        "show_prob": 0.594
+        "win_probability": 0.144,
+        "place_probability": 0.394,
+        "show_probability": 0.594
       },
       "40": {
-        "win_prob": 0.114,
-        "place_prob": 0.314,
-        "show_prob": 0.514
+        "win_probability": 0.114,
+        "place_probability": 0.314,
+        "show_probability": 0.514
       },
       "34": {
-        "win_prob": 0.113,
-        "place_prob": 0.313,
-        "show_prob": 0.463
+        "win_probability": 0.113,
+        "place_probability": 0.313,
+        "show_probability": 0.463
       },
       "6": {
-        "win_prob": 0.103,
-        "place_prob": 0.303,
-        "show_prob": 0.453
+        "win_probability": 0.103,
+        "place_probability": 0.303,
+        "show_probability": 0.453
       },
       "1": {
-        "win_prob": 0.093,
-        "place_prob": 0.293,
-        "show_prob": 0.443
+        "win_probability": 0.093,
+        "place_probability": 0.293,
+        "show_probability": 0.443
       },
       "29": {
-        "win_prob": 0.089,
-        "place_prob": 0.289,
-        "show_prob": 0.439
+        "win_probability": 0.089,
+        "place_probability": 0.289,
+        "show_probability": 0.439
       },
       "20": {
-        "win_prob": 0.069,
-        "place_prob": 0.269,
-        "show_prob": 0.419
+        "win_probability": 0.069,
+        "place_probability": 0.269,
+        "show_probability": 0.419
       },
       "10": {
-        "win_prob": 0.066,
-        "place_prob": 0.266,
-        "show_prob": 0.416
+        "win_probability": 0.066,
+        "place_probability": 0.266,
+        "show_probability": 0.416
       },
       "7": {
-        "win_prob": 0.065,
-        "place_prob": 0.265,
-        "show_prob": 0.415
+        "win_probability": 0.065,
+        "place_probability": 0.265,
+        "show_probability": 0.415
       }
     },
     "algorithm": "enhanced_heuristic",
@@ -305,34 +305,34 @@
     "date": "2025-09-16",
     "predictions": {
       "34": {
-        "win_prob": 0.216,
-        "place_prob": 0.516,
-        "show_prob": 0.716
+        "win_probability": 0.216,
+        "place_probability": 0.516,
+        "show_probability": 0.716
       },
       "6": {
-        "win_prob": 0.198,
-        "place_prob": 0.448,
-        "show_prob": 0.648
+        "win_probability": 0.198,
+        "place_probability": 0.448,
+        "show_probability": 0.648
       },
       "2": {
-        "win_prob": 0.171,
-        "place_prob": 0.371,
-        "show_prob": 0.571
+        "win_probability": 0.171,
+        "place_probability": 0.371,
+        "show_probability": 0.571
       },
       "4": {
-        "win_prob": 0.153,
-        "place_prob": 0.353,
-        "show_prob": 0.503
+        "win_probability": 0.153,
+        "place_probability": 0.353,
+        "show_probability": 0.503
       },
       "14": {
-        "win_prob": 0.134,
-        "place_prob": 0.334,
-        "show_prob": 0.484
+        "win_probability": 0.134,
+        "place_probability": 0.334,
+        "show_probability": 0.484
       },
       "39": {
-        "win_prob": 0.127,
-        "place_prob": 0.327,
-        "show_prob": 0.477
+        "win_probability": 0.127,
+        "place_probability": 0.327,
+        "show_probability": 0.477
       }
     },
     "algorithm": "enhanced_heuristic",

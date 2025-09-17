@@ -16,25 +16,40 @@ db = SQLAlchemy()
 migrate = Migrate()
 
 class DatabaseConfig:
-    """Database configuration class."""
+    """Database configuration settings."""
     
-    # SQLite database file path
-    DATABASE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'hrp_database.db')
+    # Get database configuration from environment variables
+    DATABASE_URL = os.getenv('DATABASE_URL')
     
-    # SQLAlchemy configuration
-    SQLALCHEMY_DATABASE_URI = f'sqlite:///{DATABASE_PATH}'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_ECHO = False  # Set to True for SQL debugging
-    
-    # Database connection settings
-    SQLALCHEMY_ENGINE_OPTIONS = {
-        'pool_pre_ping': True,
-        'pool_recycle': 300,
-        'connect_args': {
-            'check_same_thread': False,  # Allow SQLite to be used across threads
-            'timeout': 30
+    if DATABASE_URL:
+        # Production database (PostgreSQL, MySQL, etc.)
+        SQLALCHEMY_DATABASE_URI = DATABASE_URL
+        
+        # Production engine options
+        SQLALCHEMY_ENGINE_OPTIONS = {
+            'pool_pre_ping': True,
+            'pool_recycle': 3600,
+            'pool_size': 10,
+            'max_overflow': 20,
+            'pool_timeout': 30
         }
-    }
+    else:
+        # Development SQLite database
+        DATABASE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'hrp_database.db')
+        SQLALCHEMY_DATABASE_URI = f'sqlite:///{DATABASE_PATH}'
+        
+        # SQLite engine options
+        SQLALCHEMY_ENGINE_OPTIONS = {
+            'pool_pre_ping': True,
+            'pool_recycle': 300,
+            'connect_args': {
+                'check_same_thread': False,  # Allow SQLite to be used across threads
+                'timeout': 30
+            }
+        }
+    
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ECHO = os.getenv('DATABASE_ECHO', 'False').lower() == 'true'
 
 def init_database(app: Flask):
     """Initialize database with Flask app."""
@@ -71,16 +86,39 @@ def get_db_session():
     return Session()
 
 def backup_database(backup_path=None):
-    """Create a backup of the SQLite database."""
+    """Create a backup of the database."""
     if backup_path is None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        backup_path = f"data/backup_hrp_database_{timestamp}.db"
+        backup_path = f"data/backup_hrp_database_{timestamp}.sql"
     
     try:
-        import shutil
-        shutil.copy2(DatabaseConfig.DATABASE_PATH, backup_path)
-        print(f"✓ Database backup created: {backup_path}")
-        return backup_path
+        if hasattr(DatabaseConfig, 'DATABASE_PATH'):
+            # SQLite backup
+            import shutil
+            sqlite_backup_path = backup_path.replace('.sql', '.db')
+            shutil.copy2(DatabaseConfig.DATABASE_PATH, sqlite_backup_path)
+            print(f"✓ SQLite database backup created: {sqlite_backup_path}")
+            return sqlite_backup_path
+        else:
+            # Production database backup using pg_dump or mysqldump
+            import subprocess
+            database_url = DatabaseConfig.DATABASE_URL
+            
+            if database_url.startswith('postgresql'):
+                # PostgreSQL backup
+                cmd = f"pg_dump {database_url} > {backup_path}"
+                subprocess.run(cmd, shell=True, check=True)
+                print(f"✓ PostgreSQL database backup created: {backup_path}")
+            elif database_url.startswith('mysql'):
+                # MySQL backup
+                # Extract connection details from URL for mysqldump
+                print("✓ MySQL backup requires manual configuration with mysqldump")
+                return None
+            else:
+                print("✗ Backup not supported for this database type")
+                return None
+            
+            return backup_path
     except Exception as e:
         print(f"✗ Error creating database backup: {e}")
         return None
