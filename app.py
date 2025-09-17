@@ -52,6 +52,8 @@ from services.api_service import api_service
 from config.api_config import APIConfig
 from config.database_config import init_database, db
 import os
+import uuid
+import threading
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -94,6 +96,9 @@ def load_user(user_id):
 # Initialize data processor and predictor
 data_processor = DataProcessor()
 predictor = Predictor()
+
+# Global dictionary to store prediction status
+prediction_status = {}
 
 # Initialize API service
 api_service.init_app(app)
@@ -289,6 +294,104 @@ def api_ai_insights(race_id):
         })
     except Exception as e:
         return jsonify({'error': f'Failed to get insights: {str(e)}'}), 500
+
+def run_ai_prediction_async(job_id, race_id, use_ai, use_ensemble):
+    """Background function to run AI prediction"""
+    try:
+        # Update status to processing
+        prediction_status[job_id]['status'] = 'processing'
+        prediction_status[job_id]['progress'] = 10
+        
+        # Get race data
+        race = Race.get_race_by_id(race_id)
+        if not race:
+            prediction_status[job_id]['status'] = 'error'
+            prediction_status[job_id]['error'] = 'Race not found'
+            return
+        
+        prediction_status[job_id]['progress'] = 30
+        
+        # Run the prediction
+        if use_ai:
+            prediction_status[job_id]['progress'] = 50
+            predictions = predictor.predict_race_with_ai(race, use_ensemble=use_ensemble)
+        else:
+            prediction_status[job_id]['progress'] = 50
+            predictions = predictor.predict_race(race)
+        
+        prediction_status[job_id]['progress'] = 80
+        
+        # Format the response
+        response = {
+            'race_id': race_id,
+            'predictions': predictions,
+            'ai_enabled': use_ai,
+            'ensemble_enabled': use_ensemble,
+            'timestamp': datetime.now().isoformat()
+        }
+        
+        # Update status to completed
+        prediction_status[job_id]['status'] = 'completed'
+        prediction_status[job_id]['progress'] = 100
+        prediction_status[job_id]['result'] = response
+        
+    except Exception as e:
+        prediction_status[job_id]['status'] = 'error'
+        prediction_status[job_id]['error'] = str(e)
+
+@app.route('/api/predict_ai_async/<int:race_id>', methods=['POST'])
+@login_required
+def api_predict_ai_async(race_id):
+    """Async API endpoint to generate AI-enhanced predictions"""
+    try:
+        data = request.get_json() or {}
+        use_ai = data.get('use_ai', True)
+        use_ensemble = data.get('use_ensemble', False)
+        
+        # Generate unique job ID
+        job_id = str(uuid.uuid4())
+        
+        # Initialize job status
+        prediction_status[job_id] = {
+            'status': 'started',
+            'progress': 0,
+            'race_id': race_id,
+            'created_at': datetime.now().isoformat()
+        }
+        
+        # Start prediction in background thread
+        thread = threading.Thread(
+            target=run_ai_prediction_async,
+            args=(job_id, race_id, use_ai, use_ensemble)
+        )
+        thread.daemon = True
+        thread.start()
+        
+        return jsonify({
+            'job_id': job_id,
+            'status': 'started',
+            'message': 'AI prediction started'
+        })
+        
+    except Exception as e:
+        return jsonify({'error': f'Failed to start prediction: {str(e)}'}), 500
+
+@app.route('/api/prediction_status/<job_id>', methods=['GET'])
+@login_required
+def api_prediction_status(job_id):
+    """API endpoint to check prediction status"""
+    if job_id not in prediction_status:
+        return jsonify({'error': 'Job not found'}), 404
+    
+    job_data = prediction_status[job_id].copy()
+    
+    # Clean up completed or errored jobs after 1 hour
+    if job_data['status'] in ['completed', 'error']:
+        created_at = datetime.fromisoformat(job_data['created_at'])
+        if (datetime.now() - created_at).total_seconds() > 3600:  # 1 hour
+            del prediction_status[job_id]
+    
+    return jsonify(job_data)
 
 @app.route('/api/train_ai', methods=['POST'])
 @login_required
