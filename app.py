@@ -297,47 +297,67 @@ def api_ai_insights(race_id):
 
 def run_ai_prediction_async(job_id, race_id, use_ai, use_ensemble):
     """Background function to run AI prediction"""
-    try:
-        # Update status to processing
-        prediction_status[job_id]['status'] = 'processing'
-        prediction_status[job_id]['progress'] = 10
-        
-        # Get race data
-        race = Race.get_race_by_id(race_id)
-        if not race:
+    with app.app_context():
+        try:
+            # Update status to processing
+            prediction_status[job_id]['status'] = 'processing'
+            prediction_status[job_id]['progress'] = 10
+            
+            # Get race data
+            race = Race.get_race_by_id(race_id)
+            if not race:
+                prediction_status[job_id]['status'] = 'error'
+                prediction_status[job_id]['error'] = 'Race not found'
+                return
+            
+            prediction_status[job_id]['progress'] = 30
+            
+            # Run the prediction
+            if use_ai:
+                prediction_status[job_id]['progress'] = 50
+                predictions = predictor.predict_race_with_ai(race, use_ensemble=use_ensemble)
+            else:
+                prediction_status[job_id]['progress'] = 50
+                predictions = predictor.predict_race(race)
+            
+            prediction_status[job_id]['progress'] = 80
+            
+            # Format the response - convert Prediction object to dict if needed
+            if hasattr(predictions, 'to_dict'):
+                # If it's a Prediction object, convert to dict
+                predictions_dict = predictions.to_dict()
+            elif hasattr(predictions, '__dict__'):
+                # If it has attributes, convert to dict
+                predictions_dict = {
+                    'id': getattr(predictions, 'id', None),
+                    'race_id': getattr(predictions, 'race_id', race_id),
+                    'predictions': getattr(predictions, 'predictions', {}),
+                    'algorithm': getattr(predictions, 'algorithm', 'ai_enhanced'),
+                    'confidence_scores': getattr(predictions, 'confidence_scores', {}),
+                    'ai_insights': getattr(predictions, 'ai_insights', []),
+                    'created_at': getattr(predictions, 'created_at', datetime.now().isoformat())
+                }
+            else:
+                # If it's already a dict or simple value
+                predictions_dict = predictions if isinstance(predictions, dict) else {'predictions': predictions}
+            
+            response = {
+                'race_id': race_id,
+                'predictions': predictions_dict,
+                'ai_enabled': use_ai,
+                'ensemble_enabled': use_ensemble,
+                'timestamp': datetime.now().isoformat()
+            }
+            
+            # Update status to completed
+            prediction_status[job_id]['status'] = 'completed'
+            prediction_status[job_id]['progress'] = 100
+            prediction_status[job_id]['result'] = response
+            
+        except Exception as e:
             prediction_status[job_id]['status'] = 'error'
-            prediction_status[job_id]['error'] = 'Race not found'
-            return
-        
-        prediction_status[job_id]['progress'] = 30
-        
-        # Run the prediction
-        if use_ai:
-            prediction_status[job_id]['progress'] = 50
-            predictions = predictor.predict_race_with_ai(race, use_ensemble=use_ensemble)
-        else:
-            prediction_status[job_id]['progress'] = 50
-            predictions = predictor.predict_race(race)
-        
-        prediction_status[job_id]['progress'] = 80
-        
-        # Format the response
-        response = {
-            'race_id': race_id,
-            'predictions': predictions,
-            'ai_enabled': use_ai,
-            'ensemble_enabled': use_ensemble,
-            'timestamp': datetime.now().isoformat()
-        }
-        
-        # Update status to completed
-        prediction_status[job_id]['status'] = 'completed'
-        prediction_status[job_id]['progress'] = 100
-        prediction_status[job_id]['result'] = response
-        
-    except Exception as e:
-        prediction_status[job_id]['status'] = 'error'
-        prediction_status[job_id]['error'] = str(e)
+            prediction_status[job_id]['error'] = str(e)
+            print(f"Error in AI-enhanced prediction: {str(e)}")
 
 @app.route('/api/predict_ai_async/<int:race_id>', methods=['POST'])
 @login_required
@@ -415,6 +435,13 @@ def add_race():
     """Add a new race"""
     form = RaceForm()
     
+    # Populate horse choices
+    horses = Horse.get_all_horses()
+    horse_choices = [('', 'Select a horse (optional)')]
+    for horse in horses:
+        horse_choices.append((str(horse.id), f"{horse.name} - {horse.age}yo {horse.sex}"))
+    form.assigned_horses.choices = horse_choices
+    
     if form.validate_on_submit():
         try:
             # Create new race from form data with all enhanced fields
@@ -483,7 +510,21 @@ def add_race():
             
             # Save the race
             race.save()
-            flash('Race created successfully with enhanced data!', 'success')
+            
+            # Handle horse assignment if selected
+            if form.assigned_horses.data:
+                try:
+                    horse = Horse.get_by_id(int(form.assigned_horses.data))
+                    if horse:
+                        race.add_horse(horse.id)
+                        flash(f'Race created successfully and horse "{horse.name}" assigned!', 'success')
+                    else:
+                        flash('Race created successfully, but selected horse not found.', 'warning')
+                except Exception as e:
+                    flash(f'Race created successfully, but error assigning horse: {str(e)}', 'warning')
+            else:
+                flash('Race created successfully with enhanced data!', 'success')
+            
             return redirect(url_for('races'))
         except Exception as e:
             flash(f'Error creating race: {str(e)}', 'error')
@@ -495,6 +536,12 @@ def add_race():
 def add_horse():
     """Add a new horse"""
     form = HorseForm()
+    
+    # Populate race choices
+    races = Race.get_all_races()
+    race_choices = [('', 'Select a race (optional)')]
+    race_choices.extend([(str(race.id), f"{race.name} - {race.date if race.date else 'No date'}") for race in races])
+    form.assigned_races.choices = race_choices
     
     if form.validate_on_submit():
         try:
@@ -559,7 +606,21 @@ def add_horse():
                 stud_fee=form.stud_fee.data
             )
             horse.save()
-            flash('Horse added successfully with enhanced data!', 'success')
+            
+            # Handle race assignment if selected
+            if form.assigned_races.data:
+                try:
+                    race = Race.get_race_by_id(int(form.assigned_races.data))
+                    if race:
+                        race.add_horse(horse.id)
+                        flash(f'Horse added successfully and assigned to race "{race.name}"!', 'success')
+                    else:
+                        flash('Horse added successfully, but selected race not found.', 'warning')
+                except Exception as e:
+                    flash(f'Horse added successfully, but error assigning to race: {str(e)}', 'warning')
+            else:
+                flash('Horse added successfully with enhanced data!', 'success')
+            
             return redirect(url_for('races'))
         except Exception as e:
             flash(f'Error adding horse: {str(e)}', 'error')
@@ -576,6 +637,13 @@ def edit_horse(horse_id):
         return redirect(url_for('races'))
     
     form = HorseForm(obj=horse)
+    
+    # Populate race choices
+    races = Race.get_all_races()
+    race_choices = [('', 'Select a race (optional)')]
+    for race in races:
+        race_choices.append((str(race.id), f"{race.name} - {race.date}"))
+    form.assigned_races.choices = race_choices
     
     if form.validate_on_submit():
         try:
@@ -641,7 +709,21 @@ def edit_horse(horse_id):
             
             # Save the updated horse
             horse.save()
-            flash('Horse updated successfully with enhanced data!', 'success')
+            
+            # Handle race assignment if selected
+            if form.assigned_races.data:
+                try:
+                    race = Race.get_race_by_id(int(form.assigned_races.data))
+                    if race:
+                        race.add_horse(horse.id)
+                        flash(f'Horse updated successfully and assigned to race "{race.name}"!', 'success')
+                    else:
+                        flash('Horse updated successfully, but selected race not found.', 'warning')
+                except Exception as e:
+                    flash(f'Horse updated successfully, but error assigning to race: {str(e)}', 'warning')
+            else:
+                flash('Horse updated successfully with enhanced data!', 'success')
+            
             return redirect(url_for('races'))
         except Exception as e:
             flash(f'Error updating horse: {str(e)}', 'error')
@@ -658,6 +740,13 @@ def edit_race(race_id):
         return redirect(url_for('races'))
     
     form = RaceForm(obj=race)
+    
+    # Populate horse choices
+    horses = Horse.get_all_horses()
+    horse_choices = [('', 'Select a horse (optional)')]
+    for horse in horses:
+        horse_choices.append((str(horse.id), f"{horse.name} - {horse.age}yo {horse.sex}"))
+    form.assigned_horses.choices = horse_choices
     
     if form.validate_on_submit():
         try:
@@ -725,7 +814,21 @@ def edit_race(race_id):
             
             # Save the updated race
             race.save()
-            flash('Race updated successfully with enhanced data!', 'success')
+            
+            # Handle horse assignment if selected
+            if form.assigned_horses.data:
+                try:
+                    horse = Horse.get_by_id(int(form.assigned_horses.data))
+                    if horse:
+                        race.add_horse(horse.id)
+                        flash(f'Race updated successfully and horse "{horse.name}" assigned!', 'success')
+                    else:
+                        flash('Race updated successfully, but selected horse not found.', 'warning')
+                except Exception as e:
+                    flash(f'Race updated successfully, but error assigning horse: {str(e)}', 'warning')
+            else:
+                flash('Race updated successfully with enhanced data!', 'success')
+            
             return redirect(url_for('races'))
         except Exception as e:
             flash(f'Error updating race: {str(e)}', 'error')

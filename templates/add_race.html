@@ -421,6 +421,51 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Horse Assignment Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0"><i class="fas fa-horse me-2"></i>Horse Assignment</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.assigned_horses.label(class="form-label") }}
+                                    {{ form.assigned_horses(class="form-control") }}
+                                    {% if form.assigned_horses.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.assigned_horses.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    <small class="form-text text-muted">Optional: Select a horse to add to this race</small>
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.horse_post_position.label(class="form-label") }}
+                                    {{ form.horse_post_position(class="form-control") }}
+                                    {% if form.horse_post_position.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.horse_post_position.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.horse_morning_line_odds.label(class="form-label") }}
+                                    {{ form.horse_morning_line_odds(class="form-control", placeholder="3-1") }}
+                                    {% if form.horse_morning_line_odds.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.horse_morning_line_odds.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="{{ url_for('races') }}" class="btn btn-outline-secondary me-md-2">

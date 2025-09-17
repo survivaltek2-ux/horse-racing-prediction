@@ -318,6 +318,60 @@
                         </div>
                     </div>
 
+                    <!-- Race Assignment Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0"><i class="fas fa-flag-checkered me-2"></i>Race Assignment</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.assigned_races.label(class="form-label") }}
+                                    {{ form.assigned_races(class="form-control") }}
+                                    {% if form.assigned_races.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.assigned_races.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    <small class="form-text text-muted">Optional: Select a race to assign this horse to</small>
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.post_position.label(class="form-label") }}
+                                    {{ form.post_position(class="form-control") }}
+                                    {% if form.post_position.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.post_position.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.morning_line_odds.label(class="form-label") }}
+                                    {{ form.morning_line_odds(class="form-control", placeholder="3-1") }}
+                                    {% if form.morning_line_odds.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.morning_line_odds.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if horse.id %}
+                            <div class="mt-3">
+                                <h6>Currently Assigned Races:</h6>
+                                <div id="current-races">
+                                    <!-- This will be populated by JavaScript or server-side -->
+                                    <p class="text-muted">Loading current race assignments...</p>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
                     <!-- Form Actions -->
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="{{ url_for('races') }}" class="btn btn-secondary me-md-2">

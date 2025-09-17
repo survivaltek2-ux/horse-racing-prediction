@@ -173,7 +173,12 @@ class RaceForm(FlaskForm):
                                   ('No', 'No')
                               ],
                               validators=[Optional()])
-    
+
+    # Horse Assignment
+    assigned_horses = SelectField('Add Horse to Race', coerce=str, validators=[Optional()])
+    horse_post_position = IntegerField('Horse Post Position', validators=[Optional(), NumberRange(min=1, max=20)])
+    horse_morning_line_odds = StringField('Horse Morning Line Odds', validators=[Optional(), Length(max=10)])
+
     submit = SubmitField('Create Race')
 
 class HorseForm(FlaskForm):
@@ -303,7 +308,12 @@ class HorseForm(FlaskForm):
     current_value = FloatField('Current Estimated Value ($)', validators=[Optional(), NumberRange(min=0)])
     earnings_to_date = FloatField('Earnings to Date ($)', validators=[Optional(), NumberRange(min=0)])
     insurance_value = FloatField('Insurance Value ($)', validators=[Optional(), NumberRange(min=0)])
-    
+
+    # Race Assignment
+    assigned_races = SelectField('Assign to Race', coerce=str, validators=[Optional()])
+    post_position = IntegerField('Post Position', validators=[Optional(), NumberRange(min=1, max=20)])
+    morning_line_odds = StringField('Morning Line Odds', validators=[Optional(), Length(max=10)])
+
     submit = SubmitField('Add Horse')
 
 class PredictionForm(FlaskForm):
