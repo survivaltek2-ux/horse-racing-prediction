@@ -149,6 +149,17 @@ def races():
         flash('Error loading races. Please try again.', 'error')
         return render_template('races.html', races=[])
 
+@app.route('/horses')
+def horses():
+    """Display list of all horses"""
+    try:
+        horse_list = Horse.get_all_horses()
+        return render_template('horses.html', horses=horse_list)
+    except Exception as e:
+        print(f"Error getting horses: {e}")
+        flash('Error loading horses. Please try again.', 'error')
+        return render_template('horses.html', horses=[])
+
 @app.route('/race/<int:race_id>')
 def race_details(race_id):
     """Display details for a specific race"""
