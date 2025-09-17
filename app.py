@@ -1022,7 +1022,7 @@ def admin_create_user():
         user = User(
             username=form.username.data,
             email=form.email.data,
-            role=form.role.data,
+            is_admin=(form.role.data == 'admin'),
             is_active=form.is_active.data
         )
         if form.password.data:
@@ -1064,7 +1064,7 @@ def admin_edit_user(user_id):
         
         user.username = form.username.data
         user.email = form.email.data
-        user.role = form.role.data
+        user.is_admin = (form.role.data == 'admin')
         user.is_active = form.is_active.data
         
         if form.password.data:

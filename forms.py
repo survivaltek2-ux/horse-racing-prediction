@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, FloatField, DateField, DateTimeField, TextAreaField, SelectField, SubmitField, PasswordField, BooleanField, HiddenField
 from wtforms.validators import DataRequired, NumberRange, Optional, Length, Email, EqualTo, ValidationError, URL
 from datetime import datetime
-from models.user import User
+from models.sqlalchemy_models import User
 
 class RaceForm(FlaskForm):
     # Basic Race Information
