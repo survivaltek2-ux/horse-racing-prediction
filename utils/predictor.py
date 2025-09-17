@@ -643,7 +643,7 @@ class Predictor:
     
     def get_performance_stats(self):
         """Get performance statistics for the predictor"""
-        predictions = Prediction.get_all()
+        predictions = Prediction.get_all_predictions()
         
         if not predictions:
             return {
@@ -659,16 +659,16 @@ class Predictor:
         total_predictions = len(predictions)
         
         # Use confidence as a proxy for accuracy (high confidence predictions)
-        high_confidence_predictions = sum(1 for pred in predictions if pred.confidence and pred.confidence >= 0.8)
+        high_confidence_predictions = sum(1 for pred in predictions if hasattr(pred, 'confidence') and pred.confidence and pred.confidence >= 0.8)
         
         # Calculate average confidence for all predictions
-        predictions_with_confidence = [pred for pred in predictions if pred.confidence is not None]
+        predictions_with_confidence = [pred for pred in predictions if hasattr(pred, 'confidence') and pred.confidence is not None]
         avg_confidence = sum(pred.confidence for pred in predictions_with_confidence) / len(predictions_with_confidence) if predictions_with_confidence else 0
         
         # Count predictions by confidence levels (using confidence as proxy for different bet types)
-        win_predictions = sum(1 for pred in predictions if pred.confidence and pred.confidence >= 0.8)
-        place_predictions = sum(1 for pred in predictions if pred.confidence and pred.confidence >= 0.6)
-        show_predictions = sum(1 for pred in predictions if pred.confidence and pred.confidence >= 0.4)
+        win_predictions = sum(1 for pred in predictions if hasattr(pred, 'confidence') and pred.confidence and pred.confidence >= 0.8)
+        place_predictions = sum(1 for pred in predictions if hasattr(pred, 'confidence') and pred.confidence and pred.confidence >= 0.6)
+        show_predictions = sum(1 for pred in predictions if hasattr(pred, 'confidence') and pred.confidence and pred.confidence >= 0.4)
         
         return {
             'total_predictions': total_predictions,

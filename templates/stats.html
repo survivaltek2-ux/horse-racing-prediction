@@ -211,11 +211,15 @@
                     {% for prediction in stats.recent_predictions[:10] %}
                     <tr>
                         <td><small>{{ prediction.date }}</small></td>
-                        <td>{{ prediction.race.name }}</td>
+                        <td>
+                            {% set race = prediction.get_race() %}
+                            {{ race.name if race else 'Unknown Race' }}
+                        </td>
                         <td><span class="badge bg-secondary">{{ prediction.algorithm.title() }}</span></td>
                         <td>
-                            {% set top_pick = prediction.get_top_pick() %}
-                            {% if top_pick %}
+                            {% set top_picks = prediction.get_top_picks(1) %}
+                            {% if top_picks %}
+                                {% set top_pick = top_picks[0] %}
                                 {{ top_pick.horse.name }}
                             {% else %}
                                 <span class="text-muted">N/A</span>

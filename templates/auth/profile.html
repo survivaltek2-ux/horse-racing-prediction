@@ -22,8 +22,8 @@
                     <div class="row mb-3">
                         <div class="col-sm-3"><strong>Role:</strong></div>
                         <div class="col-sm-9">
-                            <span class="badge bg-{{ 'danger' if user.role == 'admin' else 'primary' }}">
-                                {{ user.role.title() }}
+                            <span class="badge bg-{{ 'danger' if user.is_admin else 'primary' }}">
+                                {{ 'Administrator' if user.is_admin else 'User' }}
                             </span>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-3"><strong>Member Since:</strong></div>
-                        <div class="col-sm-9">{{ user.created_at.strftime('%B %d, %Y') if user.created_at else 'N/A' }}</div>
+                        <div class="col-sm-9">{{ user.created_at_datetime.strftime('%B %d, %Y') if user.created_at_datetime else 'N/A' }}</div>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                         <a href="{{ url_for('change_password') }}" class="btn btn-outline-primary">
                             <i class="fas fa-key"></i> Change Password
                         </a>
-                        {% if user.is_admin %}
+                        {% if user.is_admin() %}
                         <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-danger">
                             <i class="fas fa-cog"></i> Admin Dashboard
                         </a>
@@ -70,7 +70,7 @@
                     <p class="card-text">
                         <small class="text-muted">
                             Welcome to the Horse Racing Prediction System!
-                            {% if user.is_admin %}
+                            {% if user.is_admin() %}
                             As an administrator, you have access to user management and system settings.
                             {% else %}
                             You can view races, make predictions, and track your betting history.

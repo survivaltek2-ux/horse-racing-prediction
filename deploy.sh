@@ -196,7 +196,16 @@ setup_python_environment() {
     # Install Python dependencies
     if [[ -f "$APP_DIR/requirements.txt" ]]; then
         log "Installing Python dependencies from requirements.txt..."
-        sudo -u $APP_USER $VENV_DIR/bin/pip install -r $APP_DIR/requirements.txt
+        sudo -u $APP_USER bash -c "
+            source $VENV_DIR/bin/activate
+            pip install -r $APP_DIR/requirements.txt
+        "
+        
+        # Verify critical packages are installed
+        if ! sudo -u $APP_USER $VENV_DIR/bin/python -c "import flask, gunicorn" 2>/dev/null; then
+            error "Critical packages (Flask, Gunicorn) failed to install"
+            exit 1
+        fi
     else
         error "requirements.txt not found in $APP_DIR"
         exit 1
@@ -214,15 +223,23 @@ setup_database() {
     
     # Initialize database
     cd $APP_DIR
-    sudo -u $APP_USER $VENV_DIR/bin/python -c "
+    sudo -u $APP_USER bash -c "
+        source $VENV_DIR/bin/activate
+        export FLASK_APP=app.py
+        python -c \"
 from app import app, db
 with app.app_context():
     db.create_all()
     print('Database tables created successfully')
-"
+\"
+    "
     
-    # Set database permissions
-    sudo chmod 664 $APP_DIR/data/hrp_database.db 2>/dev/null || true
+    # Set database permissions (find the actual database file)
+    DB_FILE=$(find $APP_DIR -name "*.db" -type f 2>/dev/null | head -1)
+    if [[ -n "$DB_FILE" ]]; then
+        sudo chmod 664 "$DB_FILE"
+        log "Database permissions set for $DB_FILE"
+    fi
     
     log "Database setup completed"
 }
@@ -334,7 +351,9 @@ redirect_stderr=true
 stdout_logfile=$APP_DIR/logs/supervisor.log
 stdout_logfile_maxbytes=10MB
 stdout_logfile_backups=5
-environment=PATH="$VENV_DIR/bin"
+environment=PATH="$VENV_DIR/bin",VIRTUAL_ENV="$VENV_DIR",FLASK_APP="app.py"
+stopasgroup=true
+killasgroup=true
 EOF
 
     # Reload supervisor configuration

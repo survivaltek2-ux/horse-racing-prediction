@@ -4,6 +4,8 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 import warnings
+import os
+import pickle
 warnings.filterwarnings('ignore')
 
 # Try to import deep learning libraries
@@ -41,14 +43,26 @@ class AIPredictor:
         
         # Neural network models
         self.neural_models = {}
+        self.pytorch_models = {}
         self.is_trained = False
         self.feature_names = []
+        
+        # Define model save paths
+        self.model_dir = os.path.join(os.path.dirname(__file__), '..', 'models', 'ai_models')
+        self.training_state_file = os.path.join(self.model_dir, 'training_state.pkl')
+        
+        # Create model directory if it doesn't exist
+        os.makedirs(self.model_dir, exist_ok=True)
         
         # Initialize models based on available libraries
         if TENSORFLOW_AVAILABLE:
             self._initialize_tensorflow_models()
         if PYTORCH_AVAILABLE:
             self._initialize_pytorch_models()
+            print("PyTorch models initialized successfully")
+        
+        # Try to load previously trained models
+        self._load_training_state()
     
     def _initialize_tensorflow_models(self):
         """Initialize TensorFlow/Keras neural network models"""
@@ -63,11 +77,24 @@ class AIPredictor:
     
     def _initialize_pytorch_models(self):
         """Initialize PyTorch neural network models"""
+        # Temporarily disabled due to segmentation fault issues
+        print("PyTorch models temporarily disabled to prevent segmentation faults")
+        return
+        
         try:
             # PyTorch models for additional AI capabilities
-            self.neural_models['pytorch_dnn'] = self._create_pytorch_dnn()
-            self.neural_models['pytorch_rnn'] = self._create_pytorch_rnn()
-            print("PyTorch models initialized successfully")
+            try:
+                self.pytorch_models['pytorch_dnn'] = self._create_pytorch_dnn()
+                print("PyTorch DNN model initialized")
+            except Exception as e:
+                print(f"Error initializing PyTorch DNN: {str(e)}")
+            
+            try:
+                self.pytorch_models['pytorch_rnn'] = self._create_pytorch_rnn()
+                print("PyTorch RNN model initialized")
+            except Exception as e:
+                print(f"Error initializing PyTorch RNN: {str(e)}")
+                
         except Exception as e:
             print(f"Error initializing PyTorch models: {str(e)}")
     
@@ -278,11 +305,11 @@ class AIPredictor:
         features = []
         for _, horse_data in race_data.iterrows():
             speed_features = [
-                horse_data.get('recent_speed_avg', 0),
-                horse_data.get('best_speed', 0),
-                horse_data.get('speed_consistency', 0),
-                horse_data.get('speed_trend', 0),
-                horse_data.get('class_adjusted_speed', 0)
+                float(horse_data.get('recent_speed_avg', 0)),
+                float(horse_data.get('best_speed', 0)),
+                float(horse_data.get('speed_consistency', 0)),
+                float(horse_data.get('speed_trend', 0)),
+                float(horse_data.get('class_adjusted_speed', 0))
             ]
             features.append(speed_features)
         return np.array(features)
@@ -292,12 +319,12 @@ class AIPredictor:
         features = []
         for _, horse_data in race_data.iterrows():
             form_features = [
-                horse_data.get('recent_form_score', 0),
-                horse_data.get('wins_last_5', 0),
-                horse_data.get('places_last_5', 0),
-                horse_data.get('form_trend', 0),
-                horse_data.get('days_since_last_run', 0),
-                horse_data.get('consistency_rating', 0)
+                float(horse_data.get('recent_form_score', 0)),
+                float(horse_data.get('wins_last_5', 0)),
+                float(horse_data.get('places_last_5', 0)),
+                float(horse_data.get('form_trend', 0)),
+                float(horse_data.get('days_since_last_run', 0)),
+                float(horse_data.get('consistency_rating', 0))
             ]
             features.append(form_features)
         return np.array(features)
@@ -307,27 +334,44 @@ class AIPredictor:
         features = []
         for _, horse_data in race_data.iterrows():
             class_features = [
-                horse_data.get('class_rating', 0),
-                horse_data.get('prize_money_earned', 0),
-                horse_data.get('grade_wins', 0),
-                horse_data.get('competition_level', 0),
-                horse_data.get('class_drop_rise', 0)
+                float(horse_data.get('class_rating', 0)),
+                float(horse_data.get('prize_money_earned', 0)),
+                float(horse_data.get('grade_wins', 0)),
+                float(horse_data.get('competition_level', 0)),
+                float(horse_data.get('class_drop_rise', 0))
             ]
             features.append(class_features)
         return np.array(features)
     
     def _extract_distance_features(self, race_data, race):
         """Extract distance suitability features"""
+        # Ensure race_distance is numeric
         race_distance = getattr(race, 'distance', 1200)
+        try:
+            race_distance = float(race_distance)
+        except (ValueError, TypeError):
+            race_distance = 1200.0
+        
         features = []
         
         for _, horse_data in race_data.iterrows():
+            # Ensure preferred_distance is numeric
+            preferred_distance = horse_data.get('preferred_distance', race_distance)
+            try:
+                preferred_distance = float(preferred_distance)
+            except (ValueError, TypeError):
+                preferred_distance = race_distance
+            
+            # Avoid division by zero
+            if race_distance == 0:
+                race_distance = 1200.0
+            
             distance_features = [
-                horse_data.get('preferred_distance', race_distance) / race_distance,
-                horse_data.get('distance_wins', 0),
-                horse_data.get('distance_places', 0),
-                horse_data.get('distance_performance_avg', 0),
-                abs(horse_data.get('preferred_distance', race_distance) - race_distance) / race_distance
+                preferred_distance / race_distance,
+                float(horse_data.get('distance_wins', 0)),
+                float(horse_data.get('distance_places', 0)),
+                float(horse_data.get('distance_performance_avg', 0)),
+                abs(preferred_distance - race_distance) / race_distance
             ]
             features.append(distance_features)
         return np.array(features)
@@ -337,27 +381,45 @@ class AIPredictor:
         features = []
         for _, horse_data in race_data.iterrows():
             jt_features = [
-                horse_data.get('jockey_win_rate', 0),
-                horse_data.get('trainer_win_rate', 0),
-                horse_data.get('jockey_trainer_combo_wins', 0),
-                horse_data.get('jockey_experience', 0),
-                horse_data.get('trainer_experience', 0)
+                float(horse_data.get('jockey_win_rate', 0)),
+                float(horse_data.get('trainer_win_rate', 0)),
+                float(horse_data.get('jockey_trainer_combo_wins', 0)),
+                float(horse_data.get('jockey_experience', 0)),
+                float(horse_data.get('trainer_experience', 0))
             ]
             features.append(jt_features)
         return np.array(features)
     
     def _create_form_sequences(self, race_data, sequence_length=10):
-        """Create sequences for LSTM analysis"""
+        """Create sequences for LSTM analysis with 20 features per timestep"""
         sequences = []
         for _, horse_data in race_data.iterrows():
-            # Create a sequence of recent performances
+            # Create a sequence of recent performances with expanded features
             sequence = []
             for i in range(sequence_length):
                 performance = [
+                    # Basic performance metrics (4 features)
                     horse_data.get(f'run_{i}_position', 0),
                     horse_data.get(f'run_{i}_speed', 0),
                     horse_data.get(f'run_{i}_margin', 0),
-                    horse_data.get(f'run_{i}_class', 0)
+                    horse_data.get(f'run_{i}_class', 0),
+                    # Extended performance metrics (16 additional features)
+                    horse_data.get(f'run_{i}_distance', 0),
+                    horse_data.get(f'run_{i}_weight', 0),
+                    horse_data.get(f'run_{i}_jockey_rating', 0),
+                    horse_data.get(f'run_{i}_trainer_rating', 0),
+                    horse_data.get(f'run_{i}_track_condition', 0),
+                    horse_data.get(f'run_{i}_weather', 0),
+                    horse_data.get(f'run_{i}_odds', 0),
+                    horse_data.get(f'run_{i}_field_size', 0),
+                    horse_data.get(f'run_{i}_sectional_time', 0),
+                    horse_data.get(f'run_{i}_barrier', 0),
+                    horse_data.get(f'run_{i}_prize_money', 0),
+                    horse_data.get(f'run_{i}_beaten_margin', 0),
+                    horse_data.get(f'run_{i}_race_rating', 0),
+                    horse_data.get(f'run_{i}_speed_rating', 0),
+                    horse_data.get(f'run_{i}_class_rating', 0),
+                    horse_data.get(f'run_{i}_form_rating', 0)
                 ]
                 sequence.append(performance)
             sequences.append(sequence)
@@ -519,6 +581,102 @@ class AIPredictor:
             'algorithm': 'fallback'
         }
     
+    def _save_training_state(self):
+        """Save the training state and models to disk"""
+        try:
+            # Save training state
+            state = {
+                'is_trained': self.is_trained,
+                'scaler': self.scaler,
+                'label_encoder': self.label_encoder
+            }
+            
+            with open(self.training_state_file, 'wb') as f:
+                pickle.dump(state, f)
+            
+            # Save TensorFlow models
+            if TENSORFLOW_AVAILABLE and self.neural_models:
+                for model_name, model in self.neural_models.items():
+                    model_path = os.path.join(self.model_dir, f'{model_name}.h5')
+                    try:
+                        model.save(model_path)
+                        print(f"Saved TensorFlow model: {model_name}")
+                    except Exception as e:
+                        print(f"Error saving TensorFlow model {model_name}: {str(e)}")
+            
+            # Save PyTorch models
+            if PYTORCH_AVAILABLE and self.pytorch_models:
+                for model_name, model in self.pytorch_models.items():
+                    model_path = os.path.join(self.model_dir, f'{model_name}.pt')
+                    try:
+                        torch.save(model.state_dict(), model_path)
+                        print(f"Saved PyTorch model: {model_name}")
+                    except Exception as e:
+                        print(f"Error saving PyTorch model {model_name}: {str(e)}")
+            
+            print("Training state saved successfully")
+            return True
+            
+        except Exception as e:
+            print(f"Error saving training state: {str(e)}")
+            return False
+
+    def _load_training_state(self):
+        """Load the training state and models from disk"""
+        try:
+            # Load training state
+            if os.path.exists(self.training_state_file):
+                with open(self.training_state_file, 'rb') as f:
+                    state = pickle.load(f)
+                
+                self.is_trained = state.get('is_trained', False)
+                self.scaler = state.get('scaler', StandardScaler())
+                self.label_encoder = state.get('label_encoder', LabelEncoder())
+                
+                if self.is_trained:
+                    print("Loaded training state: AI models are trained")
+                    
+                    # Load TensorFlow models
+                    if TENSORFLOW_AVAILABLE:
+                        for model_name in ['dnn_win', 'lstm_form', 'cnn_pattern']:
+                            model_path = os.path.join(self.model_dir, f'{model_name}.h5')
+                            if os.path.exists(model_path):
+                                try:
+                                    self.neural_models[model_name] = tf.keras.models.load_model(model_path)
+                                    print(f"Loaded TensorFlow model: {model_name}")
+                                except Exception as e:
+                                    print(f"Error loading TensorFlow model {model_name}: {str(e)}")
+                    
+                    # Load PyTorch models - temporarily disabled
+                    print("PyTorch model loading temporarily disabled to prevent segmentation faults")
+                    # if PYTORCH_AVAILABLE:
+                    #     for model_name in ['pytorch_dnn', 'pytorch_rnn']:
+                    #         model_path = os.path.join(self.model_dir, f'{model_name}.pt')
+                    #         if os.path.exists(model_path) and model_name in self.pytorch_models:
+                    #             try:
+                    #                 # Use map_location to handle device compatibility
+                    #                 state_dict = torch.load(model_path, map_location='cpu')
+                    #                 self.pytorch_models[model_name].load_state_dict(state_dict)
+                    #                 self.pytorch_models[model_name].eval()
+                    #                 print(f"Loaded PyTorch model: {model_name}")
+                    #             except Exception as e:
+                    #                 print(f"Error loading PyTorch model {model_name}: {str(e)}")
+                    #                 # Remove the problematic model from the dictionary
+                    #                 if model_name in self.pytorch_models:
+                    #                     del self.pytorch_models[model_name]
+                    
+                    return True
+                else:
+                    print("Training state indicates models are not trained")
+            else:
+                print("No previous training state found")
+            
+            return False
+            
+        except Exception as e:
+            print(f"Error loading training state: {str(e)}")
+            return False
+
     def train_ai_models(self, training_data):
         """Train the AI models with historical data"""
         if not TENSORFLOW_AVAILABLE:
@@ -550,12 +708,16 @@ class AIPredictor:
             
             self.is_trained = True
             print("AI models trained successfully")
+            
+            # Save the training state and models
+            self._save_training_state()
+            
             return True
             
         except Exception as e:
             print(f"Error training AI models: {str(e)}")
             return False
-    
+
     def _prepare_training_data(self, training_data):
         """Prepare data for training AI models"""
         # This would process historical race data

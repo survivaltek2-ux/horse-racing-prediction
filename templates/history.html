@@ -43,15 +43,22 @@
                             <small>{{ prediction.date }}</small>
                         </td>
                         <td>
-                            <strong>{{ prediction.race.name }}</strong>
-                            <br><small class="text-muted">{{ prediction.race.location or 'TBD' }}</small>
+                            {% set race = prediction.get_race() %}
+                            {% if race %}
+                                <strong>{{ race.name }}</strong>
+                                <br><small class="text-muted">{{ race.location or 'TBD' }}</small>
+                            {% else %}
+                                <strong>Unknown Race</strong>
+                                <br><small class="text-muted">Race ID: {{ prediction.race_id }}</small>
+                            {% endif %}
                         </td>
                         <td>
                             <span class="badge bg-info">{{ prediction.algorithm.title() }}</span>
                         </td>
                         <td>
-                            {% set top_pick = prediction.get_top_pick() %}
-                            {% if top_pick %}
+                            {% set top_picks = prediction.get_top_picks(1) %}
+                            {% if top_picks %}
+                                {% set top_pick = top_picks[0] %}
                                 <strong>{{ top_pick.horse.name }}</strong>
                                 <br><small class="text-success">{{ "{:.1%}".format(top_pick.win_probability) }} win chance</small>
                             {% else %}
@@ -68,24 +75,33 @@
                             {% endif %}
                         </td>
                         <td>
-                            {% if prediction.race.status == 'completed' %}
-                                <span class="badge bg-success">Completed</span>
-                            {% elif prediction.race.status == 'in_progress' %}
-                                <span class="badge bg-warning">In Progress</span>
+                            {% set race = prediction.get_race() %}
+                            {% if race %}
+                                {% if race.status == 'completed' %}
+                                    <span class="badge bg-success">Completed</span>
+                                {% elif race.status == 'in_progress' %}
+                                    <span class="badge bg-warning">In Progress</span>
+                                {% else %}
+                                    <span class="badge bg-info">Upcoming</span>
+                                {% endif %}
                             {% else %}
-                                <span class="badge bg-info">Upcoming</span>
+                                <span class="badge bg-secondary">Unknown</span>
                             {% endif %}
                         </td>
                         <td>
                             <div class="btn-group btn-group-sm">
-                                <a href="{{ url_for('predict', race_id=prediction.race.id) }}" 
-                                   class="btn btn-outline-primary btn-sm">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="{{ url_for('race_details', race_id=prediction.race.id) }}" 
-                                   class="btn btn-outline-info btn-sm">
-                                    <i class="fas fa-flag-checkered"></i>
-                                </a>
+                                {% if prediction.race_id %}
+                                    <a href="{{ url_for('predict', race_id=prediction.race_id) }}" 
+                                       class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ url_for('race_details', race_id=prediction.race_id) }}" 
+                                       class="btn btn-outline-info btn-sm">
+                                        <i class="fas fa-flag-checkered"></i>
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted">No actions</span>
+                                {% endif %}
                             </div>
                         </td>
                     </tr>

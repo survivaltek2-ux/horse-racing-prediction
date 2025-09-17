@@ -48,6 +48,16 @@ class User(UserMixin):
         """Update last login timestamp"""
         self.last_login = datetime.now().isoformat()
     
+    @property
+    def created_at_datetime(self):
+        """Get created_at as datetime object for formatting"""
+        if self.created_at:
+            try:
+                return datetime.fromisoformat(self.created_at.replace('Z', '+00:00'))
+            except (ValueError, AttributeError):
+                return None
+        return None
+    
     def to_dict(self):
         """Convert user to dictionary for JSON storage"""
         return {
