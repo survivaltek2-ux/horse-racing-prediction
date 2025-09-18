@@ -19,7 +19,6 @@ This document outlines the security measures implemented in the Horse Racing Pre
 ### 3. Version Control Protection
 - **Enhanced .gitignore**: Added patterns to exclude sensitive files:
   - Encryption key files (`.encryption_key`, `data/.encryption_key`)
-  - Firebase service account keys (`*service-account*.json`)
   - Database files with sensitive data (`*.db`, `*.sqlite`, `data/api_credentials.json`)
   - Log files that might contain sensitive information
 

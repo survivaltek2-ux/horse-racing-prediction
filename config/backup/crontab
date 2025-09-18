@@ -1,0 +1,17 @@
+# Backup crontab configuration
+# Format: minute hour day month weekday command
+
+# Daily PostgreSQL backup at 2:00 AM
+0 2 * * * /usr/local/bin/backup-postgres.sh
+
+# Daily Redis backup at 2:30 AM
+30 2 * * * /usr/local/bin/backup-redis.sh
+
+# Daily application data backup at 3:00 AM
+0 3 * * * /usr/local/bin/backup-app.sh
+
+# Weekly full backup verification at 4:00 AM on Sundays
+0 4 * * 0 /usr/local/bin/verify-backups.sh
+
+# Hourly health check
+0 * * * * /usr/local/bin/healthcheck.sh > /dev/null 2>&1

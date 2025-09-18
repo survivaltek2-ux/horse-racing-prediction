@@ -20,7 +20,10 @@ except ImportError:
 from models.sqlalchemy_models import Horse, Race
 from models.sqlalchemy_models import Prediction as SQLPrediction
 from models.prediction import Prediction
-from config.database_config import db
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from database_config import db
 from utils.data_processor import DataProcessor
 from utils.ai_predictor import AIPredictor
 
@@ -93,23 +96,11 @@ class Predictor:
         
         # Use ML model if trained, otherwise fall back to enhanced heuristics
         if self.is_trained and self.ensemble_model is not None:
-            print(f"DEBUG: Using ML prediction for race {race.id}", flush=True)
             predictions = self._ml_prediction(race_data, race)
             algorithm = 'ensemble_ml'
-            print(f"DEBUG: ML predictions type: {type(predictions)}", flush=True)
-            if isinstance(predictions, dict) and predictions:
-                first_key = list(predictions.keys())[0]
-                first_pred = predictions[first_key]
-                print(f"DEBUG: First ML prediction: {first_pred}", flush=True)
         else:
-            print(f"DEBUG: Using heuristic prediction for race {race.id}", flush=True)
             predictions = self._enhanced_heuristic_prediction(race_data, race)
             algorithm = 'enhanced_heuristic'
-            print(f"DEBUG: Heuristic predictions type: {type(predictions)}", flush=True)
-            if isinstance(predictions, dict) and predictions:
-                first_key = list(predictions.keys())[0]
-                first_pred = predictions[first_key]
-                print(f"DEBUG: First heuristic prediction: {first_pred}", flush=True)
         
         # Create and save individual prediction records for each horse
         prediction_records = []
@@ -319,26 +310,16 @@ class Predictor:
         if not predictions:
             return {'overall': 0.0}
         
-        print(f"DEBUG: _calculate_confidence_scores called with predictions type: {type(predictions)}", flush=True)
-        print(f"DEBUG: predictions keys: {list(predictions.keys()) if isinstance(predictions, dict) else 'Not a dict'}", flush=True)
-        if isinstance(predictions, dict) and predictions:
-            first_key = list(predictions.keys())[0]
-            first_pred = predictions[first_key]
-            print(f"DEBUG: First prediction structure: {first_pred}", flush=True)
-            print(f"DEBUG: First prediction keys: {list(first_pred.keys()) if isinstance(first_pred, dict) else 'Not a dict'}", flush=True)
+
         
         # Calculate confidence based on prediction spread and quality
         try:
             win_probs = [pred['win_probability'] for pred in predictions.values()]
-        except KeyError as e:
-            print(f"DEBUG: KeyError in _calculate_confidence_scores: {e}", flush=True)
-            print(f"DEBUG: Available keys in first prediction: {list(list(predictions.values())[0].keys()) if predictions else 'No predictions'}", flush=True)
+        except KeyError:
             # Try old format as fallback
             try:
                 win_probs = [pred['win_prob'] for pred in predictions.values()]
-                print("DEBUG: Successfully used old 'win_prob' format", flush=True)
             except KeyError:
-                print("DEBUG: Neither 'win_probability' nor 'win_prob' found, using default", flush=True)
                 win_probs = [0.5] * len(predictions)
         
         # Higher spread = lower confidence (more uncertainty)
@@ -1167,30 +1148,17 @@ class Predictor:
             import logging
             import sys
             
-            # Force output to stdout immediately
-            print(f"DEBUG: Starting predict_race_with_ai for race {race.id}", flush=True)
-            sys.stdout.flush()
-            
             # Get traditional ML prediction
             ml_prediction = self.predict_race(race)
-            print(f"DEBUG: ML prediction type: {type(ml_prediction)}", flush=True)
-            print(f"DEBUG: ML prediction has predictions attr: {hasattr(ml_prediction, 'predictions')}", flush=True)
-            if hasattr(ml_prediction, 'predictions'):
-                print(f"DEBUG: ML predictions: {ml_prediction.predictions}", flush=True)
             
             if not use_ai:
                 return ml_prediction
             
             # Get AI prediction
             ai_prediction = self.ai_predictor.predict_race_ai(race, use_ensemble)
-            print(f"DEBUG: AI prediction type: {type(ai_prediction)}", flush=True)
-            print(f"DEBUG: AI prediction: {ai_prediction}", flush=True)
             
             # Combine predictions intelligently
             combined_prediction = self._combine_ml_ai_predictions(ml_prediction, ai_prediction)
-            print(f"DEBUG: Combined prediction type: {type(combined_prediction)}", flush=True)
-            if hasattr(combined_prediction, 'predictions'):
-                print(f"DEBUG: Combined predictions: {combined_prediction.predictions}", flush=True)
             
             return combined_prediction
             

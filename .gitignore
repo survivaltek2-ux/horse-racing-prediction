@@ -149,10 +149,7 @@ secrets.txt
 data/.encryption_key
 .encryption_key
 
-# Firebase service account keys
-*service-account*.json
-firebase-service-account.json
-config/firebase-service-account.json
+
 
 # Security keys and certificates
 *.key

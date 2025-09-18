@@ -1,0 +1,155 @@
+# AWS ECS Deployment Configuration
+# Horse Racing Prediction Application
+
+# Task Definition for ECS Fargate
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ecs-task-definition
+data:
+  task-definition.json: |
+    {
+      "family": "hrp-production",
+      "networkMode": "awsvpc",
+      "requiresCompatibilities": ["FARGATE"],
+      "cpu": "512",
+      "memory": "1024",
+      "executionRoleArn": "arn:aws:iam::ACCOUNT:role/ecsTaskExecutionRole",
+      "taskRoleArn": "arn:aws:iam::ACCOUNT:role/ecsTaskRole",
+      "containerDefinitions": [
+        {
+          "name": "hrp-app",
+          "image": "ACCOUNT.dkr.ecr.REGION.amazonaws.com/hrp-production:latest",
+          "portMappings": [
+            {
+              "containerPort": 8000,
+              "protocol": "tcp"
+            }
+          ],
+          "essential": true,
+          "environment": [
+            {
+              "name": "FLASK_ENV",
+              "value": "production"
+            },
+            {
+              "name": "DEBUG",
+              "value": "False"
+            },
+            {
+              "name": "HOST",
+              "value": "0.0.0.0"
+            },
+            {
+              "name": "PORT",
+              "value": "8000"
+            }
+          ],
+          "secrets": [
+            {
+              "name": "SECRET_KEY",
+              "valueFrom": "arn:aws:secretsmanager:REGION:ACCOUNT:secret:hrp/secret-key"
+            },
+            {
+              "name": "DATABASE_URL",
+              "valueFrom": "arn:aws:secretsmanager:REGION:ACCOUNT:secret:hrp/database-url"
+            }
+          ],
+          "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+              "awslogs-group": "/ecs/hrp-production",
+              "awslogs-region": "REGION",
+              "awslogs-stream-prefix": "ecs"
+            }
+          },
+          "healthCheck": {
+            "command": [
+              "CMD-SHELL",
+              "curl -f http://localhost:8000/api/providers || exit 1"
+            ],
+            "interval": 30,
+            "timeout": 5,
+            "retries": 3,
+            "startPeriod": 60
+          }
+        }
+      ]
+    }
+
+---
+# Service Definition
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ecs-service-definition
+data:
+  service-definition.json: |
+    {
+      "serviceName": "hrp-production-service",
+      "cluster": "hrp-production-cluster",
+      "taskDefinition": "hrp-production",
+      "desiredCount": 2,
+      "launchType": "FARGATE",
+      "networkConfiguration": {
+        "awsvpcConfiguration": {
+          "subnets": [
+            "subnet-12345678",
+            "subnet-87654321"
+          ],
+          "securityGroups": [
+            "sg-12345678"
+          ],
+          "assignPublicIp": "ENABLED"
+        }
+      },
+      "loadBalancers": [
+        {
+          "targetGroupArn": "arn:aws:elasticloadbalancing:REGION:ACCOUNT:targetgroup/hrp-production-tg/1234567890123456",
+          "containerName": "hrp-app",
+          "containerPort": 8000
+        }
+      ],
+      "serviceTags": [
+        {
+          "key": "Environment",
+          "value": "production"
+        },
+        {
+          "key": "Application",
+          "value": "horse-racing-prediction"
+        }
+      ]
+    }
+
+---
+# Auto Scaling Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ecs-autoscaling
+data:
+  autoscaling-policy.json: |
+    {
+      "scalingPolicies": [
+        {
+          "policyName": "hrp-scale-up",
+          "policyType": "TargetTrackingScaling",
+          "targetTrackingScalingPolicyConfiguration": {
+            "targetValue": 70.0,
+            "predefinedMetricSpecification": {
+              "predefinedMetricType": "ECSServiceAverageCPUUtilization"
+            },
+            "scaleOutCooldown": 300,
+            "scaleInCooldown": 300
+          }
+        }
+      ],
+      "scalableTarget": {
+        "serviceNamespace": "ecs",
+        "resourceId": "service/hrp-production-cluster/hrp-production-service",
+        "scalableDimension": "ecs:service:DesiredCount",
+        "minCapacity": 1,
+        "maxCapacity": 5
+      }
+    }

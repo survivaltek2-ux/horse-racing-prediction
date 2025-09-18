@@ -1,0 +1,192 @@
+{
+  "migration_id": "migration_20250918_094218",
+  "start_time": "2025-09-18T09:42:18.134771",
+  "end_time": "2025-09-18T09:42:44.177253",
+  "total_duration_seconds": 26.042485,
+  "migration_successful": true,
+  "dry_run": true,
+  "phases": [
+    {
+      "name": "pre_migration_validation",
+      "description": "Validate source database and migration prerequisites",
+      "required": true,
+      "completed": true,
+      "start_time": "2025-09-18 09:42:18.135364",
+      "end_time": "2025-09-18 09:42:19.139228",
+      "duration_seconds": 1.003864,
+      "status": "completed",
+      "error_message": null,
+      "artifacts": [
+        "validation_report.json"
+      ]
+    },
+    {
+      "name": "backup_creation",
+      "description": "Create backups of source and target databases",
+      "required": true,
+      "completed": true,
+      "start_time": "2025-09-18 09:42:19.139606",
+      "end_time": "2025-09-18 09:42:21.144888",
+      "duration_seconds": 2.005282,
+      "status": "completed",
+      "error_message": null,
+      "artifacts": [
+        "backup_source.db",
+        "backup_target.sql"
+      ]
+    },
+    {
+      "name": "schema_conversion",
+      "description": "Convert and create PostgreSQL schema",
+      "required": true,
+      "completed": true,
+      "start_time": "2025-09-18 09:42:21.145217",
+      "end_time": "2025-09-18 09:42:24.150071",
+      "duration_seconds": 3.004854,
+      "status": "completed",
+      "error_message": null,
+      "artifacts": [
+        "postgresql_schema.sql"
+      ]
+    },
+    {
+      "name": "data_migration",
+      "description": "Migrate data from SQLite to PostgreSQL",
+      "required": true,
+      "completed": true,
+      "start_time": "2025-09-18 09:42:24.150398",
+      "end_time": "2025-09-18 09:42:29.151790",
+      "duration_seconds": 5.001392,
+      "status": "completed",
+      "error_message": null,
+      "artifacts": [
+        "migration_report.json"
+      ]
+    },
+    {
+      "name": "data_validation",
+      "description": "Validate migrated data integrity and completeness",
+      "required": true,
+      "completed": true,
+      "start_time": "2025-09-18 09:42:29.152118",
+      "end_time": "2025-09-18 09:42:32.155363",
+      "duration_seconds": 3.003245,
+      "status": "completed",
+      "error_message": null,
+      "artifacts": [
+        "validation_report.json"
+      ]
+    },
+    {
+      "name": "index_creation",
+      "description": "Create indexes and constraints",
+      "required": true,
+      "completed": true,
+      "start_time": "2025-09-18 09:42:32.155686",
+      "end_time": "2025-09-18 09:42:34.160243",
+      "duration_seconds": 2.004557,
+      "status": "completed",
+      "error_message": null,
+      "artifacts": [
+        "indexes_created.sql"
+      ]
+    },
+    {
+      "name": "performance_testing",
+      "description": "Run performance tests and benchmarks",
+      "required": true,
+      "completed": true,
+      "start_time": "2025-09-18 09:42:34.160563",
+      "end_time": "2025-09-18 09:42:38.165947",
+      "duration_seconds": 4.005384,
+      "status": "completed",
+      "error_message": null,
+      "artifacts": [
+        "performance_report.json"
+      ]
+    },
+    {
+      "name": "final_validation",
+      "description": "Comprehensive migration verification",
+      "required": true,
+      "completed": true,
+      "start_time": "2025-09-18 09:42:38.166274",
+      "end_time": "2025-09-18 09:42:41.168698",
+      "duration_seconds": 3.002424,
+      "status": "completed",
+      "error_message": null,
+      "artifacts": [
+        "final_validation_report.json"
+      ]
+    },
+    {
+      "name": "health_check",
+      "description": "System health and readiness verification",
+      "required": true,
+      "completed": true,
+      "start_time": "2025-09-18 09:42:41.169018",
+      "end_time": "2025-09-18 09:42:43.173924",
+      "duration_seconds": 2.004906,
+      "status": "completed",
+      "error_message": null,
+      "artifacts": [
+        "health_check_report.json"
+      ]
+    },
+    {
+      "name": "migration_certification",
+      "description": "Generate migration completion certificate",
+      "required": true,
+      "completed": true,
+      "start_time": "2025-09-18 09:42:43.174250",
+      "end_time": "2025-09-18 09:42:44.176803",
+      "duration_seconds": 1.002553,
+      "status": "completed",
+      "error_message": null,
+      "artifacts": [
+        "migration_certificate.txt"
+      ]
+    }
+  ],
+  "configuration": {
+    "source_database": {
+      "type": "sqlite",
+      "path": "database.db"
+    },
+    "target_database": {
+      "type": "postgresql",
+      "host": "localhost",
+      "port": 5432,
+      "database": "hrp_database",
+      "username": "hrp_app",
+      "password": "password"
+    },
+    "migration_options": {
+      "batch_size": 1000,
+      "parallel_workers": 4,
+      "create_indexes": true,
+      "create_constraints": true,
+      "validate_data": true,
+      "backup_before_migration": true,
+      "run_performance_tests": true
+    },
+    "backup_options": {
+      "create_source_backup": true,
+      "create_target_backup": true,
+      "backup_directory": "backups",
+      "retention_days": 30
+    },
+    "validation_options": {
+      "validate_schema": true,
+      "validate_data_integrity": true,
+      "validate_data_completeness": true,
+      "validate_performance": true,
+      "sample_size": 1000
+    },
+    "performance_options": {
+      "run_benchmarks": true,
+      "performance_threshold_percent": 20,
+      "load_test_duration_seconds": 300
+    }
+  }
+}

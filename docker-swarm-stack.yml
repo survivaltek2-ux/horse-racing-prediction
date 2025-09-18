@@ -1,0 +1,542 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Master-Slave Cluster
+  postgres-master:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: horseracing_prod
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_REPLICATION_USER: replicator
+      POSTGRES_REPLICATION_PASSWORD_FILE: /run/secrets/postgres_replication_password
+      PGUSER: postgres
+    volumes:
+      - postgres_master_data:/var/lib/postgresql/data
+      - ./scripts/postgres/master-init.sh:/docker-entrypoint-initdb.d/master-init.sh:ro
+      - ./scripts/postgres/postgresql-master.conf:/etc/postgresql/postgresql.conf:ro
+      - ./scripts/postgres/pg_hba.conf:/etc/postgresql/pg_hba.conf:ro
+    networks:
+      - backend
+      - postgres_cluster
+    secrets:
+      - postgres_password
+      - postgres_replication_password
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  postgres-slave:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: horseracing_prod
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_MASTER_SERVICE: postgres-master
+      PGUSER: postgres
+    volumes:
+      - postgres_slave_data:/var/lib/postgresql/data
+      - ./scripts/postgres/slave-init.sh:/docker-entrypoint-initdb.d/slave-init.sh:ro
+      - ./scripts/postgres/postgresql-slave.conf:/etc/postgresql/postgresql.conf:ro
+    networks:
+      - backend
+      - postgres_cluster
+    secrets:
+      - postgres_password
+      - postgres_replication_password
+    deploy:
+      replicas: 2
+      placement:
+        constraints:
+          - node.role == worker
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+    depends_on:
+      - postgres-master
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Redis Cluster with Sentinel
+  redis-master:
+    image: redis:7-alpine
+    command: redis-server /etc/redis/redis.conf
+    volumes:
+      - redis_master_data:/data
+      - ./scripts/redis/redis-master.conf:/etc/redis/redis.conf:ro
+    networks:
+      - backend
+      - redis_cluster
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis-slave:
+    image: redis:7-alpine
+    command: redis-server /etc/redis/redis.conf
+    volumes:
+      - redis_slave_data:/data
+      - ./scripts/redis/redis-slave.conf:/etc/redis/redis.conf:ro
+    networks:
+      - backend
+      - redis_cluster
+    deploy:
+      replicas: 2
+      placement:
+        constraints:
+          - node.role == worker
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
+    depends_on:
+      - redis-master
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis-sentinel:
+    image: redis:7-alpine
+    command: redis-sentinel /etc/redis/sentinel.conf
+    volumes:
+      - ./scripts/redis/sentinel.conf:/etc/redis/sentinel.conf:ro
+    networks:
+      - backend
+      - redis_cluster
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.25'
+        reservations:
+          memory: 128M
+          cpus: '0.1'
+    depends_on:
+      - redis-master
+      - redis-slave
+    healthcheck:
+      test: ["CMD", "redis-cli", "-p", "26379", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Application Servers (Multiple Replicas)
+  app:
+    image: horseracing-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    environment:
+      FLASK_ENV: production
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD}@postgres-master:5432/horseracing_prod
+      REDIS_URL: redis://redis-master:6379/0
+      SECRET_KEY_FILE: /run/secrets/app_secret_key
+      ENCRYPTION_KEY_FILE: /run/secrets/encryption_key
+    volumes:
+      - app_logs:/app/logs
+      - ./models/ai_models:/app/models/ai_models:ro
+    networks:
+      - frontend
+      - backend
+    secrets:
+      - app_secret_key
+      - encryption_key
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+        order: start-first
+      rollback_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    depends_on:
+      - postgres-master
+      - redis-master
+
+  # Load Balancer (Nginx)
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx-production.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - nginx_logs:/var/log/nginx
+    networks:
+      - frontend
+    deploy:
+      replicas: 2
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    depends_on:
+      - app
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Monitoring Stack
+  prometheus:
+    image: prom/prometheus:latest
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+      - '--web.enable-admin-api'
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/prometheus/rules:/etc/prometheus/rules:ro
+      - prometheus_data:/prometheus
+    networks:
+      - monitoring
+      - backend
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD_FILE: /run/secrets/grafana_admin_password
+      GF_INSTALL_PLUGINS: grafana-piechart-panel
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    networks:
+      - monitoring
+      - frontend
+    secrets:
+      - grafana_admin_password
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
+    depends_on:
+      - prometheus
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Logging Stack
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - xpack.security.enabled=false
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - logging
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.0
+    volumes:
+      - ./logging/logstash/pipeline:/usr/share/logstash/pipeline:ro
+      - ./logging/logstash/config:/usr/share/logstash/config:ro
+      - app_logs:/app/logs:ro
+      - nginx_logs:/nginx/logs:ro
+    networks:
+      - logging
+      - backend
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
+    depends_on:
+      - elasticsearch
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9600"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    networks:
+      - logging
+      - frontend
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
+    depends_on:
+      - elasticsearch
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5601/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Node Exporter for system metrics
+  node-exporter:
+    image: prom/node-exporter:latest
+    command:
+      - '--path.rootfs=/host'
+    volumes:
+      - '/:/host:ro,rslave'
+    networks:
+      - monitoring
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.25'
+        reservations:
+          memory: 128M
+          cpus: '0.1'
+
+  # cAdvisor for container metrics
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - monitoring
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.25'
+        reservations:
+          memory: 128M
+          cpus: '0.1'
+
+networks:
+  frontend:
+    driver: overlay
+    attachable: true
+  backend:
+    driver: overlay
+    attachable: true
+  postgres_cluster:
+    driver: overlay
+    attachable: true
+  redis_cluster:
+    driver: overlay
+    attachable: true
+  monitoring:
+    driver: overlay
+    attachable: true
+  logging:
+    driver: overlay
+    attachable: true
+
+volumes:
+  postgres_master_data:
+    driver: local
+  postgres_slave_data:
+    driver: local
+  redis_master_data:
+    driver: local
+  redis_slave_data:
+    driver: local
+  app_logs:
+    driver: local
+  nginx_logs:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  elasticsearch_data:
+    driver: local
+
+secrets:
+  postgres_password:
+    external: true
+  postgres_replication_password:
+    external: true
+  app_secret_key:
+    external: true
+  encryption_key:
+    external: true
+  grafana_admin_password:
+    external: true

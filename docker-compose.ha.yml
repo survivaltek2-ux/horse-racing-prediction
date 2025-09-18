@@ -1,0 +1,318 @@
+version: '3.8'
+
+services:
+  # Load Balancer with HAProxy for high availability
+  haproxy:
+    image: haproxy:2.8-alpine
+    container_name: hrp-haproxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8404:8404"  # HAProxy stats
+    volumes:
+      - ./config/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./ssl:/etc/ssl/certs:ro
+      - ./logs/haproxy:/var/log/haproxy
+    networks:
+      - hrp-frontend
+      - hrp-backend
+    depends_on:
+      - app1
+      - app2
+      - app3
+    healthcheck:
+      test: ["CMD", "haproxy", "-c", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Primary Application Instance
+  app1:
+    build: .
+    container_name: hrp-app1
+    restart: unless-stopped
+    ports:
+      - "8001:8000"
+    env_file:
+      - .env.production
+    environment:
+      - INSTANCE_ID=app1
+      - DB_HOST=postgres-primary
+      - REDIS_HOST=redis-primary
+    volumes:
+      - ./data:/app/data
+      - ./logs/app1:/app/logs
+      - ./backups:/app/backups
+      - shared_storage:/app/shared
+    networks:
+      - hrp-backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+    depends_on:
+      postgres-primary:
+        condition: service_healthy
+      redis-primary:
+        condition: service_healthy
+
+  # Secondary Application Instance
+  app2:
+    build: .
+    container_name: hrp-app2
+    restart: unless-stopped
+    ports:
+      - "8002:8000"
+    env_file:
+      - .env.production
+    environment:
+      - INSTANCE_ID=app2
+      - DB_HOST=postgres-primary
+      - REDIS_HOST=redis-primary
+    volumes:
+      - ./data:/app/data
+      - ./logs/app2:/app/logs
+      - ./backups:/app/backups
+      - shared_storage:/app/shared
+    networks:
+      - hrp-backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+    depends_on:
+      postgres-primary:
+        condition: service_healthy
+      redis-primary:
+        condition: service_healthy
+
+  # Tertiary Application Instance
+  app3:
+    build: .
+    container_name: hrp-app3
+    restart: unless-stopped
+    ports:
+      - "8003:8000"
+    env_file:
+      - .env.production
+    environment:
+      - INSTANCE_ID=app3
+      - DB_HOST=postgres-primary
+      - REDIS_HOST=redis-primary
+    volumes:
+      - ./data:/app/data
+      - ./logs/app3:/app/logs
+      - ./backups:/app/backups
+      - shared_storage:/app/shared
+    networks:
+      - hrp-backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+    depends_on:
+      postgres-primary:
+        condition: service_healthy
+      redis-primary:
+        condition: service_healthy
+
+  # Primary PostgreSQL Database
+  postgres-primary:
+    image: postgres:15-alpine
+    container_name: hrp-postgres-primary
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-hrp_database}
+      POSTGRES_USER: ${POSTGRES_USER:-hrp_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-hrp_password}
+      POSTGRES_REPLICATION_USER: ${POSTGRES_REPLICATION_USER:-replicator}
+      POSTGRES_REPLICATION_PASSWORD: ${POSTGRES_REPLICATION_PASSWORD:-repl_password}
+    volumes:
+      - postgres_primary_data:/var/lib/postgresql/data
+      - ./config/postgres/primary:/docker-entrypoint-initdb.d
+      - ./backups/postgres:/backups
+    networks:
+      - hrp-backend
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-hrp_user}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: |
+      postgres
+      -c wal_level=replica
+      -c max_wal_senders=3
+      -c max_replication_slots=3
+      -c hot_standby=on
+      -c archive_mode=on
+      -c archive_command='test ! -f /backups/wal/%f && cp %p /backups/wal/%f'
+
+  # Secondary PostgreSQL Database (Read Replica)
+  postgres-replica:
+    image: postgres:15-alpine
+    container_name: hrp-postgres-replica
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-hrp_database}
+      POSTGRES_USER: ${POSTGRES_USER:-hrp_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-hrp_password}
+      PGUSER: ${POSTGRES_USER:-hrp_user}
+      POSTGRES_PRIMARY_HOST: postgres-primary
+      POSTGRES_REPLICATION_USER: ${POSTGRES_REPLICATION_USER:-replicator}
+      POSTGRES_REPLICATION_PASSWORD: ${POSTGRES_REPLICATION_PASSWORD:-repl_password}
+    volumes:
+      - postgres_replica_data:/var/lib/postgresql/data
+      - ./config/postgres/replica:/docker-entrypoint-initdb.d
+      - ./backups/postgres:/backups
+    networks:
+      - hrp-backend
+    ports:
+      - "5433:5432"
+    depends_on:
+      postgres-primary:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-hrp_user}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Primary Redis Instance
+  redis-primary:
+    image: redis:7-alpine
+    container_name: hrp-redis-primary
+    restart: unless-stopped
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - redis_primary_data:/data
+      - ./config/redis/primary.conf:/usr/local/etc/redis/redis.conf:ro
+    networks:
+      - hrp-backend
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Redis Replica Instance
+  redis-replica:
+    image: redis:7-alpine
+    container_name: hrp-redis-replica
+    restart: unless-stopped
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - redis_replica_data:/data
+      - ./config/redis/replica.conf:/usr/local/etc/redis/redis.conf:ro
+    networks:
+      - hrp-backend
+    ports:
+      - "6380:6379"
+    depends_on:
+      redis-primary:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Redis Sentinel for automatic failover
+  redis-sentinel:
+    image: redis:7-alpine
+    container_name: hrp-redis-sentinel
+    restart: unless-stopped
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
+    volumes:
+      - ./config/redis/sentinel.conf:/usr/local/etc/redis/sentinel.conf:ro
+    networks:
+      - hrp-backend
+    ports:
+      - "26379:26379"
+    depends_on:
+      - redis-primary
+      - redis-replica
+
+  # Monitoring and Health Check Service
+  monitoring:
+    image: prom/prometheus:latest
+    container_name: hrp-monitoring
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    networks:
+      - hrp-backend
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+
+  # Grafana for visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: hrp-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin123}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - hrp-backend
+    depends_on:
+      - monitoring
+
+  # Backup Service
+  backup:
+    build:
+      context: .
+      dockerfile: Dockerfile.backup
+    container_name: hrp-backup
+    restart: unless-stopped
+    environment:
+      - POSTGRES_HOST=postgres-primary
+      - POSTGRES_DB=${POSTGRES_DB:-hrp_database}
+      - POSTGRES_USER=${POSTGRES_USER:-hrp_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-hrp_password}
+      - BACKUP_SCHEDULE=${BACKUP_SCHEDULE:-0 2 * * *}
+    volumes:
+      - ./backups:/backups
+      - shared_storage:/app/shared
+    networks:
+      - hrp-backend
+    depends_on:
+      postgres-primary:
+        condition: service_healthy
+
+networks:
+  hrp-frontend:
+    driver: bridge
+  hrp-backend:
+    driver: bridge
+
+volumes:
+  postgres_primary_data:
+  postgres_replica_data:
+  redis_primary_data:
+  redis_replica_data:
+  prometheus_data:
+  grafana_data:
+  shared_storage:

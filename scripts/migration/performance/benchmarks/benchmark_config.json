@@ -1,0 +1,26 @@
+{
+  "data_sizes": [
+    100,
+    1000,
+    10000,
+    50000
+  ],
+  "concurrent_users": [
+    1,
+    5,
+    10,
+    20,
+    50
+  ],
+  "query_complexity": [
+    "simple",
+    "medium",
+    "complex"
+  ],
+  "test_duration_seconds": 60,
+  "warmup_iterations": 10,
+  "measurement_iterations": 100,
+  "memory_threshold_mb": 1000,
+  "response_time_threshold_ms": 1000,
+  "throughput_threshold_ops_per_sec": 100
+}

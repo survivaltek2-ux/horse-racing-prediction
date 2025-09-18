@@ -1,0 +1,50 @@
+{
+  "plan_id": "rollback_migration_20250918_101958_data_migration_20250918_101958",
+  "migration_id": "migration_20250918_101958",
+  "target_phase": "data_migration",
+  "execution_start": "2025-09-18T10:19:58.372554",
+  "execution_end": "2025-09-18T10:19:58.499560",
+  "success": true,
+  "total_steps": 4,
+  "executed_steps": 4,
+  "successful_steps": 4,
+  "failed_steps": 0,
+  "step_details": [
+    {
+      "step_id": "clear_migration_logs",
+      "description": "Clear data migration logs and temporary files",
+      "action": "cleanup_files",
+      "phase": "data_migration",
+      "success": true,
+      "execution_time": "2025-09-18T10:19:58.372654",
+      "error_message": null
+    },
+    {
+      "step_id": "drop_postgresql_schema",
+      "description": "Drop PostgreSQL schema and objects",
+      "action": "restore_schema",
+      "phase": "schema_creation",
+      "success": true,
+      "execution_time": "2025-09-18T10:19:58.402510",
+      "error_message": null
+    },
+    {
+      "step_id": "cleanup_migration_artifacts",
+      "description": "Clean up migration artifacts and temporary files",
+      "action": "cleanup_files",
+      "phase": "schema_creation",
+      "success": true,
+      "execution_time": "2025-09-18T10:19:58.450160",
+      "error_message": null
+    },
+    {
+      "step_id": "reset_permissions",
+      "description": "Reset file permissions",
+      "action": "cleanup_files",
+      "phase": "schema_creation",
+      "success": true,
+      "execution_time": "2025-09-18T10:19:58.472505",
+      "error_message": null
+    }
+  ]
+}

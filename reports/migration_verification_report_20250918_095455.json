@@ -1,0 +1,147 @@
+{
+  "summary": {
+    "overall_status": "FAIL",
+    "total_tests": 6,
+    "passed_tests": 0,
+    "failed_tests": 6,
+    "warning_tests": 0,
+    "data_integrity_score": 0,
+    "performance_improvement": 0,
+    "migration_timestamp": "2025-09-18 08:54:55.801216",
+    "verification_timestamp": "2025-09-18 09:54:55.801224"
+  },
+  "detailed_results": [
+    {
+      "test_name": "Data Completeness",
+      "status": "FAIL",
+      "message": "Data completeness verification failed: (psycopg2.errors.UndefinedTable) relation \"races\" does not exist\nLINE 1: SELECT COUNT(*) FROM races\n                             ^\n\n[SQL: SELECT COUNT(*) FROM races]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "details": {
+        "error": "(psycopg2.errors.UndefinedTable) relation \"races\" does not exist\nLINE 1: SELECT COUNT(*) FROM races\n                             ^\n\n[SQL: SELECT COUNT(*) FROM races]\n(Background on this error at: https://sqlalche.me/e/20/f405)"
+      },
+      "timestamp": "2025-09-18 09:54:55.770041",
+      "duration_ms": 17.165184020996094,
+      "expected": null,
+      "actual": null
+    },
+    {
+      "test_name": "Schema Structure",
+      "status": "FAIL",
+      "message": "Schema structure issues: Missing tables: races, horses, users, predictions, api_credentials; Tables without primary keys: races, users, predictions, api_credentials, horses",
+      "details": {
+        "tables": [],
+        "columns": {},
+        "constraints": {},
+        "indexes": {}
+      },
+      "timestamp": "2025-09-18 09:54:55.794844",
+      "duration_ms": 24.48582649230957,
+      "expected": null,
+      "actual": null
+    },
+    {
+      "test_name": "Data Integrity",
+      "status": "FAIL",
+      "message": "Data integrity verification failed: (psycopg2.errors.UndefinedTable) relation \"predictions\" does not exist\nLINE 2:                     SELECT COUNT(*) FROM predictions p\n                                                 ^\n\n[SQL: \n                    SELECT COUNT(*) FROM predictions p\n                    LEFT JOIN races r ON p.race_id = r.id\n                    WHERE r.id IS NULL\n                ]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "details": {
+        "error": "(psycopg2.errors.UndefinedTable) relation \"predictions\" does not exist\nLINE 2:                     SELECT COUNT(*) FROM predictions p\n                                                 ^\n\n[SQL: \n                    SELECT COUNT(*) FROM predictions p\n                    LEFT JOIN races r ON p.race_id = r.id\n                    WHERE r.id IS NULL\n                ]\n(Background on this error at: https://sqlalche.me/e/20/f405)"
+      },
+      "timestamp": "2025-09-18 09:54:55.796315",
+      "duration_ms": 1.1026859283447266,
+      "expected": null,
+      "actual": null
+    },
+    {
+      "test_name": "Performance Comparison",
+      "status": "FAIL",
+      "message": "Performance comparison failed: (psycopg2.errors.UndefinedTable) relation \"races\" does not exist\nLINE 1: SELECT COUNT(*) FROM races\n                             ^\n\n[SQL: SELECT COUNT(*) FROM races]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "details": {
+        "error": "(psycopg2.errors.UndefinedTable) relation \"races\" does not exist\nLINE 1: SELECT COUNT(*) FROM races\n                             ^\n\n[SQL: SELECT COUNT(*) FROM races]\n(Background on this error at: https://sqlalche.me/e/20/f405)"
+      },
+      "timestamp": "2025-09-18 09:54:55.798163",
+      "duration_ms": 1.3117790222167969,
+      "expected": null,
+      "actual": null
+    },
+    {
+      "test_name": "Functional Testing",
+      "status": "FAIL",
+      "message": "Functional operations failed: insert, join, aggregate",
+      "details": {
+        "insert": {
+          "status": "failed",
+          "error": "(psycopg2.errors.UndefinedTable) relation \"races\" does not exist\nLINE 2:                         INSERT INTO races (race_name, race_d...\n                                            ^\n\n[SQL: \n                        INSERT INTO races (race_name, race_date, track_name, race_type, distance, surface)\n                        VALUES ('Test Race Verification', CURRENT_DATE, 'Test Track', 'flat', 1200.0, 'dirt')\n                        RETURNING id\n                    ]\n(Background on this error at: https://sqlalche.me/e/20/f405)"
+        },
+        "join": {
+          "status": "failed",
+          "error": "(psycopg2.errors.InFailedSqlTransaction) current transaction is aborted, commands ignored until end of transaction block\n\n[SQL: \n                        SELECT COUNT(*)\n                        FROM races r\n                        LEFT JOIN predictions p ON r.id = p.race_id\n                        LEFT JOIN horses h ON p.horse_id = h.id\n                    ]\n(Background on this error at: https://sqlalche.me/e/20/2j85)"
+        },
+        "aggregate": {
+          "status": "failed",
+          "error": "(psycopg2.errors.InFailedSqlTransaction) current transaction is aborted, commands ignored until end of transaction block\n\n[SQL: \n                        SELECT \n                            COUNT(*) as total_races,\n                            AVG(distance) as avg_distance,\n                            MIN(race_date) as earliest_race,\n                            MAX(race_date) as latest_race\n                        FROM races\n                        WHERE distance IS NOT NULL\n                    ]\n(Background on this error at: https://sqlalche.me/e/20/2j85)"
+        }
+      },
+      "timestamp": "2025-09-18 09:54:55.800196",
+      "duration_ms": 1.7962455749511719,
+      "expected": null,
+      "actual": null
+    },
+    {
+      "test_name": "Data Consistency",
+      "status": "FAIL",
+      "message": "Data consistency verification failed: __init__() got multiple values for argument 'schema'",
+      "details": {
+        "error": "__init__() got multiple values for argument 'schema'"
+      },
+      "timestamp": "2025-09-18 09:54:55.800520",
+      "duration_ms": 0.07915496826171875,
+      "expected": null,
+      "actual": null
+    }
+  ],
+  "configuration": {
+    "databases": {
+      "sqlite": {
+        "path": "database.db"
+      },
+      "postgresql": {
+        "host": "localhost",
+        "port": 5432,
+        "database": "hrp_database",
+        "username": "hrp_app",
+        "password": "password"
+      }
+    },
+    "verification": {
+      "data_completeness": true,
+      "schema_structure": true,
+      "data_integrity": true,
+      "performance_comparison": true,
+      "functional_testing": true,
+      "application_compatibility": true
+    },
+    "thresholds": {
+      "data_completeness_percent": 99.9,
+      "performance_improvement_percent": 20,
+      "max_acceptable_variance_percent": 0.1
+    },
+    "tables": [
+      "races",
+      "horses",
+      "predictions",
+      "users",
+      "api_credentials"
+    ],
+    "sample_size": 1000,
+    "performance_queries": [
+      "SELECT COUNT(*) FROM races",
+      "SELECT COUNT(*) FROM horses",
+      "SELECT COUNT(*) FROM predictions",
+      "SELECT r.race_name, h.horse_name, p.confidence \n                   FROM races r \n                   JOIN predictions p ON r.id = p.race_id \n                   JOIN horses h ON p.horse_id = h.id \n                   LIMIT 100"
+    ]
+  },
+  "verification_metadata": {
+    "verifier_version": "1.0",
+    "python_version": "3.9.6 (default, Aug  8 2025, 19:06:38) \n[Clang 17.0.0 (clang-1700.3.19.1)]",
+    "verification_duration_seconds": 0.118316
+  }
+}

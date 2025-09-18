@@ -17,8 +17,18 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from flask_bcrypt import Bcrypt
 
 # Import comprehensive logging and error handling systems
-from config.logging_config import debug_logger, performance_monitor, debug_route
-from config.error_handler import error_handler, catch_exceptions, validate_form_data, log_database_operation
+from logging_config import debug_logger, performance_monitor, debug_route
+from error_handler import error_handler, catch_exceptions, validate_form_data, log_database_operation
+
+# Import comprehensive logging system
+try:
+    from logging.comprehensive_logger import comprehensive_logger, log_errors, monitor_performance
+    COMPREHENSIVE_LOGGING_AVAILABLE = True
+    print("✅ Comprehensive logging system loaded successfully")
+except ImportError as e:
+    print(f"⚠️  Warning: Comprehensive logging not available: {e}")
+    COMPREHENSIVE_LOGGING_AVAILABLE = False
+    comprehensive_logger = None
 
 # Try to import data science libraries
 try:
@@ -54,8 +64,8 @@ from utils.data_processor import DataProcessor
 from utils.predictor import Predictor
 from forms import RaceForm, HorseForm, PredictionForm, RaceResultForm, AddHorseToRaceForm, LoginForm, RegisterForm, UserManagementForm, ChangePasswordForm, APICredentialsForm, APICredentialsTestForm
 from services.api_service import api_service
-from config.api_config import APIConfig
-from config.database_config import init_database, db
+from api_config import APIConfig
+from database_config import init_database, db
 import os
 import uuid
 import threading
@@ -67,6 +77,11 @@ CORS(app)
 # Initialize comprehensive logging and error handling systems
 debug_logger.init_app(app)
 error_handler.init_app(app)
+
+# Initialize comprehensive logging if available
+if COMPREHENSIVE_LOGGING_AVAILABLE and comprehensive_logger:
+    comprehensive_logger.info("Application starting up")
+    comprehensive_logger.log_audit("application_startup", details={"timestamp": datetime.now().isoformat()})
 
 # Initialize SQLite database
 init_database(app)
@@ -185,6 +200,44 @@ api_service.init_app(app)
 with app.app_context():
     db.create_all()
     print("Database tables created successfully")
+
+@app.route('/health')
+def health_check():
+    """Health check endpoint for deployment monitoring"""
+    try:
+        # Check database connectivity
+        with app.app_context():
+            db.session.execute('SELECT 1')
+        
+        # Check if comprehensive logging is available
+        logging_status = "available" if COMPREHENSIVE_LOGGING_AVAILABLE else "basic"
+        
+        health_data = {
+            "status": "healthy",
+            "timestamp": datetime.now().isoformat(),
+            "database": "connected",
+            "logging": logging_status,
+            "version": "1.0.0",
+            "uptime": "running"
+        }
+        
+        if COMPREHENSIVE_LOGGING_AVAILABLE and comprehensive_logger:
+            comprehensive_logger.log_audit("health_check", details=health_data)
+        
+        return jsonify(health_data), 200
+        
+    except Exception as e:
+        error_data = {
+            "status": "unhealthy",
+            "timestamp": datetime.now().isoformat(),
+            "error": str(e),
+            "database": "error"
+        }
+        
+        if COMPREHENSIVE_LOGGING_AVAILABLE and comprehensive_logger:
+            comprehensive_logger.log_error("Health check failed", exception=e)
+        
+        return jsonify(error_data), 500
 
 @app.route('/')
 def index():
@@ -571,7 +624,11 @@ def api_prediction_status(job_id):
         # List all current jobs for debugging
         all_jobs = prediction_status._read_status()
         print(f"📋 Current jobs in storage: {list(all_jobs.keys())}")
-        return jsonify({'error': 'Job not found'}), 404
+        # Return JSON response with 200 status to avoid error handler
+        response = jsonify({'error': 'Job not found', 'status': 'not_found'})
+        response.status_code = 200  # Use 200 to avoid error handler
+        response.headers['Content-Type'] = 'application/json'
+        return response
     
     job_data = prediction_status[job_id].copy()
     print(f"✅ Found job: {job_id}, status: {job_data.get('status', 'unknown')}")
@@ -582,7 +639,9 @@ def api_prediction_status(job_id):
         if (datetime.now() - created_at).total_seconds() > 3600:  # 1 hour
             del prediction_status[job_id]
     
-    return jsonify(job_data)
+    response = jsonify(job_data)
+    response.headers['Content-Type'] = 'application/json'
+    return response
 
 @app.route('/api/train_ai', methods=['POST'])
 @login_required

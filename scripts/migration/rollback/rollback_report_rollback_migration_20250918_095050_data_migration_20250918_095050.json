@@ -1,0 +1,32 @@
+{
+  "plan_id": "rollback_migration_20250918_095050_data_migration_20250918_095050",
+  "migration_id": "migration_20250918_095050",
+  "target_phase": "data_migration",
+  "execution_start": "2025-09-18T09:50:50.246948",
+  "execution_end": "2025-09-18T09:50:50.340080",
+  "success": false,
+  "total_steps": 4,
+  "executed_steps": 2,
+  "successful_steps": 1,
+  "failed_steps": 1,
+  "step_details": [
+    {
+      "step_id": "clear_migration_logs",
+      "description": "Clear data migration logs and temporary files",
+      "action": "cleanup_files",
+      "phase": "data_migration",
+      "success": true,
+      "execution_time": "2025-09-18T09:50:50.247071",
+      "error_message": null
+    },
+    {
+      "step_id": "drop_postgresql_schema",
+      "description": "Drop PostgreSQL schema and objects",
+      "action": "restore_schema",
+      "phase": "schema_creation",
+      "success": false,
+      "execution_time": "2025-09-18T09:50:50.262875",
+      "error_message": null
+    }
+  ]
+}

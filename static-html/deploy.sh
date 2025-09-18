@@ -175,10 +175,7 @@ show_deployment_info() {
     echo "   - Enable static website hosting"
     echo "   - Upload all files to the bucket"
     echo ""
-    echo "5. 🔥 Firebase Hosting:"
-    echo "   - Install Firebase CLI: npm install -g firebase-tools"
-    echo "   - Run: firebase init hosting"
-    echo "   - Run: firebase deploy"
+
     echo ""
 }
 

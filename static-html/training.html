@@ -335,7 +335,7 @@
 
         async function loadModelStatus() {
             try {
-                const response = await fetch('http://127.0.0.1:5000/api/model/info');
+                const response = await fetch('/api/model/info');
                 const data = await response.json();
                 
                 if (data.success) {
@@ -348,10 +348,9 @@
             }
         }
 
-        // Check model status on page load
-         async function checkModelStatus() {
+        async function checkModelStatus() {
             try {
-                const response = await fetch('http://127.0.0.1:5000/api/model/info');
+                const response = await fetch('/api/model/info');
                 const data = await response.json();
                 
                 const statusDiv = document.getElementById('modelStatus');
@@ -402,7 +401,7 @@
         // Load model from file
          async function loadModel() {
              try {
-                 const response = await fetch('http://127.0.0.1:5000/api/model/load', {
+                 const response = await fetch('/api/model/load', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -426,7 +425,7 @@
         // Load model backups
           async function loadBackups() {
               try {
-                  const response = await fetch('http://127.0.0.1:5000/api/model/backups');
+                  const response = await fetch('/api/model/backups');
                  const data = await response.json();
                  
                  const backupsList = document.getElementById('backupsList');
@@ -475,7 +474,7 @@
              }
              
              try {
-                 const response = await fetch('http://127.0.0.1:5000/api/model/restore', {
+                 const response = await fetch('/api/model/restore', {
                      method: 'POST',
                      headers: {
                          'Content-Type': 'application/json'
@@ -542,7 +541,7 @@
             showTrainingProgress();
             
             try {
-                const response = await fetch('http://127.0.0.1:5000/api/train', {
+                const response = await fetch('/api/train', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

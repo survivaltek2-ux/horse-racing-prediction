@@ -1,0 +1,29 @@
+{
+  "connection_tests": {
+    "max_connections": 50,
+    "connection_timeout": 30,
+    "test_duration": 60
+  },
+  "query_tests": {
+    "simple_select_iterations": 1000,
+    "complex_join_iterations": 100,
+    "aggregation_iterations": 500,
+    "concurrent_queries": 10
+  },
+  "crud_tests": {
+    "insert_batch_size": 1000,
+    "update_batch_size": 500,
+    "delete_batch_size": 100,
+    "concurrent_operations": 5
+  },
+  "load_tests": {
+    "duration_minutes": 10,
+    "concurrent_users": 20,
+    "ramp_up_time": 60
+  },
+  "stress_tests": {
+    "max_concurrent_connections": 100,
+    "large_dataset_size": 100000,
+    "memory_pressure_mb": 1000
+  }
+}

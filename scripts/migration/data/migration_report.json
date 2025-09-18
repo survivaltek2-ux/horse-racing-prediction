@@ -1,0 +1,27 @@
+{
+  "migration_timestamp": "2025-09-18T10:19:58.291986",
+  "source_database": "sqlite:///database.db",
+  "target_database": "postgresql://hrp_app:password@localhost:5432/hrp_database",
+  "batch_size": 1000,
+  "summary": {
+    "total_tables": 1,
+    "total_source_records": 1,
+    "total_migrated_records": 0,
+    "total_failed_records": 0,
+    "overall_success_rate": 0.0
+  },
+  "table_details": {
+    "races": {
+      "source_count": 1,
+      "migrated_count": 0,
+      "failed_count": 0,
+      "success_rate": 0.0,
+      "duration_seconds": 0.004805,
+      "validation_errors": [
+        "Batch insert failed for races: column \"_migration_checksum\" of relation \"races\" does not exist\nLINE 2: ...ndition, status, results, created_at, updated_at, _migration...\n                                                             ^\n",
+        "Failed to insert record 0 in races: column \"_migration_checksum\" of relation \"races\" does not exist\nLINE 2: ...ndition, status, results, created_at, updated_at, _migration...\n                                                             ^\n"
+      ],
+      "total_validation_errors": 2
+    }
+  }
+}

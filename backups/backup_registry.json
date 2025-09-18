@@ -1,0 +1,263 @@
+{
+  "sqlite_full_20250918_095625": {
+    "backup_id": "sqlite_full_20250918_095625",
+    "backup_type": "full",
+    "database_type": "source",
+    "timestamp": "2025-09-18T09:56:25.401246",
+    "file_path": "backups/source/sqlite_full_20250918_095625.db.gz",
+    "file_size": 431,
+    "checksum": "c4bf3a89bae3eb5e6ac5df17a06ed2c9",
+    "compression": true,
+    "metadata": {
+      "source_uri": "sqlite:///database.db",
+      "backup_method": "file_copy"
+    }
+  },
+  "postgresql_full_20250918_095625": {
+    "backup_id": "postgresql_full_20250918_095625",
+    "backup_type": "full",
+    "database_type": "target",
+    "timestamp": "2025-09-18T09:56:25.405785",
+    "file_path": "backups/target/postgresql_full_20250918_095625.sql.gz",
+    "file_size": 602,
+    "checksum": "ecede5a0e3406ca4db6c9f5d33c40305",
+    "compression": true,
+    "metadata": {
+      "target_uri": "postgresql://hrp_app:password@localhost:5432/hrp_database",
+      "backup_method": "pg_dump",
+      "pg_dump_version": "pg_dump (PostgreSQL) 15.14 (Homebrew)"
+    }
+  },
+  "sqlite_full_20250918_095841": {
+    "backup_id": "sqlite_full_20250918_095841",
+    "backup_type": "full",
+    "database_type": "source",
+    "timestamp": "2025-09-18T09:58:41.047857",
+    "file_path": "backups/source/sqlite_full_20250918_095841.db.gz",
+    "file_size": 431,
+    "checksum": "fddc7c0d88570800df624ef38fb4a59d",
+    "compression": true,
+    "metadata": {
+      "source_uri": "sqlite:///database.db",
+      "backup_method": "file_copy"
+    }
+  },
+  "postgresql_full_20250918_095841": {
+    "backup_id": "postgresql_full_20250918_095841",
+    "backup_type": "full",
+    "database_type": "target",
+    "timestamp": "2025-09-18T09:58:41.050432",
+    "file_path": "backups/target/postgresql_full_20250918_095841.sql.gz",
+    "file_size": 600,
+    "checksum": "f0888c38c834c9f73eb92d12f79b8a76",
+    "compression": true,
+    "metadata": {
+      "target_uri": "postgresql://hrp_app:password@localhost:5432/hrp_database",
+      "backup_method": "pg_dump",
+      "pg_dump_version": "pg_dump (PostgreSQL) 15.14 (Homebrew)"
+    }
+  },
+  "sqlite_full_20250918_100156": {
+    "backup_id": "sqlite_full_20250918_100156",
+    "backup_type": "full",
+    "database_type": "source",
+    "timestamp": "2025-09-18T10:01:56.414830",
+    "file_path": "backups/source/sqlite_full_20250918_100156.db.gz",
+    "file_size": 431,
+    "checksum": "a193e4b4933fa14672ffd2aed4092fc0",
+    "compression": true,
+    "metadata": {
+      "source_uri": "sqlite:///database.db",
+      "backup_method": "file_copy"
+    }
+  },
+  "postgresql_full_20250918_100156": {
+    "backup_id": "postgresql_full_20250918_100156",
+    "backup_type": "full",
+    "database_type": "target",
+    "timestamp": "2025-09-18T10:01:56.417792",
+    "file_path": "backups/target/postgresql_full_20250918_100156.sql.gz",
+    "file_size": 602,
+    "checksum": "4ae2d86aaecaa0a85cf309378ee94437",
+    "compression": true,
+    "metadata": {
+      "target_uri": "postgresql://hrp_app:password@localhost:5432/hrp_database",
+      "backup_method": "pg_dump",
+      "pg_dump_version": "pg_dump (PostgreSQL) 15.14 (Homebrew)"
+    }
+  },
+  "sqlite_full_20250918_100323": {
+    "backup_id": "sqlite_full_20250918_100323",
+    "backup_type": "full",
+    "database_type": "source",
+    "timestamp": "2025-09-18T10:03:23.399007",
+    "file_path": "backups/source/sqlite_full_20250918_100323.db.gz",
+    "file_size": 431,
+    "checksum": "1da48a982d85c6c230dc3b425bbe11ba",
+    "compression": true,
+    "metadata": {
+      "source_uri": "sqlite:///database.db",
+      "backup_method": "file_copy"
+    }
+  },
+  "postgresql_full_20250918_100323": {
+    "backup_id": "postgresql_full_20250918_100323",
+    "backup_type": "full",
+    "database_type": "target",
+    "timestamp": "2025-09-18T10:03:23.401748",
+    "file_path": "backups/target/postgresql_full_20250918_100323.sql.gz",
+    "file_size": 600,
+    "checksum": "d3cdef3a903333d0b79d1611cf11f6c6",
+    "compression": true,
+    "metadata": {
+      "target_uri": "postgresql://hrp_app:password@localhost:5432/hrp_database",
+      "backup_method": "pg_dump",
+      "pg_dump_version": "pg_dump (PostgreSQL) 15.14 (Homebrew)"
+    }
+  },
+  "sqlite_full_20250918_100536": {
+    "backup_id": "sqlite_full_20250918_100536",
+    "backup_type": "full",
+    "database_type": "source",
+    "timestamp": "2025-09-18T10:05:36.315049",
+    "file_path": "backups/source/sqlite_full_20250918_100536.db.gz",
+    "file_size": 431,
+    "checksum": "30f43793b5bfb1fdbcd041389ad03b07",
+    "compression": true,
+    "metadata": {
+      "source_uri": "sqlite:///database.db",
+      "backup_method": "file_copy"
+    }
+  },
+  "postgresql_full_20250918_100536": {
+    "backup_id": "postgresql_full_20250918_100536",
+    "backup_type": "full",
+    "database_type": "target",
+    "timestamp": "2025-09-18T10:05:36.318242",
+    "file_path": "backups/target/postgresql_full_20250918_100536.sql.gz",
+    "file_size": 602,
+    "checksum": "187bdaba415d0d36ec48dc82d39c23bc",
+    "compression": true,
+    "metadata": {
+      "target_uri": "postgresql://hrp_app:password@localhost:5432/hrp_database",
+      "backup_method": "pg_dump",
+      "pg_dump_version": "pg_dump (PostgreSQL) 15.14 (Homebrew)"
+    }
+  },
+  "sqlite_full_20250918_100725": {
+    "backup_id": "sqlite_full_20250918_100725",
+    "backup_type": "full",
+    "database_type": "source",
+    "timestamp": "2025-09-18T10:07:25.458081",
+    "file_path": "backups/source/sqlite_full_20250918_100725.db.gz",
+    "file_size": 431,
+    "checksum": "8de1ffb27f84cce79f6697ed444533f2",
+    "compression": true,
+    "metadata": {
+      "source_uri": "sqlite:///database.db",
+      "backup_method": "file_copy"
+    }
+  },
+  "postgresql_full_20250918_100725": {
+    "backup_id": "postgresql_full_20250918_100725",
+    "backup_type": "full",
+    "database_type": "target",
+    "timestamp": "2025-09-18T10:07:25.460314",
+    "file_path": "backups/target/postgresql_full_20250918_100725.sql.gz",
+    "file_size": 600,
+    "checksum": "6f4cf56d5b055586f20ca2fa4699cec7",
+    "compression": true,
+    "metadata": {
+      "target_uri": "postgresql://hrp_app:password@localhost:5432/hrp_database",
+      "backup_method": "pg_dump",
+      "pg_dump_version": "pg_dump (PostgreSQL) 15.14 (Homebrew)"
+    }
+  },
+  "sqlite_full_20250918_101002": {
+    "backup_id": "sqlite_full_20250918_101002",
+    "backup_type": "full",
+    "database_type": "source",
+    "timestamp": "2025-09-18T10:10:02.948235",
+    "file_path": "backups/source/sqlite_full_20250918_101002.db.gz",
+    "file_size": 431,
+    "checksum": "e20adbb441e442010a3aecb62c934668",
+    "compression": true,
+    "metadata": {
+      "source_uri": "sqlite:///database.db",
+      "backup_method": "file_copy"
+    }
+  },
+  "postgresql_full_20250918_101002": {
+    "backup_id": "postgresql_full_20250918_101002",
+    "backup_type": "full",
+    "database_type": "target",
+    "timestamp": "2025-09-18T10:10:02.950780",
+    "file_path": "backups/target/postgresql_full_20250918_101002.sql.gz",
+    "file_size": 596,
+    "checksum": "66a9dab8d431c9002e40509a23886c4a",
+    "compression": true,
+    "metadata": {
+      "target_uri": "postgresql://hrp_app:password@localhost:5432/hrp_database",
+      "backup_method": "pg_dump",
+      "pg_dump_version": "pg_dump (PostgreSQL) 15.14 (Homebrew)"
+    }
+  },
+  "sqlite_full_20250918_101127": {
+    "backup_id": "sqlite_full_20250918_101127",
+    "backup_type": "full",
+    "database_type": "source",
+    "timestamp": "2025-09-18T10:11:27.045756",
+    "file_path": "backups/source/sqlite_full_20250918_101127.db.gz",
+    "file_size": 431,
+    "checksum": "78cb66de11b5002f3e9702abb21e95ae",
+    "compression": true,
+    "metadata": {
+      "source_uri": "sqlite:///database.db",
+      "backup_method": "file_copy"
+    }
+  },
+  "postgresql_full_20250918_101127": {
+    "backup_id": "postgresql_full_20250918_101127",
+    "backup_type": "full",
+    "database_type": "target",
+    "timestamp": "2025-09-18T10:11:27.047855",
+    "file_path": "backups/target/postgresql_full_20250918_101127.sql.gz",
+    "file_size": 598,
+    "checksum": "9182dde8323810a5766e2e38983c27e2",
+    "compression": true,
+    "metadata": {
+      "target_uri": "postgresql://hrp_app:password@localhost:5432/hrp_database",
+      "backup_method": "pg_dump",
+      "pg_dump_version": "pg_dump (PostgreSQL) 15.14 (Homebrew)"
+    }
+  },
+  "sqlite_full_20250918_101957": {
+    "backup_id": "sqlite_full_20250918_101957",
+    "backup_type": "full",
+    "database_type": "source",
+    "timestamp": "2025-09-18T10:19:57.902016",
+    "file_path": "backups/source/sqlite_full_20250918_101957.db.gz",
+    "file_size": 431,
+    "checksum": "b3ac0f8c8a6780af57cfbb90584aaf2a",
+    "compression": true,
+    "metadata": {
+      "source_uri": "sqlite:///database.db",
+      "backup_method": "file_copy"
+    }
+  },
+  "postgresql_full_20250918_101957": {
+    "backup_id": "postgresql_full_20250918_101957",
+    "backup_type": "full",
+    "database_type": "target",
+    "timestamp": "2025-09-18T10:19:57.905530",
+    "file_path": "backups/target/postgresql_full_20250918_101957.sql.gz",
+    "file_size": 601,
+    "checksum": "62868f65ce630e2dead5cf6bb948cc87",
+    "compression": true,
+    "metadata": {
+      "target_uri": "postgresql://hrp_app:password@localhost:5432/hrp_database",
+      "backup_method": "pg_dump",
+      "pg_dump_version": "pg_dump (PostgreSQL) 15.14 (Homebrew)"
+    }
+  }
+}

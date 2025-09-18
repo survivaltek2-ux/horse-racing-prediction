@@ -1,0 +1,109 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'hrp-production'
+    environment: 'production'
+
+rule_files:
+  - "alert_rules.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+scrape_configs:
+  # Prometheus self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # HAProxy monitoring
+  - job_name: 'haproxy'
+    static_configs:
+      - targets: ['haproxy:8404']
+    metrics_path: '/stats/prometheus'
+    scrape_interval: 10s
+
+  # Application instances
+  - job_name: 'hrp-app'
+    static_configs:
+      - targets: 
+        - 'app1:8000'
+        - 'app2:8000'
+        - 'app3:8000'
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # PostgreSQL monitoring
+  - job_name: 'postgres'
+    static_configs:
+      - targets: 
+        - 'postgres-primary:9187'
+        - 'postgres-replica:9187'
+    scrape_interval: 30s
+
+  # Redis monitoring
+  - job_name: 'redis'
+    static_configs:
+      - targets: 
+        - 'redis-primary:9121'
+        - 'redis-replica:9121'
+    scrape_interval: 30s
+
+  # Node exporter for system metrics
+  - job_name: 'node'
+    static_configs:
+      - targets: 
+        - 'node-exporter:9100'
+    scrape_interval: 15s
+
+  # Docker container metrics
+  - job_name: 'docker'
+    static_configs:
+      - targets: 
+        - 'cadvisor:8080'
+    scrape_interval: 15s
+
+  # Backup service monitoring
+  - job_name: 'backup'
+    static_configs:
+      - targets: ['backup:8080']
+    metrics_path: '/metrics'
+    scrape_interval: 60s
+
+  # Blackbox exporter for endpoint monitoring
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+        - http://haproxy/health
+        - https://your-domain.com/health
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
+
+  # SSL certificate monitoring
+  - job_name: 'ssl-expiry'
+    metrics_path: /probe
+    params:
+      module: [ssl_expiry]
+    static_configs:
+      - targets:
+        - your-domain.com:443
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115

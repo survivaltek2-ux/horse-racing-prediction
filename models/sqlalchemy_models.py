@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import json
 
 # Import the database instance from config
-from config.database_config import db
+from database_config import db
 
 # Association table for many-to-many relationship between races and horses
 race_horses = Table('race_horses',

@@ -1,0 +1,320 @@
+version: '3.8'
+
+services:
+  # GlusterFS Storage Nodes
+  gluster-node-1:
+    image: gluster/gluster-centos:latest
+    container_name: hrp-gluster-node-1
+    hostname: storage-node-1
+    privileged: true
+    networks:
+      - hrp-storage-network
+    volumes:
+      - gluster-data-1:/data/glusterfs/hrp-data
+      - gluster-config-1:/var/lib/glusterd
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    environment:
+      - GLUSTER_PEER=storage-node-2,storage-node-3
+      - GLUSTER_VOL=hrp-data
+      - GLUSTER_BRICK_PATH=/data/glusterfs/hrp-data
+    deploy:
+      placement:
+        constraints:
+          - node.labels.storage-zone == zone-1
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+    healthcheck:
+      test: ["CMD", "gluster", "volume", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  gluster-node-2:
+    image: gluster/gluster-centos:latest
+    container_name: hrp-gluster-node-2
+    hostname: storage-node-2
+    privileged: true
+    networks:
+      - hrp-storage-network
+    volumes:
+      - gluster-data-2:/data/glusterfs/hrp-data
+      - gluster-config-2:/var/lib/glusterd
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    environment:
+      - GLUSTER_PEER=storage-node-1,storage-node-3
+      - GLUSTER_VOL=hrp-data
+      - GLUSTER_BRICK_PATH=/data/glusterfs/hrp-data
+    deploy:
+      placement:
+        constraints:
+          - node.labels.storage-zone == zone-2
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+    healthcheck:
+      test: ["CMD", "gluster", "volume", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  gluster-node-3:
+    image: gluster/gluster-centos:latest
+    container_name: hrp-gluster-node-3
+    hostname: storage-node-3
+    privileged: true
+    networks:
+      - hrp-storage-network
+    volumes:
+      - gluster-data-3:/data/glusterfs/hrp-data
+      - gluster-config-3:/var/lib/glusterd
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    environment:
+      - GLUSTER_PEER=storage-node-1,storage-node-2
+      - GLUSTER_VOL=hrp-data
+      - GLUSTER_BRICK_PATH=/data/glusterfs/hrp-data
+    deploy:
+      placement:
+        constraints:
+          - node.labels.storage-zone == zone-3
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+    healthcheck:
+      test: ["CMD", "gluster", "volume", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # MinIO Distributed Storage (Alternative/Additional)
+  minio-1:
+    image: minio/minio:latest
+    container_name: hrp-minio-1
+    hostname: minio-1
+    networks:
+      - hrp-storage-network
+    volumes:
+      - minio-data-1:/data
+    environment:
+      - MINIO_ROOT_USER=hrp_admin
+      - MINIO_ROOT_PASSWORD=your_secure_minio_password
+      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+      - MINIO_DISTRIBUTED_NODES=minio-1,minio-2,minio-3,minio-4
+    command: server http://minio-{1...4}/data --console-address ":9001"
+    deploy:
+      placement:
+        constraints:
+          - node.labels.storage-zone == zone-1
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio-2:
+    image: minio/minio:latest
+    container_name: hrp-minio-2
+    hostname: minio-2
+    networks:
+      - hrp-storage-network
+    volumes:
+      - minio-data-2:/data
+    environment:
+      - MINIO_ROOT_USER=hrp_admin
+      - MINIO_ROOT_PASSWORD=your_secure_minio_password
+      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+      - MINIO_DISTRIBUTED_NODES=minio-1,minio-2,minio-3,minio-4
+    command: server http://minio-{1...4}/data --console-address ":9001"
+    deploy:
+      placement:
+        constraints:
+          - node.labels.storage-zone == zone-2
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio-3:
+    image: minio/minio:latest
+    container_name: hrp-minio-3
+    hostname: minio-3
+    networks:
+      - hrp-storage-network
+    volumes:
+      - minio-data-3:/data
+    environment:
+      - MINIO_ROOT_USER=hrp_admin
+      - MINIO_ROOT_PASSWORD=your_secure_minio_password
+      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+      - MINIO_DISTRIBUTED_NODES=minio-1,minio-2,minio-3,minio-4
+    command: server http://minio-{1...4}/data --console-address ":9001"
+    deploy:
+      placement:
+        constraints:
+          - node.labels.storage-zone == zone-3
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio-4:
+    image: minio/minio:latest
+    container_name: hrp-minio-4
+    hostname: minio-4
+    networks:
+      - hrp-storage-network
+    volumes:
+      - minio-data-4:/data
+    environment:
+      - MINIO_ROOT_USER=hrp_admin
+      - MINIO_ROOT_PASSWORD=your_secure_minio_password
+      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+      - MINIO_DISTRIBUTED_NODES=minio-1,minio-2,minio-3,minio-4
+    command: server http://minio-{1...4}/data --console-address ":9001"
+    deploy:
+      placement:
+        constraints:
+          - node.labels.storage-zone == zone-1
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # Storage Synchronization Service
+  storage-sync:
+    image: alpine:latest
+    container_name: hrp-storage-sync
+    networks:
+      - hrp-storage-network
+    volumes:
+      - ./scripts/storage:/scripts
+      - gluster-mount:/mnt/gluster
+      - minio-sync:/mnt/minio
+    environment:
+      - SYNC_INTERVAL=300  # 5 minutes
+      - GLUSTER_MOUNT=/mnt/gluster
+      - MINIO_ENDPOINT=http://minio-1:9000
+      - MINIO_ACCESS_KEY=hrp_admin
+      - MINIO_SECRET_KEY=your_secure_minio_password
+    command: /scripts/storage-sync.sh
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.25'
+        reservations:
+          memory: 256M
+          cpus: '0.1'
+    depends_on:
+      - gluster-node-1
+      - gluster-node-2
+      - gluster-node-3
+      - minio-1
+      - minio-2
+      - minio-3
+      - minio-4
+
+networks:
+  hrp-storage-network:
+    driver: overlay
+    attachable: true
+    ipam:
+      config:
+        - subnet: 10.20.0.0/16
+
+volumes:
+  # GlusterFS volumes
+  gluster-data-1:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/hrp/storage/gluster/node1
+  gluster-data-2:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/hrp/storage/gluster/node2
+  gluster-data-3:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/hrp/storage/gluster/node3
+  gluster-config-1:
+  gluster-config-2:
+  gluster-config-3:
+  
+  # MinIO volumes
+  minio-data-1:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/hrp/storage/minio/node1
+  minio-data-2:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/hrp/storage/minio/node2
+  minio-data-3:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/hrp/storage/minio/node3
+  minio-data-4:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /opt/hrp/storage/minio/node4
+  
+  # Mount points
+  gluster-mount:
+  minio-sync:

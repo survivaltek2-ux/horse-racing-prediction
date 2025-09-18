@@ -1,0 +1,243 @@
+# Prometheus Alert Rules for Production Environment
+groups:
+  - name: application.rules
+    rules:
+      # Application availability
+      - alert: ApplicationDown
+        expr: up{job="flask-app"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Application instance is down"
+          description: "Application {{ $labels.instance }} has been down for more than 1 minute."
+
+      # High response time
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(flask_request_duration_seconds_bucket[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High response time detected"
+          description: "95th percentile response time is {{ $value }}s for {{ $labels.instance }}"
+
+      # High error rate
+      - alert: HighErrorRate
+        expr: rate(flask_request_exceptions_total[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value }} errors per second for {{ $labels.instance }}"
+
+      # Memory usage
+      - alert: HighMemoryUsage
+        expr: (container_memory_usage_bytes{name=~".*app.*"} / container_spec_memory_limit_bytes{name=~".*app.*"}) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is {{ $value }}% for {{ $labels.name }}"
+
+      # CPU usage
+      - alert: HighCPUUsage
+        expr: (rate(container_cpu_usage_seconds_total{name=~".*app.*"}[5m]) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is {{ $value }}% for {{ $labels.name }}"
+
+  - name: database.rules
+    rules:
+      # PostgreSQL down
+      - alert: PostgreSQLDown
+        expr: up{job=~"postgres-.*"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "PostgreSQL instance is down"
+          description: "PostgreSQL {{ $labels.instance }} has been down for more than 1 minute."
+
+      # PostgreSQL replication lag
+      - alert: PostgreSQLReplicationLag
+        expr: pg_replication_lag_seconds > 60
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "PostgreSQL replication lag is high"
+          description: "Replication lag is {{ $value }} seconds for {{ $labels.instance }}"
+
+      # PostgreSQL connection usage
+      - alert: PostgreSQLHighConnections
+        expr: (pg_stat_database_numbackends / pg_settings_max_connections) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "PostgreSQL connection usage is high"
+          description: "Connection usage is {{ $value }}% for {{ $labels.instance }}"
+
+      # PostgreSQL deadlocks
+      - alert: PostgreSQLDeadlocks
+        expr: rate(pg_stat_database_deadlocks[5m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "PostgreSQL deadlocks detected"
+          description: "{{ $value }} deadlocks per second detected for {{ $labels.instance }}"
+
+  - name: redis.rules
+    rules:
+      # Redis down
+      - alert: RedisDown
+        expr: up{job=~"redis-.*"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis instance is down"
+          description: "Redis {{ $labels.instance }} has been down for more than 1 minute."
+
+      # Redis memory usage
+      - alert: RedisHighMemoryUsage
+        expr: (redis_memory_used_bytes / redis_memory_max_bytes) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis memory usage is high"
+          description: "Memory usage is {{ $value }}% for {{ $labels.instance }}"
+
+      # Redis connection usage
+      - alert: RedisHighConnections
+        expr: redis_connected_clients > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis connection count is high"
+          description: "{{ $value }} connections for {{ $labels.instance }}"
+
+      # Redis sentinel down
+      - alert: RedisSentinelDown
+        expr: up{job="redis-sentinel"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis Sentinel is down"
+          description: "Redis Sentinel {{ $labels.instance }} has been down for more than 1 minute."
+
+  - name: infrastructure.rules
+    rules:
+      # Node down
+      - alert: NodeDown
+        expr: up{job="node-exporter"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Node is down"
+          description: "Node {{ $labels.instance }} has been down for more than 1 minute."
+
+      # High disk usage
+      - alert: HighDiskUsage
+        expr: (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) * 100 < 20
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High disk usage"
+          description: "Disk usage is {{ $value }}% for {{ $labels.instance }}"
+
+      # High load average
+      - alert: HighLoadAverage
+        expr: node_load1 > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High load average"
+          description: "Load average is {{ $value }} for {{ $labels.instance }}"
+
+      # Out of memory
+      - alert: OutOfMemory
+        expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 < 10
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Out of memory"
+          description: "Available memory is {{ $value }}% for {{ $labels.instance }}"
+
+  - name: nginx.rules
+    rules:
+      # Nginx down
+      - alert: NginxDown
+        expr: up{job="nginx"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Nginx is down"
+          description: "Nginx {{ $labels.instance }} has been down for more than 1 minute."
+
+      # High request rate
+      - alert: NginxHighRequestRate
+        expr: rate(nginx_http_requests_total[5m]) > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Nginx high request rate"
+          description: "Request rate is {{ $value }} requests/sec for {{ $labels.instance }}"
+
+      # High error rate
+      - alert: NginxHighErrorRate
+        expr: rate(nginx_http_requests_total{status=~"5.."}[5m]) / rate(nginx_http_requests_total[5m]) * 100 > 5
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Nginx high error rate"
+          description: "Error rate is {{ $value }}% for {{ $labels.instance }}"
+
+  - name: monitoring.rules
+    rules:
+      # Prometheus down
+      - alert: PrometheusDown
+        expr: up{job="prometheus"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Prometheus is down"
+          description: "Prometheus {{ $labels.instance }} has been down for more than 1 minute."
+
+      # Grafana down
+      - alert: GrafanaDown
+        expr: up{job="grafana"} == 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Grafana is down"
+          description: "Grafana {{ $labels.instance }} has been down for more than 1 minute."
+
+      # Elasticsearch down
+      - alert: ElasticsearchDown
+        expr: up{job="elasticsearch"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Elasticsearch is down"
+          description: "Elasticsearch {{ $labels.instance }} has been down for more than 1 minute."

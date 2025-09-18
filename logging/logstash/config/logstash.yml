@@ -1,0 +1,44 @@
+# Logstash Configuration for Production Environment
+node.name: logstash-node-1
+
+# Pipeline settings
+pipeline.workers: 4
+pipeline.batch.size: 1000
+pipeline.batch.delay: 50
+
+# Path settings
+path.data: /usr/share/logstash/data
+path.logs: /usr/share/logstash/logs
+path.settings: /usr/share/logstash/config
+
+# Pipeline configuration
+path.config: /usr/share/logstash/pipeline
+
+# Monitoring
+monitoring.enabled: true
+monitoring.elasticsearch.hosts: ["http://elasticsearch:9200"]
+
+# Logging
+log.level: info
+log.format: json
+
+# Performance settings
+pipeline.unsafe_shutdown: false
+pipeline.plugin_classloaders: false
+
+# Dead letter queue
+dead_letter_queue.enable: true
+dead_letter_queue.max_bytes: 1gb
+
+# HTTP API settings
+http.host: "0.0.0.0"
+http.port: 9600
+
+# X-Pack settings
+xpack.monitoring.enabled: true
+xpack.monitoring.elasticsearch.hosts: ["http://elasticsearch:9200"]
+
+# Queue settings
+queue.type: persisted
+queue.max_bytes: 1gb
+queue.checkpoint.writes: 1024

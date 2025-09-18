@@ -1,0 +1,93 @@
+# GlusterFS Volume Configuration
+# This configuration sets up a distributed replicated volume for high availability
+
+# Volume: hrp-data
+# Type: Distributed-Replicate
+# Bricks: 6 (3 nodes x 2 bricks each)
+# Replica Count: 2
+
+volume hrp-data
+    type cluster/distribute
+    subvolumes hrp-data-replicate-0 hrp-data-replicate-1 hrp-data-replicate-2
+
+volume hrp-data-replicate-0
+    type cluster/replicate
+    replica 2
+    subvolumes hrp-data-client-0 hrp-data-client-1
+
+volume hrp-data-replicate-1
+    type cluster/replicate
+    replica 2
+    subvolumes hrp-data-client-2 hrp-data-client-3
+
+volume hrp-data-replicate-2
+    type cluster/replicate
+    replica 2
+    subvolumes hrp-data-client-4 hrp-data-client-5
+
+volume hrp-data-client-0
+    type protocol/client
+    option transport-type tcp
+    option remote-host storage-node-1
+    option remote-port 24007
+    option remote-subvolume /data/glusterfs/hrp-data/brick1
+
+volume hrp-data-client-1
+    type protocol/client
+    option transport-type tcp
+    option remote-host storage-node-2
+    option remote-port 24007
+    option remote-subvolume /data/glusterfs/hrp-data/brick1
+
+volume hrp-data-client-2
+    type protocol/client
+    option transport-type tcp
+    option remote-host storage-node-2
+    option remote-port 24007
+    option remote-subvolume /data/glusterfs/hrp-data/brick2
+
+volume hrp-data-client-3
+    type protocol/client
+    option transport-type tcp
+    option remote-host storage-node-3
+    option remote-port 24007
+    option remote-subvolume /data/glusterfs/hrp-data/brick1
+
+volume hrp-data-client-4
+    type protocol/client
+    option transport-type tcp
+    option remote-host storage-node-3
+    option remote-port 24007
+    option remote-subvolume /data/glusterfs/hrp-data/brick2
+
+volume hrp-data-client-5
+    type protocol/client
+    option transport-type tcp
+    option remote-host storage-node-1
+    option remote-port 24007
+    option remote-subvolume /data/glusterfs/hrp-data/brick2
+
+# Performance tuning
+volume hrp-data-write-behind
+    type performance/write-behind
+    option cache-size 4MB
+    option flush-behind on
+    subvolumes hrp-data
+
+volume hrp-data-read-ahead
+    type performance/read-ahead
+    option page-count 16
+    option page-size 1MB
+    subvolumes hrp-data-write-behind
+
+volume hrp-data-io-cache
+    type performance/io-cache
+    option cache-size 512MB
+    option cache-timeout 1
+    subvolumes hrp-data-read-ahead
+
+volume hrp-data-quick-read
+    type performance/quick-read
+    option cache-timeout 1
+    option max-file-size 1MB
+    subvolumes hrp-data-io-cache

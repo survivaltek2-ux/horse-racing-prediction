@@ -1,0 +1,133 @@
+{
+  "summary": {
+    "overall_status": "FAIL",
+    "total_tests": 6,
+    "passed_tests": 0,
+    "failed_tests": 6,
+    "warning_tests": 0,
+    "data_integrity_score": 0,
+    "performance_improvement": 0,
+    "migration_timestamp": "2025-09-18 08:50:50.243493",
+    "verification_timestamp": "2025-09-18 09:50:50.243498"
+  },
+  "detailed_results": [
+    {
+      "test_name": "Data Completeness",
+      "status": "FAIL",
+      "message": "Data completeness verification failed: (psycopg2.OperationalError) connection to server at \"localhost\" (::1), port 5432 failed: FATAL:  role \"hrp_app\" does not exist\n\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+      "details": {
+        "error": "(psycopg2.OperationalError) connection to server at \"localhost\" (::1), port 5432 failed: FATAL:  role \"hrp_app\" does not exist\n\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+      },
+      "timestamp": "2025-09-18 09:50:50.215732",
+      "duration_ms": 10.236978530883789,
+      "expected": null,
+      "actual": null
+    },
+    {
+      "test_name": "Schema Structure",
+      "status": "FAIL",
+      "message": "Schema structure verification failed: (psycopg2.OperationalError) connection to server at \"localhost\" (::1), port 5432 failed: FATAL:  role \"hrp_app\" does not exist\n\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+      "details": {
+        "error": "(psycopg2.OperationalError) connection to server at \"localhost\" (::1), port 5432 failed: FATAL:  role \"hrp_app\" does not exist\n\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+      },
+      "timestamp": "2025-09-18 09:50:50.220815",
+      "duration_ms": 4.758119583129883,
+      "expected": null,
+      "actual": null
+    },
+    {
+      "test_name": "Data Integrity",
+      "status": "FAIL",
+      "message": "Data integrity verification failed: (psycopg2.OperationalError) connection to server at \"localhost\" (::1), port 5432 failed: FATAL:  role \"hrp_app\" does not exist\n\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+      "details": {
+        "error": "(psycopg2.OperationalError) connection to server at \"localhost\" (::1), port 5432 failed: FATAL:  role \"hrp_app\" does not exist\n\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+      },
+      "timestamp": "2025-09-18 09:50:50.228434",
+      "duration_ms": 7.010936737060547,
+      "expected": null,
+      "actual": null
+    },
+    {
+      "test_name": "Performance Comparison",
+      "status": "FAIL",
+      "message": "Performance comparison failed: (psycopg2.OperationalError) connection to server at \"localhost\" (::1), port 5432 failed: FATAL:  role \"hrp_app\" does not exist\n\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+      "details": {
+        "error": "(psycopg2.OperationalError) connection to server at \"localhost\" (::1), port 5432 failed: FATAL:  role \"hrp_app\" does not exist\n\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+      },
+      "timestamp": "2025-09-18 09:50:50.237053",
+      "duration_ms": 8.135080337524414,
+      "expected": null,
+      "actual": null
+    },
+    {
+      "test_name": "Functional Testing",
+      "status": "FAIL",
+      "message": "Functional testing failed: (psycopg2.OperationalError) connection to server at \"localhost\" (::1), port 5432 failed: FATAL:  role \"hrp_app\" does not exist\n\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+      "details": {
+        "error": "(psycopg2.OperationalError) connection to server at \"localhost\" (::1), port 5432 failed: FATAL:  role \"hrp_app\" does not exist\n\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+      },
+      "timestamp": "2025-09-18 09:50:50.242159",
+      "duration_ms": 4.613161087036133,
+      "expected": null,
+      "actual": null
+    },
+    {
+      "test_name": "Data Consistency",
+      "status": "FAIL",
+      "message": "Data consistency verification failed: __init__() got multiple values for argument 'schema'",
+      "details": {
+        "error": "__init__() got multiple values for argument 'schema'"
+      },
+      "timestamp": "2025-09-18 09:50:50.242697",
+      "duration_ms": 0.24509429931640625,
+      "expected": null,
+      "actual": null
+    }
+  ],
+  "configuration": {
+    "databases": {
+      "sqlite": {
+        "path": "database.db"
+      },
+      "postgresql": {
+        "host": "localhost",
+        "port": 5432,
+        "database": "hrp_database",
+        "username": "hrp_app",
+        "password": "password"
+      }
+    },
+    "verification": {
+      "data_completeness": true,
+      "schema_structure": true,
+      "data_integrity": true,
+      "performance_comparison": true,
+      "functional_testing": true,
+      "application_compatibility": true
+    },
+    "thresholds": {
+      "data_completeness_percent": 99.9,
+      "performance_improvement_percent": 20,
+      "max_acceptable_variance_percent": 0.1
+    },
+    "tables": [
+      "races",
+      "horses",
+      "predictions",
+      "users",
+      "api_credentials"
+    ],
+    "sample_size": 1000,
+    "performance_queries": [
+      "SELECT COUNT(*) FROM races",
+      "SELECT COUNT(*) FROM horses",
+      "SELECT COUNT(*) FROM predictions",
+      "SELECT r.race_name, h.horse_name, p.confidence \n                   FROM races r \n                   JOIN predictions p ON r.id = p.race_id \n                   JOIN horses h ON p.horse_id = h.id \n                   LIMIT 100"
+    ]
+  },
+  "verification_metadata": {
+    "verifier_version": "1.0",
+    "python_version": "3.9.6 (default, Aug  8 2025, 19:06:38) \n[Clang 17.0.0 (clang-1700.3.19.1)]",
+    "verification_duration_seconds": 0.091069
+  }
+}

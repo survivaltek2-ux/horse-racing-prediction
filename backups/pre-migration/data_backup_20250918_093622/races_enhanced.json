@@ -1,0 +1,2580 @@
+[
+  {
+    "id": 1,
+    "name": "Sample Stakes Race 1",
+    "date": "2025-09-16",
+    "location": "Sample Track 1",
+    "distance": "1200m",
+    "track_condition": "Good",
+    "race_type": "Allowance",
+    "purse": 50000.0,
+    "horse_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Heavy Rain",
+      "temperature_f": 62,
+      "temperature_c": 16.7,
+      "humidity": 85,
+      "wind_speed": 15,
+      "wind_direction": "S",
+      "barometric_pressure": 29.68,
+      "visibility": 9.7,
+      "precipitation_chance": 3,
+      "uv_index": 10
+    },
+    "track_data": {
+      "surface": "Dirt",
+      "condition": "Soft",
+      "configuration": "Undulating",
+      "circumference": 2000,
+      "width": 28,
+      "banking": 3.0,
+      "elevation": 790,
+      "track_bias": "Closer favoring",
+      "rail_position": 3,
+      "cushion_depth": 3.7,
+      "moisture_content": 9.9,
+      "track_variant": 1.2
+    },
+    "field_analysis": {
+      "field_size": 8,
+      "field_quality": "Weak",
+      "pace_scenario": "Fast",
+      "speed_horses": 1,
+      "closers": 3,
+      "stalkers": 4,
+      "first_time_starters": 3,
+      "class_droppers": 3,
+      "class_risers": 0,
+      "average_speed_figure": 90.3,
+      "field_spread": 38.6,
+      "competitive_balance": 0.67
+    },
+    "betting_data": {
+      "total_pool": 439827,
+      "morning_line_odds": {
+        "1": 19.4,
+        "2": 3.6,
+        "3": 12.7,
+        "4": 28.4,
+        "5": 6.6,
+        "6": 7.1,
+        "7": 5.7,
+        "8": 3.5
+      },
+      "morning_line_favorite": "8",
+      "betting_interest": "Moderate",
+      "exotic_pools": {
+        "exacta": 18497,
+        "trifecta": 15218,
+        "superfecta": 6656
+      },
+      "late_money": "Minimal",
+      "public_confidence": 0.79,
+      "overlay_opportunities": 3
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Fast",
+      "pace_pressure": 0.51,
+      "fractional_projections": {
+        "quarter": "22.97",
+        "half": "46.18",
+        "three_quarter": "1:14.11"
+      },
+      "pace_shape": "Contested",
+      "speed_duel_likely": true,
+      "pace_advantage": "Stalkers"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "57.97",
+        "mile": "1:37.18",
+        "route": "2:31.38"
+      },
+      "average_winning_time": "1:38.60",
+      "winning_post_positions": {
+        "1": 0.11,
+        "2": 0.08,
+        "3": 0.13,
+        "4": 0.08,
+        "5": 0.12
+      },
+      "trainer_meet_stats": 7,
+      "jockey_meet_stats": 38,
+      "similar_race_results": [
+        {
+          "date": "2025-05-06",
+          "winner": "Horse_170",
+          "time": "1:43.70",
+          "margin": 5.0
+        },
+        {
+          "date": "2024-11-21",
+          "winner": "Horse_172",
+          "time": "1:38.29",
+          "margin": 4.6
+        },
+        {
+          "date": "2025-04-06",
+          "winner": "Horse_123",
+          "time": "1:42.31",
+          "margin": 4.6
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "3YO+",
+      "sex_restrictions": "Colts & Geldings",
+      "weight_conditions": {
+        "scale_weight": 125,
+        "penalties": false,
+        "allowances": true,
+        "apprentice_allowance": 7
+      },
+      "claiming_price": 75000,
+      "nomination_fee": 582,
+      "starting_fee": 1634,
+      "late_nomination": 432
+    },
+    "media_coverage": {
+      "tv_coverage": true,
+      "streaming_available": false,
+      "media_attention": "High",
+      "attendance_expected": 28315,
+      "social_media_buzz": 0.22,
+      "press_conferences": 3,
+      "feature_stories": 5
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.216095",
+    "data_version": "2.0"
+  },
+  {
+    "id": 2,
+    "name": "Sample Stakes Race 2",
+    "date": "2025-09-17",
+    "location": "Sample Track 2",
+    "distance": "1400m",
+    "track_condition": "Good",
+    "race_type": "Stakes",
+    "purse": 60000.0,
+    "horse_ids": [
+      109,
+      18,
+      41,
+      79,
+      8,
+      188,
+      64,
+      92,
+      163,
+      185,
+      83,
+      94
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Light Rain",
+      "temperature_f": 58,
+      "temperature_c": 14.4,
+      "humidity": 54,
+      "wind_speed": 17,
+      "wind_direction": "N",
+      "barometric_pressure": 29.66,
+      "visibility": 8.6,
+      "precipitation_chance": 3,
+      "uv_index": 8
+    },
+    "track_data": {
+      "surface": "All Weather",
+      "condition": "Fast",
+      "configuration": "Straight",
+      "circumference": 1200,
+      "width": 28,
+      "banking": 7.8,
+      "elevation": 1151,
+      "track_bias": "Speed favoring",
+      "rail_position": 13,
+      "cushion_depth": 3.6,
+      "moisture_content": 10.4,
+      "track_variant": -0.8
+    },
+    "field_analysis": {
+      "field_size": 12,
+      "field_quality": "Average",
+      "pace_scenario": "Moderate",
+      "speed_horses": 2,
+      "closers": 3,
+      "stalkers": 2,
+      "first_time_starters": 1,
+      "class_droppers": 0,
+      "class_risers": 2,
+      "average_speed_figure": 89.2,
+      "field_spread": 26.9,
+      "competitive_balance": 0.71
+    },
+    "betting_data": {
+      "total_pool": 433322,
+      "morning_line_odds": {
+        "109": 12.9,
+        "18": 10.1,
+        "41": 6.4,
+        "79": 19.0,
+        "8": 17.9,
+        "188": 5.7,
+        "64": 57.8,
+        "92": 51.6,
+        "163": 5.7,
+        "185": 30.2,
+        "83": 11.2,
+        "94": 5.7
+      },
+      "morning_line_favorite": "188",
+      "betting_interest": "Low",
+      "exotic_pools": {
+        "exacta": 6329,
+        "trifecta": 17744,
+        "superfecta": 2573
+      },
+      "late_money": "Moderate",
+      "public_confidence": 0.59,
+      "overlay_opportunities": 2
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Fast",
+      "pace_pressure": 0.41,
+      "fractional_projections": {
+        "quarter": "24.22",
+        "half": "49.43",
+        "three_quarter": "1:16.29"
+      },
+      "pace_shape": "Tactical",
+      "speed_duel_likely": false,
+      "pace_advantage": "Balanced"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "55.45",
+        "mile": "1:33.82",
+        "route": "2:25.37"
+      },
+      "average_winning_time": "1:44.27",
+      "winning_post_positions": {
+        "1": 0.15,
+        "2": 0.09,
+        "3": 0.13,
+        "4": 0.09,
+        "5": 0.07
+      },
+      "trainer_meet_stats": 8,
+      "jockey_meet_stats": 34,
+      "similar_race_results": [
+        {
+          "date": "2025-03-13",
+          "winner": "Horse_57",
+          "time": "1:41.72",
+          "margin": 0.6
+        },
+        {
+          "date": "2024-10-28",
+          "winner": "Horse_82",
+          "time": "1:41.93",
+          "margin": 7.6
+        },
+        {
+          "date": "2025-06-05",
+          "winner": "Horse_24",
+          "time": "1:39.34",
+          "margin": 6.9
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "3YO+",
+      "sex_restrictions": "Fillies only",
+      "weight_conditions": {
+        "scale_weight": 126,
+        "penalties": true,
+        "allowances": false,
+        "apprentice_allowance": 7
+      },
+      "claiming_price": null,
+      "nomination_fee": 3973,
+      "starting_fee": 861,
+      "late_nomination": 549
+    },
+    "media_coverage": {
+      "tv_coverage": true,
+      "streaming_available": true,
+      "media_attention": "High",
+      "attendance_expected": 26362,
+      "social_media_buzz": 0.62,
+      "press_conferences": 1,
+      "feature_stories": 0
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.216334",
+    "data_version": "2.0"
+  },
+  {
+    "id": 3,
+    "name": "Sample Stakes Race 3",
+    "date": "2025-09-18",
+    "location": "Sample Track 3",
+    "distance": "1600m",
+    "track_condition": "Good",
+    "race_type": "Group 3",
+    "purse": 70000.0,
+    "horse_ids": [
+      27,
+      29,
+      102,
+      64,
+      153,
+      41,
+      148,
+      99,
+      199,
+      159,
+      104,
+      124,
+      144,
+      52,
+      67,
+      24
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Overcast",
+      "temperature_f": 78,
+      "temperature_c": 25.6,
+      "humidity": 57,
+      "wind_speed": 25,
+      "wind_direction": "SE",
+      "barometric_pressure": 30.46,
+      "visibility": 6.3,
+      "precipitation_chance": 40,
+      "uv_index": 8
+    },
+    "track_data": {
+      "surface": "Dirt",
+      "condition": "Yielding",
+      "configuration": "Straight",
+      "circumference": 1000,
+      "width": 26,
+      "banking": 3.0,
+      "elevation": 1108,
+      "track_bias": "Speed favoring",
+      "rail_position": 4,
+      "cushion_depth": 4.8,
+      "moisture_content": 11.2,
+      "track_variant": 0.5
+    },
+    "field_analysis": {
+      "field_size": 16,
+      "field_quality": "Strong",
+      "pace_scenario": "Fast",
+      "speed_horses": 4,
+      "closers": 3,
+      "stalkers": 2,
+      "first_time_starters": 2,
+      "class_droppers": 1,
+      "class_risers": 2,
+      "average_speed_figure": 100.5,
+      "field_spread": 16.9,
+      "competitive_balance": 0.72
+    },
+    "betting_data": {
+      "total_pool": 306234,
+      "morning_line_odds": {
+        "27": 32.3,
+        "29": 7.5,
+        "102": 141.9,
+        "64": 8.4,
+        "153": 17.9,
+        "41": 16.9,
+        "148": 7.5,
+        "99": 37.5,
+        "199": 13.7,
+        "159": 10.9,
+        "104": 16.5,
+        "124": 9.9,
+        "144": 8.8,
+        "52": 28.4,
+        "67": 89.9,
+        "24": 25.3
+      },
+      "morning_line_favorite": "29",
+      "betting_interest": "Very High",
+      "exotic_pools": {
+        "exacta": 27757,
+        "trifecta": 12608,
+        "superfecta": 1083
+      },
+      "late_money": "Heavy",
+      "public_confidence": 0.54,
+      "overlay_opportunities": 0
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Moderate",
+      "pace_pressure": 0.96,
+      "fractional_projections": {
+        "quarter": "25.44",
+        "half": "45.16",
+        "three_quarter": "1:15.70"
+      },
+      "pace_shape": "Tactical",
+      "speed_duel_likely": false,
+      "pace_advantage": "Speed"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "62.47",
+        "mile": "1:33.59",
+        "route": "2:24.68"
+      },
+      "average_winning_time": "1:44.11",
+      "winning_post_positions": {
+        "1": 0.16,
+        "2": 0.11,
+        "3": 0.14,
+        "4": 0.11,
+        "5": 0.11
+      },
+      "trainer_meet_stats": 24,
+      "jockey_meet_stats": 29,
+      "similar_race_results": [
+        {
+          "date": "2025-07-25",
+          "winner": "Horse_82",
+          "time": "1:36.85",
+          "margin": 2.1
+        },
+        {
+          "date": "2025-06-18",
+          "winner": "Horse_108",
+          "time": "1:43.62",
+          "margin": 5.7
+        },
+        {
+          "date": "2024-09-16",
+          "winner": "Horse_74",
+          "time": "1:40.92",
+          "margin": 8.0
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "4YO+",
+      "sex_restrictions": "No restriction",
+      "weight_conditions": {
+        "scale_weight": 115,
+        "penalties": false,
+        "allowances": true,
+        "apprentice_allowance": 1
+      },
+      "claiming_price": 50000,
+      "nomination_fee": 1719,
+      "starting_fee": 1378,
+      "late_nomination": 602
+    },
+    "media_coverage": {
+      "tv_coverage": true,
+      "streaming_available": true,
+      "media_attention": "High",
+      "attendance_expected": 38192,
+      "social_media_buzz": 0.23,
+      "press_conferences": 2,
+      "feature_stories": 2
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.216587",
+    "data_version": "2.0"
+  },
+  {
+    "id": 4,
+    "name": "Sample Stakes Race 4",
+    "date": "2025-09-20",
+    "location": "Sample Track 4",
+    "distance": "1800m",
+    "track_condition": "Good",
+    "race_type": "Listed",
+    "purse": 80000.0,
+    "horse_ids": [
+      197,
+      91,
+      74,
+      97,
+      89,
+      77,
+      72,
+      18,
+      68,
+      184,
+      13,
+      156,
+      159,
+      160
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Partly Cloudy",
+      "temperature_f": 74,
+      "temperature_c": 23.3,
+      "humidity": 77,
+      "wind_speed": 21,
+      "wind_direction": "N",
+      "barometric_pressure": 30.42,
+      "visibility": 5.8,
+      "precipitation_chance": 17,
+      "uv_index": 7
+    },
+    "track_data": {
+      "surface": "Synthetic",
+      "condition": "Firm",
+      "configuration": "Straight",
+      "circumference": 1800,
+      "width": 26,
+      "banking": 5.2,
+      "elevation": 1166,
+      "track_bias": "Speed favoring",
+      "rail_position": 3,
+      "cushion_depth": 3.2,
+      "moisture_content": 13.9,
+      "track_variant": -0.9
+    },
+    "field_analysis": {
+      "field_size": 14,
+      "field_quality": "Elite",
+      "pace_scenario": "Fast",
+      "speed_horses": 3,
+      "closers": 2,
+      "stalkers": 4,
+      "first_time_starters": 1,
+      "class_droppers": 0,
+      "class_risers": 1,
+      "average_speed_figure": 108.3,
+      "field_spread": 32.2,
+      "competitive_balance": 0.84
+    },
+    "betting_data": {
+      "total_pool": 66617,
+      "morning_line_odds": {
+        "197": 20.7,
+        "91": 8.1,
+        "74": 17.5,
+        "97": 18.6,
+        "89": 10.0,
+        "77": 24.0,
+        "72": 13.1,
+        "18": 6.5,
+        "68": 99.0,
+        "184": 7.0,
+        "13": 7.5,
+        "156": 13.9,
+        "159": 82.3,
+        "160": 13.3
+      },
+      "morning_line_favorite": "18",
+      "betting_interest": "Very High",
+      "exotic_pools": {
+        "exacta": 22348,
+        "trifecta": 26234,
+        "superfecta": 2686
+      },
+      "late_money": "Moderate",
+      "public_confidence": 0.65,
+      "overlay_opportunities": 1
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Moderate",
+      "pace_pressure": 0.68,
+      "fractional_projections": {
+        "quarter": "22.43",
+        "half": "49.92",
+        "three_quarter": "1:10.47"
+      },
+      "pace_shape": "Honest",
+      "speed_duel_likely": false,
+      "pace_advantage": "Stalkers"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "58.56",
+        "mile": "1:33.79",
+        "route": "2:25.19"
+      },
+      "average_winning_time": "1:44.66",
+      "winning_post_positions": {
+        "1": 0.11,
+        "2": 0.12,
+        "3": 0.08,
+        "4": 0.13,
+        "5": 0.11
+      },
+      "trainer_meet_stats": 8,
+      "jockey_meet_stats": 33,
+      "similar_race_results": [
+        {
+          "date": "2024-12-01",
+          "winner": "Horse_72",
+          "time": "1:36.58",
+          "margin": 6.1
+        },
+        {
+          "date": "2024-11-26",
+          "winner": "Horse_71",
+          "time": "1:39.99",
+          "margin": 4.5
+        },
+        {
+          "date": "2025-03-28",
+          "winner": "Horse_100",
+          "time": "1:40.42",
+          "margin": 1.5
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "4YO+",
+      "sex_restrictions": "Fillies & Mares",
+      "weight_conditions": {
+        "scale_weight": 125,
+        "penalties": false,
+        "allowances": false,
+        "apprentice_allowance": 7
+      },
+      "claiming_price": null,
+      "nomination_fee": 3077,
+      "starting_fee": 1121,
+      "late_nomination": 786
+    },
+    "media_coverage": {
+      "tv_coverage": true,
+      "streaming_available": true,
+      "media_attention": "Moderate",
+      "attendance_expected": 20799,
+      "social_media_buzz": 0.61,
+      "press_conferences": 2,
+      "feature_stories": 0
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.216845",
+    "data_version": "2.0"
+  },
+  {
+    "id": 5,
+    "name": "Sample Stakes Race 5",
+    "date": "2025-09-21",
+    "location": "Sample Track 5",
+    "distance": "2000m",
+    "track_condition": "Good",
+    "race_type": "Stakes",
+    "purse": 90000.0,
+    "horse_ids": [
+      163,
+      103,
+      179,
+      42,
+      53,
+      188,
+      132,
+      97,
+      15,
+      160
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Overcast",
+      "temperature_f": 80,
+      "temperature_c": 26.7,
+      "humidity": 37,
+      "wind_speed": 23,
+      "wind_direction": "S",
+      "barometric_pressure": 30.2,
+      "visibility": 9.8,
+      "precipitation_chance": 54,
+      "uv_index": 1
+    },
+    "track_data": {
+      "surface": "All Weather",
+      "condition": "Firm",
+      "configuration": "Straight",
+      "circumference": 1600,
+      "width": 28,
+      "banking": 10.9,
+      "elevation": 1692,
+      "track_bias": "Closer favoring",
+      "rail_position": 0,
+      "cushion_depth": 2.7,
+      "moisture_content": 8.3,
+      "track_variant": -0.7
+    },
+    "field_analysis": {
+      "field_size": 10,
+      "field_quality": "Weak",
+      "pace_scenario": "Slow",
+      "speed_horses": 2,
+      "closers": 1,
+      "stalkers": 2,
+      "first_time_starters": 1,
+      "class_droppers": 1,
+      "class_risers": 2,
+      "average_speed_figure": 97.8,
+      "field_spread": 15.6,
+      "competitive_balance": 0.94
+    },
+    "betting_data": {
+      "total_pool": 148807,
+      "morning_line_odds": {
+        "163": 4.6,
+        "103": 44.5,
+        "179": 61.5,
+        "42": 8.2,
+        "53": 6.8,
+        "188": 7.8,
+        "132": 15.9,
+        "97": 39.0,
+        "15": 4.3,
+        "160": 5.3
+      },
+      "morning_line_favorite": "15",
+      "betting_interest": "Moderate",
+      "exotic_pools": {
+        "exacta": 19044,
+        "trifecta": 17223,
+        "superfecta": 8263
+      },
+      "late_money": "Heavy",
+      "public_confidence": 0.57,
+      "overlay_opportunities": 3
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Slow",
+      "pace_pressure": 0.69,
+      "fractional_projections": {
+        "quarter": "25.95",
+        "half": "49.64",
+        "three_quarter": "1:12.13"
+      },
+      "pace_shape": "Tactical",
+      "speed_duel_likely": true,
+      "pace_advantage": "Speed"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "59.10",
+        "mile": "1:36.37",
+        "route": "2:26.38"
+      },
+      "average_winning_time": "1:39.91",
+      "winning_post_positions": {
+        "1": 0.15,
+        "2": 0.11,
+        "3": 0.12,
+        "4": 0.12,
+        "5": 0.06
+      },
+      "trainer_meet_stats": 5,
+      "jockey_meet_stats": 35,
+      "similar_race_results": [
+        {
+          "date": "2025-03-12",
+          "winner": "Horse_76",
+          "time": "1:38.81",
+          "margin": 6.9
+        },
+        {
+          "date": "2025-06-24",
+          "winner": "Horse_175",
+          "time": "1:42.88",
+          "margin": 6.2
+        },
+        {
+          "date": "2024-12-26",
+          "winner": "Horse_15",
+          "time": "1:35.92",
+          "margin": 4.8
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "3YO+",
+      "sex_restrictions": "Fillies only",
+      "weight_conditions": {
+        "scale_weight": 119,
+        "penalties": false,
+        "allowances": true,
+        "apprentice_allowance": 5
+      },
+      "claiming_price": null,
+      "nomination_fee": 1919,
+      "starting_fee": 981,
+      "late_nomination": 810
+    },
+    "media_coverage": {
+      "tv_coverage": true,
+      "streaming_available": false,
+      "media_attention": "Moderate",
+      "attendance_expected": 20872,
+      "social_media_buzz": 0.73,
+      "press_conferences": 0,
+      "feature_stories": 0
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.217062",
+    "data_version": "2.0"
+  },
+  {
+    "id": 6,
+    "name": "Sprint Championship",
+    "date": "2025-09-17",
+    "location": "Churchill Downs",
+    "distance": "1000m",
+    "track_condition": "Heavy",
+    "race_type": "Stakes",
+    "purse": 80000.0,
+    "horse_ids": [
+      173,
+      157,
+      3,
+      137,
+      165,
+      39,
+      7,
+      123,
+      58,
+      15,
+      198,
+      25,
+      70,
+      112,
+      195
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Cold",
+      "temperature_f": 87,
+      "temperature_c": 30.6,
+      "humidity": 66,
+      "wind_speed": 22,
+      "wind_direction": "SW",
+      "barometric_pressure": 29.52,
+      "visibility": 8.8,
+      "precipitation_chance": 40,
+      "uv_index": 9
+    },
+    "track_data": {
+      "surface": "Turf",
+      "condition": "Fast",
+      "configuration": "Straight",
+      "circumference": 1200,
+      "width": 27,
+      "banking": 4.0,
+      "elevation": 951,
+      "track_bias": "Speed favoring",
+      "rail_position": 12,
+      "cushion_depth": 3.1,
+      "moisture_content": 14.4,
+      "track_variant": 0.3
+    },
+    "field_analysis": {
+      "field_size": 15,
+      "field_quality": "Strong",
+      "pace_scenario": "Moderate",
+      "speed_horses": 1,
+      "closers": 4,
+      "stalkers": 3,
+      "first_time_starters": 2,
+      "class_droppers": 3,
+      "class_risers": 2,
+      "average_speed_figure": 94.8,
+      "field_spread": 28.0,
+      "competitive_balance": 0.76
+    },
+    "betting_data": {
+      "total_pool": 294713,
+      "morning_line_odds": {
+        "173": 6.6,
+        "157": 11.5,
+        "3": 26.0,
+        "137": 22.8,
+        "165": 8.8,
+        "39": 9.3,
+        "7": 16.2,
+        "123": 13.1,
+        "58": 65.7,
+        "15": 7.7,
+        "198": 10.4,
+        "25": 16.9,
+        "70": 65.7,
+        "112": 16.5,
+        "195": 27.6
+      },
+      "morning_line_favorite": "173",
+      "betting_interest": "Low",
+      "exotic_pools": {
+        "exacta": 31662,
+        "trifecta": 8116,
+        "superfecta": 13406
+      },
+      "late_money": "Heavy",
+      "public_confidence": 0.88,
+      "overlay_opportunities": 2
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Fast",
+      "pace_pressure": 0.99,
+      "fractional_projections": {
+        "quarter": "23.17",
+        "half": "44.42",
+        "three_quarter": "1:14.74"
+      },
+      "pace_shape": "Contested",
+      "speed_duel_likely": false,
+      "pace_advantage": "Closers"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "61.17",
+        "mile": "1:34.96",
+        "route": "2:24.64"
+      },
+      "average_winning_time": "1:44.52",
+      "winning_post_positions": {
+        "1": 0.15,
+        "2": 0.14,
+        "3": 0.14,
+        "4": 0.09,
+        "5": 0.08
+      },
+      "trainer_meet_stats": 5,
+      "jockey_meet_stats": 34,
+      "similar_race_results": [
+        {
+          "date": "2025-04-10",
+          "winner": "Horse_189",
+          "time": "1:37.31",
+          "margin": 5.7
+        },
+        {
+          "date": "2025-06-23",
+          "winner": "Horse_172",
+          "time": "1:40.83",
+          "margin": 2.3
+        },
+        {
+          "date": "2025-02-21",
+          "winner": "Horse_84",
+          "time": "1:40.49",
+          "margin": 4.9
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "3YO+",
+      "sex_restrictions": "Fillies only",
+      "weight_conditions": {
+        "scale_weight": 115,
+        "penalties": false,
+        "allowances": false,
+        "apprentice_allowance": 3
+      },
+      "claiming_price": 100000,
+      "nomination_fee": 4461,
+      "starting_fee": 943,
+      "late_nomination": 351
+    },
+    "media_coverage": {
+      "tv_coverage": true,
+      "streaming_available": false,
+      "media_attention": "Low",
+      "attendance_expected": 47539,
+      "social_media_buzz": 0.35,
+      "press_conferences": 2,
+      "feature_stories": 2
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.228448",
+    "data_version": "2.0"
+  },
+  {
+    "id": 7,
+    "name": "Mile Classic",
+    "date": "2025-09-18",
+    "location": "Del Mar",
+    "distance": "1600m",
+    "track_condition": "Firm",
+    "race_type": "Maiden",
+    "purse": 100000.0,
+    "horse_ids": [
+      196,
+      151,
+      197,
+      9,
+      163,
+      193,
+      17,
+      167,
+      122,
+      53,
+      73,
+      69,
+      154
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Light Rain",
+      "temperature_f": 70,
+      "temperature_c": 21.1,
+      "humidity": 41,
+      "wind_speed": 11,
+      "wind_direction": "SW",
+      "barometric_pressure": 30.21,
+      "visibility": 9.4,
+      "precipitation_chance": 64,
+      "uv_index": 1
+    },
+    "track_data": {
+      "surface": "Dirt",
+      "condition": "Good",
+      "configuration": "Undulating",
+      "circumference": 1400,
+      "width": 28,
+      "banking": 0.2,
+      "elevation": 1399,
+      "track_bias": "Closer favoring",
+      "rail_position": 8,
+      "cushion_depth": 2.3,
+      "moisture_content": 8.7,
+      "track_variant": 1.6
+    },
+    "field_analysis": {
+      "field_size": 13,
+      "field_quality": "Weak",
+      "pace_scenario": "Slow",
+      "speed_horses": 4,
+      "closers": 2,
+      "stalkers": 3,
+      "first_time_starters": 1,
+      "class_droppers": 0,
+      "class_risers": 2,
+      "average_speed_figure": 89.1,
+      "field_spread": 25.8,
+      "competitive_balance": 0.98
+    },
+    "betting_data": {
+      "total_pool": 228258,
+      "morning_line_odds": {
+        "196": 9.3,
+        "151": 9.4,
+        "197": 89.9,
+        "9": 6.0,
+        "163": 6.9,
+        "193": 6.8,
+        "17": 20.7,
+        "167": 17.9,
+        "122": 44.5,
+        "53": 9.5,
+        "73": 20.3,
+        "69": 18.2,
+        "154": 11.0
+      },
+      "morning_line_favorite": "9",
+      "betting_interest": "Very High",
+      "exotic_pools": {
+        "exacta": 35638,
+        "trifecta": 29145,
+        "superfecta": 13107
+      },
+      "late_money": "Heavy",
+      "public_confidence": 0.73,
+      "overlay_opportunities": 3
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Moderate",
+      "pace_pressure": 0.8,
+      "fractional_projections": {
+        "quarter": "23.22",
+        "half": "44.69",
+        "three_quarter": "1:16.60"
+      },
+      "pace_shape": "Contested",
+      "speed_duel_likely": true,
+      "pace_advantage": "Closers"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "60.67",
+        "mile": "1:34.43",
+        "route": "2:28.75"
+      },
+      "average_winning_time": "1:36.77",
+      "winning_post_positions": {
+        "1": 0.09,
+        "2": 0.11,
+        "3": 0.1,
+        "4": 0.09,
+        "5": 0.06
+      },
+      "trainer_meet_stats": 18,
+      "jockey_meet_stats": 9,
+      "similar_race_results": [
+        {
+          "date": "2025-07-17",
+          "winner": "Horse_111",
+          "time": "1:36.48",
+          "margin": 0.5
+        },
+        {
+          "date": "2025-01-11",
+          "winner": "Horse_174",
+          "time": "1:40.34",
+          "margin": 3.1
+        },
+        {
+          "date": "2025-02-08",
+          "winner": "Horse_73",
+          "time": "1:44.28",
+          "margin": 0.8
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "3YO",
+      "sex_restrictions": "Colts & Geldings",
+      "weight_conditions": {
+        "scale_weight": 126,
+        "penalties": false,
+        "allowances": true,
+        "apprentice_allowance": 2
+      },
+      "claiming_price": 25000,
+      "nomination_fee": 3380,
+      "starting_fee": 367,
+      "late_nomination": 572
+    },
+    "media_coverage": {
+      "tv_coverage": false,
+      "streaming_available": false,
+      "media_attention": "National",
+      "attendance_expected": 49849,
+      "social_media_buzz": 0.34,
+      "press_conferences": 3,
+      "feature_stories": 4
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.230790",
+    "data_version": "2.0"
+  },
+  {
+    "id": 8,
+    "name": "Derby Trial",
+    "date": "2025-09-19",
+    "location": "Keeneland",
+    "distance": "2000m",
+    "track_condition": "Firm",
+    "race_type": "Claiming",
+    "purse": 120000.0,
+    "horse_ids": [
+      85,
+      28,
+      88,
+      45,
+      42,
+      1,
+      83,
+      52,
+      112,
+      47,
+      40,
+      143,
+      146,
+      126
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Drizzle",
+      "temperature_f": 45,
+      "temperature_c": 7.2,
+      "humidity": 89,
+      "wind_speed": 21,
+      "wind_direction": "S",
+      "barometric_pressure": 30.01,
+      "visibility": 9.5,
+      "precipitation_chance": 2,
+      "uv_index": 10
+    },
+    "track_data": {
+      "surface": "Turf",
+      "condition": "Fast",
+      "configuration": "Straight",
+      "circumference": 1400,
+      "width": 25,
+      "banking": 2.6,
+      "elevation": 229,
+      "track_bias": "Neutral",
+      "rail_position": 10,
+      "cushion_depth": 2.1,
+      "moisture_content": 10.9,
+      "track_variant": 1.2
+    },
+    "field_analysis": {
+      "field_size": 14,
+      "field_quality": "Average",
+      "pace_scenario": "Fast",
+      "speed_horses": 3,
+      "closers": 2,
+      "stalkers": 2,
+      "first_time_starters": 3,
+      "class_droppers": 3,
+      "class_risers": 3,
+      "average_speed_figure": 90.8,
+      "field_spread": 34.5,
+      "competitive_balance": 1.0
+    },
+    "betting_data": {
+      "total_pool": 56136,
+      "morning_line_odds": {
+        "85": 10.5,
+        "28": 10.5,
+        "88": 10.6,
+        "45": 40.7,
+        "42": 10.2,
+        "1": 49.0,
+        "83": 16.5,
+        "52": 7.9,
+        "112": 14.6,
+        "47": 13.5,
+        "40": 11.8,
+        "143": 17.9,
+        "146": 10.0,
+        "126": 10.9
+      },
+      "morning_line_favorite": "52",
+      "betting_interest": "Moderate",
+      "exotic_pools": {
+        "exacta": 9743,
+        "trifecta": 13429,
+        "superfecta": 12448
+      },
+      "late_money": "Heavy",
+      "public_confidence": 0.54,
+      "overlay_opportunities": 3
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Very Fast",
+      "pace_pressure": 0.91,
+      "fractional_projections": {
+        "quarter": "22.66",
+        "half": "45.41",
+        "three_quarter": "1:11.86"
+      },
+      "pace_shape": "Honest",
+      "speed_duel_likely": false,
+      "pace_advantage": "Speed"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "61.17",
+        "mile": "1:35.71",
+        "route": "2:29.67"
+      },
+      "average_winning_time": "1:45.93",
+      "winning_post_positions": {
+        "1": 0.12,
+        "2": 0.13,
+        "3": 0.14,
+        "4": 0.08,
+        "5": 0.07
+      },
+      "trainer_meet_stats": 19,
+      "jockey_meet_stats": 37,
+      "similar_race_results": [
+        {
+          "date": "2024-11-06",
+          "winner": "Horse_35",
+          "time": "1:38.92",
+          "margin": 3.6
+        },
+        {
+          "date": "2024-09-20",
+          "winner": "Horse_62",
+          "time": "1:45.25",
+          "margin": 3.2
+        },
+        {
+          "date": "2025-08-05",
+          "winner": "Horse_115",
+          "time": "1:38.35",
+          "margin": 4.2
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "3YO+",
+      "sex_restrictions": "Colts & Geldings",
+      "weight_conditions": {
+        "scale_weight": 118,
+        "penalties": false,
+        "allowances": true,
+        "apprentice_allowance": 2
+      },
+      "claiming_price": null,
+      "nomination_fee": 1538,
+      "starting_fee": 1324,
+      "late_nomination": 840
+    },
+    "media_coverage": {
+      "tv_coverage": true,
+      "streaming_available": false,
+      "media_attention": "High",
+      "attendance_expected": 23797,
+      "social_media_buzz": 0.43,
+      "press_conferences": 1,
+      "feature_stories": 1
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.231101",
+    "data_version": "2.0"
+  },
+  {
+    "id": 9,
+    "name": "Fillies Stakes",
+    "date": "2025-09-20",
+    "location": "Gulfstream Park",
+    "distance": "1400m",
+    "track_condition": "Firm",
+    "race_type": "Claiming",
+    "purse": 75000.0,
+    "horse_ids": [
+      55,
+      56,
+      5,
+      41,
+      57,
+      148,
+      124,
+      105,
+      151,
+      146,
+      22,
+      183,
+      194
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Cold",
+      "temperature_f": 94,
+      "temperature_c": 34.4,
+      "humidity": 60,
+      "wind_speed": 5,
+      "wind_direction": "N",
+      "barometric_pressure": 30.12,
+      "visibility": 9.1,
+      "precipitation_chance": 86,
+      "uv_index": 1
+    },
+    "track_data": {
+      "surface": "Synthetic",
+      "condition": "Soft",
+      "configuration": "Straight",
+      "circumference": 1600,
+      "width": 26,
+      "banking": 9.6,
+      "elevation": 117,
+      "track_bias": "Closer favoring",
+      "rail_position": 5,
+      "cushion_depth": 3.9,
+      "moisture_content": 11.4,
+      "track_variant": 0.8
+    },
+    "field_analysis": {
+      "field_size": 13,
+      "field_quality": "Weak",
+      "pace_scenario": "Fast",
+      "speed_horses": 1,
+      "closers": 2,
+      "stalkers": 2,
+      "first_time_starters": 0,
+      "class_droppers": 1,
+      "class_risers": 0,
+      "average_speed_figure": 105.3,
+      "field_spread": 29.6,
+      "competitive_balance": 0.81
+    },
+    "betting_data": {
+      "total_pool": 409397,
+      "morning_line_odds": {
+        "55": 12.2,
+        "56": 7.8,
+        "5": 14.9,
+        "41": 8.0,
+        "57": 12.5,
+        "148": 44.5,
+        "124": 10.5,
+        "105": 13.9,
+        "151": 17.9,
+        "146": 8.6,
+        "22": 14.2,
+        "183": 14.4,
+        "194": 9.3
+      },
+      "morning_line_favorite": "56",
+      "betting_interest": "High",
+      "exotic_pools": {
+        "exacta": 10498,
+        "trifecta": 16926,
+        "superfecta": 11365
+      },
+      "late_money": "Heavy",
+      "public_confidence": 0.86,
+      "overlay_opportunities": 0
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Moderate",
+      "pace_pressure": 0.88,
+      "fractional_projections": {
+        "quarter": "23.33",
+        "half": "45.38",
+        "three_quarter": "1:12.72"
+      },
+      "pace_shape": "Uncontested",
+      "speed_duel_likely": true,
+      "pace_advantage": "Balanced"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "59.98",
+        "mile": "1:37.31",
+        "route": "2:31.68"
+      },
+      "average_winning_time": "1:42.95",
+      "winning_post_positions": {
+        "1": 0.15,
+        "2": 0.14,
+        "3": 0.08,
+        "4": 0.09,
+        "5": 0.06
+      },
+      "trainer_meet_stats": 8,
+      "jockey_meet_stats": 11,
+      "similar_race_results": [
+        {
+          "date": "2025-04-03",
+          "winner": "Horse_139",
+          "time": "1:44.86",
+          "margin": 5.5
+        },
+        {
+          "date": "2025-01-05",
+          "winner": "Horse_96",
+          "time": "1:37.35",
+          "margin": 7.0
+        },
+        {
+          "date": "2024-10-28",
+          "winner": "Horse_92",
+          "time": "1:39.19",
+          "margin": 1.1
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "4YO+",
+      "sex_restrictions": "Fillies only",
+      "weight_conditions": {
+        "scale_weight": 118,
+        "penalties": true,
+        "allowances": false,
+        "apprentice_allowance": 5
+      },
+      "claiming_price": null,
+      "nomination_fee": 4371,
+      "starting_fee": 1398,
+      "late_nomination": 486
+    },
+    "media_coverage": {
+      "tv_coverage": false,
+      "streaming_available": false,
+      "media_attention": "National",
+      "attendance_expected": 20333,
+      "social_media_buzz": 0.31,
+      "press_conferences": 2,
+      "feature_stories": 1
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.231376",
+    "data_version": "2.0"
+  },
+  {
+    "id": 10,
+    "name": "Handicap Race",
+    "date": "2025-09-21",
+    "location": "Keeneland",
+    "distance": "1800m",
+    "track_condition": "Heavy",
+    "race_type": "Maiden",
+    "purse": 90000.0,
+    "horse_ids": [
+      102,
+      104,
+      21,
+      121,
+      162,
+      198,
+      55,
+      171,
+      140,
+      89,
+      70,
+      136,
+      164,
+      123,
+      181,
+      94,
+      30,
+      120
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Cold",
+      "temperature_f": 88,
+      "temperature_c": 31.1,
+      "humidity": 44,
+      "wind_speed": 22,
+      "wind_direction": "SW",
+      "barometric_pressure": 29.95,
+      "visibility": 5.4,
+      "precipitation_chance": 59,
+      "uv_index": 8
+    },
+    "track_data": {
+      "surface": "Turf",
+      "condition": "Fast",
+      "configuration": "Straight",
+      "circumference": 1200,
+      "width": 26,
+      "banking": 7.8,
+      "elevation": 122,
+      "track_bias": "Outside bias",
+      "rail_position": 11,
+      "cushion_depth": 5.3,
+      "moisture_content": 13.5,
+      "track_variant": 1.2
+    },
+    "field_analysis": {
+      "field_size": 18,
+      "field_quality": "Strong",
+      "pace_scenario": "Contested",
+      "speed_horses": 1,
+      "closers": 3,
+      "stalkers": 1,
+      "first_time_starters": 3,
+      "class_droppers": 1,
+      "class_risers": 1,
+      "average_speed_figure": 97.6,
+      "field_spread": 17.2,
+      "competitive_balance": 0.76
+    },
+    "betting_data": {
+      "total_pool": 199200,
+      "morning_line_odds": {
+        "102": 9.1,
+        "104": 10.9,
+        "21": 124.0,
+        "121": 18.2,
+        "162": 70.4,
+        "198": 110.1,
+        "55": 9.1,
+        "171": 34.7,
+        "140": 89.9,
+        "89": 75.9,
+        "70": 11.0,
+        "136": 16.5,
+        "164": 18.6,
+        "123": 11.8,
+        "181": 9.1,
+        "94": 9.2,
+        "30": 12.9,
+        "120": 19.4
+      },
+      "morning_line_favorite": "102",
+      "betting_interest": "Very High",
+      "exotic_pools": {
+        "exacta": 46556,
+        "trifecta": 5253,
+        "superfecta": 3751
+      },
+      "late_money": "Heavy",
+      "public_confidence": 0.77,
+      "overlay_opportunities": 2
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Moderate",
+      "pace_pressure": 0.93,
+      "fractional_projections": {
+        "quarter": "22.60",
+        "half": "50.69",
+        "three_quarter": "1:15.78"
+      },
+      "pace_shape": "Tactical",
+      "speed_duel_likely": false,
+      "pace_advantage": "Balanced"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "58.93",
+        "mile": "1:37.42",
+        "route": "2:26.12"
+      },
+      "average_winning_time": "1:43.35",
+      "winning_post_positions": {
+        "1": 0.15,
+        "2": 0.13,
+        "3": 0.14,
+        "4": 0.08,
+        "5": 0.06
+      },
+      "trainer_meet_stats": 10,
+      "jockey_meet_stats": 40,
+      "similar_race_results": [
+        {
+          "date": "2025-07-15",
+          "winner": "Horse_98",
+          "time": "1:38.26",
+          "margin": 5.7
+        },
+        {
+          "date": "2025-04-07",
+          "winner": "Horse_151",
+          "time": "1:41.61",
+          "margin": 2.4
+        },
+        {
+          "date": "2025-05-05",
+          "winner": "Horse_32",
+          "time": "1:42.83",
+          "margin": 1.5
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "4YO+",
+      "sex_restrictions": "Fillies only",
+      "weight_conditions": {
+        "scale_weight": 125,
+        "penalties": true,
+        "allowances": true,
+        "apprentice_allowance": 0
+      },
+      "claiming_price": null,
+      "nomination_fee": 2515,
+      "starting_fee": 2170,
+      "late_nomination": 323
+    },
+    "media_coverage": {
+      "tv_coverage": true,
+      "streaming_available": true,
+      "media_attention": "Low",
+      "attendance_expected": 48354,
+      "social_media_buzz": 0.84,
+      "press_conferences": 3,
+      "feature_stories": 5
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.231556",
+    "data_version": "2.0"
+  },
+  {
+    "id": 11,
+    "name": "Maiden Special",
+    "date": "2025-09-22",
+    "location": "Churchill Downs",
+    "distance": "1200m",
+    "track_condition": "Heavy",
+    "race_type": "Stakes",
+    "purse": 40000.0,
+    "horse_ids": [
+      99,
+      82,
+      125,
+      45,
+      164,
+      108,
+      56,
+      75,
+      171,
+      174,
+      71,
+      187,
+      13,
+      100,
+      55,
+      83
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Cold",
+      "temperature_f": 69,
+      "temperature_c": 20.6,
+      "humidity": 87,
+      "wind_speed": 25,
+      "wind_direction": "N",
+      "barometric_pressure": 29.62,
+      "visibility": 6.9,
+      "precipitation_chance": 2,
+      "uv_index": 8
+    },
+    "track_data": {
+      "surface": "All Weather",
+      "condition": "Yielding",
+      "configuration": "Straight",
+      "circumference": 1000,
+      "width": 25,
+      "banking": 0.8,
+      "elevation": 997,
+      "track_bias": "Closer favoring",
+      "rail_position": 15,
+      "cushion_depth": 2.0,
+      "moisture_content": 8.5,
+      "track_variant": 0.6
+    },
+    "field_analysis": {
+      "field_size": 16,
+      "field_quality": "Strong",
+      "pace_scenario": "Contested",
+      "speed_horses": 4,
+      "closers": 2,
+      "stalkers": 3,
+      "first_time_starters": 2,
+      "class_droppers": 2,
+      "class_risers": 0,
+      "average_speed_figure": 77.5,
+      "field_spread": 23.2,
+      "competitive_balance": 0.85
+    },
+    "betting_data": {
+      "total_pool": 87214,
+      "morning_line_odds": {
+        "99": 51.6,
+        "82": 17.5,
+        "125": 9.2,
+        "45": 8.1,
+        "164": 26.0,
+        "108": 20.3,
+        "56": 6.2,
+        "75": 19.8,
+        "171": 19.4,
+        "174": 8.0,
+        "71": 32.3,
+        "187": 7.4,
+        "13": 29.3,
+        "100": 82.3,
+        "55": 15.4,
+        "83": 30.2
+      },
+      "morning_line_favorite": "56",
+      "betting_interest": "High",
+      "exotic_pools": {
+        "exacta": 36684,
+        "trifecta": 24240,
+        "superfecta": 8455
+      },
+      "late_money": "Minimal",
+      "public_confidence": 0.82,
+      "overlay_opportunities": 0
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Moderate",
+      "pace_pressure": 0.77,
+      "fractional_projections": {
+        "quarter": "22.85",
+        "half": "45.10",
+        "three_quarter": "1:13.59"
+      },
+      "pace_shape": "Tactical",
+      "speed_duel_likely": false,
+      "pace_advantage": "Closers"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "56.13",
+        "mile": "1:35.83",
+        "route": "2:25.46"
+      },
+      "average_winning_time": "1:36.56",
+      "winning_post_positions": {
+        "1": 0.16,
+        "2": 0.14,
+        "3": 0.1,
+        "4": 0.1,
+        "5": 0.07
+      },
+      "trainer_meet_stats": 8,
+      "jockey_meet_stats": 22,
+      "similar_race_results": [
+        {
+          "date": "2024-12-28",
+          "winner": "Horse_119",
+          "time": "1:43.38",
+          "margin": 6.0
+        },
+        {
+          "date": "2024-12-13",
+          "winner": "Horse_2",
+          "time": "1:36.19",
+          "margin": 5.9
+        },
+        {
+          "date": "2025-02-25",
+          "winner": "Horse_173",
+          "time": "1:36.50",
+          "margin": 4.1
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "3YO+",
+      "sex_restrictions": "Fillies & Mares",
+      "weight_conditions": {
+        "scale_weight": 116,
+        "penalties": true,
+        "allowances": false,
+        "apprentice_allowance": 4
+      },
+      "claiming_price": 100000,
+      "nomination_fee": 3135,
+      "starting_fee": 2216,
+      "late_nomination": 71
+    },
+    "media_coverage": {
+      "tv_coverage": false,
+      "streaming_available": true,
+      "media_attention": "Low",
+      "attendance_expected": 44398,
+      "social_media_buzz": 0.48,
+      "press_conferences": 0,
+      "feature_stories": 0
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.231718",
+    "data_version": "2.0"
+  },
+  {
+    "id": 12,
+    "name": "Turf Championship",
+    "date": "2025-09-23",
+    "location": "Santa Anita",
+    "distance": "2200m",
+    "track_condition": "Good",
+    "race_type": "Claiming",
+    "purse": 150000.0,
+    "horse_ids": [
+      12,
+      58,
+      90,
+      120,
+      50,
+      61,
+      62,
+      117,
+      55,
+      121,
+      41,
+      116,
+      144,
+      94,
+      195,
+      124,
+      153,
+      100
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Cold",
+      "temperature_f": 86,
+      "temperature_c": 30.0,
+      "humidity": 52,
+      "wind_speed": 2,
+      "wind_direction": "E",
+      "barometric_pressure": 30.42,
+      "visibility": 10.0,
+      "precipitation_chance": 27,
+      "uv_index": 4
+    },
+    "track_data": {
+      "surface": "Dirt",
+      "condition": "Good",
+      "configuration": "Figure-8",
+      "circumference": 2000,
+      "width": 27,
+      "banking": 10.7,
+      "elevation": 1829,
+      "track_bias": "Speed favoring",
+      "rail_position": 11,
+      "cushion_depth": 3.0,
+      "moisture_content": 13.9,
+      "track_variant": -0.9
+    },
+    "field_analysis": {
+      "field_size": 18,
+      "field_quality": "Strong",
+      "pace_scenario": "Slow",
+      "speed_horses": 3,
+      "closers": 4,
+      "stalkers": 1,
+      "first_time_starters": 1,
+      "class_droppers": 2,
+      "class_risers": 2,
+      "average_speed_figure": 99.0,
+      "field_spread": 20.4,
+      "competitive_balance": 0.85
+    },
+    "betting_data": {
+      "total_pool": 271184,
+      "morning_line_odds": {
+        "12": 39.0,
+        "58": 12.7,
+        "90": 14.2,
+        "120": 141.9,
+        "50": 49.0,
+        "61": 61.5,
+        "62": 10.6,
+        "117": 8.1,
+        "55": 11.7,
+        "121": 15.7,
+        "41": 8.1,
+        "116": 18.2,
+        "144": 15.9,
+        "94": 110.1,
+        "195": 10.8,
+        "124": 57.8,
+        "153": 22.8,
+        "100": 10.8
+      },
+      "morning_line_favorite": "117",
+      "betting_interest": "Low",
+      "exotic_pools": {
+        "exacta": 34726,
+        "trifecta": 23834,
+        "superfecta": 12223
+      },
+      "late_money": "Heavy",
+      "public_confidence": 0.61,
+      "overlay_opportunities": 1
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Very Fast",
+      "pace_pressure": 0.91,
+      "fractional_projections": {
+        "quarter": "25.91",
+        "half": "46.73",
+        "three_quarter": "1:16.21"
+      },
+      "pace_shape": "Contested",
+      "speed_duel_likely": false,
+      "pace_advantage": "Stalkers"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "62.27",
+        "mile": "1:38.19",
+        "route": "2:32.70"
+      },
+      "average_winning_time": "1:41.41",
+      "winning_post_positions": {
+        "1": 0.13,
+        "2": 0.13,
+        "3": 0.14,
+        "4": 0.08,
+        "5": 0.05
+      },
+      "trainer_meet_stats": 15,
+      "jockey_meet_stats": 35,
+      "similar_race_results": [
+        {
+          "date": "2025-08-11",
+          "winner": "Horse_84",
+          "time": "1:36.28",
+          "margin": 0.9
+        },
+        {
+          "date": "2024-10-22",
+          "winner": "Horse_59",
+          "time": "1:36.67",
+          "margin": 7.8
+        },
+        {
+          "date": "2025-06-20",
+          "winner": "Horse_106",
+          "time": "1:40.97",
+          "margin": 0.7
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "No restriction",
+      "sex_restrictions": "Fillies only",
+      "weight_conditions": {
+        "scale_weight": 117,
+        "penalties": false,
+        "allowances": true,
+        "apprentice_allowance": 2
+      },
+      "claiming_price": 25000,
+      "nomination_fee": 1270,
+      "starting_fee": 1975,
+      "late_nomination": 439
+    },
+    "media_coverage": {
+      "tv_coverage": false,
+      "streaming_available": false,
+      "media_attention": "National",
+      "attendance_expected": 5797,
+      "social_media_buzz": 0.62,
+      "press_conferences": 3,
+      "feature_stories": 1
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.231889",
+    "data_version": "2.0"
+  },
+  {
+    "id": 13,
+    "name": "Juvenile Stakes",
+    "date": "2025-09-24",
+    "location": "Gulfstream Park",
+    "distance": "1000m",
+    "track_condition": "Good",
+    "race_type": "Stakes",
+    "purse": 60000.0,
+    "horse_ids": [
+      124,
+      118,
+      14,
+      166,
+      197,
+      137,
+      139,
+      149,
+      148,
+      9
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Fog",
+      "temperature_f": 84,
+      "temperature_c": 28.9,
+      "humidity": 88,
+      "wind_speed": 23,
+      "wind_direction": "SW",
+      "barometric_pressure": 30.3,
+      "visibility": 9.1,
+      "precipitation_chance": 77,
+      "uv_index": 10
+    },
+    "track_data": {
+      "surface": "All Weather",
+      "condition": "Soft",
+      "configuration": "Undulating",
+      "circumference": 1800,
+      "width": 26,
+      "banking": 6.4,
+      "elevation": 319,
+      "track_bias": "Closer favoring",
+      "rail_position": 2,
+      "cushion_depth": 4.0,
+      "moisture_content": 8.3,
+      "track_variant": -0.1
+    },
+    "field_analysis": {
+      "field_size": 10,
+      "field_quality": "Strong",
+      "pace_scenario": "Contested",
+      "speed_horses": 4,
+      "closers": 3,
+      "stalkers": 3,
+      "first_time_starters": 2,
+      "class_droppers": 2,
+      "class_risers": 1,
+      "average_speed_figure": 95.1,
+      "field_spread": 39.3,
+      "competitive_balance": 0.64
+    },
+    "betting_data": {
+      "total_pool": 123775,
+      "morning_line_odds": {
+        "124": 5.7,
+        "118": 9.6,
+        "14": 6.6,
+        "166": 13.1,
+        "197": 8.4,
+        "137": 29.3,
+        "139": 4.9,
+        "149": 8.0,
+        "148": 21.7,
+        "9": 10.0
+      },
+      "morning_line_favorite": "139",
+      "betting_interest": "Very High",
+      "exotic_pools": {
+        "exacta": 20347,
+        "trifecta": 5225,
+        "superfecta": 3344
+      },
+      "late_money": "Moderate",
+      "public_confidence": 0.76,
+      "overlay_opportunities": 1
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Very Fast",
+      "pace_pressure": 0.39,
+      "fractional_projections": {
+        "quarter": "25.28",
+        "half": "45.59",
+        "three_quarter": "1:16.80"
+      },
+      "pace_shape": "Tactical",
+      "speed_duel_likely": false,
+      "pace_advantage": "Stalkers"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "56.42",
+        "mile": "1:33.10",
+        "route": "2:29.65"
+      },
+      "average_winning_time": "1:37.69",
+      "winning_post_positions": {
+        "1": 0.15,
+        "2": 0.08,
+        "3": 0.07,
+        "4": 0.14,
+        "5": 0.12
+      },
+      "trainer_meet_stats": 12,
+      "jockey_meet_stats": 29,
+      "similar_race_results": [
+        {
+          "date": "2025-02-27",
+          "winner": "Horse_183",
+          "time": "1:45.55",
+          "margin": 6.1
+        },
+        {
+          "date": "2024-09-16",
+          "winner": "Horse_115",
+          "time": "1:39.93",
+          "margin": 0.9
+        },
+        {
+          "date": "2025-03-04",
+          "winner": "Horse_60",
+          "time": "1:43.23",
+          "margin": 4.1
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "3YO+",
+      "sex_restrictions": "Colts & Geldings",
+      "weight_conditions": {
+        "scale_weight": 124,
+        "penalties": true,
+        "allowances": false,
+        "apprentice_allowance": 2
+      },
+      "claiming_price": 75000,
+      "nomination_fee": 2799,
+      "starting_fee": 1710,
+      "late_nomination": 892
+    },
+    "media_coverage": {
+      "tv_coverage": true,
+      "streaming_available": false,
+      "media_attention": "Low",
+      "attendance_expected": 20828,
+      "social_media_buzz": 0.73,
+      "press_conferences": 3,
+      "feature_stories": 3
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.232138",
+    "data_version": "2.0"
+  },
+  {
+    "id": 14,
+    "name": "Oaks Trial",
+    "date": "2025-09-25",
+    "location": "Del Mar",
+    "distance": "1600m",
+    "track_condition": "Soft",
+    "race_type": "Stakes",
+    "purse": 85000.0,
+    "horse_ids": [
+      20,
+      150,
+      153,
+      89,
+      84,
+      144,
+      51,
+      55,
+      54,
+      83,
+      69,
+      159,
+      44,
+      179,
+      191
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Clear",
+      "temperature_f": 46,
+      "temperature_c": 7.8,
+      "humidity": 75,
+      "wind_speed": 24,
+      "wind_direction": "E",
+      "barometric_pressure": 29.94,
+      "visibility": 9.4,
+      "precipitation_chance": 10,
+      "uv_index": 9
+    },
+    "track_data": {
+      "surface": "All Weather",
+      "condition": "Heavy",
+      "configuration": "Straight",
+      "circumference": 2000,
+      "width": 27,
+      "banking": 2.1,
+      "elevation": 445,
+      "track_bias": "Rail bias",
+      "rail_position": 13,
+      "cushion_depth": 4.7,
+      "moisture_content": 11.2,
+      "track_variant": 0.4
+    },
+    "field_analysis": {
+      "field_size": 15,
+      "field_quality": "Average",
+      "pace_scenario": "Moderate",
+      "speed_horses": 1,
+      "closers": 2,
+      "stalkers": 3,
+      "first_time_starters": 1,
+      "class_droppers": 2,
+      "class_risers": 0,
+      "average_speed_figure": 88.3,
+      "field_spread": 15.8,
+      "competitive_balance": 0.68
+    },
+    "betting_data": {
+      "total_pool": 97604,
+      "morning_line_odds": {
+        "20": 16.2,
+        "150": 7.8,
+        "153": 18.6,
+        "89": 15.4,
+        "84": 82.3,
+        "144": 34.7,
+        "51": 17.2,
+        "55": 7.0,
+        "54": 39.0,
+        "83": 14.9,
+        "69": 9.6,
+        "159": 17.2,
+        "44": 12.7,
+        "179": 10.1,
+        "191": 9.5
+      },
+      "morning_line_favorite": "55",
+      "betting_interest": "Low",
+      "exotic_pools": {
+        "exacta": 23903,
+        "trifecta": 15623,
+        "superfecta": 6741
+      },
+      "late_money": "Minimal",
+      "public_confidence": 0.41,
+      "overlay_opportunities": 0
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Fast",
+      "pace_pressure": 0.92,
+      "fractional_projections": {
+        "quarter": "22.62",
+        "half": "44.21",
+        "three_quarter": "1:10.89"
+      },
+      "pace_shape": "Honest",
+      "speed_duel_likely": true,
+      "pace_advantage": "Closers"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "57.13",
+        "mile": "1:38.84",
+        "route": "2:28.92"
+      },
+      "average_winning_time": "1:45.84",
+      "winning_post_positions": {
+        "1": 0.09,
+        "2": 0.14,
+        "3": 0.11,
+        "4": 0.1,
+        "5": 0.06
+      },
+      "trainer_meet_stats": 10,
+      "jockey_meet_stats": 31,
+      "similar_race_results": [
+        {
+          "date": "2025-03-02",
+          "winner": "Horse_9",
+          "time": "1:38.96",
+          "margin": 7.6
+        },
+        {
+          "date": "2025-05-12",
+          "winner": "Horse_175",
+          "time": "1:41.59",
+          "margin": 2.9
+        },
+        {
+          "date": "2025-03-10",
+          "winner": "Horse_140",
+          "time": "1:38.15",
+          "margin": 3.4
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "4YO+",
+      "sex_restrictions": "No restriction",
+      "weight_conditions": {
+        "scale_weight": 119,
+        "penalties": true,
+        "allowances": true,
+        "apprentice_allowance": 0
+      },
+      "claiming_price": 25000,
+      "nomination_fee": 740,
+      "starting_fee": 1428,
+      "late_nomination": 991
+    },
+    "media_coverage": {
+      "tv_coverage": false,
+      "streaming_available": true,
+      "media_attention": "Moderate",
+      "attendance_expected": 8271,
+      "social_media_buzz": 0.64,
+      "press_conferences": 2,
+      "feature_stories": 3
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.232551",
+    "data_version": "2.0"
+  },
+  {
+    "id": 15,
+    "name": "Cup Final",
+    "date": "2025-09-26",
+    "location": "Saratoga",
+    "distance": "2400m",
+    "track_condition": "Good",
+    "race_type": "Stakes",
+    "purse": 200000.0,
+    "horse_ids": [
+      93,
+      182,
+      190,
+      161,
+      50,
+      91,
+      34,
+      79,
+      4,
+      39,
+      80,
+      51,
+      27,
+      88,
+      82,
+      77,
+      170
+    ],
+    "results": {},
+    "status": "upcoming",
+    "weather_data": {
+      "condition": "Cold",
+      "temperature_f": 76,
+      "temperature_c": 24.4,
+      "humidity": 47,
+      "wind_speed": 24,
+      "wind_direction": "W",
+      "barometric_pressure": 29.69,
+      "visibility": 9.3,
+      "precipitation_chance": 56,
+      "uv_index": 5
+    },
+    "track_data": {
+      "surface": "Turf",
+      "condition": "Yielding",
+      "configuration": "Oval",
+      "circumference": 1200,
+      "width": 25,
+      "banking": 5.1,
+      "elevation": 1215,
+      "track_bias": "Outside bias",
+      "rail_position": 12,
+      "cushion_depth": 5.5,
+      "moisture_content": 8.0,
+      "track_variant": -1.1
+    },
+    "field_analysis": {
+      "field_size": 17,
+      "field_quality": "Average",
+      "pace_scenario": "Moderate",
+      "speed_horses": 1,
+      "closers": 2,
+      "stalkers": 1,
+      "first_time_starters": 0,
+      "class_droppers": 2,
+      "class_risers": 1,
+      "average_speed_figure": 98.8,
+      "field_spread": 33.5,
+      "competitive_balance": 0.61
+    },
+    "betting_data": {
+      "total_pool": 256884,
+      "morning_line_odds": {
+        "93": 22.3,
+        "182": 7.9,
+        "190": 22.8,
+        "161": 42.5,
+        "50": 13.7,
+        "91": 13.9,
+        "34": 17.9,
+        "79": 57.8,
+        "4": 22.3,
+        "39": 11.2,
+        "80": 11.0,
+        "51": 11.7,
+        "27": 70.4,
+        "88": 57.8,
+        "82": 9.3,
+        "77": 10.4,
+        "170": 12.7
+      },
+      "morning_line_favorite": "182",
+      "betting_interest": "High",
+      "exotic_pools": {
+        "exacta": 45473,
+        "trifecta": 20752,
+        "superfecta": 13640
+      },
+      "late_money": "Moderate",
+      "public_confidence": 0.59,
+      "overlay_opportunities": 0
+    },
+    "pace_analysis": {
+      "projected_early_pace": "Fast",
+      "pace_pressure": 0.74,
+      "fractional_projections": {
+        "quarter": "22.94",
+        "half": "48.85",
+        "three_quarter": "1:12.89"
+      },
+      "pace_shape": "Uncontested",
+      "speed_duel_likely": false,
+      "pace_advantage": "Speed"
+    },
+    "historical_data": {
+      "track_records": {
+        "sprint": "59.35",
+        "mile": "1:34.93",
+        "route": "2:31.40"
+      },
+      "average_winning_time": "1:37.42",
+      "winning_post_positions": {
+        "1": 0.11,
+        "2": 0.09,
+        "3": 0.15,
+        "4": 0.1,
+        "5": 0.11
+      },
+      "trainer_meet_stats": 14,
+      "jockey_meet_stats": 26,
+      "similar_race_results": [
+        {
+          "date": "2025-02-19",
+          "winner": "Horse_62",
+          "time": "1:37.58",
+          "margin": 0.8
+        },
+        {
+          "date": "2025-07-07",
+          "winner": "Horse_82",
+          "time": "1:36.39",
+          "margin": 6.5
+        },
+        {
+          "date": "2025-07-13",
+          "winner": "Horse_102",
+          "time": "1:43.11",
+          "margin": 4.2
+        }
+      ]
+    },
+    "race_conditions": {
+      "age_restrictions": "3YO",
+      "sex_restrictions": "Fillies only",
+      "weight_conditions": {
+        "scale_weight": 119,
+        "penalties": true,
+        "allowances": false,
+        "apprentice_allowance": 3
+      },
+      "claiming_price": 50000,
+      "nomination_fee": 1815,
+      "starting_fee": 299,
+      "late_nomination": 67
+    },
+    "media_coverage": {
+      "tv_coverage": false,
+      "streaming_available": true,
+      "media_attention": "High",
+      "attendance_expected": 41522,
+      "social_media_buzz": 0.89,
+      "press_conferences": 2,
+      "feature_stories": 1
+    },
+    "data_enhanced": true,
+    "enhancement_date": "2025-09-16T16:06:15.232859",
+    "data_version": "2.0"
+  }
+]

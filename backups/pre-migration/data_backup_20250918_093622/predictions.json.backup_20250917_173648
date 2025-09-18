@@ -1,0 +1,885 @@
+[
+  {
+    "id": 1,
+    "race_id": 1,
+    "date": "2025-09-16",
+    "predictions": {
+      "1": {
+        "win_prob": 0.126,
+        "place_prob": 0.426,
+        "show_prob": 0.626
+      },
+      "2": {
+        "win_prob": 0.126,
+        "place_prob": 0.376,
+        "show_prob": 0.576
+      },
+      "3": {
+        "win_prob": 0.126,
+        "place_prob": 0.326,
+        "show_prob": 0.526
+      },
+      "4": {
+        "win_prob": 0.126,
+        "place_prob": 0.326,
+        "show_prob": 0.476
+      },
+      "6": {
+        "win_prob": 0.126,
+        "place_prob": 0.326,
+        "show_prob": 0.476
+      },
+      "7": {
+        "win_prob": 0.126,
+        "place_prob": 0.326,
+        "show_prob": 0.476
+      },
+      "8": {
+        "win_prob": 0.126,
+        "place_prob": 0.326,
+        "show_prob": 0.476
+      },
+      "5": {
+        "win_prob": 0.121,
+        "place_prob": 0.321,
+        "show_prob": 0.471
+      }
+    },
+    "algorithm": "enhanced_heuristic",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 2,
+    "race_id": 1,
+    "date": "2025-09-16",
+    "predictions": {
+      "1": {
+        "win_prob": 0.126,
+        "place_prob": 0.426,
+        "show_prob": 0.626
+      },
+      "2": {
+        "win_prob": 0.126,
+        "place_prob": 0.376,
+        "show_prob": 0.576
+      },
+      "3": {
+        "win_prob": 0.126,
+        "place_prob": 0.326,
+        "show_prob": 0.526
+      },
+      "4": {
+        "win_prob": 0.126,
+        "place_prob": 0.326,
+        "show_prob": 0.476
+      },
+      "6": {
+        "win_prob": 0.126,
+        "place_prob": 0.326,
+        "show_prob": 0.476
+      },
+      "7": {
+        "win_prob": 0.126,
+        "place_prob": 0.326,
+        "show_prob": 0.476
+      },
+      "8": {
+        "win_prob": 0.126,
+        "place_prob": 0.326,
+        "show_prob": 0.476
+      },
+      "5": {
+        "win_prob": 0.121,
+        "place_prob": 0.321,
+        "show_prob": 0.471
+      }
+    },
+    "algorithm": "enhanced_heuristic",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 3,
+    "race_id": 1,
+    "date": "2025-09-16",
+    "predictions": {
+      "25": {
+        "win_prob": 0.215,
+        "place_prob": 0.515,
+        "show_prob": 0.715
+      },
+      "26": {
+        "win_prob": 0.181,
+        "place_prob": 0.431,
+        "show_prob": 0.631
+      },
+      "5": {
+        "win_prob": 0.177,
+        "place_prob": 0.377,
+        "show_prob": 0.577
+      },
+      "2": {
+        "win_prob": 0.167,
+        "place_prob": 0.367,
+        "show_prob": 0.517
+      },
+      "20": {
+        "win_prob": 0.133,
+        "place_prob": 0.333,
+        "show_prob": 0.483
+      },
+      "39": {
+        "win_prob": 0.126,
+        "place_prob": 0.326,
+        "show_prob": 0.476
+      }
+    },
+    "algorithm": "enhanced_heuristic",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 4,
+    "race_id": 1,
+    "date": "2025-09-16",
+    "predictions": {
+      "25": {
+        "win_prob": 0.215,
+        "place_prob": 0.515,
+        "show_prob": 0.715
+      },
+      "26": {
+        "win_prob": 0.181,
+        "place_prob": 0.431,
+        "show_prob": 0.631
+      },
+      "5": {
+        "win_prob": 0.177,
+        "place_prob": 0.377,
+        "show_prob": 0.577
+      },
+      "2": {
+        "win_prob": 0.167,
+        "place_prob": 0.367,
+        "show_prob": 0.517
+      },
+      "20": {
+        "win_prob": 0.133,
+        "place_prob": 0.333,
+        "show_prob": 0.483
+      },
+      "39": {
+        "win_prob": 0.126,
+        "place_prob": 0.326,
+        "show_prob": 0.476
+      }
+    },
+    "algorithm": "enhanced_heuristic",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 5,
+    "race_id": 5,
+    "date": "2025-09-16",
+    "predictions": {
+      "11": {
+        "win_prob": 0.145,
+        "place_prob": 0.445,
+        "show_prob": 0.645
+      },
+      "13": {
+        "win_prob": 0.144,
+        "place_prob": 0.394,
+        "show_prob": 0.594
+      },
+      "40": {
+        "win_prob": 0.114,
+        "place_prob": 0.314,
+        "show_prob": 0.514
+      },
+      "34": {
+        "win_prob": 0.113,
+        "place_prob": 0.313,
+        "show_prob": 0.463
+      },
+      "6": {
+        "win_prob": 0.103,
+        "place_prob": 0.303,
+        "show_prob": 0.453
+      },
+      "1": {
+        "win_prob": 0.093,
+        "place_prob": 0.293,
+        "show_prob": 0.443
+      },
+      "29": {
+        "win_prob": 0.089,
+        "place_prob": 0.289,
+        "show_prob": 0.439
+      },
+      "20": {
+        "win_prob": 0.069,
+        "place_prob": 0.269,
+        "show_prob": 0.419
+      },
+      "10": {
+        "win_prob": 0.066,
+        "place_prob": 0.266,
+        "show_prob": 0.416
+      },
+      "7": {
+        "win_prob": 0.065,
+        "place_prob": 0.265,
+        "show_prob": 0.415
+      }
+    },
+    "algorithm": "enhanced_heuristic",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 6,
+    "race_id": 5,
+    "date": "2025-09-16",
+    "predictions": {
+      "11": {
+        "win_prob": 0.145,
+        "place_prob": 0.445,
+        "show_prob": 0.645
+      },
+      "13": {
+        "win_prob": 0.144,
+        "place_prob": 0.394,
+        "show_prob": 0.594
+      },
+      "40": {
+        "win_prob": 0.114,
+        "place_prob": 0.314,
+        "show_prob": 0.514
+      },
+      "34": {
+        "win_prob": 0.113,
+        "place_prob": 0.313,
+        "show_prob": 0.463
+      },
+      "6": {
+        "win_prob": 0.103,
+        "place_prob": 0.303,
+        "show_prob": 0.453
+      },
+      "1": {
+        "win_prob": 0.093,
+        "place_prob": 0.293,
+        "show_prob": 0.443
+      },
+      "29": {
+        "win_prob": 0.089,
+        "place_prob": 0.289,
+        "show_prob": 0.439
+      },
+      "20": {
+        "win_prob": 0.069,
+        "place_prob": 0.269,
+        "show_prob": 0.419
+      },
+      "10": {
+        "win_prob": 0.066,
+        "place_prob": 0.266,
+        "show_prob": 0.416
+      },
+      "7": {
+        "win_prob": 0.065,
+        "place_prob": 0.265,
+        "show_prob": 0.415
+      }
+    },
+    "algorithm": "enhanced_heuristic",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 7,
+    "race_id": 2,
+    "date": "2025-09-16",
+    "predictions": {
+      "34": {
+        "win_prob": 0.216,
+        "place_prob": 0.516,
+        "show_prob": 0.716
+      },
+      "6": {
+        "win_prob": 0.198,
+        "place_prob": 0.448,
+        "show_prob": 0.648
+      },
+      "2": {
+        "win_prob": 0.171,
+        "place_prob": 0.371,
+        "show_prob": 0.571
+      },
+      "4": {
+        "win_prob": 0.153,
+        "place_prob": 0.353,
+        "show_prob": 0.503
+      },
+      "14": {
+        "win_prob": 0.134,
+        "place_prob": 0.334,
+        "show_prob": 0.484
+      },
+      "39": {
+        "win_prob": 0.127,
+        "place_prob": 0.327,
+        "show_prob": 0.477
+      }
+    },
+    "algorithm": "enhanced_heuristic",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 8,
+    "race_id": null,
+    "date": "2025-09-16",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 9,
+    "race_id": null,
+    "date": "2025-09-16",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 10,
+    "race_id": null,
+    "date": "2025-09-16",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 11,
+    "race_id": null,
+    "date": "2025-09-16",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 12,
+    "race_id": null,
+    "date": "2025-09-16",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 13,
+    "race_id": null,
+    "date": "2025-09-16",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 14,
+    "race_id": null,
+    "date": "2025-09-16",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 15,
+    "race_id": null,
+    "date": "2025-09-16",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 16,
+    "race_id": null,
+    "date": "2025-09-16",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 17,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 18,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 19,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 20,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 21,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 22,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 23,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 24,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 25,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 26,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 27,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 28,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 29,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 30,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 31,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 32,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 33,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 34,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 35,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 36,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 37,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 38,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 39,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 40,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 41,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 42,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 43,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 44,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 45,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 46,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 47,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 48,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 49,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 50,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 51,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 52,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 53,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 54,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 55,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 56,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 57,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 58,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 59,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 60,
+    "race_id": null,
+    "date": "2025-09-17",
+    "predictions": {},
+    "algorithm": "ml_ai_ensemble",
+    "accuracy": null,
+    "actual_results": null
+  },
+  {
+    "id": 61,
+    "race_id": 1,
+    "date": "2025-09-17",
+    "predictions": {
+      "2": {
+        "win_probability": 0.153,
+        "place_probability": 0.453,
+        "show_probability": 0.653,
+        "confidence": 0.47078704655910575,
+        "method": "enhanced_heuristic"
+      },
+      "5": {
+        "win_probability": 0.139,
+        "place_probability": 0.389,
+        "show_probability": 0.589,
+        "confidence": 0.4140209986773294,
+        "method": "enhanced_heuristic"
+      },
+      "7": {
+        "win_probability": 0.137,
+        "place_probability": 0.337,
+        "show_probability": 0.537,
+        "confidence": 0.4289888412961303,
+        "method": "enhanced_heuristic"
+      },
+      "3": {
+        "win_probability": 0.137,
+        "place_probability": 0.337,
+        "show_probability": 0.487,
+        "confidence": 0.47098466969098185,
+        "method": "enhanced_heuristic"
+      },
+      "1": {
+        "win_probability": 0.12,
+        "place_probability": 0.32,
+        "show_probability": 0.47,
+        "confidence": 0.3694798009020608,
+        "method": "enhanced_heuristic"
+      },
+      "8": {
+        "win_probability": 0.112,
+        "place_probability": 0.312,
+        "show_probability": 0.462,
+        "confidence": 0.34519238534011,
+        "method": "enhanced_heuristic"
+      },
+      "6": {
+        "win_probability": 0.109,
+        "place_probability": 0.309,
+        "show_probability": 0.459,
+        "confidence": 0.38288938162169456,
+        "method": "enhanced_heuristic"
+      },
+      "4": {
+        "win_probability": 0.093,
+        "place_probability": 0.293,
+        "show_probability": 0.443,
+        "confidence": 0.295815217962029,
+        "method": "enhanced_heuristic"
+      }
+    },
+    "algorithm": "enhanced_heuristic",
+    "accuracy": null,
+    "actual_results": null
+  }
+]

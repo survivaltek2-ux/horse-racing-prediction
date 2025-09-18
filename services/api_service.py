@@ -11,7 +11,7 @@ import logging
 from models.sqlalchemy_models import Race, Horse, Prediction, APICredentials
 
 from utils.api_client import APIManager, RaceData, HorseData
-from config.api_config import APIConfig
+from api_config import APIConfig
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +24,8 @@ class APIService:
     def __init__(self, app=None):
         self.app = app
         self.api_manager = APIManager()
-        self.config = APIConfig.get_config()
+        self.api_config = APIConfig()
+        self.config = self.api_config.get_config()
         
         if app:
             self.init_app(app)

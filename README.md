@@ -38,7 +38,7 @@ A comprehensive machine learning-powered horse racing prediction system with bot
 - **Python 3.8+**
 - **Flask** - Web framework
 - **SQLAlchemy** - Database ORM
-- **Firebase** - Cloud database and authentication
+- **PostgreSQL** - Database
 
 ### Machine Learning
 - **scikit-learn** - ML algorithms and preprocessing
@@ -184,7 +184,7 @@ print(f"Win probabilities: {prediction['win_probabilities']}")
 
 ## 🛡️ Security Features
 
-- **Firebase Authentication** - Secure user management
+- **User Authentication** - Secure user management
 - **Environment Variables** - Sensitive data protection
 - **Input Validation** - SQL injection prevention
 - **CSRF Protection** - Cross-site request forgery protection
